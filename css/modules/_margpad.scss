@@ -1,0 +1,35 @@
+@mixin makePadding ($min, $max, $prefix-with-dash: '') {
+$left: ('-left', 'l');
+$right: ('-right', 'r');
+$top: ('-top', 't');
+$bottom: ('-bottom', 'b');
+$all: ('','');
+$padding: ('padding', 'p');
+$margin: ('margin', 'm');
+
+    @each $type in $padding, $margin {
+    @each $direction in $left, $right, $top, $bottom, $all {
+
+      $typeValue:  nth($type, 1);
+      $typeName:   nth($type, 2);
+      $dirValue:   nth($direction, 1);
+      $dirName:    nth($direction, 2);
+
+      $i: $min;
+      @while $i < $max {
+        .#{unquote($prefix-with-dash)}#{$typeName}#{$dirName}#{$i} {
+          #{$typeValue}#{$dirValue}: #{$i}px;
+        }
+        $i: $i + 5;
+      }
+    }
+  }
+
+}
+
+@include makePadding(0, 51);
+
+
+
+
+

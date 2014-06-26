@@ -1,0 +1,114 @@
+@mixin breakpoint($point) {
+  @if $point == big {
+    @media (min-width: 768px) { @content; }
+  }
+  @else if $point == medium {
+    @media (max-width: 767px) { @content; }
+  }
+  @else if $point == small {
+    @media (max-width: 480px) { @content; }
+  }
+}
+
+@mixin opacity($trans) {
+  filter: alpha(opactiy=($trans * 100));
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=#{$trans * 100})";
+  -moz-opacity: $trans;
+  -khtml-opacity: $trans;
+  opacity: $trans;
+}
+
+@mixin border-radius($radius) {
+  -moz-border-radius: $radius;
+  -webkit-border-radius: $radius;
+  -khtml-border-radius: $radius;
+  border-radius: $radius;
+}
+
+@mixin transitions ($transitions: all .2s ease) {
+  -webkit-transition: $transitions;
+  -moz-transition: $transitions;
+  -o-transition: $transitions;
+  transition: $transitions;
+}
+
+@mixin box-sizing ($box-sizing) {
+  -webkit-box-sizing: $box-sizing;
+  -moz-box-sizing: $box-sizing;
+  -o-box-sizing: $box-sizing;
+  box-sizing: $box-sizing;
+}
+
+@mixin background-size ($value) {
+  -webkit-background-size: $value;
+  -o-background-size: $value;
+  -moz-background-size: $value;
+  background-size: $value;
+}
+
+@mixin box-shadow($box-shadow...) {
+  -moz-box-shadow: $box-shadow;
+  -webkit-box-shadow: $box-shadow;
+  box-shadow: $box-shadow;
+}
+
+@mixin declare-font-face($font-family, $font-filename, $font-weight : normal, $font-style :normal, $font-stretch : normal) {
+@font-face {
+  font-family: '#{$font-family}';
+    src: url('#{$font-filename}.eot');
+    src: url('#{$font-filename}.eot?#iefix') format('embedded-opentype'),
+    url('#{$font-filename}.woff') format('woff'),
+    url('#{$font-filename}.ttf') format('truetype'),
+    url('#{$font-filename}.svg##{$font-family}') format('svg');
+    font-weight: $font-weight;
+    font-style: $font-style;
+    font-stretch: $font-stretch;
+  }
+}
+
+@mixin linear-gradient ($color-1:#ccc, $color-2:#eee, $pos-1:0%, $pos-2:100%) {
+  /*Gradients for all browsers*/
+  background-color: darken($color-1, 7%);
+  background-image: -ms-linear-gradient(top, $color-1 $pos-1, $color-2 $pos-2);/*IE 10*/
+  filter: progid:DXImageTransform.Microsoft.Gradient(startColorStr='#{$color-1}', endColorStr='#{$color-2}'); /*IE 7/8*/
+  background-image: -moz-linear-gradient(top, $color-1 $pos-1, $color-2 $pos-2); /*Mozilla FF*/
+  background-image: -o-linear-gradient(top, $color-1 $pos-1, $color-2 $pos-2); /*Opera*/
+  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, $color-1), color-stop(1, $color-2)); /* Webkit (Safari/Chrome 10) */
+  background-image: -webkit-linear-gradient(top, $color-1 $pos-1, $color-2 $pos-2); /* Webkit (Safari/Chrome 11+) */
+  background-image: linear-gradient(top, $color-1 $pos-1, $color-2 $pos-2); /*W3C*/
+}
+
+@mixin sticky-footer($footer-height, $root-selector: unquote("#root"), $root-footer-selector: unquote("#root_footer"), $footer-selector: unquote("#footer")) {
+  html, body {
+    height: 100%;
+  }
+  #{$root-selector} {
+    clear: both;
+    min-height: 100%;
+    height: auto !important;
+    height: 100%;
+    margin-bottom: -$footer-height !important;
+    #{$root-footer-selector} {
+      height: $footer-height;
+    }
+  }
+  #{$footer-selector} {
+    clear: both;
+    position: relative;
+    height: $footer-height;
+  }
+}
+
+/* ================= Placeholders ====================== */
+
+%inline-block { // Hack for good render in old IE
+  display: inline-block;
+  zoom: 1;
+  *display: inline;
+}
+
+%p-ellipsis {              // Makes some 'p' element's or other block element's text
+  white-space: nowrap;     // fill in only one line and adds '...' in place where text overflows
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
