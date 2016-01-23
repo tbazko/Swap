@@ -1,0 +1,29 @@
+ul {
+  margin: 0;
+  padding: 0;
+  li {
+    font-size: 14px;
+  }
+  &.no-bullet {
+    list-style: none;
+    li {
+      margin-left: 0;
+      list-style: none;
+    }
+  }
+  &.inline {
+    letter-spacing: -0.31em;
+    list-style: none;
+    li {
+      @extend %inline-block;
+      letter-spacing: normal;
+      word-spacing: normal;
+    }
+  }
+}
+
+/* Opera hack */
+.opera:-o-prefocus,
+ul.inline {
+  word-spacing: -0.43em;
+}

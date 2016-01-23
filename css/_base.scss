@@ -1,0 +1,53 @@
+html, body {
+  font-family: $mainFont;
+  color: $mainTextColor;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  margin: 0;
+}
+
+a {
+  &:link {
+
+  }
+  &:visited {
+
+  }
+  &:hover, &:active {
+
+  }
+}
+
+p {
+  margin: 0;
+}
+
+.text-left {
+  text-align: left;
+}
+
+.text-right {
+  text-align: right;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.right {
+  float: right;
+}
+
+.left {
+  float: left;
+}
+
+.clear {
+  clear: both;
+}
+
+.middle {
+  @extend %inline-block;
+  vertical-align: middle;
+}
