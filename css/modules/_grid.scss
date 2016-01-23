@@ -1,0 +1,74 @@
+*, *:after, *:before {
+  box-sizing: border-box;
+}
+
+.col {
+  float: left;
+  width: 100%;
+}
+
+.col-product-block {
+  float: none;
+  display: inline-block;
+  font-size: $p;
+  width: 50%;
+
+  @include breakpoint(small) {
+    width: 33.333%;  
+  }
+
+  @include breakpoint(medium) {
+    width: 25%;  
+  }
+
+  @include breakpoint(large) {
+    width: 20%; 
+  }
+}
+
+.row.collapse {
+}
+
+.row {
+  width: $layoutWidth;
+  max-width: 100%;
+  min-width: 320px;
+  margin: 0 auto;
+  position: relative;
+}
+
+.row-with-blocks {
+  font-size: 0;
+}
+
+.row:after {
+  @extend %clearfix;
+}
+
+/* Content Columns */
+$columns: 12;
+
+@mixin createFractionColumns ($prefix, $columns) { // Mixin for creating grid columns.
+                                                   // Add name of prefix + selector type '.', '&.' etc. (in brackets!)
+          // And number of columns to make it work
+  @for $column from 1 through $columns {
+    #{$prefix}#{$column} {
+      width: 100% / ($columns / $column);
+    }
+  }
+  
+}
+
+@include createFractionColumns ('.col-xs', 4);
+
+@include breakpoint(small) {
+  @include createFractionColumns ('.col-sm', $columns);
+}
+
+@include breakpoint(medium) {
+  @include createFractionColumns ('.col-md', $columns);
+}
+
+@include breakpoint(large) {
+  @include createFractionColumns ('.col-lg', $columns);
+}

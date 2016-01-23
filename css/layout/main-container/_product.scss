@@ -1,0 +1,32 @@
+.product {
+  border: 1px solid $color-light-grey;
+  display: block;
+  margin: 15px;
+  padding: 9px;
+  position: relative;
+
+  img {
+    height: auto;
+    margin-bottom: 15px;
+    width: 100%;
+  }
+
+  p {
+    line-height: 2;
+  }
+
+  .title {
+    color: $color-night-rider;
+    font-weight: bold;
+    line-height: 1;
+    text-transform: uppercase;
+  }
+  
+  .subtitle {
+    color: $color-turqoise;
+    font-size: 9px;
+    line-height: 1;
+    margin-bottom: 12px;
+    text-transform: uppercase;
+  }
+}
