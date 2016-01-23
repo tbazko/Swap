@@ -15,7 +15,7 @@ ul {
     letter-spacing: -0.31em;
     list-style: none;
     li {
-      @extend %inline-block;
+      display: inline-block;
       letter-spacing: normal;
       word-spacing: normal;
     }
