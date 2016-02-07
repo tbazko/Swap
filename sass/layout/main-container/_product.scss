@@ -4,15 +4,23 @@
   margin: 15px;
   padding: 9px;
   position: relative;
+  height: 370px;
 
   img {
-    height: auto;
-    margin-bottom: 15px;
-    width: 100%;
+    height: 100%;
+    width: auto;
   }
 
   p {
     line-height: 2;
+  }
+  
+  .img-container {
+    display: block;
+    height: 210px;
+    margin-bottom: 15px;
+    overflow: hidden;
+    width: 100%;
   }
 
   .title {

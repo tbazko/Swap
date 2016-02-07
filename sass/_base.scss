@@ -1,11 +1,17 @@
 html, body {
-  font-family: $mainFont;
   color: $color-night-rider;
+  font-family: $mainFont;
+  font-size: $p;
+
+  * {
+    box-sizing: border-box;
+  }
 }
 
 h1, h2, h3, h4, h5, h6 {
   line-height: 1.4;
   margin: 0;
+  text-transform: uppercase;
 }
 
 h1 {
@@ -25,6 +31,9 @@ h4 {
 }
 
 a {
+  color: $color-turqoise;
+  text-decoration: none;
+
   &:link {
 
   }

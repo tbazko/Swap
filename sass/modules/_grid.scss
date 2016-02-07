@@ -11,6 +11,7 @@
   float: none;
   display: inline-block;
   font-size: $p;
+  vertical-align: top;
   width: 50%;
 
   @include breakpoint(small) {

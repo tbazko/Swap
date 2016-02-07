@@ -7,7 +7,7 @@ module.exports = function(grunt) {
       },
       dist: {
         files: {
-          'css/master.css' : 'css/master.scss'
+          'public/stylesheets/master.css' : 'sass/master.scss'
         }
       }
     },
@@ -17,14 +17,17 @@ module.exports = function(grunt) {
       },
       dist:{
         files:{
-          'css/master.css':'css/master.css'
+          'public/stylesheets/master.css':'public/stylesheets/master.css'
         }
       }
     },
     watch: {
       css: {
-        files: '**/*.scss',
-        tasks: ['sass', 'autoprefixer']
+        files: 'sass/**/*.scss',
+        tasks: ['sass', 'autoprefixer'],
+        options: {
+          livereload: true, // needed to run LiveReload
+        }
       }
     }
   });
