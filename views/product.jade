@@ -1,0 +1,23 @@
+extends layout
+
+block content
+  -var product = data[0];
+
+  .main-container
+    .row
+      .col.col-xs4.col-sm12.col-md9.pr20
+        .row
+          .col.col-xs4.col-sm12.col-md5.pr20
+            img.left(src='/images/' + product.Image1, alt='')
+          .col.col-xs4.col-sm12.col-md7.pl20
+            h3= product.Name
+            p= product.Description
+            a.btn(href='') Swap!
+
+        .review.clear
+          p Bla bla review
+      .col.col-xs4.col-sm12.col-md3.pl20
+        .map Map here
+        p Published by:
+        a(href='') Author Name
+        p More by Author Name:

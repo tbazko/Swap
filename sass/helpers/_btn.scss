@@ -1,0 +1,22 @@
+%btn {  
+  display: inline-block;
+  line-height: 42px;
+  letter-spacing: 0.06em;
+  height: 43px;
+  padding: 0 25px;
+  text-transform: uppercase;
+  font-weight: bold;
+}
+
+%btn-default {
+  background: $color-turqoise;
+  border-bottom: 3px solid darken($color-turqoise, 9%);
+  border-radius: 3px;
+  color: $color-white;
+}
+
+@mixin btn($skin) {
+  @extend %btn;
+  
+  @extend %#{$skin};
+}

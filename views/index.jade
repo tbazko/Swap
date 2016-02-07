@@ -1,0 +1,17 @@
+extends layout
+
+block content
+  -var products = data
+  .main-container
+    .row.row-with-blocks
+      each product in products
+        .col-product-block
+          .product(data-product-id='#{product.ProductId}')
+            a.img-container(href='/product/#{product.ProductId}')
+              img(src='/images/#{product.Image1}', alt='')
+            h5.subtitle
+              a(href='') Bridgit
+            h4.title= product.Name
+            p= product.Description
+            a.btn.mt10(href='') Swap!
+      

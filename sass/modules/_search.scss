@@ -1,0 +1,26 @@
+%btn-search {
+  border-radius: 0 0 0 3px;
+  background: $color-turqoise;
+  border: 0;
+  color: $color-white;
+  height: 40px;
+  line-height: 40px;    
+  margin-left: -10px;
+  padding: 0 12px;
+  border-bottom: 3px solid darken($color-turqoise, 9%);
+}
+
+.search {
+  display: inline-block;
+  margin-left: -3px;
+}
+
+.search-box {
+  height: 40px;
+  line-height: 40px;    
+  width: 250px;
+}
+
+.search-btn {
+  @include btn('btn-search');
+}
