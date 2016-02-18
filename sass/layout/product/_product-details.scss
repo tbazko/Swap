@@ -1,0 +1,31 @@
+.product-details {
+  width: 100%;
+
+  .image-container {    
+    // height: 0;
+    // padding-top: 76%;
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    
+    @include breakpoint(medium) {
+      // padding-top: 46%;
+      width: 60%;
+    }
+
+    .fotorama {
+      // position: absolute;
+      // top: 0;
+      // height: 100%;
+      // width: 100%;
+    }
+  }
+
+  .details-container {
+    width: 100%;
+
+    @include breakpoint(medium) {
+      width: 40%;
+    }
+  }
+}

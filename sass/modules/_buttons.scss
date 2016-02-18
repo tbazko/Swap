@@ -1,3 +1,31 @@
 .btn {
-  @include btn("btn-default");
+  @include btn("btn-default", false);
+}
+
+.btn-favourites {
+  @include btn("btn-favourites"); 
+}
+
+.btn--fiord {
+  @include btn("btn-fiord", false);
+}
+
+.btn--long {
+  @include btn("btn-long", false);
+}
+
+.btn--square {
+  @include btn("btn-square", false);   
+}
+
+.btn--jaffa {
+  @include btn("btn-jaffa", false);
+}
+
+.btn--sangria {
+  @include btn("btn-sangria", false);
+}
+
+.btn--turqoise {
+  @include btn("btn-turqoise", false);
 }

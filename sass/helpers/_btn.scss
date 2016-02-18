@@ -1,22 +1,63 @@
-%btn {  
+%btn-default {  
+  border-radius: 3px;
+  box-sizing: border-box;
   display: inline-block;
-  line-height: 42px;
-  letter-spacing: 0.06em;
+  font-family: $titleFont;
+  font-weight: bold;  
   height: 43px;
+  letter-spacing: 0.08em;
+  line-height: 42px;
   padding: 0 25px;
+  text-align: center;
   text-transform: uppercase;
-  font-weight: bold;
 }
 
-%btn-default {
+%btn-turqoise {
   background: $color-turqoise;
+  border: 0;
   border-bottom: 3px solid darken($color-turqoise, 9%);
-  border-radius: 3px;
   color: $color-white;
 }
 
-@mixin btn($skin) {
-  @extend %btn;
+%btn-fiord {
+  background: $color-fiord;
+  border: 0;
+  border-bottom: 3px solid darken($color-fiord, 9%);
+  color: $color-white;
+}
+
+%btn-long {
+  width: calc(100% - 112px);
+}
+
+%btn-square {
+  padding: 0;
+  width: 46px;
+}
+
+%btn-jaffa {
+  background: $color-jaffa;
+  border: 0;
+  border-bottom: 3px solid darken($color-jaffa, 9%);
+  color: $color-white;
+}
+
+%btn-sangria {
+  background: $color-sangria;
+  border: 0;
+  border-bottom: 3px solid darken($color-sangria, 9%);
+  color: $color-white;
+}
+
+%btn-favourites {
+  @extend %btn-square;
+  @extend %btn-jaffa;
+}
+
+@mixin btn($skin, $includeDefault: true) {
+  @if($includeDefault == true) {
+    @extend %btn-default;
+  }
   
   @extend %#{$skin};
 }

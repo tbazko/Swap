@@ -1,0 +1,57 @@
+.nav {
+  @extend %clearfix;
+  background: $color-night-rider;
+  height: $navigationHeight;
+  width: 100%;
+  
+  .link,
+  a.link {
+    border-bottom: 5px solid $color-turqoise;
+    color: $color-white;
+    font-weight: bold;
+    font-family: $titleFont;
+    height: $navigationHeight;
+    letter-spacing: 0.08em;
+    line-height: $navigationHeight;
+    padding: 22px 35px 17px;
+    text-transform: uppercase;
+    text-decoration: none;
+
+    &:hover, &:active {
+      background: rgba($color-white, 0.05);
+      transition: ease .3s all;
+    }
+
+    &:nth-of-type(2) {
+      border-color: $color-jaffa;
+    }
+
+    &:nth-of-type(3) {
+      border-color: $color-fire-brick;
+    }
+
+    &:nth-of-type(4) {
+      border-color: $color-sangria;
+    }
+
+    &.link-filter {
+      background: $color-night-rider;
+      border: 1px solid $color-light-grey;
+      padding: 12px 26px;
+      box-shadow: 0px -1px 0px 9px rgba($color-night-rider,1);
+      color: $color-white;
+      transition: all 0s ease;      
+
+      &.is-active {
+        background: $color-white;
+        box-shadow: 0px -1px 0px 10px rgba($color-white,1);
+        color: $color-night-rider; 
+        transition: all 0s ease;
+      }
+    }
+
+    &.is-active {
+      background: rgba($color-white, 0.05);
+    }
+  }
+}

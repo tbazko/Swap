@@ -1,5 +1,6 @@
 html, body {
-  color: $color-night-rider;
+  color: $color-dim-grey;
+  background: $color-white-smoke;
   font-family: $mainFont;
   font-size: $p;
 
@@ -9,19 +10,21 @@ html, body {
 }
 
 h1, h2, h3, h4, h5, h6 {
-  line-height: 1.4;
+  color: $color-fiord;
+  font-family: $titleFont;
+  line-height: 1;
   margin: 0;
   text-transform: uppercase;
 }
 
 h1 {
-  font-size: $h1;  
+  font-size: $h1;
 }
 
 h2 {
   font-size: $h2;
 }
-  
+
 h3 {
   font-size: $h3;
 }
@@ -72,6 +75,18 @@ p {
 
 .clear {
   clear: both;
+}
+
+.clearfix {
+  @extend %clearfix;
+}
+
+.inline {
+  display: inline;
+}
+
+.inline-block {
+  display: inline-block;
 }
 
 .middle {
