@@ -1,0 +1,7 @@
+.main-container {
+  padding: 15px;
+
+  @include breakpoint('small') {
+    padding: 30px;
+  }
+}

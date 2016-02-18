@@ -1,0 +1,9 @@
+.condition-stars {
+  span {
+    color: $color-turqoise;
+
+    &:before {
+      margin: 1px;
+    }
+  }
+}

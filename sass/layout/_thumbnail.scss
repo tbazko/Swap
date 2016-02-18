@@ -1,0 +1,25 @@
+.thumbnail {
+  box-sizing: border-box;
+  height: 0;
+  overflow: hidden;
+  padding-top: 75%;
+  position: relative;
+
+  &:nth-of-type(odd) {
+    margin-right: 15px;
+  }
+
+  &:nth-of-type(even) {
+    margin-left: 15px;
+  }
+
+  img {
+    height: auto;
+    position: absolute;
+    top: 0;
+    height: 100%;
+    width: auto;
+    left: 50%;
+    transform: translate(-50%, 0);
+  }
+}

@@ -1,0 +1,13 @@
+-var currentUrl = url
+
+nav.nav
+  .left
+    include filter.jade
+    form.search.ml10(action='')
+      input.search-box(type='text')
+      button.search-btn.icon-search(type='submit', value='')
+  .right
+    a.link(href='/add-product' class={'is-active': currentUrl === '/add-product'}) Add
+    a.link(href='/' class={'is-active': currentUrl === '/'}) Offer
+    a.link(href='/seek' class={'is-active': currentUrl === '/seek'}) Seek
+    a.link(href='/profile' class={'is-active': currentUrl === '/profile'}) Profile

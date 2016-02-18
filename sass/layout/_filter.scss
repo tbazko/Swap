@@ -1,0 +1,30 @@
+.link-filter {
+  position: relative;
+}
+
+.filter { 
+  display: none;
+  background: $color-white;
+  color: $color-night-rider;
+  font-weight: normal;
+  line-height: 2;
+  margin-top: 10px;
+  position: absolute;
+  top: 100%;
+  left: -11px;
+  text-transform: none;
+  width: 40vw;
+  z-index: 10000;
+
+  label {
+    display: block;
+  }
+
+  input[type="checkbox"] {
+    margin-right: 10px;
+  }
+
+  &.is-active {
+    display: block;
+  }
+}

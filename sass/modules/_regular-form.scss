@@ -1,0 +1,37 @@
+.regular-form {
+  label {
+    display: block;
+    color: $color-fiord;
+    font-size: $p;
+    margin-bottom: 10px;
+    cursor: auto;
+
+    &.required {
+      &:after {
+        content: '*';
+        color: $color-turqoise;
+        margin-left: 3px;
+      }
+    }
+  }
+
+  input[type="text"] {
+    margin-bottom: 22px;
+    height: 38px;
+    padding-top: 0;
+    padding-bottom: 0;
+    color: #808080;
+    font-family: "Roboto",sans-serif;
+    font-size: 0.75em;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  textarea {
+    color: #808080;
+    font-family: $mainFont;
+    font-size: 12px;
+  }
+}

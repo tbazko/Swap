@@ -2,16 +2,26 @@ extends layout
 
 block content
   -var products = data
+  -var buttonText = 'Details'
+
   .main-container
+    h2.section-title.ml15.mr15 Fresh offers
     .row.row-with-blocks
       each product in products
         .col-product-block
-          .product(data-product-id='#{product.ProductId}')
+          .product.ml15.mr15.mb30.bordered(data-product-id='#{product.ProductId}')
             a.img-container(href='/product/#{product.ProductId}')
               img(src='/images/#{product.Image1}', alt='')
-            h5.subtitle
-              a(href='') Bridgit
-            h4.title= product.Name
-            p= product.Description
-            a.btn.mt10(href='') Swap!
-      
+            .content-container.mt15
+              h5.product-category-title
+                a(href='') Bridgit
+              h4.mb10.product-title= product.Name
+              p
+                b Seeks:&nbsp;
+                a(href="") Toy,&nbsp;
+                a(href="") Sweets,&nbsp;
+                a(href="") Kid shoes,&nbsp;
+                a(href="") Earrings
+            .btn-container
+              -var buttonUrl = '/product/' + product.ProductId
+              include ./includes/swap-buttons-set.jade

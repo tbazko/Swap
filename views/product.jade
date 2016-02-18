@@ -1,23 +1,71 @@
 extends layout
 
 block content
-  -var product = data[0];
+  -var buttonText = 'Swap it'
+  include ./includes/breadcrumbs.jade
+  .main-container.m-ml30.m-mr30
+    .row.pt15
+      .col.col-xs4.col-sm12.col-md9.pr15
+        .product-details.clearfix
+          .image-container.left.bordered
+            include ./includes/gallery.jade
 
-  .main-container
-    .row
-      .col.col-xs4.col-sm12.col-md9.pr20
-        .row
-          .col.col-xs4.col-sm12.col-md5.pr20
-            img.left(src='/images/' + product.Image1, alt='')
-          .col.col-xs4.col-sm12.col-md7.pl20
+          .details-container.left.pl10.m-pl30.pr10.pt30.m-pt15.pb10
+            h5.pb10
+              a(href='') Toys
             h3= product.Name
-            p= product.Description
-            a.btn(href='') Swap!
+            ul.no-bullet
+              li.pt15.pb15
+                h5.inline Published:&nbsp;
+                p.inline by&nbsp;
+                  a(href='/user/#{author.UserId}') #{author.UserName}
+                  |&nbsp;on 12.12.2015
+              li.pb15
+                h5.inline Location:&nbsp;
+                p.inline
+                  a(href="")= author.City
+              li.pb15
+                h5.inline Condition:&nbsp;
+                p.inline.condition-stars
+                  -var empty = product.ProductCondition + 1
+                  -var star = 0
 
-        .review.clear
-          p Bla bla review
-      .col.col-xs4.col-sm12.col-md3.pl20
-        .map Map here
-        p Published by:
-        a(href='') Author Name
-        p More by Author Name:
+                  while star < product.ProductCondition
+                    -star++
+                    span.icon-star
+
+                  while empty <= 5
+                    -empty++
+                    span.icon-star-empty
+
+              li.pb15
+                h5.inline Swap for:&nbsp;
+                p.inline
+                  a(href="") Toy,&nbsp;
+                  a(href="") Sweets,&nbsp;
+                  a(href="") Kid shoes,&nbsp;
+                  a(href="") Earrings
+              if product.Reason
+                li.pb15
+                  h5.inline Reason to swap:&nbsp;
+                  p.inline #{product.Reason}
+            .text-right.pt10
+              -var buttonUrl = ''
+              include ./includes/swap-buttons-set.jade
+        include ./includes/tab-pane.jade
+      .col.col-xs4.col-sm12.col-md3.pl15
+        .map.pb20
+          img(src="http://placehold.it/275x200?text=Map")
+        h5.pb10 More by&nbsp;
+          a(href='/user/#{author.UserId}') #{author.UserName}
+          |:
+        .row.row-with-blocks
+          each p in author.products
+            if p.ProductId !== product.ProductId
+              .col-product-block.x2.mb15
+                .thumbnail.bordered
+                  a(href="/product/#{p.ProductId}")
+                    img(src='/images/#{p.Image1}', alt='')
+
+    .row
+      .col.col-xs4.col-sm12.col-md9.pr15
