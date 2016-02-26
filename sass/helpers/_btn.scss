@@ -1,29 +1,35 @@
-%btn-default {  
-  border-radius: 3px;
+%btn-default {
+  background: $color-outrageous-orange;
+  border: 2px solid $color-outrageous-orange;
+  color: $color-white;
+  font-size: 12px;
+  border-radius: 20px;
   box-sizing: border-box;
   display: inline-block;
-  font-family: $titleFont;
-  font-weight: bold;  
-  height: 43px;
+  font-family: $mainFont;
+  font-weight: bold;
+  height: 37px;
+  line-height: 34px;
   letter-spacing: 0.08em;
-  line-height: 42px;
-  padding: 0 25px;
+  min-width: 200px;
+  padding: 0 20px;
   text-align: center;
   text-transform: uppercase;
 }
 
-%btn-turqoise {
-  background: $color-turqoise;
-  border: 0;
-  border-bottom: 3px solid darken($color-turqoise, 9%);
+%btn-dark {
+  background: $color-night-rider;
   color: $color-white;
 }
 
-%btn-fiord {
-  background: $color-fiord;
-  border: 0;
-  border-bottom: 3px solid darken($color-fiord, 9%);
-  color: $color-white;
+%btn-transparent {
+  background: transparent;
+  color: $color-outrageous-orange;
+}
+
+%btn-secondary {
+  background: transparent;
+  color: $color-night-rider;
 }
 
 %btn-long {
@@ -35,29 +41,11 @@
   width: 46px;
 }
 
-%btn-jaffa {
-  background: $color-jaffa;
-  border: 0;
-  border-bottom: 3px solid darken($color-jaffa, 9%);
-  color: $color-white;
-}
-
-%btn-sangria {
-  background: $color-sangria;
-  border: 0;
-  border-bottom: 3px solid darken($color-sangria, 9%);
-  color: $color-white;
-}
-
-%btn-favourites {
-  @extend %btn-square;
-  @extend %btn-jaffa;
-}
 
 @mixin btn($skin, $includeDefault: true) {
   @if($includeDefault == true) {
     @extend %btn-default;
   }
-  
+
   @extend %#{$skin};
 }

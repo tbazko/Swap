@@ -1,31 +1,43 @@
 .product-details {
-  width: 100%;
+  @extend %paperStyle;
 
-  .image-container {    
-    // height: 0;
-    // padding-top: 76%;
+  @include breakpoint('small') {
+    padding: 50px 90px;
+  }
+
+  .image-container {
     position: relative;
     overflow: hidden;
+    height: 0;
     width: 100%;
-    
-    @include breakpoint(medium) {
-      // padding-top: 46%;
-      width: 60%;
-    }
+    padding-top: 77%;
 
-    .fotorama {
-      // position: absolute;
-      // top: 0;
-      // height: 100%;
-      // width: 100%;
+    img {
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 100%;
+      width: 100%;
     }
   }
 
   .details-container {
-    width: 100%;
+    padding-left: 40px;
+  }
 
-    @include breakpoint(medium) {
-      width: 40%;
+  .product-name {
+    font-family: $mainFont;
+    font-size: 40px;
+  }
+
+  .product-date {
+    font-size: 11px;
+    color: $color-suva-grey;
+    margin-top: 7px;
+
+    a {
+      color: $color-night-rider;
+      font-weight: bold;
     }
   }
 }

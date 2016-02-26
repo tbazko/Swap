@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-var mysql = require('./mysql').pool;
+var mysql = require('../../config/database').pool;
 
 var userId;
 var userSql = "SELECT * FROM users WHERE UserId = ? LIMIT 1";

@@ -1,6 +1,23 @@
 .breadcrumbs {
-  background: $color-white-smoke;
-  font-size: 11px;
+  font-size: 10px;
   font-weight: bold;
-  padding: 15px 60px;
+  padding-bottom: 25px;
+  text-transform: uppercase;
+
+  a:after {
+    content: ">";
+    margin-top: 2px;
+    font-size: 12px;
+    padding: 0 8px;
+  }
+
+  a:last-of-type {
+    &:after {
+      content: none;
+    }
+  }
+
+span {
+    color: $color-night-rider;
+  }
 }

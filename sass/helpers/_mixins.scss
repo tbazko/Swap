@@ -61,3 +61,9 @@
   display: table;
   clear: both;
 }
+
+%paperStyle {
+  background: $color-white;
+  box-shadow: 0px 2px 10px 0px $color-light-grey;
+  border-radius: 2px;
+}
