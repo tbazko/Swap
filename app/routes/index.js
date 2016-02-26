@@ -2,7 +2,7 @@ var express = require('express');
 var events = require('events');
 var eventEmitter = new events.EventEmitter();
 var router = express.Router();
-var mysql = require('./mysql').pool;
+var mysql = require('../../config/database').pool;
 var requestHandlers = require('./requestHandlers');
 
 // First you need to create a connection to the db
@@ -12,7 +12,7 @@ var data = getProducts();
 
 function getProducts() {
   mysql.getConnection(function(err, connection) {
-    connection.query('SELECT ProductId, Name, Image1, Description, SUBSTR(Description, 1, 60) AS ShortDescription FROM products WHERE State="FOR_SALE" OR State="PENDING" ORDER BY ProductId DESC', function(err, rows){
+    connection.query('SELECT UserId, ProductId, Name, Image1, Description, SUBSTR(Description, 1, 60) AS ShortDescription FROM products WHERE State="FOR_SALE" OR State="PENDING" ORDER BY ProductId DESC', function(err, rows){
       if(err) throw err;
       data = rows;
       connection.release();

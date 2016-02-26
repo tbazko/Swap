@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-var mysql = require('./mysql').pool;
+var mysql = require('../../config/database').pool;
 
 var productId;
 var product;
@@ -9,14 +9,14 @@ var sql = "SELECT * FROM ?? WHERE ?? = ? LIMIT 1";
 var sqlImgs = "SELECT Image1, Name, ProductId FROM products WHERE UserId = ?";
 
 router.get('/:id', function(req, res, next) {
-  
+
   productId = req.params.id;
 
   mysql.getConnection(function(err, connection) {
     connection.query(sql, ['products', 'ProductId', productId], function(err, products) {
       if(err) throw err;
       console.log(products.length);
-      
+
       if(products.length === 0) {
         res.redirect('/');
         res.end();
@@ -36,9 +36,9 @@ router.get('/:id', function(req, res, next) {
           });
         });
       }
-    });    
+    });
   });
-  
+
 });
 
 module.exports = router;

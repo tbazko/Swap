@@ -1,0 +1,24 @@
+.search {
+  position: relative;
+}
+
+.search-box {
+  border-radius: 20px;
+  border: 1px solid $color-light-grey;
+  line-height: 37px;
+  height: 37px;
+  padding: 0 34px 0 15px;
+  width: 235px;
+
+  &:focus {
+    outline: none;
+  }
+}
+
+.search-btn {
+  border: 0;
+  background: transparent;
+  position: absolute;
+  right: 5px;
+  height: 37px;
+}

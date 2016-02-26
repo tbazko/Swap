@@ -1,11 +1,22 @@
-.product-v2 {
-  height: 248px;
+.row-with-blocks-v2 {
+  margin-left: -20px !important;
+  min-width: 1000px;
+  padding-top: 40px;
+}
+
+.product {
+  display: inline-block;
+  height: 335px;
+  padding-bottom: 40px;
   position: relative;
-  width: 210px;
+  vertical-align: top;
+  margin-left: 20px;
+  width: 230px;
 
   .img-container {
     display: block;
-    height: 198px;
+    height: 220px;
+    margin-bottom: 20px;
     overflow: hidden;
     width: 100%;
     position: relative;
@@ -16,67 +27,30 @@
     height: 100%;
     top: 0px;
     width: auto;
+    min-width: 100%;
     left: 50%;
     transform: translate(-50%, 0);
-  }
-}
-
-.product {
-  background: $color-white;
-  display: block;
-  position: relative;
-  height: 0;
-  overflow: hidden;
-  padding-top: 147%;
-  position: relative;
-
-  img {
-    position: absolute;
-    height: 100%;
-    top: 0px;
-    width: auto;
-    left: 50%;
-    transform: translate(-50%, 0);
-  }
-
-  p {
-    line-height: 1.4;
-  }
-
-  .img-container {
-    position: absolute;
-    height: 65%;
-    top: 0px;
-    width: 100%;
-  }
-
-  .content-container {
-    position: absolute;
-    top: 65%;
-    width: 100%;
-  }
-
-  .btn-container {
-    bottom: 0;
-    position: absolute;
-    width: 100%;
   }
 
   .product-title {
-    color: $color-fiord;
-    font-weight: bold;
-    line-height: 1;
+    font-size: $p;
+    font-family: $titleFont;
+    margin-bottom: 5px;
     text-transform: uppercase;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    color: $color-night-rider;
   }
 
-  .product-category-title {
-    color: $color-turqoise;
-    font-size: 9px;
-    line-height: 1;
-    margin-bottom: 12px;
-    text-transform: uppercase;
+  .product-tag-title {
+    font-family: $mainFont;
+    color: $color-outrageous-orange;
+
+    a {
+      font-weight: normal;
+      color: $color-suva-grey;
+      text-transform: none;
+    }
   }
 }

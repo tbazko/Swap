@@ -10,11 +10,11 @@ html, body {
 }
 
 h1, h2, h3, h4, h5, h6 {
-  color: $color-fiord;
+  color: $color-night-rider;
   font-family: $titleFont;
   line-height: 1;
   margin: 0;
-  text-transform: uppercase;
+  letter-spacing: 0.03em;
 }
 
 h1 {
@@ -31,10 +31,18 @@ h3 {
 
 h4 {
   font-size: $h4;
+  text-transform: uppercase;
+}
+
+h5 {
+  color: $color-night-rider;
+  text-transform: uppercase;
+  font-family: $titleFont;
+  font-size: 11px;
 }
 
 a {
-  color: $color-turqoise;
+  color: $color-suva-grey;
   text-decoration: none;
 
   &:link {
@@ -92,4 +100,16 @@ p {
 .middle {
   display: inline-block;
   vertical-align: middle;
+}
+
+.paperStyle {
+  @extend %paperStyle;
+}
+
+.paperStyle-container {
+  @extend %paperStyle;
+
+  @include breakpoint('small') {
+    padding: 50px 90px;
+  }
 }

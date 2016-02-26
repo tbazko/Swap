@@ -1,0 +1,15 @@
+extends ../layout
+
+block content
+  .main-container
+    .jumbotron.paperStyle-container.text-center
+      h1.pb30
+        span.fa.fa-lock
+        |  Node Authentication
+      p.pb30 Login or Register with:
+      a.mr10.btn.btn-secondary(href='/login')
+        span.fa.fa-user
+        |  Local Login
+      a.ml10.btn.btn-default(href='/signup')
+        span.fa.fa-user
+        |  Local Signup

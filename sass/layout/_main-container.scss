@@ -1,7 +1,5 @@
 .main-container {
-  padding: 15px;
-
   @include breakpoint('small') {
-    padding: 30px;
+    margin: 50px + $navigationHeight 60px 60px;
   }
 }

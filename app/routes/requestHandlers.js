@@ -1,7 +1,7 @@
 var events = require('events');
 var eventEmitter = new events.EventEmitter();
 var mkdirp = require('mkdirp');
-var mysql = require('./mysql').pool;
+var mysql = require('../../config/database').pool;
 
 var querystring = require("querystring"),
     fs          = require("fs"),
