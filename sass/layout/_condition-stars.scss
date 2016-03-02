@@ -1,0 +1,9 @@
+.condition-stars {
+  span {
+    color: $color-night-rider;
+
+    &:before {
+      margin: 1px;
+    }
+  }
+}

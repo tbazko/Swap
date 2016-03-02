@@ -1,0 +1,12 @@
+-var currentUrl = url
+
+nav.nav
+  .left
+    a.logo(href="/")
+      img(src="/images/logo.png")
+      span SwapIt
+  .right
+    a.link(href='/add-product' class={'is-active': currentUrl === '/add-product'}) Add
+    a.link(href='/' class={'is-active': currentUrl === '/'}) Offer
+    a.link(href='/seek' class={'is-active': currentUrl === '/seek'}) Seek
+    a.link(href='/profile' class={'is-active': currentUrl === '/profile'}) Profile

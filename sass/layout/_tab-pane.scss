@@ -1,0 +1,30 @@
+%review-style {
+  border: 1px solid $color-light-grey;
+  font-size: 14px;
+}
+
+.tab-pane {
+  .tab {
+    @extend %review-style;
+    color: $color-night-rider;
+    cursor: pointer;
+    opacity: .5;
+    display: inline-block;
+    border-bottom: 0;
+    padding: 13px 30px;
+
+    &.is-active {
+      opacity: 1;
+    }
+  }
+
+  .pane {
+    @extend %review-style;
+    display: none;
+    padding: 33px 30px;
+
+    &.is-active {
+      display: block;
+    }
+  }
+}

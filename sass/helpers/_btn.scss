@@ -1,22 +1,51 @@
-%btn {  
+%btn-default {
+  background: $color-outrageous-orange;
+  border: 2px solid $color-outrageous-orange;
+  color: $color-white;
+  font-size: 12px;
+  border-radius: 20px;
+  box-sizing: border-box;
   display: inline-block;
-  line-height: 42px;
-  letter-spacing: 0.06em;
-  height: 43px;
-  padding: 0 25px;
-  text-transform: uppercase;
+  font-family: $mainFont;
   font-weight: bold;
+  height: 37px;
+  line-height: 34px;
+  letter-spacing: 0.08em;
+  min-width: 200px;
+  padding: 0 20px;
+  text-align: center;
+  text-transform: uppercase;
 }
 
-%btn-default {
-  background: $color-turqoise;
-  border-bottom: 3px solid darken($color-turqoise, 9%);
-  border-radius: 3px;
+%btn-dark {
+  background: $color-night-rider;
   color: $color-white;
 }
 
-@mixin btn($skin) {
-  @extend %btn;
-  
+%btn-transparent {
+  background: transparent;
+  color: $color-outrageous-orange;
+}
+
+%btn-secondary {
+  background: transparent;
+  color: $color-night-rider;
+}
+
+%btn-long {
+  width: calc(100% - 112px);
+}
+
+%btn-square {
+  padding: 0;
+  width: 46px;
+}
+
+
+@mixin btn($skin, $includeDefault: true) {
+  @if($includeDefault == true) {
+    @extend %btn-default;
+  }
+
   @extend %#{$skin};
 }

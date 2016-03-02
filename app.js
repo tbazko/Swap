@@ -1,14 +1,19 @@
-var express = require('express');
-var path = require('path');
-var favicon = require('serve-favicon');
-var logger = require('morgan');
-var cookieParser = require('cookie-parser');
-var bodyParser = require('body-parser');
+var express       = require('express');
+var path          = require('path');
+var favicon       = require('serve-favicon');
+var logger        = require('morgan');
+var cookieParser  = require('cookie-parser');
+var bodyParser    = require('body-parser');
+var multer        = require('multer'); // v1.0.5
+var upload        = multer(); // for parsing multipart/form-data
+var passport      = require('passport');
+var flash         = require('connect-flash');
+var session       = require('express-session');
 
-var routes = require('./routes/index');
-var users = require('./routes/users');
-var product = require('./routes/product');
-var app = express();
+var routes        = require('./app/routes/index');
+var user          = require('./app/routes/user');
+var product       = require('./app/routes/product');
+var app           = express();
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -23,8 +28,18 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes);
-app.use('/users', users);
+app.use('/user', user);
 app.use('/product', product);
+
+
+// required for passport
+app.use(session({ secret: 'ilovescotchscotchyscotchscotch' })); // session secret
+app.use(passport.initialize());
+app.use(passport.session()); // persistent login sessions
+app.use(flash()); // use connect-flash for flash messages stored in session
+
+// routes ======================================================================
+require('./app/routes/login')(app, passport); // load our routes and pass in our app and fully configured passport
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

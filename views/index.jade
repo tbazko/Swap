@@ -2,16 +2,30 @@ extends layout
 
 block content
   -var products = data
-  .main-container
-    .row.row-with-blocks
+  -var buttonText = 'Details'
+
+  .main-container.paperStyle-container
+    .row
+      .col.col-xs4.col-sm6.col-md8
+        h2.section-title.pb10 Offers just for you
+        h4.pr20.section-subtitle.inline.is-active All
+        h4.pr20.section-subtitle.inline First category
+        h4.pr20.section-subtitle.inline Second category
+        h4.pr20.section-subtitle.inline Third category
+      .col.col-xs4.col-sm6.col-md4
+        form(action="").right.search
+          input(type="text").search-box
+          button(type="submit").search-btn.icon-search
+    .row.row-with-blocks-v2
       each product in products
-        .col-product-block
-          .product(data-product-id='#{product.ProductId}')
-            a.img-container(href='/product/#{product.ProductId}')
-              img(src='/images/#{product.Image1}', alt='')
-            h5.subtitle
-              a(href='') Bridgit
-            h4.title= product.Name
-            p= product.Description
-            a.btn.mt10(href='') Swap!
-      
+        .product(data-product-id='#{product.ProductId}')
+          a.img-container(href='/product/#{product.ProductId}')
+            img(src='/images/#{product.Image1}', alt='')
+          .content-container
+            h4.product-title= product.Name
+            p.product-tag-title
+              b Seeks:&nbsp;
+              a(href="") Toy,&#32;
+              a(href="") Earrings,&#32;
+              a(href="") #{product.Name},&#32;
+              a(href="") Sweets&#32;

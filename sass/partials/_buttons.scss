@@ -1,0 +1,16 @@
+.btn {
+  @include btn("btn-default", false);
+}
+
+.btn-dark {
+  @include btn("btn-dark");
+}
+
+.btn-transparent {
+  @include btn("btn-transparent");
+}
+
+.btn-secondary {
+  @include btn("btn-secondary");
+}
+

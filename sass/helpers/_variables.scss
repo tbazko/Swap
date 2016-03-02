@@ -2,26 +2,37 @@
 
 ///// COLORS
 $color-white: #fff;
-// blues
-$color-turqoise: #2DCEDB;
+$color-white-smoke: #eeeeee;
 
 // greys
-$color-night-rider: #303030;
 $color-light-grey: #d5d5d5;
+$color-suva-grey: #999;
+$color-dim-grey: #666666;
+$color-night-rider: #333333;
 
 // reds
 $color-sangria: #8A0A08;
 $color-fire-brick: #B53C25;
 $color-jaffa: #E06E42;
+$color-outrageous-orange: #FF5C2E;
 
 //FONTS
-$mainFont: Helvetica, Arial, sans-serif;
+$titleFont: 'Roboto', Helvetica, Arial, sans-serif;
+$mainFont: 'Lato', Helvetica, Arial, sans-serif;
 
 //SIZES
 $layoutWidth: 100%;
-$navigationHeight: 60px;
+$navigationHeight: 54px;
 $p: 14px;
 $h1: 40px;
 $h2: 30px;
 $h3: 24px;
 $h4: 16px;
+
+$font-sizes: (
+  14: 14px,
+  16: 16px,
+  24: 24px,
+  30: 30px,
+  40: 40px
+);

@@ -1,0 +1,41 @@
+.regular-form {
+  label {
+    display: block;
+    color: $color-night-rider;
+    font-size: $p;
+    margin-bottom: 10px;
+    cursor: auto;
+
+    &.required {
+      &:after {
+        content: '*';
+        color: $color-outrageous-orange;
+        margin-left: 3px;
+      }
+    }
+  }
+
+  input[type="text"] {
+    margin-bottom: 22px;
+    height: 38px;
+    padding-top: 0;
+    padding-bottom: 0;
+    color: #808080;
+    font-family: "Roboto",sans-serif;
+    font-size: 0.75em;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  textarea {
+    color: #808080;
+    font-family: $mainFont;
+    font-size: 12px;
+    width: 100%;
+    border: 1px solid #d5d5d5;
+    border-radius: 2px;
+    padding: 8px 12px 5px 12px;
+  }
+}

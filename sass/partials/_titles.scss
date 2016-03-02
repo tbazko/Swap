@@ -1,0 +1,33 @@
+.section-title {
+  font-size: $p;
+  font-weight: normal;
+  color: $color-suva-grey;
+  font-family: $titleFont;
+  text-transform: uppercase;
+}
+
+.section-subtitle {
+  font-size: $p;
+  font-weight: bold;
+  color: $color-night-rider;
+  font-family: $titleFont;
+  position: relative;
+
+  &:after {
+    content: '';
+    display: block;
+    position: absolute;
+    opacity: 0;
+    bottom: -2px;
+    left: -1px;
+    right: 19px;
+    border-bottom: 1px solid $color-night-rider;
+    transition: ease .2s opacity;
+  }
+
+  &.is-active {
+    &:after {
+      opacity: 1;
+    }
+  }
+}

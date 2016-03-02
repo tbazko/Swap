@@ -1,0 +1,69 @@
+@mixin breakpoint($point) {
+  @if $point == small {
+    @media (min-width: 768px) { @content; }
+  }
+  @else if $point == medium {
+    @media (min-width: 1024px) { @content; }
+  }
+  @else if $point == large {
+    @media (min-width: 1280px) { @content; }
+  }
+  @else if $point == xlarge {
+    @media (min-width: 1440px) { @content; }
+  }
+}
+
+@mixin declare-font-face($font-family, $font-filename, $font-weight : normal, $font-style :normal, $font-stretch : normal) {
+@font-face {
+  font-family: '#{$font-family}';
+    src: url('#{$font-filename}.eot');
+    src: url('#{$font-filename}.eot?#iefix') format('embedded-opentype'),
+    url('#{$font-filename}.woff') format('woff'),
+    url('#{$font-filename}.ttf') format('truetype'),
+    url('#{$font-filename}.svg##{$font-family}') format('svg');
+    font-weight: $font-weight;
+    font-style: $font-style;
+    font-stretch: $font-stretch;
+  }
+}
+
+@mixin sticky-footer($footer-height, $root-selector: unquote("#root"), $root-footer-selector: unquote("#root_footer"), $footer-selector: unquote("#footer")) {
+  html, body {
+    height: 100%;
+  }
+  #{$root-selector} {
+    clear: both;
+    min-height: 100%;
+    height: auto !important;
+    height: 100%;
+    margin-bottom: -$footer-height !important;
+    #{$root-footer-selector} {
+      height: $footer-height;
+    }
+  }
+  #{$footer-selector} {
+    clear: both;
+    position: relative;
+    height: $footer-height;
+  }
+}
+
+/* ================= Placeholders ====================== */
+
+%p-ellipsis {              // Makes some 'p' element's or other block element's text
+  white-space: nowrap;     // fill in only one line and adds '...' in place where text overflows
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+%clearfix {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+%paperStyle {
+  background: $color-white;
+  box-shadow: 0px 2px 10px 0px $color-light-grey;
+  border-radius: 2px;
+}

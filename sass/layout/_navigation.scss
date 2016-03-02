@@ -1,0 +1,68 @@
+.nav {
+  @extend %clearfix;
+  background: $color-white;
+  position: fixed;
+  top: 0;
+  height: $navigationHeight;
+  box-shadow: 0px 1px 10px 0px $color-light-grey;
+  width: 100%;
+  z-index: 10000;
+
+  a.logo {
+    display: block;
+    height: $navigationHeight;
+    line-height: $navigationHeight + 1;
+    font-family: 'Raleway', sans-serif;
+    font-size: 23px;
+    color: $color-night-rider;
+
+    span {
+      margin-top: 5px;
+      vertical-align: top;
+    }
+
+    img {
+      height: 44px;
+      margin-top: 4px;
+      vertical-align: top;
+    }
+  }
+
+  .link,
+  a.link {
+    color: $color-night-rider;
+    font-family: $mainFont;
+    font-size: 12px;
+    height: $navigationHeight;
+    letter-spacing: 0.12em;
+    line-height: $navigationHeight + 1;
+    padding: 0 35px;
+    position: relative;
+    text-transform: uppercase;
+    text-decoration: none;
+
+    &:after {
+      content: '';
+      display: block;
+      position: absolute;
+      opacity: 0;
+      bottom: -2px;
+      right: 35px;
+      left: 34px;
+      border-bottom: 1px solid $color-night-rider;
+      transition: ease .2s opacity;
+    }
+
+    &:hover, &:active {
+      &:after {
+        opacity: 1;
+      }
+    }
+
+    &.is-active {
+      &:after {
+        opacity: 1;
+      }
+    }
+  }
+}

@@ -2,17 +2,8 @@ doctype html
 html
   head
     title= Swap
-    link(rel='stylesheet', href='/stylesheets/master.css')
-  body
-    nav.nav
-      .left
-        a.link.link-filter(href='') Filter
-        form.search(action='')
-          input.search-box(type='text')
-          button.search-btn.icon-search(type='submit', value='')
-      .right
-        a.link.is-active(href='') Offer
-        a.link(href='') Seek
-        a.link(href='') Profile
+    link(rel="stylesheet", href="/stylesheets/master.css")
+    script(data-main="/javascripts/base", src="/javascripts/lib/require.js", async)
+    include ./includes/navigation.jade
     block content
-    footer
+    footer.footer

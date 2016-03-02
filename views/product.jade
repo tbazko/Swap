@@ -1,23 +1,78 @@
 extends layout
 
 block content
-  -var product = data[0];
+  -var buttonText = 'Swap it'
+  .main-container.mb10
+    .row.product-details.paperStyle-container
+      .col.col-xs4.col-sm12.col-md7
+        .image-container
+          img(src="https://placeholdit.imgix.net/~text?txtsize=33&txt=603%C3%97463&w=603&h=463")
+          //- include ./includes/gallery.jade
 
-  .main-container
+      .col.col-xs4.col-sm12.col-md5
+        .details-container
+          include ./includes/breadcrumbs.jade
+          h3.product-name= product.Name
+          p.product-date Published by&#32;
+                a(href='/user/#{author.UserId}') #{author.UserName}
+                |&nbsp;on 12.12.2015
+          ul.no-bullet.pt30.pb30
+            li.pt15.pb15.specs-item
+              h5.inline-block.property Location:&nbsp;
+              p.inline.value
+                a(href="")= author.City
+            li.pb15.specs-item
+              h5.inline-block.property Condition:&nbsp;
+              p.inline.value.condition-stars
+                -var empty = product.ProductCondition + 1
+                -var star = 0
+
+                while star < product.ProductCondition
+                  -star++
+                  span.icon-star
+
+                while empty <= 5
+                  -empty++
+                  span.icon-star-empty
+
+            li.pb15.specs-item
+              h5.inline-block.property Swap for:&nbsp;
+              p.inline.value
+                a(href="") Toy
+                |,&#32;
+                a(href="") Sweets
+                |,&#32;
+                a(href="") Kid shoes
+                |,&#32;
+                a(href="") Earrings
+          if product.Reason
+            h4.pb10.pt30 Reason to swap:
+            p.pb30 #{product.Reason}
+
+          .text-right.pt30
+            -var buttonUrl = ''
+            include ./includes/swap-buttons-set.jade
+      if product.Description
+        .row.clear.pt30
+          .col.col-xs4.col-sm12.col-md12
+            h4.pb10 Description:
+            p.pb30 #{product.Description}
+
     .row
-      .col.col-xs4.col-sm12.col-md9.pr20
-        .row
-          .col.col-xs4.col-sm12.col-md5.pr20
-            img.left(src='/images/' + product.Image1, alt='')
-          .col.col-xs4.col-sm12.col-md7.pl20
-            h3= product.Name
-            p= product.Description
-            a.btn(href='') Swap!
+      .col.col-xs4.col-sm12.col-md9
+        .paperStyle-container.mt10.mr10
+          include ./includes/tab-pane.jade
+          h5.pb10.pt30.mt10 More by&nbsp;
+            a(href='/user/#{author.UserId}') #{author.UserName}
+            |:
+          .row.row-with-blocks
+            each p in author.products
+              if p.ProductId !== product.ProductId
+                .col-product-block.mb15
+                  .thumbnail.bordered
+                    a(href="/product/#{p.ProductId}")
+                      img(src='/images/#{p.Image1}', alt='')
 
-        .review.clear
-          p Bla bla review
-      .col.col-xs4.col-sm12.col-md3.pl20
-        .map Map here
-        p Published by:
-        a(href='') Author Name
-        p More by Author Name:
+      .col.col-xs4.col-sm12.col-md3
+        .map.mt10.text-center.pt10
+          img(src="http://placehold.it/275x200?text=Map")

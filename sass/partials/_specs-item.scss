@@ -1,0 +1,26 @@
+.specs-item {
+  border-bottom: 1px solid $color-white-smoke;
+  padding: 15px 0;
+
+
+  .property {
+    color: $color-suva-grey;
+    font-family: $mainFont;
+    font-size: 14px;
+    font-weight: normal;
+    text-transform: none;
+  }
+
+  .value {
+    color: $color-night-rider;
+    font-family: $mainFont;
+    font-size: 14px;
+    font-weight: bold;
+    text-transform: none;
+
+    a {
+      color: $color-night-rider;
+      border-bottom: 1px solid $color-night-rider;
+    }
+  }
+}
