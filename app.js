@@ -7,11 +7,12 @@ var bodyParser    = require('body-parser');
 var multer        = require('multer'); // v1.0.5
 var upload        = multer(); // for parsing multipart/form-data
 var passport      = require('passport');
-var flash         = require('connect-flash');
+var LocalStrategy = require('passport-local').Strategy;
 var session       = require('express-session');
+var bcrypt        = require('bcrypt-nodejs');
 
-var routes        = require('./app/routes/index');
-var user          = require('./app/routes/user');
+var index        = require('./app/routes/index');
+var userInfo      = require('./app/routes/user');
 var product       = require('./app/routes/product');
 var app           = express();
 
@@ -27,19 +28,61 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', routes);
-app.use('/user', user);
+app.use('/', index);
+app.use('/user', userInfo);
 app.use('/product', product);
 
+var account = require('./app/requestHandlers/account');
+var UserModel = require('./app/models/models').userModel;
 
-// required for passport
-app.use(session({ secret: 'ilovescotchscotchyscotchscotch' })); // session secret
+passport.use(new LocalStrategy(function(username, password, done) {
+   new UserModel({Email: username}).fetch().then(function(data) {
+      var user = data;
+      if(user === null) {
+         return done(null, false, {message: 'Invalid username or password'});
+      } else {
+         user = data.toJSON();
+
+         if(!bcrypt.compareSync(password, user.Password)) {
+            return done(null, false, {message: 'Invalid username or password'});
+         } else {
+            return done(null, user);
+         }
+      }
+   });
+}));
+
+passport.serializeUser(function(user, done) {
+  done(null, user.Email);
+});
+
+passport.deserializeUser(function(username, done) {
+   new UserModel({Email: username}).fetch().then(function(user) {
+      done(null, user);
+   });
+});
+
+app.use(session({secret: 'secret strategic xxzzz code'}));
 app.use(passport.initialize());
-app.use(passport.session()); // persistent login sessions
-app.use(flash()); // use connect-flash for flash messages stored in session
+app.use(passport.session());
 
-// routes ======================================================================
-require('./app/routes/login')(app, passport); // load our routes and pass in our app and fully configured passport
+
+app.get('/profile', account.profile);
+
+app.get('/add-product', account.isAuthenticated, function(req, res, next) {
+  res.render('addProduct', {url: req.path, userId: req.user.get('UserId')});
+});
+// signin
+app.get('/signin', account.signIn);
+app.post('/signin', account.signInPost);
+
+// signup
+app.get('/signup', account.signUp);
+app.post('/signup', account.signUpPost);
+
+// logout
+app.get('/signout', account.signOut);
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

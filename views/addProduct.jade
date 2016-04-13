@@ -2,24 +2,27 @@ extends layout
 
 block content
   .main-container
-    h2.section-title Add new product
-    form(action="/upload" enctype="multipart/form-data" method="post").regular-form
-      label Name
-      input(type="hidden" name="userId" value="1")
-      input(type="text" name="name")
-      label Condition
-      input(type="radio" name="productCondition" value="1")
-      |&nbsp;1&nbsp;
-      input(type="radio" name="productCondition" value="2")
-      |&nbsp;2&nbsp;
-      input(type="radio" name="productCondition" value="3")
-      |&nbsp;3&nbsp;
-      input(type="radio" name="productCondition" value="4")
-      |&nbsp;4&nbsp;
-      input(type="radio" name="productCondition" value="5")
-      |&nbsp;5&nbsp;
-      label Image
-      <input type="file" name="upload" accept="image/*" >
-      label Description
-      textarea(name="description", cols="30", rows="10")
-      input(type="submit" value="Upload file").btn.btn--turqoise
+    .row
+      .col.col-xs4.col-sm12.col-md8.col--mdPush2.paperStyle-container
+        h1.main-title Add new product
+        form(action="/upload" enctype="multipart/form-data" method="post").regular-form
+          input(type="hidden" name="userId" value="#{userId}")
+          input(type="text" name="name" placeholder="Name")
+          p.mb20
+            label Condition&#32;
+            input(type="radio" name="productCondition" value="1")
+            |&nbsp;1&nbsp;
+            input(type="radio" name="productCondition" value="2")
+            |&nbsp;2&nbsp;
+            input(type="radio" name="productCondition" value="3")
+            |&nbsp;3&nbsp;
+            input(type="radio" name="productCondition" value="4")
+            |&nbsp;4&nbsp;
+            input(type="radio" name="productCondition" value="5")
+            |&nbsp;5&nbsp;
+          p.mb20
+            label Image&#32;
+            input(type="file" name="upload" accept="image/*")
+          textarea(name="description", cols="30", rows="10" placeholder="Description")
+          p.text-center.mt20
+            input(type="submit" value="Upload file").btn.btn--turqoise

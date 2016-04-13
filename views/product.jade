@@ -14,7 +14,7 @@ block content
           include ./includes/breadcrumbs.jade
           h3.product-name= product.Name
           p.product-date Published by&#32;
-                a(href='/user/#{author.UserId}') #{author.UserName}
+                a(href='/user/#{author.UserId}') #{author.FirstName}
                 |&nbsp;on 12.12.2015
           ul.no-bullet.pt30.pb30
             li.pt15.pb15.specs-item
@@ -63,7 +63,7 @@ block content
         .paperStyle-container.mt10.mr10
           include ./includes/tab-pane.jade
           h5.pb10.pt30.mt10 More by&nbsp;
-            a(href='/user/#{author.UserId}') #{author.UserName}
+            a(href='/user/#{author.UserId}') #{author.Email}
             |:
           .row.row-with-blocks
             each p in author.products

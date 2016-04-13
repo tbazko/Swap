@@ -16,16 +16,17 @@ block content
         form(action="").right.search
           input(type="text").search-box
           button(type="submit").search-btn.icon-search
-    .row.row-with-blocks-v2
-      each product in products
-        .product(data-product-id='#{product.ProductId}')
-          a.img-container(href='/product/#{product.ProductId}')
-            img(src='/images/#{product.Image1}', alt='')
-          .content-container
-            h4.product-title= product.Name
-            p.product-tag-title
-              b Seeks:&nbsp;
-              a(href="") Toy,&#32;
-              a(href="") Earrings,&#32;
-              a(href="") #{product.Name},&#32;
-              a(href="") Sweets&#32;
+    if products  
+      .row.row-with-blocks-v2
+        each product in products
+          .product(data-product-id='#{product.ProductId}')
+            a.img-container(href='/product/#{product.ProductId}')
+              img(src='/images/#{product.Image1}', alt='')
+            .content-container
+              h4.product-title= product.Name
+              p.product-tag-title
+                b Seeks:&nbsp;
+                a(href="") Toy,&#32;
+                a(href="") Earrings,&#32;
+                a(href="") #{product.Name},&#32;
+                a(href="") Sweets&#32;

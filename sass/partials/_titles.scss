@@ -1,3 +1,12 @@
+.main-title {
+  font-size: $h1;
+  font-weight: bold;
+  color: $color-night-rider;
+  font-family: $titleFont;
+  text-align: center;
+  margin-bottom: 40px;
+}
+
 .section-title {
   font-size: $p;
   font-weight: normal;

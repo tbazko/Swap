@@ -2,28 +2,14 @@ extends ../layout
 
 block content
   .main-container
-    .paperStyle-container
-      h1
-        span.fa.fa-sign-in
-        |  Signup
-        //- show any messages that come back with authentication
-        if (message.length > 0)
-          .alert.alert-danger #{message}
-
-      //- LOGIN FORM
-      form(action='/signup', method='post')
-        .form-group
-          label Email
-          input.form-control(type='text', name='email')
-        .form-group
-          label Password
-          input.form-control(type='password', name='password')
-        button.btn.btn-warning.btn-lg(type='submit') Signup
-      hr
-      p
-        | Already have an account?
-        a(href='/login') Login
-      p
-        | Or go
-        a(href='/') home
-        | .
+    .row.text-center
+      .col.col-xs4.col-sm10.col-md6.col--smPush1.col--mdPush3.paperStyle-container
+        h1.main-title Sign Up
+        form(method='post', action='/signup').regular-form
+            input#username(type='text', name='username', placeholder='username', required='true').mb20
+            input#password(type='text', name='password', placeholder='password', required='true').mb20
+            p.pb20
+              input#signup(type='submit', name='signup', value='register').btn
+        p
+          | Already have an account?&#32;
+          a(href='/login') Login

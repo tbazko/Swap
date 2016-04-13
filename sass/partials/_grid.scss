@@ -15,17 +15,17 @@
   width: 50%;
 
   @include breakpoint(small) {
-    width: 33.333%;  
+    width: 33.333%;
   }
 
   @include breakpoint(medium) {
-    width: 25%;  
+    width: 25%;
   }
 
   @include breakpoint(large) {
-    width: 25%; 
+    width: 25%;
   }
-  
+
   @include breakpoint(xlarge) {
     width: 20%;
   }
@@ -64,7 +64,7 @@ $columns: 12;
       width: 100% / ($columns / $column);
     }
   }
-  
+
 }
 
 @include createFractionColumns ('.col-xs', 4);
@@ -79,4 +79,20 @@ $columns: 12;
 
 @include breakpoint(large) {
   @include createFractionColumns ('.col-lg', $columns);
+}
+
+@include breakpoint(small) {
+  @for $i from 1 through $columns {
+    .col--smPush#{$i} {
+      margin-left: (100% / $columns) * $i;
+    }
+  }
+}
+
+@include breakpoint(medium) {
+  @for $i from 1 through $columns {
+    .col--mdPush#{$i} {
+      margin-left: (100% / $columns) * $i;
+    }
+  }
 }

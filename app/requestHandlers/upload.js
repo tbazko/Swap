@@ -1,14 +1,14 @@
 var events = require('events');
 var eventEmitter = new events.EventEmitter();
 var mkdirp = require('mkdirp');
-var mysql = require('../../config/database').pool;
 
 var querystring = require("querystring"),
     fs          = require("fs"),
     formidable  = require("formidable");
+var ProductModel = require('../models/models').productModel;
 
-function upload(req, res, userId) {
-  var folderPath = 'public/images/products/users/' + userId;
+function upload(req, res) {
+  var folderPath = 'public/images/products/users/1';
 
   eventEmitter
     .once('pathExists', function(event) {
@@ -20,21 +20,15 @@ function upload(req, res, userId) {
 }
 
 function createNewProductInDB(fields) {
-  mysql.getConnection(function(err, connection) {
-    var product = {
-      Name: fields.name,
-      State: 'FOR_SALE',
-      Image1: fields.fileName,
-      Description: fields.description,
-      UserId: fields.userId,
-      ProductCondition: fields.productCondition
-    };
-    console.log(product);
-    connection.query('INSERT INTO products SET ?', [product], function(err, rows){
-      if(err) throw err;
-      connection.release();
-    });
+  var newProduct = new ProductModel({
+    Name: fields.name,
+    State: 'FOR_SALE',
+    Image1: fields.fileName,
+    Description: fields.description,
+    UserId: fields.userId,
+    ProductCondition: fields.productCondition
   });
+  newProduct.save();
 }
 
 var uploadImage = function uploadImage(req, res, folderPath) {
