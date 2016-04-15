@@ -11,9 +11,10 @@ var LocalStrategy = require('passport-local').Strategy;
 var session       = require('express-session');
 var bcrypt        = require('bcrypt-nodejs');
 
-var index        = require('./app/routes/index');
+var index         = require('./app/routes/index');
 var userInfo      = require('./app/routes/user');
 var product       = require('./app/routes/product');
+var cloudinary    = require('./config/cloudinary');
 var app           = express();
 
 // view engine setup
@@ -36,14 +37,14 @@ var account = require('./app/requestHandlers/account');
 var UserModel = require('./app/models/models').userModel;
 
 passport.use(new LocalStrategy(function(username, password, done) {
-   new UserModel({Email: username}).fetch().then(function(data) {
+   new UserModel({email: username}).fetch().then(function(data) {
       var user = data;
       if(user === null) {
          return done(null, false, {message: 'Invalid username or password'});
       } else {
          user = data.toJSON();
 
-         if(!bcrypt.compareSync(password, user.Password)) {
+         if(!bcrypt.compareSync(password, user.password)) {
             return done(null, false, {message: 'Invalid username or password'});
          } else {
             return done(null, user);
@@ -53,11 +54,11 @@ passport.use(new LocalStrategy(function(username, password, done) {
 }));
 
 passport.serializeUser(function(user, done) {
-  done(null, user.Email);
+  done(null, user.email);
 });
 
 passport.deserializeUser(function(username, done) {
-   new UserModel({Email: username}).fetch().then(function(user) {
+   new UserModel({email: username}).fetch().then(function(user) {
       done(null, user);
    });
 });
@@ -70,7 +71,8 @@ app.use(passport.session());
 app.get('/profile', account.profile);
 
 app.get('/add-product', account.isAuthenticated, function(req, res, next) {
-  res.render('addProduct', {url: req.path, userId: req.user.get('UserId')});
+  var image = cloudinary.image("sample.jpg", { alt: "Sample Image" });
+  res.render('addProduct', {url: req.path, userId: req.user.get('userId'), image: image});
 });
 // signin
 app.get('/signin', account.signIn);

@@ -4,10 +4,12 @@ block content
   .main-container
     .row
       .col.col-xs4.col-sm12.col-md8.col--mdPush2.paperStyle-container
-        h1.main-title Add new product
+        h1.main-title Add new item
         form(action="/upload" enctype="multipart/form-data" method="post").regular-form
           input(type="hidden" name="userId" value="#{userId}")
           input(type="text" name="name" placeholder="Name")
+          input(type="text" name="name" placeholder="Category, keywords")
+          input(type="text" name="name" placeholder="Swap for? Some keywords here...")
           p.mb20
             label Condition&#32;
             input(type="radio" name="productCondition" value="1")
@@ -25,4 +27,4 @@ block content
             input(type="file" name="upload" accept="image/*")
           textarea(name="description", cols="30", rows="10" placeholder="Description")
           p.text-center.mt20
-            input(type="submit" value="Upload file").btn.btn--turqoise
+            input(type="submit" value="Add item").btn.btn--turqoise

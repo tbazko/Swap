@@ -1,32 +1,47 @@
 
 exports.up = function(knex, Promise) {
-  return knex.schema.createTableIfNotExists('users', function(table) {
-    table.increments('UserId').unsigned().notNullable().primary();
-    table.string('FirstName');
-    table.string('LastName');
-    table.string('Address');
-    table.string('City');
-    table.string('Country');
-    table.string('Email').unique();
-    table.string('Password');
-    table.string('Phone');
-    table.timestamp('Reg_date');
-  }).createTable('products', function(table) {
-    table.increments('ProductId').primary();
-    table.string('Name').notNullable();
-    table.integer('UserId').unsigned().notNullable().references('users.UserId');
-    table.string('State');
-    table.string('Image1');
-    table.string('Image2');
-    table.string('Image3');
-    table.string('Image4');
-    table.string('Description').defaultTo('');
-    table.string('ProductCondition').notNullable();
-    table.timestamp('Reg_date');
+  return knex.schema
+  .createTableIfNotExists('Users', function(table) {
+    table.increments('userId').unsigned().notNullable().primary();
+    table.string('firstName');
+    table.string('lastName');
+    table.string('address');
+    table.string('city');
+    table.string('country');
+    table.string('email').unique();
+    table.string('password');
+    table.string('phone');
+    table.timestamp('reg_date');
+  })
+  .createTableIfNotExists('Products', function(table) {
+    table.increments('productId').unsigned().notNullable().primary();
+    table.string('name').notNullable();
+    table.integer('userId').unsigned().notNullable().references('users.userId');
+    table.string('state');
+    table.string('description').defaultTo('');
+    table.string('condition').notNullable();
+    table.string('thumbnail');
+    table.timestamp('reg_date');
+  })
+  .createTableIfNotExists('ProductImages', function(table) {
+    table.string('imageId').primary();
+    table.integer('productId').unsigned().notNullable().references('products.productId');
+  })
+  .createTableIfNotExists('Tags', function(table) {
+    table.increments('tagId').notNullable().unsigned().primary();
+    table.string('name').unique();
+  })
+  .createTableIfNotExists('ProductTag', function(table) {
+    table.integer('productId').unsigned().notNullable().references('products.productId');;
+    table.integer('tagId').notNullable().unsigned().references('tags.tagId');
   });
 };
 
 exports.down = function(knex, Promise) {
-  return knex.schema.dropTable('products')
-  .dropTable('users');
+  return knex.schema
+  .dropTable('ProductTag')
+  .dropTable('Tags')
+  .dropTable('ProductImages')
+  .dropTable('Products')
+  .dropTable('Users');
 };

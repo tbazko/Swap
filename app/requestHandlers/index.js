@@ -16,16 +16,28 @@ var render = function(req, res, next) {
 var getProducts = function(req, res, next) {
   ProductCollection.forge()
     .query(function(q) {
-      q.where('State', '=', 'FOR_SALE').orWhere('State', '=', 'PENDING');
+      q.where('state', '=', 'FOR_SALE').orWhere('state', '=', 'PENDING');
     })
-    .fetch()
+    .fetch({withRelated: ['images'], debug: false})
     .then(function (collection) {
-      products = collection.serialize();
+      var product;
+      var products = [];
+      collection.forEach(function(model, key) {
+        product = {
+          productId: model.get('productId'),
+          name: model.get('name'),
+          image: model.related('images').first().get('imageId')
+        };
+        products.push(product);
+      });
+
+      console.log(products);
       eventEmitter.emit('productsFetched', products);
     })
     .catch(function (err) {
       res.status(500).json({error: true, data: {message: err.message}});
     });
+
 }
 
 var productsToJson = function(req, res, next) {
@@ -36,7 +48,7 @@ var productsToJson = function(req, res, next) {
   } else {
     eventEmitter
       .once('productsFetched', function(products) {
-        res.send(products);
+        res.send(JSON.stringify(products));
       });
     getProducts(req, res, next);
   }

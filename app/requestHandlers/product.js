@@ -11,8 +11,8 @@ var openDetailsPage = function(req, res, next) {
       if(model) {
         var product = model;
 
-        model.set({ShortDescription: model.get('Description').slice(0, 60)});
-        var userId = model.get('UserId');
+        model.set({ShortDescription: model.get('description').slice(0, 60)});
+        var userId = model.get('userId');
 
         UserModel.forge({UserId: userId})
         .fetch({withRelated: ['products'], debug: true})

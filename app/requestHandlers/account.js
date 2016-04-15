@@ -16,7 +16,7 @@ var profile = function(req, res, next) {
       if(user !== undefined) {
          user = user.toJSON();
       }
-      res.render('account/profile', {title: 'Home', user: user});
+      res.render('account/profile', {user: user});
    }
 };
 
@@ -32,7 +32,6 @@ var isAuthenticated = function(req, res, next) {
 // GET
 var signIn = function(req, res, next) {
   if(req.isAuthenticated()) {
-    console.log('logged in');
     res.redirect('/profile');
   } else {
    res.render('account/signin', {title: 'Sign In'});
@@ -46,23 +45,19 @@ var signInPost = function(req, res, next) {
    passport.authenticate('local', {successRedirect: '/profile', failureRedirect: '/signin'},
    function(err, user, info) {
       if(err) {
-        console.log('iferr');
         console.log(err.message);
         return res.render('account/signin', {title: 'Sign In', errorMessage: err.message});
       }
 
       if(!user) {
-        console.log('if!user');
         console.log(info.message);
         return res.render('account/signin', {title: 'Sign In', errorMessage: info.message});
       }
       return req.logIn(user, function(err) {
          if(err) {
-           console.log('if2err');
             console.log(err.message);
             return res.render('account/signin', {title: 'Sign In', errorMessage: err.message});
          } else {
-            console.log('logged in');
             return res.redirect('/profile');
          }
       });
@@ -84,7 +79,7 @@ var signUp = function(req, res, next) {
 var signUpPost = function(req, res, next) {
    var user = req.body;
    var usernamePromise = null;
-   usernamePromise = new UserModel({Email: user.username}).fetch();
+   usernamePromise = new UserModel({email: user.username}).fetch();
 
    return usernamePromise.then(function(model) {
       if(model) {
@@ -97,11 +92,11 @@ var signUpPost = function(req, res, next) {
          var hash = bcrypt.hashSync(password);
 
          var signUpUser = new UserModel({
-            Email: user.username,
-            Password: hash,
-            FirstName: 'TamaraTest',
-            City: 'Amsterdam',
-            Country: 'The Netherlands'
+            email: user.username,
+            password: hash,
+            firstName: 'TamaraTest',
+            city: 'Amsterdam',
+            country: 'The Netherlands'
         });
 
          signUpUser.save().then(function(model) {

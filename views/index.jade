@@ -19,14 +19,14 @@ block content
     if products  
       .row.row-with-blocks-v2
         each product in products
-          .product(data-product-id='#{product.ProductId}')
-            a.img-container(href='/product/#{product.ProductId}')
-              img(src='/images/#{product.Image1}', alt='')
+          .product(data-product-id='#{product.productId}')
+            a.img-container(href='/product/#{product.productId}')
+              !{product.image}
             .content-container
-              h4.product-title= product.Name
+              h4.product-title= product.name
               p.product-tag-title
                 b Seeks:&nbsp;
                 a(href="") Toy,&#32;
                 a(href="") Earrings,&#32;
-                a(href="") #{product.Name},&#32;
+                a(href="") Thingies,&#32;
                 a(href="") Sweets&#32;

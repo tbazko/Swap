@@ -12,22 +12,22 @@ block content
       .col.col-xs4.col-sm12.col-md5
         .details-container
           include ./includes/breadcrumbs.jade
-          h3.product-name= product.Name
+          h3.product-name= product.name
           p.product-date Published by&#32;
-                a(href='/user/#{author.UserId}') #{author.FirstName}
+                a(href='/user/#{author.userId}') #{author.firstName}
                 |&nbsp;on 12.12.2015
           ul.no-bullet.pt30.pb30
             li.pt15.pb15.specs-item
               h5.inline-block.property Location:&nbsp;
               p.inline.value
-                a(href="")= author.City
+                a(href="")= author.city
             li.pb15.specs-item
               h5.inline-block.property Condition:&nbsp;
               p.inline.value.condition-stars
-                -var empty = product.ProductCondition + 1
+                -var empty = product.condition + 1
                 -var star = 0
 
-                while star < product.ProductCondition
+                while star < product.condition
                   -star++
                   span.icon-star
 
@@ -45,33 +45,33 @@ block content
                 a(href="") Kid shoes
                 |,&#32;
                 a(href="") Earrings
-          if product.Reason
+          if product.reason
             h4.pb10.pt30 Reason to swap:
-            p.pb30 #{product.Reason}
+            p.pb30 #{product.reason}
 
           .text-right.pt30
             -var buttonUrl = ''
             include ./includes/swap-buttons-set.jade
-      if product.Description
+      if product.description
         .row.clear.pt30
           .col.col-xs4.col-sm12.col-md12
             h4.pb10 Description:
-            p.pb30 #{product.Description}
+            p.pb30 #{product.description}
 
     .row
       .col.col-xs4.col-sm12.col-md9
         .paperStyle-container.mt10.mr10
           include ./includes/tab-pane.jade
           h5.pb10.pt30.mt10 More by&nbsp;
-            a(href='/user/#{author.UserId}') #{author.Email}
+            a(href='/user/#{author.userId}') #{author.email}
             |:
           .row.row-with-blocks
             each p in author.products
-              if p.ProductId !== product.ProductId
+              if p.productId !== product.productId
                 .col-product-block.mb15
                   .thumbnail.bordered
-                    a(href="/product/#{p.ProductId}")
-                      img(src='/images/#{p.Image1}', alt='')
+                    a(href="/product/#{p.productId}")
+                      img(src='/images/#{p.image1}', alt='')
 
       .col.col-xs4.col-sm12.col-md3
         .map.mt10.text-center.pt10
