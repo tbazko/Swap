@@ -71,8 +71,7 @@ app.use(passport.session());
 app.get('/profile', account.profile);
 
 app.get('/add-product', account.isAuthenticated, function(req, res, next) {
-  var image = cloudinary.image("sample.jpg", { alt: "Sample Image" });
-  res.render('addProduct', {url: req.path, userId: req.user.get('userId'), image: image});
+  res.render('addProduct', {url: req.path, userId: req.user.get('userId')});
 });
 // signin
 app.get('/signin', account.signIn);
