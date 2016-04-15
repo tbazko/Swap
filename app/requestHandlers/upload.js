@@ -57,7 +57,7 @@ var uploadImage = function uploadImage(req, res) {
     //     fs.rename(files.upload.path, imagePath);
     //   }
     // });
-    res.render('addProduct', {currentUrl: req.path});
+    res.render('addProduct', {url: req.path, userId: req.user.get('userId')});
   });
 }
 
