@@ -6,18 +6,17 @@ var cloudinary = require('../../config/cloudinary');
 var querystring = require("querystring"),
     fs          = require("fs"),
     formidable  = require("formidable");
-var ProductModel = require('../models/models').productModel;
-var ProductImageModel = require('../models/models').productImageModel;
+var Models = require('../models/models');
+var ProductModel = Models.productModel;
+var ProductImageModel = Models.productImageModel;
 
 function upload(req, res) {
-  var folderPath = 'public/images/products/users/1';
-
   eventEmitter
     .once('formParsed', createNewProductInDB);
   uploadImage(req, res);
 }
 
-function createNewProductInDB(fields) {
+function createNewProductInDB(fields, files) {
   var newProduct = new ProductModel({
     name: fields.name,
     state: 'FOR_SALE',
@@ -27,10 +26,19 @@ function createNewProductInDB(fields) {
   });
 
   newProduct.save().then(function(model) {
+    var productId = model.get('productId');
+    var name = files.upload.name.replace(/\.jpg|\.jpeg|\.bmp|\.gif/gmi, '');
+    var public_id = productId + '/' + name;
+
     var productImage = new ProductImageModel({
-      imageId: cloudinary.image(fields.fileName, { alt: fields.name }),
-      productId: model.get('productId')
+      imageId: public_id,
+      productId: productId
     });
+
+    cloudinary.uploader.upload(files.upload.path,
+      function(result) {
+      }, {public_id: public_id}
+    );
 
     productImage.save(null, {method: 'insert'});
   });
@@ -39,14 +47,9 @@ function createNewProductInDB(fields) {
 var uploadImage = function uploadImage(req, res) {
   var form = new formidable.IncomingForm();
   form.parse(req, function(error, fields, files) {
-    var name = files.upload.name.replace(/\.jpg|\.jpeg|\.bmp|\.gif/gmi, '');
-    fields.fileName = 'users/' + fields.userId + '/' + name;
-    eventEmitter.emit('formParsed', fields);
-    cloudinary.uploader.upload(files.upload.path,
-      function(result) {
-        // console.log(result);
-      }, {public_id: fields.fileName}
-    );
+
+    eventEmitter.emit('formParsed', fields, files);
+
       /* Possible error on Windows systems:
       tried to rename to an already existing file */
     // var imagePath = folderPath + '/' + files.upload.name;
@@ -57,7 +60,7 @@ var uploadImage = function uploadImage(req, res) {
     //     fs.rename(files.upload.path, imagePath);
     //   }
     // });
-    res.render('addProduct', {url: req.path, userId: req.user.get('userId')});
+    res.render('addProduct', {url: req.path, userId: fields.userId});
   });
 }
 

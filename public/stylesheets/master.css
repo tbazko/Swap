@@ -789,13 +789,17 @@ p {
   overflow: hidden;
   height: 0;
   width: 100%;
-  padding-top: 77%; }
+  padding-top: 77%;
+  text-align: center; }
   .product-details .image-container img {
     position: absolute;
     top: 0;
-    left: 0;
+    left: 50%;
+    -webkit-transform: translate(-50%);
+        -ms-transform: translate(-50%);
+            transform: translate(-50%);
     height: 100%;
-    width: 100%; }
+    width: auto; }
 .product-details .details-container {
   padding-left: 40px; }
 .product-details .product-name {

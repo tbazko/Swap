@@ -1,0 +1,20 @@
+extends layout
+
+block content
+  -var products = data
+  -var buttonText = 'Details'
+
+  .main-container.paperStyle-container
+    .row
+      h1.main-title My items list
+    if products  
+      .row.row-with-blocks-v2
+        each product in products
+          .product(data-product-id='#{product.productId}')
+            a.img-container(href='/product/#{product.productId}')
+              !{product.image}
+            .content-container
+              h4.product-title= product.name
+              form(action="/destroy-item" method="post")
+                input(type="hidden" name="productId" value="#{product.productId}")
+                button(type="submit") Remove

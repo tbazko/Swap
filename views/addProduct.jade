@@ -8,8 +8,8 @@ block content
         form(action="/upload" enctype="multipart/form-data" method="post").regular-form
           input(type="hidden" name="userId" value="#{userId}")
           input(type="text" name="name" placeholder="Name")
-          input(type="text" name="name" placeholder="Category, keywords")
-          input(type="text" name="name" placeholder="Swap for? Some keywords here...")
+          input(type="text" name="category" placeholder="Category, keywords")
+          input(type="text" name="swapFor" placeholder="Swap for? Some keywords here...")
           p.mb20
             label Condition&#32;
             input(type="radio" name="productCondition" value="1")

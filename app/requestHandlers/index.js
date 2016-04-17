@@ -2,6 +2,7 @@ var events = require('events');
 var eventEmitter = new events.EventEmitter();
 var ProductCollection = require('../models/models').productCollection;
 var UserCollection = require('../models/models').userCollection;
+var cloudinary = require('../../config/cloudinary');
 var products;
 
 var render = function(req, res, next) {
@@ -23,15 +24,16 @@ var getProducts = function(req, res, next) {
       var product;
       var products = [];
       collection.forEach(function(model, key) {
+        var imageId = model.related('images').first() ? model.related('images').first().get('imageId') : 'sample';
+
         product = {
           productId: model.get('productId'),
           name: model.get('name'),
-          image: model.related('images').first().get('imageId')
+          image: cloudinary.image(imageId + '.jpg', {width: 230, height: 220, crop: 'fill', gravity: 'face'})
         };
         products.push(product);
       });
 
-      console.log(products);
       eventEmitter.emit('productsFetched', products);
     })
     .catch(function (err) {
@@ -60,7 +62,6 @@ var usersToJson = function(req, res, next) {
     .fetch()
     .then(function (collection) {
       users = collection.toJSON();
-      // make this on event!
       res.setHeader('Content-Type', 'application/json');
       res.send(JSON.stringify(users));
     })

@@ -6,7 +6,7 @@ block content
     .row.product-details.paperStyle-container
       .col.col-xs4.col-sm12.col-md7
         .image-container
-          img(src="https://placeholdit.imgix.net/~text?txtsize=33&txt=603%C3%97463&w=603&h=463")
+          !{product.images[0].image}
           //- include ./includes/gallery.jade
 
       .col.col-xs4.col-sm12.col-md5
@@ -71,8 +71,8 @@ block content
                 .col-product-block.mb15
                   .thumbnail.bordered
                     a(href="/product/#{p.productId}")
-                      img(src='/images/#{p.image1}', alt='')
+                      //- img(src='/images/#{p.image1}', alt='')
 
       .col.col-xs4.col-sm12.col-md3
         .map.mt10.text-center.pt10
-          img(src="http://placehold.it/275x200?text=Map")
+          !{product.images[0].thumbnail}
