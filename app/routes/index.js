@@ -1,11 +1,11 @@
-var express = require('express');
-var router = express.Router();
-var passport = require('passport');
+var express       = require('express');
+var router        = express.Router();
+var passport      = require('passport');
 var session       = require('express-session');
-var isSignedIn = require('../requestHandlers/account').isSignedIn;
-var upload = require('../requestHandlers/upload');
-var index = require('../requestHandlers/index');
-var userItems = require('../requestHandlers/userItems');
+var isSignedIn    = require('../requestHandlers/account').isSignedIn;
+var upload        = require('../requestHandlers/upload');
+var index         = require('../requestHandlers/index');
+var userItems     = require('../requestHandlers/userItems');
 
 router.use(session({secret: 'secret strategic xxzzz code'}));
 router.use(passport.initialize());

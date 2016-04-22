@@ -14,6 +14,7 @@ var bcrypt        = require('bcrypt-nodejs');
 var index         = require('./app/routes/index');
 var userInfo      = require('./app/routes/user');
 var product       = require('./app/routes/product');
+var tag           = require('./app/routes/tag');
 var cloudinary    = require('./config/cloudinary');
 var app           = express();
 
@@ -32,6 +33,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', index);
 app.use('/user', userInfo);
 app.use('/product', product);
+app.use('/tag', tag);
 
 var account = require('./app/requestHandlers/account');
 var UserModel = require('./app/models/models').userModel;

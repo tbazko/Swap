@@ -31,15 +31,20 @@ exports.up = function(knex, Promise) {
     table.increments('tagId').notNullable().unsigned().primary();
     table.string('name').unique();
   })
-  .createTableIfNotExists('ProductTag', function(table) {
-    table.integer('productId').unsigned().notNullable().references('products.productId');;
-    table.integer('tagId').notNullable().unsigned().references('tags.tagId');
+  .createTableIfNotExists('Products_Tags', function(table) {
+    table.integer('productId').unsigned().notNullable().references('products.productId');
+    table.integer('tagId').unsigned().notNullable().references('tags.tagId');
+  })
+  .createTableIfNotExists('Products_SwapForTags', function(table) {
+    table.integer('productId').unsigned().notNullable().references('products.productId');
+    table.integer('tagId').unsigned().notNullable().references('tags.tagId');
   });
 };
 
 exports.down = function(knex, Promise) {
   return knex.schema
-  .dropTable('ProductTag')
+  .dropTable('Products_SwapForTags')
+  .dropTable('Products_Tags')
   .dropTable('Tags')
   .dropTable('ProductImages')
   .dropTable('Products')

@@ -26,7 +26,5 @@ block content
               h4.product-title= product.name
               p.product-tag-title
                 b Seeks:&nbsp;
-                a(href="") Toy,&#32;
-                a(href="") Earrings,&#32;
-                a(href="") Thingies,&#32;
-                a(href="") Sweets&#32;
+                  each swapForTag in product.swapForTags
+                    a(href="/tag/#{swapForTag.name}") #{swapForTag.name},&#32;
