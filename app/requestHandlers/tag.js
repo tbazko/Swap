@@ -19,7 +19,7 @@ var getProducts = function(req, res, next) {
     .fetch({withRelated: ['products']}).then(function(tag) {
       tag.related('products')
         .query(shared.getActiveProducts)
-        .fetch({withRelated: ['images']})
+        .fetch({withRelated: ['images', 'swapForTags']})
         .then(function(collection) {
           shared.getProductsList(collection, eventEmitter);
         })

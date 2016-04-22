@@ -7,7 +7,7 @@ var getProductsList = function(collection, eventEmitter) {
   collection.forEach(function(model, key) {
     var imageId = model.related('images').first() ? model.related('images').first().get('imageId') : 'sample';
     var swapForTags = model.related('swapForTags').serialize();
-    console.log(imageId);
+
     product = {
       productId: model.get('productId'),
       name: model.get('name'),
