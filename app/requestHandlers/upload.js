@@ -22,20 +22,19 @@ function createNewProductInDB(fields, files) {
     name: fields.name,
     state: 'FOR_SALE',
     description: fields.description,
-    userId: fields.userId,
+    user_id: fields.userId,
     condition: fields.productCondition,
   });
 
   newProduct.save().then(function(product) {
-    var productId = product.get('productId');
+    var productId = product.get('id');
     var name = files.upload.name.replace(/\.jpg|\.jpeg|\.bmp|\.gif/gmi, '');
     var public_id = productId + '/' + name;
 
     var productImage = new ProductImage({
-      imageId: public_id,
-      productId: productId
+      id: public_id,
+      product_id: productId
     });
-
 
     cloudinary.uploader.upload(files.upload.path,
       function(result) {
@@ -55,7 +54,7 @@ function createNewProductInDB(fields, files) {
       });
     }
 
-    if(fields.swapForTags) {
+    if(fields.swapForTags && fields.tags) {
       var swapForTags = fields.swapForTags.replace(/\s+/g, '');
       var swapForTagsArray = swapForTags.split(',');
       swapForTagsArray.forEach(function(value, index) {
@@ -76,7 +75,6 @@ var addTag = function(modelName, isTag, tagName, product) {
         } else {
           product.swapForTags().attach(tag);
         }
-
         return;
       } else {
         var newTag = new Tag({

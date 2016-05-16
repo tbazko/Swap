@@ -3,4 +3,5 @@ requirejs(['./common'], function (common) {
   requirejs(['components/main']);
   requirejs(['components/tabPane']);
   requirejs(['components/filter']);
+  requirejs(['components/swapItemRequest']);
 });

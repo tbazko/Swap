@@ -8,7 +8,7 @@ var shared = require('./shared/base');
 
 var render = function(req, res, next) {
   if(!req.user) {
-    res.redirect('/signin');
+    res.redirect('/account/signin');
     return;
   }
 
@@ -23,9 +23,9 @@ var render = function(req, res, next) {
 var getProducts = function(req, res, next) {
   ProductCollection.forge()
     .query(function(q) {
-      q.where('userId', '=', req.user.get('userId'));
+      q.where('user_id', '=', req.user.get('id'));
     })
-    .fetch({withRelated: ['images'], debug: false})
+    .fetch({withRelated: ['images', 'swapForTags', 'tags'], debug: false})
     .then(function (collection) {
       shared.getProductsList(collection, eventEmitter);
     })
@@ -35,19 +35,18 @@ var getProducts = function(req, res, next) {
 }
 
 var destroyItem = function(req, res, next) {
-  var id = req.body.productId;
-  ProductModel.forge({productId: id})
+  ProductModel.forge({id: req.body.productId})
     .fetch({withRelated: ['images']}).then(function(product) {
       var images = product.related('images');
       images.each(function(image) {
-        cloudinary.uploader.destroy(image.get('imageId'));
+        cloudinary.uploader.destroy(image.get('id'));
         image.destroy();
       });
 
       product.tags().detach();
       product.swapForTags().detach();
       product.destroy().then(function() {
-        res.redirect('/my-items');
+        res.redirect('/account/my-items');
       });
 
     }).catch(function (err) {
@@ -55,5 +54,19 @@ var destroyItem = function(req, res, next) {
     });
 }
 
+var getItemsForSwap = function(req, res, next) {
+  var url = req.path;
+  var user = {
+    userId: req.user.get('id'),
+    email: req.user.get('email')
+  };
+  eventEmitter
+    .once('productsFetched', function(products) {
+      res.send({ data: products, url: url, user: user });
+    });
+  getProducts(req, res, next);
+}
+
 module.exports.render = render;
 module.exports.destroyItem = destroyItem;
+module.exports.getItemsForSwap = getItemsForSwap;

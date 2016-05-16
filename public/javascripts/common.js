@@ -8,6 +8,8 @@
 requirejs.config({
     baseUrl: '/javascripts/lib',
     paths: {
-        components: '../components'
+        components: '../components',
+        templates: '../templates',
+        runtime: '../templates/runtime'
     }
 });

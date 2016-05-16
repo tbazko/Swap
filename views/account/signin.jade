@@ -7,11 +7,11 @@ block content
         h1.main-title Sign In
 
         //- LOGIN FORM
-        form(method='post', action='/signin').regular-form
+        form(method='post', action='/account/signin').form
           input#username(type='text', name='username', placeholder='Username', required='true').mb20
           input#password(type='text', name='password', placeholder='Password', required='true').mb20
           p.pb20
             input#signin(type='submit', name='signin', value='sign in').btn
           
-          a(href='/signup').mr10 Not a member yet?
-          a(href='/signup').ml10 Forgot password?
+          a(href='/account/signup').mr10 Not a member yet?
+          a(href='/account/signup').ml10 Forgot password?

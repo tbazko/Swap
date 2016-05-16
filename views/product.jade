@@ -3,7 +3,7 @@ extends layout
 block content
   -var buttonText = 'Swap it'
   .main-container.mb10
-    .row.product-details.paperStyle-container
+    .row.product-details.paperStyle-container.js-productDetails.animated
       .col.col-xs4.col-sm12.col-md7
         .image-container
           !{product.images[0].image}
@@ -12,10 +12,10 @@ block content
       .col.col-xs4.col-sm12.col-md5
         .details-container
           include ./includes/breadcrumbs.jade
-          h3.product-name= product.name
+          h3.product-name #{product.name}
           p.product-date Published by&#32;
-                a(href='/user/#{author.userId}') #{author.firstName}
-                |&nbsp;on 12.12.2015
+            a(href='/user/#{author.id}' data-author-id="#{author.id}").js-authorId #{author.firstName}
+            |&nbsp;on 12.12.2015
           ul.no-bullet.pt30.pb30
             li.pt15.pb15.specs-item
               h5.inline-block.property Location:&nbsp;
@@ -37,14 +37,11 @@ block content
 
             li.pb15.specs-item
               h5.inline-block.property Swap for:&nbsp;
-              p.inline.value
-                a(href="") Toy
-                |,&#32;
-                a(href="") Sweets
-                |,&#32;
-                a(href="") Kid shoes
-                |,&#32;
-                a(href="") Earrings
+              if product.swapForTags
+                each swapForTag in product.swapForTags
+                  p.inline.value
+                    a(href="/tag/#{swapForTag.name}") #{swapForTag.name}
+                    |&#32;
           if product.reason
             h4.pb10.pt30 Reason to swap:
             p.pb30 #{product.reason}
@@ -57,22 +54,28 @@ block content
           .col.col-xs4.col-sm12.col-md12
             h4.pb10 Description:
             p.pb30 #{product.description}
-
+    include ./includes/product/swapForm.jade
     .row
       .col.col-xs4.col-sm12.col-md9
         .paperStyle-container.mt10.mr10
           include ./includes/tab-pane.jade
           h5.pb10.pt30.mt10 More by&nbsp;
-            a(href='/user/#{author.userId}') #{author.email}
+            a(href='/user/#{author.id}') #{author.email}
             |:
           .row.row-with-blocks
             each p in author.products
               if p.productId !== product.productId
                 .col-product-block.mb15
                   .thumbnail.bordered
-                    a(href="/product/#{p.productId}")
+                    a(href="/product/#{p.id}")
                       //- img(src='/images/#{p.image1}', alt='')
 
       .col.col-xs4.col-sm12.col-md3
         .map.mt10.text-center.pt10
           !{product.images[0].thumbnail}
+  
+  .paperStyle-container.js-dialog.dialog.is-hidden
+    .col.col-xs4.col-sm12.col-md12
+      h2.section-subtitle Choose one or more of your items to swap for #{product.name}
+      .row.row-with-blocks-v2.js-swapItem
+  .dialogOverlay.js-dialogOverlay.is-hidden

@@ -9,7 +9,7 @@ var UserModel = require('../models/models').userModel;
 // index
 var profile = function(req, res, next) {
    if(!req.isAuthenticated()) {
-      res.redirect('/signin');
+      res.redirect('/account/signin');
    } else {
       var user = req.user;
 
@@ -22,17 +22,26 @@ var profile = function(req, res, next) {
 
 var isAuthenticated = function(req, res, next) {
    if(!req.isAuthenticated()) {
-      res.redirect('/signin');
+      res.send(false);
    } else {
       return next();
    }
 };
 
+var signInRedirect = function(req, res, next) {
+   if(!req.isAuthenticated()) {
+      res.render('account/signin', {title: 'Sign In'});
+   } else {
+      return next();
+   }
+};
+
+
 // sign in
 // GET
 var signIn = function(req, res, next) {
   if(req.isAuthenticated()) {
-    res.redirect('/profile');
+    res.redirect('/account/profile');
   } else {
    res.render('account/signin', {title: 'Sign In'});
   }
@@ -42,7 +51,7 @@ var signIn = function(req, res, next) {
 // POST
 var signInPost = function(req, res, next) {
 
-   passport.authenticate('local', {successRedirect: '/profile', failureRedirect: '/signin'},
+   passport.authenticate('local', {successRedirect: '/account/profile', failureRedirect: '/account/signin'},
    function(err, user, info) {
       if(err) {
         console.log(err.message);
@@ -58,7 +67,7 @@ var signInPost = function(req, res, next) {
             console.log(err.message);
             return res.render('account/signin', {title: 'Sign In', errorMessage: err.message});
          } else {
-            return res.redirect('/profile');
+            return res.redirect('/account/profile');
          }
       });
    })(req, res, next);
@@ -68,7 +77,7 @@ var signInPost = function(req, res, next) {
 // GET
 var signUp = function(req, res, next) {
    if(req.isAuthenticated()) {
-      res.redirect('/profile');
+      res.redirect('/account/profile');
    } else {
       res.render('account/signup', {title: 'Sign Up'});
    }
@@ -113,7 +122,7 @@ var signOut = function(req, res, next) {
       notFound404(req, res, next);
    } else {
       req.logout();
-      res.redirect('/signin');
+      res.redirect('/account/signin');
    }
 };
 
@@ -128,6 +137,7 @@ var notFound404 = function(req, res, next) {
 // profile
 module.exports.profile = profile;
 module.exports.isAuthenticated = isAuthenticated;
+module.exports.signInRedirect = signInRedirect;
 
 // sigin in
 module.exports.signIn = signIn;

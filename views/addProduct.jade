@@ -7,7 +7,7 @@ block content
         if itemAdded  
           h2.section-title.text-center.mb20 New item added!
         h1.main-title Add new item
-        form(action="/upload" enctype="multipart/form-data" method="post").regular-form
+        form(action="/upload" enctype="multipart/form-data" method="post").form
           input(type="hidden" name="userId" value="#{userId}")
           input(type="text" name="name" placeholder="Name")
           input(type="text" name="tags" placeholder="Tags, keywords")

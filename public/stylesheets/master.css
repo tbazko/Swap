@@ -515,6 +515,9 @@ html, body {
   html *, body * {
     box-sizing: border-box; }
 
+html {
+  position: relative; }
+
 h1, h2, h3, h4, h5, h6 {
   color: #333333;
   font-family: "Roboto", Helvetica, Arial, sans-serif;
@@ -573,6 +576,9 @@ p {
 .inline-block {
   display: inline-block; }
 
+.is-hidden {
+  display: none; }
+
 .middle {
   display: inline-block;
   vertical-align: middle; }
@@ -629,9 +635,11 @@ p {
   height: 300px;
   width: 100%; }
 
-@media (min-width: 768px) {
-  .main-container {
-    margin: 104px 60px 60px; } }
+.main-container {
+  position: relative; }
+  @media (min-width: 768px) {
+    .main-container {
+      margin: 104px 60px 60px; } }
 
 .map {
   padding: 10px 0; }
@@ -643,7 +651,7 @@ p {
   height: 54px;
   box-shadow: 0px 1px 10px 0px #d5d5d5;
   width: 100%;
-  z-index: 10000; }
+  z-index: 1000; }
   .nav a.logo {
     display: block;
     height: 54px;
@@ -741,8 +749,8 @@ p {
 
 .product {
   display: inline-block;
-  height: 335px;
-  padding-bottom: 40px;
+  height: 295px;
+  margin-bottom: 40px;
   position: relative;
   vertical-align: top;
   margin-left: 20px;
@@ -781,6 +789,31 @@ p {
       color: #999;
       text-transform: none; }
 
+.product--inSwapList {
+  cursor: pointer;
+  position: relative;
+  transition: border .25s ease; }
+  .product--inSwapList:nth-of-type(2) {
+    margin-right: 50%; }
+  .product--inSwapList:after {
+    content: '';
+    opacity: 0;
+    position: absolute;
+    top: -10px;
+    bottom: -10px;
+    left: -10px;
+    right: -10px;
+    display: block;
+    border: 3px solid #D5E3AC;
+    transition: opacity .1s ease; }
+  .product--inSwapList:hover:after, .product--inSwapList:active:after {
+    opacity: 1;
+    transition: opacity .25s ease; }
+  .product--inSwapList .selectItem {
+    position: absolute;
+    right: 10px;
+    top: 10px; }
+
 @media (min-width: 768px) {
   .product-details {
     padding: 50px 90px; } }
@@ -812,6 +845,26 @@ p {
   .product-details .product-date a {
     color: #333333;
     font-weight: bold; }
+.product-details:after {
+  content: '';
+  opacity: 0; }
+
+.is-blurred .row {
+  -webkit-filter: blur(3px);
+          filter: blur(3px);
+  opacity: .4; }
+.is-blurred .row.swapContainer {
+  margin-left: -20px;
+  max-width: none;
+  width: calc(100% + 40px);
+  padding-left: 110px;
+  padding-right: 110px; }
+  .is-blurred .row.swapContainer,
+  .is-blurred .row.swapContainer .row {
+    position: relative;
+    -webkit-filter: unset;
+            filter: unset;
+    opacity: 1; }
 
 *, *:after, *:before {
   box-sizing: border-box; }
@@ -1066,17 +1119,17 @@ ul {
 ul.inline {
   word-spacing: -0.43em; }
 
-.regular-form label {
+.form label {
   color: #333333;
   font-size: 14px;
   margin-bottom: 10px;
   cursor: auto; }
-  .regular-form label.required:after {
+  .form label.required:after {
     content: '*';
     color: #FF5C2E;
     margin-left: 3px; }
-.regular-form input[type="text"],
-.regular-form input[type="password"] {
+.form input[type="text"],
+.form input[type="password"] {
   background: #eeeeee;
   border: 0;
   border-radius: 2px;
@@ -1084,21 +1137,37 @@ ul.inline {
   height: 38px;
   padding: 0 15px;
   color: #808080;
-  font-family: "Roboto",sans-serif;
-  font-size: 12px;
+  font-family: "Roboto", sans-serif;
+  font-size: 14px;
   width: 100%; }
-  .regular-form input[type="text"]:last-child,
-  .regular-form input[type="password"]:last-child {
+  .form input[type="text"]:last-child,
+  .form input[type="password"]:last-child {
     margin-bottom: 0; }
-.regular-form textarea {
+.form textarea {
   background: #eeeeee;
   border: 0;
   border-radius: 2px;
   color: #808080;
-  font-size: 12px;
+  font-size: 14px;
   font-family: "Lato", Helvetica, Arial, sans-serif;
   width: 100%;
   padding: 8px 12px 5px 12px;
+  width: 100%; }
+
+.form--swapForm .form-title {
+  color: #999;
+  font-size: 24px;
+  font-family: "Roboto", Helvetica, Arial, sans-serif; }
+  .form--swapForm .form-title strong {
+    color: #333333; }
+.form--swapForm .swapFields {
+  position: absolute;
+  right: 0;
+  width: calc(50% - 40px); }
+.form--swapForm textarea {
+  height: 140px;
+  width: 100%; }
+.form--swapForm input[type="text"] {
   width: 100%; }
 
 .search {

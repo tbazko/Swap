@@ -1,7 +1,10 @@
-define(function (require) {
-  var $ = require('jquery'),
-      utils = require('components/utils/utils');
-
+define([
+  'jquery',
+  'components/utils/utils'
+], function (
+  $,
+  utils
+) {
   $(document).ready(function() {
     $('.js-swap-btn').on('click', function(e) {
       e.preventDefault();

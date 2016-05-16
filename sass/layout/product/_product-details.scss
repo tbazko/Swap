@@ -42,4 +42,31 @@
       font-weight: bold;
     }
   }
+
+  &:after {
+    content: '';
+    opacity: 0;
+  }
+}
+
+.is-blurred {
+  .row {
+    filter: blur(3px);
+    opacity: .4;
+  }
+
+  .row.swapContainer {
+    margin-left: -20px;
+    max-width: none;
+    width: calc(100% + 40px);
+    padding-left: 110px;
+    padding-right: 110px;
+
+    &,
+    .row {
+      position: relative;
+      filter: unset;
+      opacity: 1;
+    }
+  }
 }

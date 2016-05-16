@@ -5,11 +5,11 @@ block content
     .row.text-center
       .col.col-xs4.col-sm10.col-md6.col--smPush1.col--mdPush3.paperStyle-container
         h1.main-title Sign Up
-        form(method='post', action='/signup').regular-form
+        form(method='post', action='/account/signup').form
             input#username(type='text', name='username', placeholder='username', required='true').mb20
             input#password(type='text', name='password', placeholder='password', required='true').mb20
             p.pb20
               input#signup(type='submit', name='signup', value='register').btn
         p
           | Already have an account?&#32;
-          a(href='/signin') Login
+          a(href='/account/signin') Login

@@ -6,9 +6,14 @@ var shared = require('./shared/base');
 
 var render = function(req, res, next) {
   var url = req.path;
+  var tag;
+
   eventEmitter
+    .once('tagFetched', function(tag) {
+      tag = tag;
+    })
     .once('productsFetched', function(products) {
-      res.render('index', { data: products, url: url });
+      res.render('index', { data: products, url: url, tag: req.params.id });
     });
   getProducts(req, res, next);
 }

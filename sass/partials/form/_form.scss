@@ -1,4 +1,4 @@
-.regular-form {
+.form {
   label {
     color: $color-night-rider;
     font-size: $p;
@@ -23,8 +23,8 @@
     height: 38px;
     padding: 0 15px;
     color: #808080;
-    font-family: "Roboto",sans-serif;
-    font-size: 12px;
+    font-family: "Roboto", sans-serif;
+    font-size: 14px;
     width: 100%;
 
     &:last-child {
@@ -37,7 +37,7 @@
     border: 0;
     border-radius: 2px;
     color: #808080;
-    font-size: 12px;
+    font-size: 14px;
     font-family: $mainFont;
     width: 100%;
     padding: 8px 12px 5px 12px;

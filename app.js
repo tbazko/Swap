@@ -6,15 +6,12 @@ var cookieParser  = require('cookie-parser');
 var bodyParser    = require('body-parser');
 var multer        = require('multer'); // v1.0.5
 var upload        = multer(); // for parsing multipart/form-data
-var passport      = require('passport');
-var LocalStrategy = require('passport-local').Strategy;
-var session       = require('express-session');
-var bcrypt        = require('bcrypt-nodejs');
 
 var index         = require('./app/routes/index');
 var userInfo      = require('./app/routes/user');
 var product       = require('./app/routes/product');
 var tag           = require('./app/routes/tag');
+var account       = require('./app/routes/account');
 var cloudinary    = require('./config/cloudinary');
 var app           = express();
 
@@ -34,58 +31,7 @@ app.use('/', index);
 app.use('/user', userInfo);
 app.use('/product', product);
 app.use('/tag', tag);
-
-var account = require('./app/requestHandlers/account');
-var UserModel = require('./app/models/models').userModel;
-
-passport.use(new LocalStrategy(function(username, password, done) {
-   new UserModel({email: username}).fetch().then(function(data) {
-      var user = data;
-      if(user === null) {
-         return done(null, false, {message: 'Invalid username or password'});
-      } else {
-         user = data.toJSON();
-
-         if(!bcrypt.compareSync(password, user.password)) {
-            return done(null, false, {message: 'Invalid username or password'});
-         } else {
-            return done(null, user);
-         }
-      }
-   });
-}));
-
-passport.serializeUser(function(user, done) {
-  done(null, user.email);
-});
-
-passport.deserializeUser(function(username, done) {
-   new UserModel({email: username}).fetch().then(function(user) {
-      done(null, user);
-   });
-});
-
-app.use(session({secret: 'secret strategic xxzzz code'}));
-app.use(passport.initialize());
-app.use(passport.session());
-
-
-app.get('/profile', account.profile);
-
-app.get('/add-product', account.isAuthenticated, function(req, res, next) {
-  res.render('addProduct', {url: req.path, userId: req.user.get('userId')});
-});
-// signin
-app.get('/signin', account.signIn);
-app.post('/signin', account.signInPost);
-
-// signup
-app.get('/signup', account.signUp);
-app.post('/signup', account.signUpPost);
-
-// logout
-app.get('/signout', account.signOut);
-
+app.use('/account', account);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

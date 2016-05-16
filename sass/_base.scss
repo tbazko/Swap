@@ -9,6 +9,10 @@ html, body {
   }
 }
 
+html {
+  position: relative;
+}
+
 h1, h2, h3, h4, h5, h6 {
   color: $color-night-rider;
   font-family: $titleFont;
@@ -95,6 +99,10 @@ p {
 
 .inline-block {
   display: inline-block;
+}
+
+.is-hidden {
+  display: none;
 }
 
 .middle {

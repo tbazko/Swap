@@ -1,4 +1,6 @@
 .main-container {
+  position: relative;
+  
   @include breakpoint('small') {
     margin: 50px + $navigationHeight 60px 60px;
   }

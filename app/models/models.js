@@ -1,64 +1,99 @@
 var DB = require('../../config/database').DB;
 
-var Product = DB.Model.extend({
-  tableName: 'Products',
-  idAttribute: 'productId',
-  user: function() {
-  	return this.belongsTo(User, 'userId');
+var User = DB.Model.extend({
+  tableName: 'users',
+  idAttribute: 'id',
+  products: function() {
+    return this.hasMany(Product);
   },
-  images: function() {
-    return this.hasMany(ProductImage, 'productId');
+  swapRequestsIncoming: function() {
+    return this.hasMany(SwapRequest);
   },
-  tags: function() {
-    return this.belongsToMany(Tag, 'Products_Tags', 'productId', 'tagId');
-  },
-  swapForTags: function() {
-    return this.belongsToMany(Tag, 'Products_SwapForTags', 'productId', 'tagId');
+  swapRequestsOutgoing: function() {
+    return this.hasMany(SwapRequest);
   }
 });
 
-var User = DB.Model.extend({
-   tableName: 'Users',
-   idAttribute: 'userId',
-   products: function() {
-    return this.hasMany(Product, 'userId');
-   }
+var Product = DB.Model.extend({
+  tableName: 'products',
+  idAttribute: 'id',
+  user: function() {
+  	return this.belongsTo(User);
+  },
+  images: function() {
+    return this.hasMany(ProductImage);
+  },
+  tags: function() {
+    return this.belongsToMany(Tag);
+  },
+  swapForTags: function() {
+    return this.belongsToMany(Tag, 'products_swapForTags');
+  },
+  // where Product is as Master (main one)
+  swapRequestsAsMaster: function() {
+    return this.belongsToMany(SwapRequest, 'masterProducts_swapRequests');
+  },
+  // where Product is as Slave, proposed for barter
+  swapRequestsAsSlave: function() {
+    return this.belongsToMany(SwapRequest, 'slaveProducts_swapRequests');
+  }
+});
+
+var SwapRequest = DB.Model.extend({
+  tableName: 'swapRequests',
+  idAttribute: 'id',
+  seller: function() {
+    return this.belongsTo(User, 'seller_id');
+  },
+  buyer: function() {
+    return this.belongsTo(User, 'buyer_id');
+  },
+  masterProducts: function() {
+    return this.belongsToMany(Product, 'masterProducts_swapRequests', 'id', 'request_id');
+  },
+  slaveProducts: function() {
+    return this.belongsToMany(Product, 'slaveProducts_swapRequests', 'id', 'request_id');
+  }
 });
 
 var ProductImage = DB.Model.extend({
-  tableName: 'ProductImages',
-  idAttribute: 'imageId',
+  tableName: 'productImages',
+  idAttribute: 'id',
   product: function() {
-  	return this.belongsTo(Product, 'productId');
+  	return this.belongsTo(Product);
   }
 });
 
 var Tag = DB.Model.extend({
-  tableName: 'Tags',
-  idAttribute: 'tagId',
+  tableName: 'tags',
+  idAttribute: 'id',
   products: function() {
-    return this.belongsToMany(Product, 'Products_Tags', 'tagId', 'productId');
+    return this.belongsToMany(Product);
   }
 });
 
 var SwapForTag = DB.Model.extend({
-  tableName: 'Tags',
-  idAttribute: 'tagId',
+  tableName: 'tags',
+  idAttribute: 'id',
   products: function() {
-    return this.belongsToMany(Product, 'Products_SwapForTags', 'tagId', 'productId');
+    return this.belongsToMany(Product, 'products_swapForTags', 'id', 'tag_id');
   }
+});
+
+var Users = DB.Collection.extend({
+  model: User
 });
 
 var Products = DB.Collection.extend({
   model: Product
 });
 
-var ProductImages = DB.Collection.extend({
-  model: ProductImage
+var SwapRequests = DB.Collection.extend({
+  model: SwapRequest
 });
 
-var Users = DB.Collection.extend({
-  model: User
+var ProductImages = DB.Collection.extend({
+  model: ProductImage
 });
 
 var Tags = DB.Collection.extend({
@@ -69,14 +104,17 @@ var SwapForTags = DB.Collection.extend({
   model: SwapForTag
 });
 
+module.exports.userModel = User;
+module.exports.userCollection = Users;
+
 module.exports.productModel = Product;
 module.exports.productCollection = Products;
 
+module.exports.swapRequestModel = SwapRequest;
+module.exports.swapRequestCollection = SwapRequests;
+
 module.exports.productImageModel = ProductImage;
 module.exports.productImageCollection = ProductImages;
-
-module.exports.userModel = User;
-module.exports.userCollection = Users;
 
 module.exports.tagModel = Tag;
 module.exports.tagCollection = Tags;

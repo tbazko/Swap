@@ -10,11 +10,11 @@ block content
     if products  
       .row.row-with-blocks-v2
         each product in products
-          .product(data-product-id='#{product.productId}')
-            a.img-container(href='/product/#{product.productId}')
+          .product(data-product-id='#{product.id}')
+            a.img-container(href='/product/#{product.id}')
               !{product.image}
             .content-container
               h4.product-title= product.name
-              form(action="/destroy-item" method="post")
-                input(type="hidden" name="productId" value="#{product.productId}")
+              form(action="/account/destroy-item" method="post")
+                input(type="hidden" name="productId" value="#{product.id}")
                 button(type="submit") Remove

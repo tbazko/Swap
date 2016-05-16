@@ -1,7 +1,10 @@
-define(function (require) {
-  var $ = require('jquery'),
-      utils = require('components/utils/utils');
-
+define([
+  'jquery',
+  'components/utils/utils'
+], function (
+  $,
+  utils
+) {
   var tabPane = {
     tab: undefined,
     pane: undefined,

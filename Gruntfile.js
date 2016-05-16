@@ -21,6 +21,16 @@ module.exports = function(grunt) {
         }
       }
     },
+    jade: {
+      amd: {
+        files: {
+          'public/javascripts/templates/': ['views/FEDtemplates/*.jade']
+        },
+        options: {
+          wrap: 'amd'
+        }
+      }
+    },
     watch: {
       css: {
         files: 'sass/**/*.scss',
@@ -28,6 +38,10 @@ module.exports = function(grunt) {
         options: {
           livereload: true, // needed to run LiveReload
         }
+      },
+      jade: {
+        files: 'views/FEDtemplates/*.jade',
+        tasks: 'jade'
       }
     }
   });
@@ -35,5 +49,6 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-autoprefixer');
   grunt.loadNpmTasks('grunt-contrib-sass');
+  grunt.loadNpmTasks('grunt-jade');
   grunt.registerTask('default', ['watch']);
 }

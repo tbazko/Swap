@@ -1,8 +1,8 @@
 
 exports.up = function(knex, Promise) {
   return knex.schema
-  .createTableIfNotExists('Users', function(table) {
-    table.increments('userId').unsigned().notNullable().primary();
+  .createTableIfNotExists('users', function(table) {
+    table.increments('id').unsigned().notNullable().primary();
     table.string('firstName');
     table.string('lastName');
     table.string('address');
@@ -13,40 +13,59 @@ exports.up = function(knex, Promise) {
     table.string('phone');
     table.timestamp('reg_date');
   })
-  .createTableIfNotExists('Products', function(table) {
-    table.increments('productId').unsigned().notNullable().primary();
+  .createTableIfNotExists('products', function(table) {
+    table.increments('id').unsigned().notNullable().primary();
     table.string('name').notNullable();
-    table.integer('userId').unsigned().notNullable().references('users.userId');
+    table.integer('user_id').unsigned().notNullable().references('users.id');
     table.string('state');
     table.string('description').defaultTo('');
     table.string('condition').notNullable();
     table.string('thumbnail');
     table.timestamp('reg_date');
   })
-  .createTableIfNotExists('ProductImages', function(table) {
-    table.string('imageId').primary();
-    table.integer('productId').unsigned().notNullable().references('products.productId');
+  .createTableIfNotExists('swapRequests', function(table) {
+    table.increments('id').unsigned().notNullable().primary();
+    table.integer('buyer_id').unsigned().notNullable().references('users.id');
+    table.integer('seller_id').unsigned().notNullable().references('users.id');
+    table.string('email');
+    table.string('phone');
+    table.string('message');
   })
-  .createTableIfNotExists('Tags', function(table) {
-    table.increments('tagId').notNullable().unsigned().primary();
+  .createTableIfNotExists('productImages', function(table) {
+    table.string('id').primary();
+    table.integer('product_id').unsigned().notNullable().references('products.id');
+  })
+  .createTableIfNotExists('tags', function(table) {
+    table.increments('id').notNullable().unsigned().primary();
     table.string('name').unique();
   })
-  .createTableIfNotExists('Products_Tags', function(table) {
-    table.integer('productId').unsigned().notNullable().references('products.productId');
-    table.integer('tagId').unsigned().notNullable().references('tags.tagId');
+  .createTableIfNotExists('products_tags', function(table) {
+    table.integer('product_id').unsigned().notNullable().references('products.id');
+    table.integer('tag_id').unsigned().notNullable().references('tags.id');
   })
-  .createTableIfNotExists('Products_SwapForTags', function(table) {
-    table.integer('productId').unsigned().notNullable().references('products.productId');
-    table.integer('tagId').unsigned().notNullable().references('tags.tagId');
+  .createTableIfNotExists('products_swapForTags', function(table) {
+    table.integer('product_id').unsigned().notNullable().references('products.id');
+    table.integer('tag_id').unsigned().notNullable().references('tags.id');
+  })
+  .createTableIfNotExists('masterProducts_swapRequests', function(table) {
+    table.integer('product_id').unsigned().notNullable().references('products.id');
+    table.integer('request_id').unsigned().notNullable().references('swaprequests.id');
+  })
+  .createTableIfNotExists('slaveProducts_swapRequests', function(table) {
+    table.integer('product_id').unsigned().notNullable().references('products.id');
+    table.integer('request_id').unsigned().notNullable().references('swaprequests.id');
   });
 };
 
 exports.down = function(knex, Promise) {
   return knex.schema
-  .dropTable('Products_SwapForTags')
-  .dropTable('Products_Tags')
-  .dropTable('Tags')
-  .dropTable('ProductImages')
-  .dropTable('Products')
-  .dropTable('Users');
+  .dropTable('masterProducts_swapRequests')
+  .dropTable('slaveProducts_swapRequests')
+  .dropTable('swapRequests')
+  .dropTable('products_swapForTags')
+  .dropTable('products_tags')
+  .dropTable('tags')
+  .dropTable('productImages')
+  .dropTable('products')
+  .dropTable('users');
 };

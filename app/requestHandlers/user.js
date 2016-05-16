@@ -3,7 +3,7 @@ var UserModel = require('../models/models').userModel;
 var loadInfo = function(req, res, next) {
   var userId = req.params.id;
   UserModel.forge()
-  .fetch({userId: userId})
+  .fetch({id: userId})
   .then(function(model) {
     res.render('user', { user: model.serialize() });
   });
