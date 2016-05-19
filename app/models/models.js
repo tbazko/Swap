@@ -6,11 +6,14 @@ var User = DB.Model.extend({
   products: function() {
     return this.hasMany(Product);
   },
+  newSwapRequests: function() {
+    return this.hasMany(SwapRequest, 'seller_id');
+  },
   swapRequestsIncoming: function() {
-    return this.hasMany(SwapRequest);
+    return this.hasMany(SwapRequest, 'seller_id');
   },
   swapRequestsOutgoing: function() {
-    return this.hasMany(SwapRequest);
+    return this.hasMany(SwapRequest, 'buyer_id');
   }
 });
 
@@ -31,11 +34,11 @@ var Product = DB.Model.extend({
   },
   // where Product is as Master (main one)
   swapRequestsAsMaster: function() {
-    return this.belongsToMany(SwapRequest, 'masterProducts_swapRequests');
+    return this.belongsToMany(SwapRequest, 'masterProducts_swapRequests', 'product_id', 'request_id');
   },
   // where Product is as Slave, proposed for barter
   swapRequestsAsSlave: function() {
-    return this.belongsToMany(SwapRequest, 'slaveProducts_swapRequests');
+    return this.belongsToMany(SwapRequest, 'slaveProducts_swapRequests', 'product_id', 'request_id');
   }
 });
 
@@ -49,10 +52,10 @@ var SwapRequest = DB.Model.extend({
     return this.belongsTo(User, 'buyer_id');
   },
   masterProducts: function() {
-    return this.belongsToMany(Product, 'masterProducts_swapRequests', 'id', 'request_id');
+    return this.belongsToMany(Product, 'masterProducts_swapRequests', 'request_id', 'product_id');
   },
   slaveProducts: function() {
-    return this.belongsToMany(Product, 'slaveProducts_swapRequests', 'id', 'request_id');
+    return this.belongsToMany(Product, 'slaveProducts_swapRequests', 'request_id', 'product_id');
   }
 });
 

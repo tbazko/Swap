@@ -4,7 +4,7 @@ var bcrypt = require('bcrypt-nodejs');
 
 // custom library
 // model
-var UserModel = require('../models/models').userModel;
+var User = require('../models/models').userModel;
 
 // index
 var profile = function(req, res, next) {
@@ -13,10 +13,14 @@ var profile = function(req, res, next) {
    } else {
       var user = req.user;
 
-      if(user !== undefined) {
-         user = user.toJSON();
-      }
-      res.render('account/profile', {user: user});
+      User
+        .forge({id: user.get('id')})
+        .fetch({withRelated: ['newSwapRequests', 'swapRequestsIncoming', 'swapRequestsOutgoing']})
+        .then(function(currUser) {
+          var newRequests = currUser.related('newSwapRequests');
+          console.log(newRequests.length);
+          res.render('account/profile', {user: user.toJSON(), newRequests: newRequests.length});
+        });
    }
 };
 
@@ -88,7 +92,7 @@ var signUp = function(req, res, next) {
 var signUpPost = function(req, res, next) {
    var user = req.body;
    var usernamePromise = null;
-   usernamePromise = new UserModel({email: user.username}).fetch();
+   usernamePromise = new User({email: user.username}).fetch();
 
    return usernamePromise.then(function(model) {
       if(model) {
@@ -100,7 +104,7 @@ var signUpPost = function(req, res, next) {
          var password = user.password;
          var hash = bcrypt.hashSync(password);
 
-         var signUpUser = new UserModel({
+         var signUpUser = new User({
             email: user.username,
             password: hash,
             firstName: 'TamaraTest',

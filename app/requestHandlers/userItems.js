@@ -45,6 +45,8 @@ var destroyItem = function(req, res, next) {
 
       product.tags().detach();
       product.swapForTags().detach();
+      product.swapRequestsAsMaster().detach();
+      product.swapRequestsAsSlave().detach();
       product.destroy().then(function() {
         res.redirect('/account/my-items');
       });

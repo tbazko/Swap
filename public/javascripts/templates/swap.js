@@ -6,14 +6,14 @@ var buf = [];
 with (locals || {}) {
 var interp;
 buf.push('<div class="swapFields"> <input');
-buf.push(attrs({ 'type':("text"), 'placeholder':("Email"), 'name':("email"), 'value':("" + (locals.email) + "") }, {"type":true,"placeholder":true,"name":true,"value":true}));
+buf.push(attrs({ 'type':("text"), 'placeholder':("Email"), 'name':("email"), 'value':("" + (locals.user.email) + "") }, {"type":true,"placeholder":true,"name":true,"value":true}));
 buf.push('/><input type="text" placeholder="Phone" name="phone"/><textarea name="message" placeholder="Leave a message for the owner"></textarea></div>');
-// iterate locals
+// iterate locals.data
 ;(function(){
-  if ('number' == typeof locals.length) {
+  if ('number' == typeof locals.data.length) {
 
-    for (var $index = 0, $$l = locals.length; $index < $$l; $index++) {
-      var product = locals[$index];
+    for (var $index = 0, $$l = locals.data.length; $index < $$l; $index++) {
+      var product = locals.data[$index];
 
 buf.push('<label');
 buf.push(attrs({ 'data-product-id':("" + (product.id) + ""), 'for':("" + (product.id) + ""), "class": ('product') + ' ' + ('product--inSwapList') }, {"data-product-id":true,"for":true}));
@@ -53,8 +53,8 @@ buf.push('/></label>');
 
   } else {
     var $$l = 0;
-    for (var $index in locals) {
-      $$l++;      var product = locals[$index];
+    for (var $index in locals.data) {
+      $$l++;      var product = locals.data[$index];
 
 buf.push('<label');
 buf.push(attrs({ 'data-product-id':("" + (product.id) + ""), 'for':("" + (product.id) + ""), "class": ('product') + ' ' + ('product--inSwapList') }, {"data-product-id":true,"for":true}));

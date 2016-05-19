@@ -1,9 +1,12 @@
+var events = require('events');
+var eventEmitter = new events.EventEmitter();
 var Model = require('../models/models');
 var Product = Model.productModel;
 var User = Model.userModel;
 var SwapRequest = Model.swapRequestModel;
 var cloudinary = require('../../config/cloudinary');
 var jade = require('jade');
+var notifyUser = require('./user').swapNotification;
 
 var openDetailsPage = function(req, res, next) {
   var productId = req.params.id;
@@ -37,19 +40,33 @@ var openDetailsPage = function(req, res, next) {
     });
 }
 
-var swapRequest = function(req, res, next) {
+var productSwapRequest = function(req, res, next) {
   var swapForm = req.body;
+  var userId = req.user.id;
+  var masterProductId = req.params.id;
+  var slaveProductIds = [];
+  slaveProductIds = swapForm['productId[]'];
   var newSwapRequest = new SwapRequest({
-    // productId: swapForm.productId,
-    // userId: swapForm.userId,
+    seller_id: swapForm.authorId,
+    buyer_id: userId,
     email: swapForm.email,
     phone: swapForm.phone,
     message: swapForm.message
   });
-  newSwapRequest.save().then(function(swapRequest) {
 
+  eventEmitter.once('swapRequestCreated', function(swapRequest) {
+    console.log('event caught, swap request details:');
+    notifyUser(swapRequest);
+  });
+
+  newSwapRequest.save().then(function(swapRequest) {
+    swapRequest.masterProducts().attach(masterProductId);
+    swapRequest.slaveProducts().attach(slaveProductIds);
+
+    eventEmitter.emit('swapRequestCreated', swapRequest);
+    res.send({ data: true });
   });
 }
 
 module.exports.openDetailsPage = openDetailsPage;
-module.exports.swapRequest = swapRequest;
+module.exports.swapRequest = productSwapRequest;
