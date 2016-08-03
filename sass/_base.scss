@@ -65,6 +65,10 @@ p {
   line-height: 1.4;
 }
 
+textarea {
+  border: 0;
+}
+
 .text-left {
   text-align: left;
 }
@@ -78,11 +82,15 @@ p {
 }
 
 .right {
-  float: right;
+  @include breakpoint(small) {
+    float: right;
+  }
 }
 
 .left {
-  float: left;
+  @include breakpoint(small) {
+    float: left;
+  }
 }
 
 .clear {
@@ -102,7 +110,15 @@ p {
 }
 
 .is-hidden {
+  display: none !important;
+}
+
+.is-hidden--small {
   display: none;
+
+  @include breakpoint(small) {
+    display: initial;
+  }
 }
 
 .middle {

@@ -4,7 +4,7 @@ var bcrypt = require('bcrypt-nodejs');
 
 // custom library
 // model
-var User = require('../models/models').userModel;
+var User = require('../../models/models').userModel;
 
 // index
 var profile = function(req, res, next) {
@@ -18,7 +18,6 @@ var profile = function(req, res, next) {
         .fetch({withRelated: ['newSwapRequests', 'swapRequestsIncoming', 'swapRequestsOutgoing']})
         .then(function(currUser) {
           var newRequests = currUser.related('newSwapRequests');
-          console.log(newRequests.length);
           res.render('account/profile', {user: user.toJSON(), newRequests: newRequests.length});
         });
    }

@@ -1,0 +1,29 @@
+extends ../../layout
+
+block content
+  .main-container.paperStyle-container
+    h1.main-title Requests
+    p.pb30 You have: #{requests.length} new request(s)
+    
+    each request in requests
+      a.row.pb20(href="/account/requests/#{request.id}")
+        .col.col-xs4.col-sm12.col-md4.clearfix
+          each product in request.masterProducts
+            .left
+              !{product.thumbnail}
+          div.left.p30
+            p ===>
+            p <===
+          div.left.requestsOverview
+            each product in request.slaveProducts
+              .requestsOverview-slaveProducts
+                !{product.thumbnail}
+          
+        .col.col-xs4.col-sm12.col-md6
+          p #{request.email}:
+          p #{request.message}
+          
+        .col.col-xs4.col-sm12.col-md2
+          p Inquiry
+          p 22 May 2016
+          //- p Status (Inquiry, Accepted, Pending, Declined)

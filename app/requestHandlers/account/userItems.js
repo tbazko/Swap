@@ -1,10 +1,10 @@
 var events = require('events');
 var eventEmitter = new events.EventEmitter();
-var Models = require('../models/models');
+var Models = require('../../models/models');
 var ProductModel = Models.productModel;
 var ProductCollection = Models.productCollection;
-var cloudinary = require('../../config/cloudinary');
-var shared = require('./shared/base');
+var cloudinary = require('../../../config/cloudinary');
+var shared = require('../shared/base');
 
 var render = function(req, res, next) {
   if(!req.user) {
@@ -56,6 +56,15 @@ var destroyItem = function(req, res, next) {
     });
 }
 
+var editItem = function(req, res, next) {
+  ProductModel.forge({id: req.body.productId})
+    .fetch({withRelated: ['images']}).then(function(product) {
+      res.render('editItemForm', { product: product.serialize(), userId: req.user.get('id'), newItem: false, url: req.path });
+    }).catch(function (err) {
+      console.log(err);
+    });
+}
+
 var getItemsForSwap = function(req, res, next) {
   var url = req.path;
   var user = {
@@ -71,4 +80,5 @@ var getItemsForSwap = function(req, res, next) {
 
 module.exports.render = render;
 module.exports.destroyItem = destroyItem;
+module.exports.editItem = editItem;
 module.exports.getItemsForSwap = getItemsForSwap;

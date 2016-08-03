@@ -1,0 +1,32 @@
+extends ../../layout
+
+block content
+  .main-container
+    
+    .row.pb20
+        
+      .col.col-xs4.col-sm12.col-md8.pr30
+        .pl30.pb25.mb20.js-messageForm
+          form.form.text-right(action="#{currentUrl}/message", method="POST")
+            textarea.small.light.js-messageTextarea
+            input(type="submit", value="Send message").btn.btn-secondary.btn-small.mt10.js-messageSubmit
+        .paperStyle.pl30.pr30.pt25.pb25.mr30.mb20
+          p.section-subtitle #{request.email}:
+          p #{request.message}
+        .paperStyle.pl30.pr30.pt25.pb25.ml30.mb20
+          p.section-subtitle Me:
+          p I like proposition. Where can we meet?
+        .paperStyle.pl30.pr30.pt25.pb25.mr30.mb20
+          p.section-subtitle #{request.email}:
+          p Dunno, your place? 
+      .col.col-xs4.col-sm12.col-md4.paperStyle.p30
+        each product in request.masterProducts
+          .left
+            !{product.thumbnail}
+          div.left.p30
+            p ===>
+            p <===
+          div.left.requestsOverview
+            each product in request.slaveProducts
+              .requestsOverview-slaveProducts
+                !{product.thumbnail}   

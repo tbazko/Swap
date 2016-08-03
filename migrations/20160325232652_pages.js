@@ -39,6 +39,13 @@ exports.up = function(knex, Promise) {
     table.increments('id').notNullable().unsigned().primary();
     table.string('name').unique();
   })
+  .createTableIfNotExists('requestMessages', function(table) {
+    table.increments('id').notNullable().unsigned().primary();
+    table.timestamp('reg_date');
+    table.string('text');
+    table.integer('user_id').unsigned().notNullable().references('users.id');
+    table.integer('swapRequest_id').unsigned().notNullable().references('swaprequests.id');
+  })
   .createTableIfNotExists('products_tags', function(table) {
     table.integer('product_id').unsigned().notNullable().references('products.id');
     table.integer('tag_id').unsigned().notNullable().references('tags.id');
@@ -61,6 +68,7 @@ exports.down = function(knex, Promise) {
   return knex.schema
   .dropTable('masterProducts_swapRequests')
   .dropTable('slaveProducts_swapRequests')
+  .dropTable('requestMessages')
   .dropTable('swapRequests')
   .dropTable('products_swapForTags')
   .dropTable('products_tags')

@@ -13,8 +13,35 @@ var SwapForTag = Models.swapForTagModel;
 
 function upload(req, res) {
   eventEmitter
-    .once('formParsed', createNewProductInDB);
+    .once('formParsed', onFormParsed)
+    .once('itemEdited', onItemEdited.bind(this, res));
   uploadImage(req, res);
+}
+
+function onFormParsed(fields, files) {
+  if(fields.newItem === 'true') {
+    createNewProductInDB(fields, files);
+  } else {
+    updateProductInDB(fields, files);
+  }
+}
+
+function onItemEdited(res, isNew, item) {
+  res.json({isNewItem: isNew, changed: true, product: item});
+}
+
+function updateProductInDB(fields, files) {
+  Product.forge({id: fields.productId}).set({
+    name: fields.name
+    // state: 'FOR_SALE',
+    // description: fields.description,
+    // user_id: fields.userId,
+    // condition: fields.productCondition
+  }).save().then(function(editedProduct) {
+    eventEmitter.emit('itemEdited', false, editedProduct);
+    console.log(editedProduct.get('name'));
+    console.log('updated');
+  });
 }
 
 function createNewProductInDB(fields, files) {
@@ -23,13 +50,18 @@ function createNewProductInDB(fields, files) {
     state: 'FOR_SALE',
     description: fields.description,
     user_id: fields.userId,
-    condition: fields.productCondition,
+    condition: fields.productCondition
   });
 
   newProduct.save().then(function(product) {
+    eventEmitter.emit('itemEdited', true, product);
+
     var productId = product.get('id');
     var name = files.upload.name.replace(/\.jpg|\.jpeg|\.bmp|\.gif/gmi, '');
     var public_id = productId + '/' + name;
+    var thumbnail = cloudinary.image(public_id + '.jpg', {alt: public_id, height: 100, width: 100, crop: 'fill', gravity: 'center'});
+
+    product.set({thumbnail: thumbnail}).save();
 
     var productImage = new ProductImage({
       id: public_id,
@@ -63,6 +95,7 @@ function createNewProductInDB(fields, files) {
     }
 
     productImage.save(null, {method: 'insert'});
+
   });
 }
 
@@ -95,9 +128,10 @@ var addTag = function(modelName, isTag, tagName, product) {
 var uploadImage = function uploadImage(req, res) {
   var form = new formidable.IncomingForm();
   form.parse(req, function(error, fields, files) {
-
+    if(error) {
+      console.log(error);
+    }
     eventEmitter.emit('formParsed', fields, files);
-    res.render('addProduct', {url: req.path, userId: fields.userId, itemAdded: true});
   });
 }
 

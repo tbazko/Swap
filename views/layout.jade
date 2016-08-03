@@ -3,7 +3,9 @@ html
   head
     title= Swap
     link(rel="stylesheet", href="/stylesheets/master.css")
-    script(data-main="/javascripts/base", src="/javascripts/lib/require.js", async)
+    meta(name="viewport", content="width=device-width, initial-scale=1")
+    block scripts
+      script(data-main="/javascripts/base", src="/javascripts/lib/require.js", async)
     include ./includes/navigation.jade
     block content
     footer.footer

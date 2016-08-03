@@ -3,7 +3,8 @@ define([
   'components/utils/utils'
 ], function (
   $,
-  utils
+  utils,
+  Messenger
 ) {
   $(document).ready(function() {
     $('.js-swap-btn').on('click', function(e) {

@@ -32,6 +32,12 @@
     }
   }
 
+  input {
+    &:focus {
+      outline: none;
+    }
+  }
+
   textarea {
     background: $color-white-smoke;
     border: 0;
@@ -41,6 +47,27 @@
     font-family: $mainFont;
     width: 100%;
     padding: 8px 12px 5px 12px;
+    height: 140px;
     width: 100%;
+
+    &:focus {
+      outline: none;
+    }
+
+    &.small {
+      height: 90px;
+    }
+
+    &.light {
+      background: $color-white;
+      border: 1px solid $color-white;
+      color: $color-night-rider;
+      transition: border ease .25s;
+
+      &:focus {
+        border: 1px solid $color-outrageous-orange;
+        transition: border ease .25s;
+      }
+    }
   }
 }

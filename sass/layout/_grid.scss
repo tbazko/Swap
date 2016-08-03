@@ -5,6 +5,7 @@
 .col {
   float: left;
   width: 100%;
+  min-height: 1px;
 }
 
 .col-product-block {
@@ -43,6 +44,7 @@
   max-width: 100%;
   margin: 0 auto;
   position: relative;
+  display: block;
 }
 
 .row-with-blocks {

@@ -119,16 +119,7 @@ define([
     sendSwapRequest: function() {
       var url = this.$swapForm.attr("action");
       var formData = {};
-      this.$swapForm.find('input[name]:not([type="checkbox"]), textarea').each(function (index, node) {
-        formData[node.name] = node.value;
-      });
-      this.$swapForm.find(':checked').each(function(index, node) {
-        var name = node.name;
-        if(!formData[name]) {
-          formData[name] = [];
-        }
-        formData[name].push(node.value);
-      });
+      var formData = utils.gatherFormData(this.$swapForm);
       formData['authorId'] = $('.js-productDetails').find('.js-authorId').data('author-id');
 
       $.ajax({

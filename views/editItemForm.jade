@@ -1,0 +1,50 @@
+extends layout
+block scripts
+  script(data-main="/javascripts/editItemForm", src="/javascripts/lib/require.js", async)
+  
+block content
+  .main-container
+    .row
+      .col.col-xs4.col-sm12.col-md8.col--mdPush2.paperStyle-container
+        if newItem && changed
+          h2.section-title.text-center.mb20 New item added! Bla
+        else if changed
+          h2.section-title.text-center.mb20 Item successfully edited! 2-3-4
+                    
+        if newItem
+          h1.main-title Add new item
+        else
+          h1.main-title Edit item
+        form(action="/upload", enctype="multipart/form-data", method="post", class="js-editItemForm form", id="editItemForm")
+          input(type="hidden", name="newItem", value="#{newItem}")
+          input(type="hidden", name="userId", value="#{userId}")
+          if !newItem
+            input(type="hidden", name="productId", value="#{product.id}")
+          if newItem
+            input(type="text" name="name" placeholder="Name")
+          else
+            input(type="text", name="name", placeholder="Name", value="#{product.name}")
+            
+          input(type="text", name="tags", placeholder="Tags, keywords")
+          input(type="text", name="swapForTags", placeholder="Swap for? Some tags/keywords here...")
+          p.mb20
+            label Condition&#32;
+            input(type="radio" name="productCondition" value="1")
+            |&nbsp;1&nbsp;
+            input(type="radio" name="productCondition" value="2")
+            |&nbsp;2&nbsp;
+            input(type="radio" name="productCondition" value="3")
+            |&nbsp;3&nbsp;
+            input(type="radio" name="productCondition" value="4")
+            |&nbsp;4&nbsp;
+            input(type="radio" name="productCondition" value="5")
+            |&nbsp;5&nbsp;
+          p.mb20
+            label Image&#32;
+            input(type="file" name="upload" accept="image/*")
+          if newItem
+            textarea(name="description", cols="30", rows="10", placeholder="Description")
+          else
+            textarea(name="description", cols="30", rows="10", placeholder="Description", value="#{product.description}") #{product.description}
+          p.text-center.mt20
+            input(type="submit" value="Save changes").btn.btn--turqoise
