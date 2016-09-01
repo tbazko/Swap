@@ -45,6 +45,9 @@ var Product = DB.Model.extend({
 var SwapRequest = DB.Model.extend({
   tableName: 'swapRequests',
   idAttribute: 'id',
+  messages: function() {
+    return this.hasMany(Message);
+  },
   seller: function() {
     return this.belongsTo(User, 'seller_id');
   },
@@ -83,6 +86,14 @@ var SwapForTag = DB.Model.extend({
   }
 });
 
+var Message = DB.Model.extend({
+  tableName: 'requestMessages',
+  idAttribute: 'id',
+  swapRequest: function() {
+    return this.belongsTo(SwapRequest);
+  }
+});
+
 var Users = DB.Collection.extend({
   model: User
 });
@@ -107,6 +118,10 @@ var SwapForTags = DB.Collection.extend({
   model: SwapForTag
 });
 
+var Messages = DB.Collection.extend({
+  model: SwapForTag
+});
+
 module.exports.userModel = User;
 module.exports.userCollection = Users;
 
@@ -124,3 +139,6 @@ module.exports.tagCollection = Tags;
 
 module.exports.swapForTagModel = Tag;
 module.exports.swapForTagCollection = Tags;
+
+module.exports.messageModel = Message;
+module.exports.messageCollection = Messages;

@@ -6,10 +6,8 @@ block content
   .main-container
     .row
       .col.col-xs4.col-sm12.col-md8.col--mdPush2.paperStyle-container
-        if newItem && changed
-          h2.section-title.text-center.mb20 New item added! Bla
-        else if changed
-          h2.section-title.text-center.mb20 Item successfully edited! 2-3-4
+        h2.section-title.text-center.mb20.js-item-added.is-hidden New item added!
+        h2.section-title.text-center.mb20.js-item-edited.is-hidden Item successfully edited!
                     
         if newItem
           h1.main-title Add new item

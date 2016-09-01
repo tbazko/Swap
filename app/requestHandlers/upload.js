@@ -32,11 +32,11 @@ function onItemEdited(res, isNew, item) {
 
 function updateProductInDB(fields, files) {
   Product.forge({id: fields.productId}).set({
-    name: fields.name
-    // state: 'FOR_SALE',
-    // description: fields.description,
-    // user_id: fields.userId,
-    // condition: fields.productCondition
+    name: fields.name,
+    state: 'FOR_SALE',
+    description: fields.description,
+    user_id: fields.userId,
+    condition: fields.productCondition
   }).save().then(function(editedProduct) {
     eventEmitter.emit('itemEdited', false, editedProduct);
     console.log(editedProduct.get('name'));

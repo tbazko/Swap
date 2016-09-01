@@ -1,24 +1,29 @@
 extends ../../layout
 
-block content
-  .main-container
-    
-    .row.pb20
-        
+block content 
+  
+  -var recieverId = user.id;  
+  -var isIncomingRequest = recieverId === request.seller.id;
+  
+  .main-container    
+    .row.pb20        
       .col.col-xs4.col-sm12.col-md8.pr30
-        .pl30.pb25.mb20.js-messageForm
+        .pb25.mb20.js-messageForm
           form.form.text-right(action="#{currentUrl}/message", method="POST")
-            textarea.small.light.js-messageTextarea
+            textarea.small.light.js-messageTextarea(name="message", placeholder="Leave a message for the owner")
             input(type="submit", value="Send message").btn.btn-secondary.btn-small.mt10.js-messageSubmit
-        .paperStyle.pl30.pr30.pt25.pb25.mr30.mb20
+    
+        div(class="paperStyle pl30 pr30 pt25 pb25 mb20 #{isIncomingRequest ? 'mr30' : 'ml30'}")
           p.section-subtitle #{request.email}:
           p #{request.message}
-        .paperStyle.pl30.pr30.pt25.pb25.ml30.mb20
-          p.section-subtitle Me:
-          p I like proposition. Where can we meet?
-        .paperStyle.pl30.pr30.pt25.pb25.mr30.mb20
-          p.section-subtitle #{request.email}:
-          p Dunno, your place? 
+      
+        each message in request.messages
+          -var messageUserId = message.user_id;
+      
+          div(class="paperStyle pl30 pr30 pt25 pb25 mb20 #{messageUserId === recieverId ? 'ml30' : 'mr30'}")
+            p.section-subtitle #{messageUserId === request.buyer.id ? request.buyer.email : request.seller.email} #{message.reg_date}:
+            p #{message.text}
+              
       .col.col-xs4.col-sm12.col-md4.paperStyle.p30
         each product in request.masterProducts
           .left

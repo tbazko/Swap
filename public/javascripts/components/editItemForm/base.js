@@ -35,6 +35,11 @@ define([
         data: formData
       }).done(function(resp) {
         console.log(resp);
+        if(resp.isNewItem) {
+          $('.js-item-added').removeClass('is-hidden');
+        } else {
+          $('.js-item-edited').removeClass('is-hidden');
+        }
       }).fail(function(err) {
         console.log(err);
       });
