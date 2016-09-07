@@ -1,19 +1,18 @@
 .row.paperStyle-container.js-swapContainer.swapContainer.mt10.is-hidden
   .col.col-xs4.col-sm12.col-md12
     .js-container-close.text-right Close
-    form.js-swapForm.form.form--swapForm(action="/product/#{product.id}/swap-request", method="POST")
+    form.js-swapForm.form.form--swapForm(action="/product/" + product.id + "/swap-request", method="POST")
       h3.form-title Choose item(s) to swap for&#32;
         strong "#{product.name}"
       .row.row-with-blocks-v2.js-swapItems
-          
+
       .row
         .col.col-xs4.col-sm12.col-md12.text-right
           input(type="submit", value="Swap").btn
-          
+
 .row.paperStyle-container.js-confirmation-container.swapContainer.mt10.is-hidden
   .col.col-xs4.col-sm12.col-md12
     .js-container-close.text-right Close
     h3.form-title Your request has been sent! Owner of &#32;
       strong "#{product.name}"&#32;
       | will be notified about your proposition.
-       

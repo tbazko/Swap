@@ -21,10 +21,10 @@ module.exports = function(grunt) {
         }
       }
     },
-    jade: {
+    pug: {
       amd: {
         files: {
-          'public/javascripts/templates/': ['views/FEDtemplates/*.jade']
+          'public/javascripts/templates/': ['views/FEDtemplates/*.pug']
         },
         options: {
           wrap: 'amd'
@@ -39,9 +39,9 @@ module.exports = function(grunt) {
           livereload: true, // needed to run LiveReload
         }
       },
-      jade: {
-        files: 'views/FEDtemplates/*.jade',
-        tasks: 'jade'
+      pug: {
+        files: 'views/FEDtemplates/*.pug',
+        tasks: 'pug'
       }
     }
   });
@@ -49,6 +49,6 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-autoprefixer');
   grunt.loadNpmTasks('grunt-contrib-sass');
-  grunt.loadNpmTasks('grunt-jade');
+  grunt.loadNpmTasks('grunt-contrib-pug');
   grunt.registerTask('default', ['watch']);
 }

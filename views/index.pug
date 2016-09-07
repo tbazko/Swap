@@ -3,29 +3,28 @@ extends layout
 block content
   -var products = data
   -var buttonText = 'Details'
-  
+
   .main-container.paperStyle-container
     .row
       .col.col-xs4.col-sm6.col-md8
         h2.section-title.pb10 Offers just for you
         if tag
           h4.pr20.section-subtitle.inline.is-active #{tag}
-        else   
+        else
           h4.pr20.section-subtitle.inline.is-active All
       .col.col-xs4.col-sm6.col-md4
         form(action="").right.search
           input(type="text").search-box
           button(type="submit").search-btn.icon-search
-    if products  
+    if products
     .row.row-with-blocks-v2
       each product in products
-        .product(data-product-id='#{product.id}')
+        .product(data-product-id=product.id)
           -var json = JSON.stringify(product)
-          a.img-container(href='/product/#{product.id}')
-            !{product.image}
+          a.img-container(href="/product/" + product.id)!= product.image
           .content-container
             h4.product-title= product.name
             p.product-tag-title
               b Seeks:&nbsp;
                 each swapForTag in product.swapForTags
-                  a(href="/tag/#{swapForTag.name}") #{swapForTag.name},&#32;
+                  a(href="/tag/" + swapForTag.name) #{swapForTag.name},&#32;

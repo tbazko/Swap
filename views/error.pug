@@ -1,0 +1,9 @@
+extends layout
+
+block content
+  .main-container.paperStyle-container
+    .row
+      .col.col-xs4.col-sm6.col-md12
+        h1= message
+        h2= error.status
+        pre #{error.stack}

@@ -7,18 +7,16 @@ block content
   .main-container.paperStyle-container
     .row
       h1.main-title My items list
-    if products  
+    if products
       .row.row-with-blocks-v2
         each product in products
-          .product(data-product-id='#{product.id}')
-            a.img-container(href='/product/#{product.id}')
-              !{product.image}
+          .product(data-product-id=product.id)
+            a.img-container(href='/product/' + product.id)!= product.image
             .content-container
               h4.product-title= product.name
               form(action="/account/destroy-item" method="post").left
-                input(type="hidden" name="productId" value="#{product.id}")
+                input(type="hidden" name="productId" value=product.id)
                 button(type="submit") Remove
               form(action="/account/edit-item" method="post").right
-                input(type="hidden" name="productId" value="#{product.id}")
+                input(type="hidden" name="productId" value=product.id)
                 button(type="submit") Edit
-                

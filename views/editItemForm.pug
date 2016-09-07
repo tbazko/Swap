@@ -1,28 +1,27 @@
 extends layout
 block scripts
   script(data-main="/javascripts/editItemForm", src="/javascripts/lib/require.js", async)
-  
+
 block content
   .main-container
     .row
       .col.col-xs4.col-sm12.col-md8.col--mdPush2.paperStyle-container
         h2.section-title.text-center.mb20.js-item-added.is-hidden New item added!
         h2.section-title.text-center.mb20.js-item-edited.is-hidden Item successfully edited!
-                    
         if newItem
           h1.main-title Add new item
         else
           h1.main-title Edit item
         form(action="/upload", enctype="multipart/form-data", method="post", class="js-editItemForm form", id="editItemForm")
-          input(type="hidden", name="newItem", value="#{newItem}")
-          input(type="hidden", name="userId", value="#{userId}")
+          input(type="hidden", name="newItem", value=newItem)
+          input(type="hidden", name="userId", value=userId)
           if !newItem
-            input(type="hidden", name="productId", value="#{product.id}")
+            input(type="hidden", name="productId", value=product.id)
           if newItem
             input(type="text" name="name" placeholder="Name")
           else
-            input(type="text", name="name", placeholder="Name", value="#{product.name}")
-            
+            input(type="text", name="name", placeholder="Name", value=product.name)
+
           input(type="text", name="tags", placeholder="Tags, keywords")
           input(type="text", name="swapForTags", placeholder="Swap for? Some tags/keywords here...")
           p.mb20
@@ -43,6 +42,6 @@ block content
           if newItem
             textarea(name="description", cols="30", rows="10", placeholder="Description")
           else
-            textarea(name="description", cols="30", rows="10", placeholder="Description", value="#{product.description}") #{product.description}
+            textarea(name="description", cols="30", rows="10", placeholder="Description", value=product.description) #{product.description}
           p.text-center.mt20
             input(type="submit" value="Save changes").btn.btn--turqoise

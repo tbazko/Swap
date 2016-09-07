@@ -1,37 +1,35 @@
 extends ../../layout
 
-block content 
-  
-  -var recieverId = user.id;  
+block content
+
+  -var recieverId = user.id;
   -var isIncomingRequest = recieverId === request.seller.id;
-  
-  .main-container    
-    .row.pb20        
+
+  .main-container
+    .row.pb20
       .col.col-xs4.col-sm12.col-md8.pr30
         .pb25.mb20.js-messageForm
-          form.form.text-right(action="#{currentUrl}/message", method="POST")
+          form.form.text-right(action=currentUrl + "/message", method="POST")
             textarea.small.light.js-messageTextarea(name="message", placeholder="Leave a message for the owner")
             input(type="submit", value="Send message").btn.btn-secondary.btn-small.mt10.js-messageSubmit
-    
-        div(class="paperStyle pl30 pr30 pt25 pb25 mb20 #{isIncomingRequest ? 'mr30' : 'ml30'}")
+
+        div(class=isIncomingRequest ? "mr30" : "ml30").paperStyle.pl30.pr30.pt25.pb25.mb20
           p.section-subtitle #{request.email}:
           p #{request.message}
-      
+
         each message in request.messages
           -var messageUserId = message.user_id;
-      
-          div(class="paperStyle pl30 pr30 pt25 pb25 mb20 #{messageUserId === recieverId ? 'ml30' : 'mr30'}")
+
+          div(class=messageUserId === recieverId ? "ml30" : "mr30").paperStyle.pl30.pr30.pt25.pb25.mb20
             p.section-subtitle #{messageUserId === request.buyer.id ? request.buyer.email : request.seller.email} #{message.reg_date}:
             p #{message.text}
-              
+
       .col.col-xs4.col-sm12.col-md4.paperStyle.p30
         each product in request.masterProducts
-          .left
-            !{product.thumbnail}
+          .left!= product.thumbnail
           div.left.p30
             p ===>
             p <===
           div.left.requestsOverview
             each product in request.slaveProducts
-              .requestsOverview-slaveProducts
-                !{product.thumbnail}   
+              .requestsOverview-slaveProducts!= product.thumbnail
