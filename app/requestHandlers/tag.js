@@ -1,37 +1,18 @@
-var events = require('events');
-var eventEmitter = new events.EventEmitter();
-var Tag = require('../models/models').tagModel;
-var Product = require('../models/models').productModel;
-var shared = require('./shared/base');
+"use strict";
+var TagModel = require('../core/models/TagModel');
 
 var render = function(req, res, next) {
-  var url = req.path;
-  var tag;
-
-  eventEmitter
-    .once('tagFetched', function(tag) {
-      tag = tag;
-    })
-    .once('productsFetched', function(products) {
-      res.render('index', { data: products, url: url, tag: req.params.id });
-    });
   getProducts(req, res, next);
 }
 
 var getProducts = function(req, res, next) {
   var tagName = req.params.id;
-  Tag.forge({name: tagName})
-    .fetch({withRelated: ['products']}).then(function(tag) {
-      tag.related('products')
-        .query(shared.getActiveProducts)
-        .fetch({withRelated: ['images', 'swapForTags']})
-        .then(function(collection) {
-          shared.getProductsList(collection, eventEmitter);
-        })
-        .catch(function (err) {
-          res.status(500).json({error: true, data: {message: err.message}});
-        });
-    });
+  var url = req.path;
+  var tagModel = new TagModel();
+
+  tagModel.loadRelatedProductsWithRelations(tagName, '[products.[images, swapForTags]]', function(products) {
+    res.render('index', { data: products, url: url, tag: req.params.id });
+  });
 }
 
 module.exports.render = render;

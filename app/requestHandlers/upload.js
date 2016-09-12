@@ -1,3 +1,5 @@
+"use strict";
+
 var events = require('events');
 var eventEmitter = new events.EventEmitter();
 var cloudinary = require('../../config/cloudinary');
@@ -5,11 +7,11 @@ var cloudinary = require('../../config/cloudinary');
 var querystring = require("querystring"),
     fs          = require("fs"),
     formidable  = require("formidable");
-var Models = require('../models/models');
-var Product = Models.productModel;
-var ProductImage = Models.productImageModel;
-var Tag = Models.tagModel;
-var SwapForTag = Models.swapForTagModel;
+// var Models = require('../core/models');
+var Product = require('../core/modelsDB/ProductModel');
+var ProductImage = require('../core/modelsDB/ProductImageModel');
+var Tag = require('../core/modelsDB/TagModel');
+var SwapForTag = require('../core/modelsDB/SwapForTagModel');
 
 function upload(req, res) {
   eventEmitter
@@ -19,7 +21,7 @@ function upload(req, res) {
 }
 
 function onFormParsed(fields, files) {
-  if(fields.newItem === 'true') {
+  if(fields.newItem) {
     createNewProductInDB(fields, files);
   } else {
     updateProductInDB(fields, files);
@@ -27,7 +29,7 @@ function onFormParsed(fields, files) {
 }
 
 function onItemEdited(res, isNew, item) {
-  res.json({isNewItem: isNew, changed: true, product: item});
+  res.json({isNewItem: isNew, changed: 1, product: item});
 }
 
 function updateProductInDB(fields, files) {
@@ -38,9 +40,7 @@ function updateProductInDB(fields, files) {
     user_id: fields.userId,
     condition: fields.productCondition
   }).save().then(function(editedProduct) {
-    eventEmitter.emit('itemEdited', false, editedProduct);
-    console.log(editedProduct.get('name'));
-    console.log('updated');
+    eventEmitter.emit('itemEdited', 0, editedProduct);
   });
 }
 
@@ -54,11 +54,12 @@ function createNewProductInDB(fields, files) {
   });
 
   newProduct.save().then(function(product) {
-    eventEmitter.emit('itemEdited', true, product);
+    eventEmitter.emit('itemEdited', 1, product);
 
     var productId = product.get('id');
     var name = files.upload.name.replace(/\.jpg|\.jpeg|\.bmp|\.gif/gmi, '');
-    var public_id = productId + '/' + name;
+    var public_id = `${productId}/${name}`;
+    console.log(public_id);
     var thumbnail = cloudinary.image(public_id + '.jpg', {alt: public_id, height: 100, width: 100, crop: 'fill', gravity: 'center'});
 
     product.set({thumbnail: thumbnail}).save();

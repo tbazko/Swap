@@ -20,8 +20,10 @@ block content
     .row.row-with-blocks-v2
       each product in products
         .product(data-product-id=product.id)
-          -var json = JSON.stringify(product)
-          a.img-container(href="/product/" + product.id)!= product.image
+
+          each image in product.images
+            a.img-container(href="/product/" + product.id)
+              img(src="http://res.cloudinary.com/di42acdz9/image/upload/" + image.id)
           .content-container
             h4.product-title= product.name
             p.product-tag-title

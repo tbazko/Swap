@@ -1,8 +1,6 @@
 var events = require('events');
 var eventEmitter = new events.EventEmitter();
-var Models = require('../../models/models');
-var ProductModel = Models.productModel;
-var ProductCollection = Models.productCollection;
+var ProductModel = require('../../core/modelsDB/ProductModel');
 var cloudinary = require('../../../config/cloudinary');
 var shared = require('../shared/base');
 
@@ -59,7 +57,7 @@ var destroyItem = function(req, res, next) {
 var editItem = function(req, res, next) {
   ProductModel.forge({id: req.body.productId})
     .fetch({withRelated: ['images']}).then(function(product) {
-      res.render('editItemForm', { product: product.serialize(), userId: req.user.get('id'), newItem: false, url: req.path });
+      res.render('editItemForm', { product: product.serialize(), userId: req.user.get('id'), newItem: 0, url: req.path });
     }).catch(function (err) {
       console.log(err);
     });

@@ -1,0 +1,7 @@
+.swapping-block {
+  display: none;
+
+  &.is-active {
+    display: block;
+  }
+}

@@ -4,7 +4,7 @@ var bcrypt = require('bcrypt-nodejs');
 
 // custom library
 // model
-var User = require('../../models/models').userModel;
+var User = require('../../core/modelsDB/UserModel');
 
 // index
 var profile = function(req, res, next) {
@@ -12,14 +12,14 @@ var profile = function(req, res, next) {
       res.redirect('/account/signin');
    } else {
       var user = req.user;
-
       User
-        .forge({id: user.get('id')})
-        .fetch({withRelated: ['newSwapRequests', 'swapRequestsIncoming', 'swapRequestsOutgoing']})
+        .query()
+        .where('id', '=', user.id)
+        .first()
         .then(function(currUser) {
-          var newRequests = currUser.related('newSwapRequests');
+          var newRequests = currUser.$loadRelated('[newSwapRequests]');
           res.render('account/profile', {user: user.toJSON(), newRequests: newRequests.length});
-        });
+        })
    }
 };
 

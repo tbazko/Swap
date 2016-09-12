@@ -1,9 +1,9 @@
 var events = require('events');
 var eventEmitter = new events.EventEmitter();
-var User = require('../../models/models').userModel;
-var SwapRequest = require('../../models/models').swapRequestModel;
-var SwapRequests = require('../../models/models').swapRequestCollection;
-var Message = require('../../models/models').messageModel;
+var User = require('../../core/modelsDB/UserModel');
+var SwapRequest = require('../../core/modelsDB/SwapRequestModel');
+// var SwapRequests = require('../../core/collections/swapRequestCollection');
+var Message = require('../../core/modelsDB/MessageModel');
 
 var render = function(req, res, next) {
   var user = req.user;

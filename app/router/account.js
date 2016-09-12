@@ -11,7 +11,7 @@ router.get('/signup', account.signUp);
 router.post('/signup', account.signUpPost);
 router.get('/signout', account.signOut);
 router.get('/add-item', account.signInRedirect, function(req, res, next) {
-  res.render('editItemForm', {url: req.path, userId: req.user.get('id'), newItem: true});
+  res.render('editItemForm', {url: req.path, userId: req.user.get('id'), newItem: 1});
 });
 router.get('/requests', account.signInRedirect, requests.render);
 router.get('/requests/:id', account.signInRedirect, requests.renderOne);

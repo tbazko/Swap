@@ -1,14 +1,13 @@
 var events = require('events');
 var eventEmitter = new events.EventEmitter();
-var Model = require('../models/models');
-var Product = Model.productModel;
-var User = Model.userModel;
-var SwapRequest = Model.swapRequestModel;
+var Product = require('../core/modelsDB/ProductModel');
+var User = require('../core/modelsDB/UserModel');
+var SwapRequest = require('../core/modelsDB/SwapRequestModel');
 var cloudinary = require('../../config/cloudinary');
-var jade = require('jade');
-var notifyUser = require('./user').swapNotification;
+var pug = require('pug');
 
 var openDetailsPage = function(req, res, next) {
+
   var productId = req.params.id;
 
   Product.forge({id: productId})
@@ -52,11 +51,6 @@ var productSwapRequest = function(req, res, next) {
     email: swapForm.email,
     phone: swapForm.phone,
     message: swapForm.message
-  });
-
-  eventEmitter.once('swapRequestCreated', function(swapRequest) {
-    console.log('event caught, swap request details:');
-    notifyUser(swapRequest);
   });
 
   newSwapRequest.save().then(function(swapRequest) {
