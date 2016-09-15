@@ -2,7 +2,6 @@
 var events = require('events');
 var eventEmitter = new events.EventEmitter();
 var Product = require('../../core/models/Product');
-var cloudinary = require('../../../config/cloudinary');
 
 var render = function(req, res, next) {
   let url = req.path;
@@ -30,34 +29,21 @@ var getProducts = function(req, res, next) {
 }
 
 var destroyItem = function(req, res, next) {
-  ProductModel.forge({id: req.body.productId})
-    .fetch({withRelated: ['images']}).then(function(product) {
-      var images = product.related('images');
-      images.each(function(image) {
-        cloudinary.uploader.destroy(image.get('id'));
-        image.destroy();
-      });
+  let product = new Product();
+  product.destroy(req.body.productId, function(err) {
+    if (err) console.log(err);
 
-      product.tags().detach();
-      product.swapForTags().detach();
-      product.swapRequestsAsMaster().detach();
-      product.swapRequestsAsSlave().detach();
-      product.destroy().then(function() {
-        res.redirect('/account/my-items');
-      });
-
-    }).catch(function (err) {
-      console.log(err);
-    });
+    res.redirect('/account/my-items');
+  });
 }
 
 var editItem = function(req, res, next) {
-  ProductModel.forge({id: req.body.productId})
-    .fetch({withRelated: ['images']}).then(function(product) {
-      res.render('editItemForm', { product: product.serialize(), userId: req.user.get('id'), newItem: 0, url: req.path });
-    }).catch(function (err) {
-      console.log(err);
-    });
+  let product = new Product();
+
+  product
+    .getWithRelations(req.body.productId, 'images', function(err, model) {
+      res.render('editItemForm', { product: model[0], userId: req.user.idea, newItem: 0, url: req.path });
+    })
 }
 
 var getItemsForSwap = function(req, res, next) {

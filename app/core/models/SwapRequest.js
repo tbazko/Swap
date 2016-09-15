@@ -27,6 +27,9 @@ class SwapRequest extends Base {
         slaveProductIds.forEach(function(value, index) {
           request.$relatedQuery('slaveProducts').relate(value);
         });
+      })
+      .catch(function(err) {
+        console.log(err);
       });
   }
 

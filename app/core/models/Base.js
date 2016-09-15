@@ -20,7 +20,7 @@ class Base {
       .where(this.idName, '=', id)
       .eager(relations)
       .then(function(items) {
-        callback(false, items);
+        callback(null, items);
       })
       .catch(function(err) {
         callback(true, err);
@@ -28,13 +28,12 @@ class Base {
   }
 
   getOneByIdentifier(id, callback) {
-    console.log(id);
     this.DataBaseObject
       .query()
       .where(this.identifier, '=', id)
       .first()
       .then(function(item) {
-        callback(false, item);
+        callback(null, item);
       })
       .catch(function(err) {
         callback(true, err);
@@ -46,7 +45,7 @@ class Base {
       .query()
       .where(this.identifier, '=', id)
       .then(function(items) {
-        callback(false, items);
+        callback(null, items);
       })
       .catch(function(err) {
         callback(true, err);
@@ -57,7 +56,7 @@ class Base {
     this.DataBaseObject
       .query()
       .then(function(items) {
-        callback(false, items);
+        callback(null, items);
       })
       .catch(function (err) {
         callback(true, err);

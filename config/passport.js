@@ -12,7 +12,6 @@ passport.use(new LocalStrategy(function(username, password, done) {
   user.identifier = 'email';
 
   user.getOneByIdentifier(username, function(err, user) {
-    console.log(user);
     if(user === null) {
        return done(null, false, {message: 'Invalid username or password'});
     } else {

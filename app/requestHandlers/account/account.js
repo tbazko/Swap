@@ -1,11 +1,7 @@
 "use strict";
-// vendor library
 var passport = require('passport');
 var bcrypt = require('bcrypt-nodejs');
-
-// custom library
-// model
-var User = require('../../core/models/User');
+const User = require('../../core/models/User');
 
 // index
 var profile = function(req, res, next) {
@@ -15,9 +11,8 @@ var profile = function(req, res, next) {
       var user = req.user;
       let userModel = new User();
 
-      userModel.getOneByIdentifier(user.id, function(err, currUser) {
-        var newRequests = currUser.$loadRelated('[newSwapRequests]');
-        res.render('account/profile', {user: user.toJSON(), newRequests: newRequests.length});
+      userModel.getWithRelations(user.id, 'newSwapRequests', function(err, currUser) {
+        res.render('account/profile', {user: currUser[0], newRequests: currUser[0].newSwapRequests.length});
       });
    }
 };
@@ -87,32 +82,23 @@ var signUp = function(req, res, next) {
 
 // sign up
 // POST
-var signUpPost = function(req, res, next) {
-   var user = req.body;
-   var usernamePromise = null;
-   usernamePromise = new User({email: user.username}).fetch();
+let signUpPost = function(req, res, next) {
+   let userData = req.body;
+   let usernamePromise = null;
+   let user = new User(req);
+   user.identifier = 'email';
 
-   return usernamePromise.then(function(model) {
+   user.getOneByIdentifier(userData.username, function(err, model) {
       if(model) {
          res.render('account/signup', {title: 'signup', errorMessage: 'username already exists'});
       } else {
          //****************************************************//
          // MORE VALIDATION GOES HERE(E.G. PASSWORD VALIDATION)
          //****************************************************//
-         var password = user.password;
-         var hash = bcrypt.hashSync(password);
-
-         var signUpUser = new User({
-            email: user.username,
-            password: hash,
-            firstName: 'TamaraTest',
-            city: 'Amsterdam',
-            country: 'The Netherlands'
-        });
-
-         signUpUser.save().then(function(model) {
-            // sign in the newly registered user
-            signInPost(req, res, next);
+         userData.hash = bcrypt.hashSync(userData.password);
+         user.createAndFetch(userData, function(err, user) {
+           // sign in the newly registered user
+           signInPost(req, res, next);
          });
       }
    });
