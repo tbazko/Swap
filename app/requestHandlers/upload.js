@@ -8,10 +8,10 @@ var querystring = require("querystring"),
     fs          = require("fs"),
     formidable  = require("formidable");
 // var Models = require('../core/models');
-var Product = require('../core/modelsDB/ProductModel');
-var ProductImage = require('../core/modelsDB/ProductImageModel');
-var Tag = require('../core/modelsDB/TagModel');
-var SwapForTag = require('../core/modelsDB/SwapForTagModel');
+var Product = require('../core/dataBaseObjects/Product');
+var ProductImage = require('../core/dataBaseObjects/ProductImageModel');
+var Tag = require('../core/dataBaseObjects/Tag');
+var SwapForTag = require('../core/dataBaseObjects/SwapForTagModel');
 
 function upload(req, res) {
   eventEmitter

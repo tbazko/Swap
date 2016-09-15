@@ -1,10 +1,11 @@
+"use strict";
 // vendor library
 var passport = require('passport');
 var bcrypt = require('bcrypt-nodejs');
 
 // custom library
 // model
-var User = require('../../core/modelsDB/UserModel');
+var User = require('../../core/models/User');
 
 // index
 var profile = function(req, res, next) {
@@ -12,14 +13,12 @@ var profile = function(req, res, next) {
       res.redirect('/account/signin');
    } else {
       var user = req.user;
-      User
-        .query()
-        .where('id', '=', user.id)
-        .first()
-        .then(function(currUser) {
-          var newRequests = currUser.$loadRelated('[newSwapRequests]');
-          res.render('account/profile', {user: user.toJSON(), newRequests: newRequests.length});
-        })
+      let userModel = new User();
+
+      userModel.getOneByIdentifier(user.id, function(err, currUser) {
+        var newRequests = currUser.$loadRelated('[newSwapRequests]');
+        res.render('account/profile', {user: user.toJSON(), newRequests: newRequests.length});
+      });
    }
 };
 

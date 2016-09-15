@@ -1,8 +1,7 @@
 "use strict";
-const Model = require('../../../config/database').Model;
+const DataBaseObject = require('../../../config/database').Model;
 
-
-class ProductModel extends Model {
+class Product extends DataBaseObject {
   static get tableName() {
     return 'products';
   }
@@ -10,15 +9,15 @@ class ProductModel extends Model {
   static get relationMappings() {
     return {
       user: {
-        relation: Model.BelongsToOneRelation,
-        modelClass: __dirname + '/userModel',
+        relation: DataBaseObject.BelongsToOneRelation,
+        modelClass: __dirname + '/User',
         join: {
           from: 'products.user_id',
           to: 'users.id'
         }
       },
       images: {
-        relation: Model.HasManyRelation,
+        relation: DataBaseObject.HasManyRelation,
         modelClass: __dirname + '/ProductImageModel',
         join: {
           from: 'products.id',
@@ -26,8 +25,8 @@ class ProductModel extends Model {
         }
       },
       tags: {
-        relation: Model.ManyToManyRelation,
-        modelClass: __dirname + '/TagModel',
+        relation: DataBaseObject.ManyToManyRelation,
+        modelClass: __dirname + '/Tag',
         join: {
           from: 'products.id',
           through: {
@@ -38,8 +37,8 @@ class ProductModel extends Model {
         }
       },
       swapForTags: {
-        relation: Model.ManyToManyRelation,
-        modelClass: __dirname + '/TagModel',
+        relation: DataBaseObject.ManyToManyRelation,
+        modelClass: __dirname + '/Tag',
         join: {
           from: 'products.id',
           through: {
@@ -50,8 +49,8 @@ class ProductModel extends Model {
         }
       },
       swapRequestsAsMaster: {
-        relation: Model.ManyToManyRelation,
-        modelClass: __dirname + '/SwapRequestModel',
+        relation: DataBaseObject.ManyToManyRelation,
+        modelClass: __dirname + '/SwapRequest',
         join: {
           from: 'products.id',
           through: {
@@ -62,8 +61,8 @@ class ProductModel extends Model {
         }
       },
       swapRequestsAsSlave: {
-        relation: Model.ManyToManyRelation,
-        modelClass: __dirname + '/SwapRequestModel',
+        relation: DataBaseObject.ManyToManyRelation,
+        modelClass: __dirname + '/SwapRequest',
         join: {
           from: 'products.id',
           through: {
@@ -77,4 +76,4 @@ class ProductModel extends Model {
   }
 }
 
-module.exports = ProductModel;
+module.exports = Product;

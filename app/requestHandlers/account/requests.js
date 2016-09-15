@@ -1,47 +1,34 @@
-var events = require('events');
-var eventEmitter = new events.EventEmitter();
-var User = require('../../core/modelsDB/UserModel');
-var SwapRequest = require('../../core/modelsDB/SwapRequestModel');
-// var SwapRequests = require('../../core/collections/swapRequestCollection');
-var Message = require('../../core/modelsDB/MessageModel');
+"use strict";
+const SwapRequest = require('../../core/models/SwapRequest');
+const Message = require('../../core/models/Message');
 
-var render = function(req, res, next) {
-  var user = req.user;
-  var userId = user.get('id');
-  var users;
+let render = function(req, res, next) {
+  let user = req.user;
+  let userId = user.id;
+  let swapRequest = new SwapRequest();
+  swapRequest.identifier = 'buyer_id';
 
-  SwapRequests
-    .forge({buyer_id: userId})
-    .fetch({withRelated: ['masterProducts', 'slaveProducts', 'seller', 'buyer']})
-    .then(function(collection) {
-      res.render('account/requests/requestsOverview', {user: user.serialize(), requests: collection.serialize()});
+  swapRequest
+    .getWithRelations(userId, '[masterProducts, slaveProducts, seller, buyer]', function(err, requests) {
+      res.render('account/requests/requestsOverview', {user: user, requests: requests});
     });
 }
 
 var renderOne = function(req, res, next) {
-  var user = req.user;
-  var requestId = req.params.id;
-  var url = req.baseUrl + req.path;
-  SwapRequest.forge({id: requestId})
-    .fetch({withRelated: ['masterProducts', 'slaveProducts', 'messages', 'seller', 'buyer']})
-    .then(function(swapRequest) {
-      res.render('account/requests/requestOne', {request: swapRequest.serialize(), user: user.serialize(), url: url});
+  let user = req.user;
+  let requestId = req.params.id;
+  let url = req.baseUrl + req.path;
+  let swapRequest = new SwapRequest();
+
+  swapRequest
+    .getWithRelations(requestId, '[masterProducts, slaveProducts, seller, buyer, messages]', function(err, requests) {
+      res.render('account/requests/requestOne', {request: requests[0], user: user, url: url});
     });
 }
 
 var postMessage = function(req, res, next) {
-  var messageForm = req.body;
-  var userId = req.user.id;
-  var requestId = req.params.id;
-  console.log(req.body);
-  console.log(messageForm.message);
-  var newMessage = new Message({
-    text: messageForm.message,
-    user_id: userId,
-    swapRequest_id: requestId
-  });
-
-  newMessage.save();
+  let newMessage = new Message();
+  newMessage.create(req);
 }
 
 module.exports.render = render;

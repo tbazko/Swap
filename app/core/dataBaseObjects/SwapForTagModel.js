@@ -10,7 +10,7 @@ class SwapForTagModel extends Model {
     return {
       products: {
         relation: Model.ManyToManyRelation,
-        modelClass: __dirname + '/ProductModelDB',
+        modelClass: __dirname + '/Product',
         join: {
           from: 'tags.id',
           through: {

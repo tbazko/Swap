@@ -1,15 +1,15 @@
 "use strict";
-const BaseModel = require('./BaseModel');
-const ProductModelDB = require('../modelsDB/ProductModel');
+const Base = require('./Base');
+const DataBaseProduct = require('../dataBaseObjects/Product');
 
-
-class ProductModel extends BaseModel {
-  constructor() {
-    super(ProductModelDB);
+class Product extends Base {
+  constructor(id) {
+    super(DataBaseProduct);
+    this.idName = 'id';
   }
 
   getActive(callback) {
-    this.model
+    this.DataBaseObject
       .query()
       .whereIn('state', ['FOR_SALE', 'PENDING'])
       .then(function(products) {
@@ -22,7 +22,7 @@ class ProductModel extends BaseModel {
 
   getActiveWithRelations(relations, callback) {
     this.getActive(function(err, products) {
-      this.model
+      this.DataBaseObject
         .loadRelated(products, relations)
         .then(function(productsWithRelations) {
           callback(false, productsWithRelations);
@@ -34,4 +34,4 @@ class ProductModel extends BaseModel {
   }
 }
 
-module.exports = ProductModel;
+module.exports = Product;

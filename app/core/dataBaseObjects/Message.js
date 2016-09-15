@@ -1,7 +1,7 @@
 "use strict";
-const Model = require('../../../config/database').Model;
+const DataBaseObject = require('../../../config/database').Model;
 
-class MessageModel extends Model {
+class Message extends DataBaseObject {
   static get tableName() {
     return 'requestMessages';
   }
@@ -9,8 +9,8 @@ class MessageModel extends Model {
   static get relationMappings() {
     return {
       swapRequest: {
-        relation: Model.BelongsToOneRelation,
-        modelClass: __dirname + '/SwapRequestModel',
+        relation: DataBaseObject.BelongsToOneRelation,
+        modelClass: __dirname + '/SwapRequest',
         join: {
           from: 'requestMessages.swapRequest_id',
           to: 'swapRequests.id'
@@ -20,4 +20,4 @@ class MessageModel extends Model {
   }
 }
 
-module.exports = MessageModel;
+module.exports = Message;

@@ -1,7 +1,7 @@
 "use strict";
-const Model = require('../../../config/database').Model;
+const DataBaseObject = require('../../../config/database').Model;
 
-class TagModel extends Model {
+class Tag extends DataBaseObject {
   static get tableName() {
     return 'tags';
   }
@@ -9,8 +9,8 @@ class TagModel extends Model {
   static get relationMappings() {
     return {
       products: {
-        relation: Model.ManyToManyRelation,
-        modelClass: __dirname + '/ProductModel',
+        relation: DataBaseObject.ManyToManyRelation,
+        modelClass: __dirname + '/Product',
         join: {
           from: 'tags.id',
           through: {
@@ -24,4 +24,4 @@ class TagModel extends Model {
   }
 }
 
-module.exports = TagModel;
+module.exports = Tag;

@@ -1,14 +1,14 @@
 "use strict";
-const BaseModel = require('./BaseModel');
-const TagModelDB = require('../modelsDB/TagModel');
+const Base = require('./Base');
+const DataBaseTag = require('../dataBaseObjects/Tag');
 
-class TagModel extends BaseModel {
+class Tag extends Base {
   constructor() {
-    super(TagModelDB);
+    super(DataBaseTag);
   }
 
   loadRelatedProductsWithRelations(tagName, relations, callback) {
-    this.model
+    this.DataBaseObject
       .query()
       .where('name', '=', tagName)
       .first()
@@ -19,4 +19,4 @@ class TagModel extends BaseModel {
   }
 }
 
-module.exports = TagModel;
+module.exports = Tag;

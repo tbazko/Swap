@@ -1,34 +1,31 @@
+"use strict";
 var events = require('events');
 var eventEmitter = new events.EventEmitter();
-var ProductModel = require('../../core/modelsDB/ProductModel');
+var Product = require('../../core/models/Product');
 var cloudinary = require('../../../config/cloudinary');
-var shared = require('../shared/base');
 
 var render = function(req, res, next) {
+  let url = req.path;
   if(!req.user) {
     res.redirect('/account/signin');
     return;
   }
 
-  var url = req.path;
   eventEmitter
     .once('productsFetched', function(products) {
-      res.render('userItems', { data: products, url: url });
-    });
+    res.render('userItems', { data: products, url: url });
+  });
+
   getProducts(req, res, next);
 }
 
 var getProducts = function(req, res, next) {
-  ProductCollection.forge()
-    .query(function(q) {
-      q.where('user_id', '=', req.user.get('id'));
-    })
-    .fetch({withRelated: ['images', 'swapForTags', 'tags'], debug: false})
-    .then(function (collection) {
-      shared.getProductsList(collection, eventEmitter);
-    })
-    .catch(function (err) {
-      res.status(500).json({error: true, data: {message: err.message}});
+  let product = new Product();
+  product.identifier = 'user_id';
+
+  product
+    .getWithRelations(req.user.id, '[images, tags, swapForTags]', function(err, products) {
+      eventEmitter.emit('productsFetched', products);
     });
 }
 
@@ -66,8 +63,8 @@ var editItem = function(req, res, next) {
 var getItemsForSwap = function(req, res, next) {
   var url = req.path;
   var user = {
-    userId: req.user.get('id'),
-    email: req.user.get('email')
+    userId: req.user.id,
+    email: req.user.email
   };
   eventEmitter
     .once('productsFetched', function(products) {

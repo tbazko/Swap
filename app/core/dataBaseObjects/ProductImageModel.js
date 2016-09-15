@@ -10,7 +10,7 @@ class ProductImageModel extends Model {
     return {
       product: {
         relation: Model.BelongsToOneRelation,
-        modelClass: __dirname + '/ProductModel',
+        modelClass: __dirname + '/Product',
         join: {
           from: 'productImages.product_id',
           to: 'products.id'

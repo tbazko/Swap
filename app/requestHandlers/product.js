@@ -1,66 +1,27 @@
-var events = require('events');
-var eventEmitter = new events.EventEmitter();
-var Product = require('../core/modelsDB/ProductModel');
-var User = require('../core/modelsDB/UserModel');
-var SwapRequest = require('../core/modelsDB/SwapRequestModel');
-var cloudinary = require('../../config/cloudinary');
-var pug = require('pug');
+"use strict";
+const Product = require('../core/models/Product');
+const SwapRequest = require('../core/models/SwapRequest');
 
-var openDetailsPage = function(req, res, next) {
+let openDetailsPage = function(req, res, next) {
+  let productId = req.params.id;
+  let product = new Product();
 
-  var productId = req.params.id;
-
-  Product.forge({id: productId})
-    .fetch({withRelated: ['images', 'tags', 'swapForTags']})
-    .then(function(model) {
-      if(model) {
-
-        model.set({shortDescription: model.get('description').slice(0, 60)});
-        model.related('images').each(function(model, key) {
-          var image = cloudinary.image(model.get('id') + '.jpg', {alt: model.get('id'), height: 440});
-          var thumbnail = cloudinary.image(model.get('id') + '.jpg', {alt: model.get('id'), height: 100, width: 100, crop: 'fill', gravity: 'center'});
-          model.set({image: image, thumbnail: thumbnail});
-        });
-
-        var product = model;
-        var userId = model.get('user_id');
-
-        User.forge({id: userId})
-        .fetch({withRelated: ['products']})
-        .then(function(model) {
-          var user = model;
-
-          res.render('product', { product: product.serialize(), author: user.serialize()});
-        });
+  product
+    .getWithRelations(productId, '[user.[products], images, tags, swapForTags]', function(err, items) {
+      if(items) {
+        res.render('product', { product: items[0], author: items[0].user});
       } else {
         res.redirect('/');
         res.end();
       }
-    });
+    })
 }
 
-var productSwapRequest = function(req, res, next) {
-  var swapForm = req.body;
-  var userId = req.user.id;
-  var masterProductId = req.params.id;
-  var slaveProductIds = [];
-  slaveProductIds = swapForm['productId[]'];
-  var newSwapRequest = new SwapRequest({
-    seller_id: swapForm.authorId,
-    buyer_id: userId,
-    email: swapForm.email,
-    phone: swapForm.phone,
-    message: swapForm.message
-  });
-
-  newSwapRequest.save().then(function(swapRequest) {
-    swapRequest.masterProducts().attach(masterProductId);
-    swapRequest.slaveProducts().attach(slaveProductIds);
-
-    eventEmitter.emit('swapRequestCreated', swapRequest);
-    res.send({ data: true });
-  });
+let swapRequest = function(req, res, next) {
+  let newSwapRequest = new SwapRequest();
+  newSwapRequest.create(req);
+  res.send({ data: true });
 }
 
 module.exports.openDetailsPage = openDetailsPage;
-module.exports.swapRequest = productSwapRequest;
+module.exports.swapRequest = swapRequest;

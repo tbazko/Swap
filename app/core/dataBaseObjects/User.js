@@ -1,7 +1,7 @@
 "use strict";
-const Model = require('../../../config/database').Model;
+const DataBaseObject = require('../../../config/database').Model;
 
-class UserModel extends Model {
+class User extends DataBaseObject {
   static get tableName() {
     return 'users';
   }
@@ -9,32 +9,32 @@ class UserModel extends Model {
   static get relationMappings() {
     return {
       products: {
-        relation: Model.HasManyRelation,
-        modelClass: __dirname + '/ProductModelDB',
+        relation: DataBaseObject.HasManyRelation,
+        modelClass: __dirname + '/Product',
         join: {
           from: 'users.id',
           to: 'products.user_id'
         }
       },
       newSwapRequests: {
-        relation: Model.HasManyRelation,
-        modelClass: __dirname + '/SwapRequestModel',
+        relation: DataBaseObject.HasManyRelation,
+        modelClass: __dirname + '/SwapRequest',
         join: {
           from: 'users.id',
           to: 'swapRequests.seller_id'
         }
       },
       swapRequestsIncoming: {
-        relation: Model.HasManyRelation,
-        modelClass: __dirname + '/SwapRequestModel',
+        relation: DataBaseObject.HasManyRelation,
+        modelClass: __dirname + '/SwapRequest',
         join: {
           from: 'users.id',
           to: 'swapRequests.seller_id'
         }
       },
       swapRequestsOutgoing: {
-        relation: Model.HasManyRelation,
-        modelClass: __dirname + '/SwapRequestModel',
+        relation: DataBaseObject.HasManyRelation,
+        modelClass: __dirname + '/SwapRequest',
         join: {
           from: 'users.id',
           to: 'swapRequests.buyer_id'
@@ -44,4 +44,4 @@ class UserModel extends Model {
   }
 }
 
-module.exports = UserModel;
+module.exports = User;

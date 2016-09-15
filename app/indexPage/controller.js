@@ -1,14 +1,13 @@
 "use strict";
 let events = require('events');
 let eventEmitter = new events.EventEmitter();
-const ProductModel = require('../core/models/ProductModel');
+const Product = require('../core/models/Product');
 
 let render = function(req, res, next) {
   let url = req.path;
-  let productModel = new ProductModel();
+  let product = new Product();
 
-  productModel.getActiveWithRelations('[images, swapForTags]', function(err, products) {
-    console.log(products.images);
+  product.getActiveWithRelations('[images, swapForTags]', function(err, products) {
     res.render('index', { data: products, url: url });
   });
 

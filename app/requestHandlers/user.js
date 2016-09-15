@@ -1,6 +1,6 @@
 var events = require('events');
 var eventEmitter = new events.EventEmitter();
-var User = require('../core/modelsDB/userModel');
+var User = require('../core/dataBaseObjects/User');
 
 var loadInfo = function(req, res, next) {
   var userId = req.params.id;
