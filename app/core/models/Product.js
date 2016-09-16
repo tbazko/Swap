@@ -18,14 +18,21 @@ class Product extends Base {
       .then(function(product) {
         var imagesPromise = product.$relatedQuery('images');
 
-        return imagesPromise.then(function(images) {
-          images.forEach(function(image) {
-            cloudinary.uploader.destroy(image.id);
-          });
+        // return imagesPromise.then(function(images) {
+        //   images.forEach(function(image) {
+        //     cloudinary.uploader.destroy(image.id);
+        //   });
+        // });
+
+        imagesPromise.delete();
+        product
+          .$relatedQuery('[tags, swapForTags, swapRequestsAsMaster, swapRequestsAsSlave]')
+          .unrelate()
+          .then(function(resp) {
+          console.log(resp);
+          console.log('product deleted');
         });
 
-        product.$relatedQuery().delete();
-        product.$query().deleteById(id);
         callback(false);
       })
       .catch(function(err) {
