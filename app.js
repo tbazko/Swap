@@ -21,7 +21,16 @@ let app           = express();
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'pug');
+app.set('view engine', 'html');
+app.set('layout', 'layout');       // use layout.html as the default layout
+app.set('partials', {
+  navigation: 'includes/navigation',
+  swapForm: 'includes/product/swapForm',
+  tabPane: 'includes/tab-pane',
+  breadcrumbs: 'includes/breadcrumbs',
+  swapButtonsSet: 'includes/swap-buttons-set'
+});   // define partials available to all pages
+app.engine('html', require('hogan-express'));
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));

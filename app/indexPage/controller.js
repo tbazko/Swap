@@ -8,7 +8,7 @@ let render = function(req, res, next) {
   let product = new Product();
 
   product.getActiveWithRelations('[images, swapForTags]', function(err, products) {
-    res.render('index', { data: products, url: url });
+    res.render('index', { products: products, url: url });
   });
 
 }

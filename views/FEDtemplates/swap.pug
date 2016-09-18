@@ -1,11 +1,14 @@
+p #{locals}
 .swapFields
   input(type="text", placeholder="Email", name="email", value=locals.user.email)
   input(type="text", placeholder="Phone", name="phone")
   textarea(name="message", placeholder="Leave a message for the owner")
 
+p #{locals.data}
 each product in locals.data
   label(data-product-id=product.id, for=product.id).product.product--inSwapList
-    .img-container!= product.image
+    .img-container
+      img(src="http://res.cloudinary.com/di42acdz9/image/upload/" + product.images[0].id)
     .content-container
       h4.product-title= product.name
       p.product-tag-title

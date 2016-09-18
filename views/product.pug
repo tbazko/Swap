@@ -5,8 +5,8 @@ block content
   .main-container.mb10
     .row.product-details.paperStyle-container.js-productDetails.animated
       .col.col-xs4.col-sm12.col-md7
-        .image-container!= product.images[0].image
-          //- include ./includes/gallery.pug
+        .image-container
+          img(src="http://res.cloudinary.com/di42acdz9/image/upload/" + product.images[0].id)
 
       .col.col-xs4.col-sm12.col-md5
         .details-container

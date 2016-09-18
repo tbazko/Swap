@@ -1,8 +1,8 @@
 define([], function(){
   var exports = {};
-  
+
 /*!
- * Jade - runtime
+ * pug - runtime
  * Copyright(c) 2010 TJ Holowaychuk <tj@vision-media.ca>
  * MIT Licensed
  */
@@ -142,7 +142,7 @@ exports.escape = function escape(html){
 
 /**
  * Re-throw the given `err` in context to the
- * the jade in `filename` at the given `lineno`.
+ * the pug in `filename` at the given `lineno`.
  *
  * @param {Error} err
  * @param {String} filename
@@ -170,7 +170,7 @@ exports.rethrow = function rethrow(err, filename, lineno){
 
   // Alter exception message
   err.path = filename;
-  err.message = (filename || 'Jade') + ':' + lineno
+  err.message = (filename || 'pug') + ':' + lineno
     + '\n' + context + '\n\n' + err.message;
   throw err;
 };

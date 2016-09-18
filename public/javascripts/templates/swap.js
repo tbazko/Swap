@@ -1,7 +1,7 @@
-define(['runtime'], function(jade){
+define(['runtime'], function(pug){
   return function (locals, attrs, escape, rethrow, merge
 /**/) {
-attrs = attrs || jade.attrs; escape = escape || jade.escape; rethrow = rethrow || jade.rethrow; merge = merge || jade.merge;
+attrs = attrs || pug.attrs; escape = escape || pug.escape; rethrow = rethrow || pug.rethrow; merge = merge || pug.merge;
 var buf = [];
 with (locals || {}) {
 var interp;

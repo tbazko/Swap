@@ -9,7 +9,7 @@ let openDetailsPage = function(req, res, next) {
   product
     .getWithRelations(productId, '[user.[products], images, tags, swapForTags]', function(err, items) {
       if(items) {
-        res.render('product', { product: items[0], author: items[0].user});
+        res.render('product', { product: items[0], author: items[0].user, productImage: items[0].images[0]});
       } else {
         res.redirect('/');
         res.end();

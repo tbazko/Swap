@@ -1,0 +1,105 @@
+<div class="main-container mb10">
+  <div class="row product-details paperStyle-container js-productDetails animated">
+    <div class="col col-xs4 col-sm12 col-md7">
+      <div class="image-container">
+        <img src="http://res.cloudinary.com/di42acdz9/image/upload/{{productImage.id}}" alt="">
+      </div>
+    </div>
+    <div class="col col-xs4 col-sm12 col-md5">
+      <div class="details-container">
+        <!-- include ./includes/breadcrumbs.pug -->
+        <h3 class="product-name">{{product.name}}</h3>
+        <p class="product-date">
+          Published by<a href="/user/{{author.id}}" data-author-id={{author.id}}>{{author.firstName}}</a>
+          &nbsp;on 12.12.2015
+        </p>
+        <ul class="no-bullet pt30 pb30">
+          <li class="pt15 pb15 specs-item">
+            <h5 class="inline-block property">Location:&nbsp;</h5>
+            <p class="inline value"><a href="">{{author.city}}</a></p>
+          </li>
+          <li class="pb15 specs-item">
+            <h5 class="inline-block property">Condition:&nbsp;</h5>
+            <p class="inline value condition-stars">
+              <!-- -var empty = product.condition + 1
+              -var star = 0
+
+              while star < product.condition
+                -star++
+                span.icon-star
+
+              while empty <= 5
+                -empty++
+                span.icon-star-empty -->
+            </p>
+          </li>
+          <li class="pb15 specs-item">
+            <h5 class="inline-block property">{{Swap for:&nbsp;}}</h5>
+            {{#product.swapForTags}}
+              <p class="inline value">
+                <a href="/tag/{{name}}">{{name}}</a>
+              </p>
+            {{/product.swapForTags}}
+          </li>
+        </ul>
+      {{#product.reason}}
+        <h4 class="pb10 pt30">Reason to swap:</h4>
+        <p class="pb30">{{reason}}</p>
+      {{/product.reason}}
+
+        <div class="text-right pt30">
+          {{> swapButtonsSet}}
+          <!-- -var buttonUrl = ''
+          include ./includes/swap-buttons-set.pug -->
+        </div>
+
+      </div>
+    </div>
+  {{#product.description}}
+    <div class="row clear pt30">
+      <div class="col col-xs4 col-sm12 col-md12">
+        <h4 class="pb10">Description:</h4>
+        <p class="pb30">{{description}}</p>
+      </div>
+    </div>
+  {{/product.description}}
+
+  </div>
+
+  {{> swapForm}}
+  <div class="row">
+    <div class="col col-xs4 col-sm12 col-md9">
+      <div class="paperStyle-container mt10 mr10">
+        {{> tabPane}}
+        <h5 class="pb10 pt30 mt10">{{More by&nbsp;}}
+          <a href="/user/{{author.id}}">{{author.email}}</a>:
+        </h5>
+
+        <div class="row row-with-blocks">
+          {{#author.products}}
+            <!-- if p.productId !== product.productId -->
+            <div class="col-product-block mb15">
+              <div class="thumbnail bordered">
+                <a href="/product/{{id}}"></a>
+              </div>
+            </div>
+          {{/author.products}}
+        </div>
+      </div>
+    </div>
+    <div class="col col-xs4 col-sm12 col-md3">
+      <div class="map mt10 text-center pt10">
+        {{product.thumbnail}}
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="paperStyle-container js-dialog dialog is-hidden">
+  <div class="col col-xs4 col-sm12 col-md12">
+    <h2 class="section-subtitle">Choose one or more of your items to swap for {{product.name}}</h2>
+    <div class="row row-with-blocks-v2 js-swapItem"></div>
+  </div>
+</div>
+
+<div class="dialogOverlay js-dialogOverlay is-hidden"></div>
