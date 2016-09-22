@@ -7,16 +7,24 @@ class Message extends Base {
     super(DataBaseMessage);
   }
 
-  create(req) {
+  create(req, callback) {
     var messageForm = req.body;
     var userId = req.user.id;
     var requestId = req.params.id;
+    console.log(messageForm);
+    console.log(userId);
+    console.log(requestId);
     this.DataBaseObject
       .query()
       .insert({
         text: messageForm.message,
         user_id: userId,
         swapRequest_id: requestId
+      }).then(function() {
+        callback(null)
+      })
+      .catch(function(err) {
+        callback(err)
       });
   }
 }

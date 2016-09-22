@@ -7,3 +7,19 @@
     }
   }
 }
+
+@for $i from 1 through 5 {
+  .condition-#{$i} {
+    span {
+      &:before {
+        content: '\e80d';
+      }
+
+      &:nth-of-type(-n+#{$i}) {
+        &:before {
+          content: '\e80e';
+        }
+      }
+    }
+  }
+}

@@ -619,6 +619,31 @@ textarea {
   .condition-stars span:before {
     margin: 1px; }
 
+.condition-1 span:before {
+  content: '\e80d'; }
+.condition-1 span:nth-of-type(-n+1):before {
+  content: '\e80e'; }
+
+.condition-2 span:before {
+  content: '\e80d'; }
+.condition-2 span:nth-of-type(-n+2):before {
+  content: '\e80e'; }
+
+.condition-3 span:before {
+  content: '\e80d'; }
+.condition-3 span:nth-of-type(-n+3):before {
+  content: '\e80e'; }
+
+.condition-4 span:before {
+  content: '\e80d'; }
+.condition-4 span:nth-of-type(-n+4):before {
+  content: '\e80e'; }
+
+.condition-5 span:before {
+  content: '\e80d'; }
+.condition-5 span:nth-of-type(-n+5):before {
+  content: '\e80e'; }
+
 .link-filter {
   position: relative; }
 

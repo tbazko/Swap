@@ -21,16 +21,6 @@ module.exports = function(grunt) {
         }
       }
     },
-    pug: {
-      amd: {
-        files: {
-          'public/javascripts/templates/': ['views/FEDtemplates/*.pug']
-        },
-        options: {
-          wrap: 'amd'
-        }
-      }
-    },
     watch: {
       css: {
         files: 'sass/**/*.scss',
@@ -38,10 +28,6 @@ module.exports = function(grunt) {
         options: {
           livereload: true, // needed to run LiveReload
         }
-      },
-      pug: {
-        files: 'views/FEDtemplates/*.pug',
-        tasks: 'pug'
       }
     }
   });
@@ -49,6 +35,5 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-autoprefixer');
   grunt.loadNpmTasks('grunt-contrib-sass');
-  grunt.loadNpmTasks('grunt-contrib-pug');
   grunt.registerTask('default', ['watch']);
 }

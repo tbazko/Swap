@@ -1,11 +1,13 @@
 define([
   'jquery',
   'components/utils/utils',
-  'templates/message'
+  'text!components/templates/message.html',
+  'mustache'
 ], function (
   $,
   utils,
-  messageTemplate
+  messageTemplate,
+  Mustache
 ) {
   var Messenger = {
     formContainer: '.js-messageForm',
@@ -29,9 +31,9 @@ define([
       e.preventDefault();
       var url = this.$form.attr('action');
       var text = this.$textArea.val();
-
+      console.log(url);
       if(text !== '') {
-        var html = messageTemplate({text: text});
+        var html = Mustache.render(messageTemplate, {text: text});
         this.$formContainer.after(html);
 
         $.ajax({

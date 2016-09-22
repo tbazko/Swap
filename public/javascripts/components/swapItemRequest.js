@@ -1,11 +1,13 @@
 define([
   'jquery',
   'components/utils/utils',
-  'templates/swap'
+  'text!components/templates/swap.html',
+  'mustache'
 ], function (
   $,
   utils,
-  swapTemplate
+  swapTemplate,
+  Mustache
 ) {
 
   var $body = $('body');
@@ -92,7 +94,7 @@ define([
 
           if(userId !== authorId) {
             if(!this.$storedData || this.$storedData.length !== response.data.length) {
-              var html = swapTemplate(response);
+              var html = Mustache.render(swapTemplate, response);
               this.$swapFormItems.append(html);
               this.$storedData = response.data;
             }
@@ -121,7 +123,7 @@ define([
       var formData = {};
       var formData = utils.gatherFormData(this.$swapForm);
       formData['authorId'] = $('.js-productDetails').find('.js-authorId').data('author-id');
-
+      console.log(formData);
       $.ajax({
         url: url,
         method: 'POST',

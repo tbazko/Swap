@@ -1,0 +1,33 @@
+<div class="swapFields">
+  <input type="text" placeholder="Email" name="email" value="{{user.email}}">
+  <input type="text" placeholder="Phone" name="phone">
+  <textarea name="message" id="" cols="30" rows="10" placeholder="Leave a message for the owner"></textarea>
+</div>
+
+
+{{#products}}
+  <label for="{{id}}" data-product-id="{{id}}" class="product product--inSwapList">
+    <div class="img-container">
+      {{#images}}
+        <img src="http://res.cloudinary.com/di42acdz9/image/upload/{{id}}" alt="">
+      {{/images}}
+    </div>
+
+    <div class="content-container">
+      <h4 class="product-title">{{name}}</h4>
+      <p class="product-tag-title">
+        <b>Tags:&nbsp;
+          {{#tags}}
+            <a href="/tag/{{tag.name}}">
+              {{name}},&#32;
+            </a>
+          {{/tags}}
+        </b>
+
+      </p>
+
+    </div>
+
+    <input type="checkbox" id="{{id}}" name="productId" value="{{id}}" class="selectItem">
+  </label>
+{{/products}}

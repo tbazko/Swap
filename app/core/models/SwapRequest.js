@@ -23,16 +23,40 @@ class SwapRequest extends Base {
         message: swapForm.message
       })
       .then(function(request) {
-        request.$relatedQuery('masterProducts').relate(masterProductId);
-        slaveProductIds.forEach(function(value, index) {
-          request.$relatedQuery('slaveProducts').relate(value);
-        });
+        request.$relatedQuery('masterProducts').relate(masterProductId)
+          .then(function() {
+            console.log(slaveProductIds.length);
+            console.log(typeof slaveProductIds);
+            if(slaveProductIds.length === 1) {
+              request.$relatedQuery('slaveProducts').relate(slaveProductIds).then();
+            } else {
+              slaveProductIds.forEach(function(value, index) {
+                request.$relatedQuery('slaveProducts').relate(value).then();
+              });
+            }
+          });
       })
       .catch(function(err) {
         console.log(err);
       });
   }
 
+  getWithRelationsAndFilteredMessages(id, callback) {
+    this.DataBaseObject
+      .query()
+      .where(this.idName, id)
+      .eager('[masterProducts, slaveProducts, seller, buyer, messages(orderByRegDate)]', {
+        orderByRegDate: function(builder) {
+          builder.orderBy('reg_date', 'desc');
+        }
+      })
+      .then(function(items) {
+        callback(null, items);
+      })
+      .catch(function(err) {
+        callback(true, err);
+      });
+  }
 }
 
 module.exports = SwapRequest;

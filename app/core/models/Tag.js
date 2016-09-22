@@ -14,7 +14,10 @@ class Tag extends Base {
       .first()
       .eager(relations)
       .then(function(tag) {
-        callback(tag.products);
+        callback(null, tag.products);
+      })
+      .catch(function(err) {
+        callback(true, err);
       });
   }
 }

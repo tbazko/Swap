@@ -10,6 +10,7 @@ requirejs.config({
     paths: {
         components: '../components',
         templates: '../templates',
-        runtime: '../templates/runtime'
+        mustache: 'mustache',
+        text: 'text'
     }
 });

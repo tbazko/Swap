@@ -9,28 +9,45 @@ let bodyParser    = require('body-parser');
 let multer        = require('multer'); // v1.0.5
 let upload        = multer(); // for parsing multipart/form-data
 
-let index         = require('./app/indexPage/base');
-let userInfo      = require('./app/router/user');
-let product       = require('./app/router/product');
-let tag           = require('./app/router/tag');
-let account       = require('./app/router/account');
-let jsonSender    = require('./app/jsonSender/base');
-let cloudinary    = require('./config/cloudinary');
+let productList   = require('./app/productList/index');
+let signInOut     = require('./app/signInOut/index');
+let signUp        = require('./app/signUp/index');
+let profile       = require('./app/profile/index');
+let swapRequest   = require('./app/swapRequest/index');
+let product       = require('./app/product/index');
+let message       = require('./app/message/index');
+let userInfo      = require('./app/user/index');
+let jsonSender    = require('./app/jsonSender/index');
+let passport      = require('./config/passport');
+let session       = require('express-session');
 let app           = express();
 
-
 // view engine setup
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'html');
-app.set('layout', 'layout');       // use layout.html as the default layout
-app.set('partials', {
-  navigation: 'includes/navigation',
-  swapForm: 'includes/product/swapForm',
-  tabPane: 'includes/tab-pane',
-  breadcrumbs: 'includes/breadcrumbs',
-  swapButtonsSet: 'includes/swap-buttons-set'
-});   // define partials available to all pages
-app.engine('html', require('hogan-express'));
+app.set('views', path.join(__dirname, 'app/viewsCommon'));
+var exphbs = require('express-handlebars');
+var hbs = exphbs.create({
+  layoutsDir: 'app/viewsCommon/layouts/',
+  partialsDir: 'app/viewsCommon/partials/',
+  defaultLayout: 'main',
+  extname: '.hbs',
+  helpers: {
+    section: function(name, options){
+        if(!this._sections) this._sections = {};
+        this._sections[name] = options.fn(this);
+        return null;
+    },
+    if_eq: function(a, b, options) {
+      if(a == b) {
+        return options.fn(this);
+      } else {
+        return options.inverse(this);
+      }
+    }
+  }
+})
+
+app.engine('.hbs', hbs.engine);
+app.set('view engine', '.hbs');
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
@@ -40,12 +57,22 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', index);
-app.use('/user', userInfo);
-app.use('/product', product);
-app.use('/tag', tag);
-app.use('/account', account);
-app.use('/json', jsonSender);
+// initialize session and passport here to have access to req.user from any other
+// route. TODO: check is possible to do the same, but initialize in more appropriate
+// place (account.js)
+app.use(session({secret: 'secret strategic xxzzz code'}));
+app.use(passport.initialize());
+app.use(passport.session());
+
+app.use(productList);
+app.use(signInOut);
+app.use(signUp);
+app.use(profile);
+app.use(swapRequest);
+app.use(product);
+app.use(message);
+app.use(userInfo);
+app.use(jsonSender);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -77,6 +104,5 @@ app.use(function(err, req, res, next) {
     error: {}
   });
 });
-
 
 module.exports = app;
