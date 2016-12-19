@@ -44,7 +44,6 @@ class Base {
         callback(null, items);
       })
       .catch(function(err) {
-        console.log(err);
         callback(err);
       });
   }

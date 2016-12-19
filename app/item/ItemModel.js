@@ -26,8 +26,7 @@ class ItemModel {
           if(err) {
             reject(err);
           }
-
-          if(items.length) {
+          if(!!items.length) {
             resolve(items[0]);
           } else {
             reject(null);

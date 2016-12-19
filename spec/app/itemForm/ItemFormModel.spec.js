@@ -49,7 +49,7 @@ describe('Item Form Model', function() {
     expect(ifm.method).toBe('GET');
   });
 
-  it('should return item false if Item doesn\'t exist', function(done) {
+  it('should return item', function(done) {
     ifm.modelData = mockRequestWithParamsOfExistingItem;
     ifm.item.then((response) => {
       expect(response).toEqual(jasmine.any(Object));

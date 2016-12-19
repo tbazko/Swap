@@ -16,11 +16,12 @@ class ItemPresenter {
 
   _renderView() {
     this.model.fullInfo.then((response) => {
+
       this.res.render(this.template, {item: response, author: response.user, itemImage: response.images[0]});
-    }).catch((err) => this._handleError(err, res));
+    }).catch((err) => this._handleError(err));
   }
 
-  _handleError(err, res) {
+  _handleError(err) {
     if(err === null) {
       this.res.redirect('/');
       return this.res.end();
