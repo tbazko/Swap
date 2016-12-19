@@ -4,6 +4,6 @@ let app        = express();
 let controller = require('./controller');
 app.set('views', __dirname);
 
-app.get('/user/:id', controller.loadInfo);
+// app.get('/user/:id', controller.loadInfo);
 
 module.exports = app;

@@ -1,0 +1,25 @@
+<div class="main-container paperStyle-container">
+  <div class="row">
+    <h1 class="main-title">My items list</h1>
+  </div>
+  <div class="row row-with-blocks-v2">
+  {{#items}}
+    <div class="item" data-item-id="{{id}}">
+    {{#images}}
+      <a href="/item/{{item_id}}" class="img-container">
+        <img src="http://res.cloudinary.com/di42acdz9/image/upload/{{id}}" alt="">
+      </a>
+    {{/images}}
+      <div class="content-container">
+        <h4 class="item-title">{{name}}</h4>
+        <form action="/item/{{id}}/destroy" method="post" class="left">
+          <input type="hidden" name="itemId" value="{{id}}">
+          <button type="submit">Remove</button>
+        </form>
+        <a href="/item/{{id}}/edit">Edit</a>
+      </div>
+    </div>
+
+  {{/items}}
+  </div>
+</div>

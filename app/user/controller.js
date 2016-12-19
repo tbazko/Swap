@@ -1,5 +1,5 @@
 "use strict";
-var User = require('../core/models/User');
+var User = require('../core/dataBaseObjects/User');
 
 var loadInfo = function(req, res, next) {
   let user = new User();

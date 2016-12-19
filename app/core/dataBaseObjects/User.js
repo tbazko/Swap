@@ -1,47 +1,31 @@
 "use strict";
-const DataBaseObject = require('../../../config/database').Model;
+const Base = require('./Base');
+const DataBaseUser = require('../dataBaseSchemas/User');
 
-class User extends DataBaseObject {
-  static get tableName() {
-    return 'users';
+class User extends Base {
+  constructor() {
+    super(DataBaseUser);
   }
 
-  static get relationMappings() {
-    return {
-      products: {
-        relation: DataBaseObject.HasManyRelation,
-        modelClass: __dirname + '/Product',
-        join: {
-          from: 'users.id',
-          to: 'products.user_id'
-        }
-      },
-      newSwapRequests: {
-        relation: DataBaseObject.HasManyRelation,
-        modelClass: __dirname + '/SwapRequest',
-        join: {
-          from: 'users.id',
-          to: 'swapRequests.seller_id'
-        }
-      },
-      swapRequestsIncoming: {
-        relation: DataBaseObject.HasManyRelation,
-        modelClass: __dirname + '/SwapRequest',
-        join: {
-          from: 'users.id',
-          to: 'swapRequests.seller_id'
-        }
-      },
-      swapRequestsOutgoing: {
-        relation: DataBaseObject.HasManyRelation,
-        modelClass: __dirname + '/SwapRequest',
-        join: {
-          from: 'users.id',
-          to: 'swapRequests.buyer_id'
-        }
-      }
-    }
+  createAndFetch(userData, callback) {
+    this.DataBaseSchema
+      .query()
+      .insertAndFetch({
+        email: userData.username,
+        password: userData.hash,
+        firstName: 'TamaraTest',
+        city: 'Amsterdam',
+        country: 'The Netherlands'
+      })
+      .then(function(user) {
+        callback(null, user);
+      })
+      .catch(function(err) {
+        callback(true, err);
+      });
   }
+
+
 }
 
 module.exports = User;

@@ -18,21 +18,21 @@
       Hello
       <a href="/requests/{{id}}" class="row pb20">
         <div class="col col-xs4 col-sm12 col-md4 clearfix">
-        {{#masterProducts}}
+        {{#masterItems}}
           <div class="left">
             {{thumbnail}}
           </div>
-        {{/masterProducts}}
+        {{/masterItems}}
           <div class="left p30">
             <p>===></p>
             <p><===</p>
           </div>
           <div class="left requestsOverview">
-            {{#slaveProducts}}
-              <div class="requestsOverview-slaveProducts">
+            {{#slaveItems}}
+              <div class="requestsOverview-slaveItems">
                 {{thumbnail}}
               </div>
-            {{/slaveProducts}}
+            {{/slaveItems}}
           </div>
       </div>
 
@@ -61,20 +61,20 @@
       {{#if_eq buyer_id ../user.id}}
         <a href="/requests/{{id}}" class="row pb20">
           <div class="col col-xs4 col-sm12 col-md4 clearfix">
-          {{#masterProducts}}
+          {{#masterItems}}
             <div class="left">{{thumbnail}}</div>
-          {{/masterProducts}}
+          {{/masterItems}}
             <div class="left p30">
               <p>===></p>
               <p><===</p>
             </div>
 
             <div class="left requestsOverview">
-              {{#slaveProducts}}
-                <div class="requestsOverview-slaveProducts">
+              {{#slaveItems}}
+                <div class="requestsOverview-slaveItems">
                   {{thumbnail}}
                 </div>
-              {{/slaveProducts}}
+              {{/slaveItems}}
             </div>
           </div>
 

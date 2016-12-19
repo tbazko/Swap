@@ -1,5 +1,5 @@
 "use strict";
-const Message = require('../core/models/Message');
+const Message = rootRequire('app/core/dataBaseObjects/Message');
 
 var post = function(req, res, next) {
   let newMessage = new Message();

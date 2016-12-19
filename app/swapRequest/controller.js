@@ -1,5 +1,6 @@
 "use strict";
-const SwapRequest = require('../core/models/SwapRequest');
+const events = require('events');
+const SwapRequest = require('../core/dataBaseObjects/SwapRequest');
 
 let renderOverview = function(req, res, next) {
   let user = req.user;
@@ -8,7 +9,7 @@ let renderOverview = function(req, res, next) {
   swapRequest.identifier = ['buyer_id', 'seller_id'];
 
   swapRequest
-    .getWithRelations(userId, '[masterProducts, slaveProducts, seller, buyer]', function(err, requests) {
+    .getWithRelations(userId, '[masterItems, slaveItems, seller, buyer]', function(err, requests) {
       res.render('requestsOverview', {user: user, requests: requests});
     });
 }

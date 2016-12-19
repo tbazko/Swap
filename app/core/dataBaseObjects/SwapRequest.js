@@ -1,78 +1,61 @@
 "use strict";
-const DataBaseObject = require('../../../config/database').Model;
+const Base = require('./Base');
+const DataBaseSwapRequest = require('../dataBaseSchemas/SwapRequest');
 
-class SwapRequest extends DataBaseObject {
-  static get tableName() {
-    return 'swapRequests';
+class SwapRequest extends Base {
+  constructor() {
+    super(DataBaseSwapRequest);
   }
 
-  static get relationMappings() {
-    return {
-      messages: {
-        relation: DataBaseObject.HasManyRelation,
-        modelClass: __dirname + '/Message',
-        join: {
-          from: 'swapRequests.id',
-          to: 'requestMessages.swapRequest_id'
+  create(req) {
+    let swapForm = req.body;
+    let masterItemId = req.params.id;
+    let slaveItemIds = [];
+    slaveItemIds = swapForm['itemId[]'];
+
+    this.DataBaseSchema
+      .query()
+      .insertAndFetch({
+        seller_id: swapForm.authorId,
+        buyer_id: req.user.id,
+        email: swapForm.email,
+        phone: swapForm.phone,
+        message: swapForm.message
+      })
+      .then(function(request) {
+        request.$relatedQuery('masterItems').relate(masterItemId)
+          .then(function() {
+            console.log(slaveItemIds.length);
+            console.log(typeof slaveItemIds);
+            if(slaveItemIds.length === 1) {
+              request.$relatedQuery('slaveItems').relate(slaveItemIds).then();
+            } else {
+              slaveItemIds.forEach(function(value, index) {
+                request.$relatedQuery('slaveItems').relate(value).then();
+              });
+            }
+          });
+      })
+      .catch(function(err) {
+        console.log(err);
+      });
+  }
+
+  getWithRelationsAndFilteredMessages(id, callback) {
+    this.DataBaseSchema
+      .query()
+      .where(this.idName, id)
+      .eager('[masterItems, slaveItems, seller, buyer, messages(orderByRegDate)]', {
+        orderByRegDate: function(builder) {
+          builder.orderBy('reg_date', 'desc');
         }
-      },
-      seller: {
-        relation: DataBaseObject.BelongsToOneRelation,
-        modelClass: __dirname + '/User',
-        join: {
-          from: 'swapRequests.seller_id',
-          to: 'users.id'
-        }
-      },
-      buyer: {
-        relation: DataBaseObject.BelongsToOneRelation,
-        modelClass: __dirname + '/User',
-        join: {
-          from: 'swapRequests.buyer_id',
-          to: 'users.id'
-        }
-      },
-      swapRequestsIncoming: {
-        relation: DataBaseObject.BelongsToOneRelation,
-        modelClass: __dirname + '/User',
-        join: {
-          from: 'swapRequests.buyer_id',
-          to: 'users.id'
-        }
-      },
-      swapRequestsOutgoing: {
-        relation: DataBaseObject.HasManyRelation,
-        modelClass: __dirname + '/User',
-        join: {
-          from: 'swapRequests.seller_id',
-          to: 'users.id'
-        }
-      },
-      masterProducts: {
-        relation: DataBaseObject.ManyToManyRelation,
-        modelClass: __dirname + '/Product',
-        join: {
-          from: 'swapRequests.id',
-          through: {
-            from: 'masterProducts_swapRequests.request_id',
-            to: 'masterProducts_swapRequests.product_id'
-          },
-          to: 'products.id'
-        }
-      },
-      slaveProducts: {
-        relation: DataBaseObject.ManyToManyRelation,
-        modelClass: __dirname + '/Product',
-        join: {
-          from: 'swapRequests.id',
-          through: {
-            from: 'slaveProducts_swapRequests.request_id',
-            to: 'slaveProducts_swapRequests.product_id'
-          },
-          to: 'products.id'
-        }
-      }
-    }
+      })
+      .then(function(items) {
+        callback(null, items);
+      })
+      .catch(function(err) {
+        callback(true, err);
+      });
   }
 }
 

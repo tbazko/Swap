@@ -5,7 +5,7 @@ var router        = express.Router();
 var passport      = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 var bcrypt        = require('bcrypt-nodejs');
-var User          = require('../app/core/models/User');
+var User          = require('../app/core/dataBaseObjects/User');
 
 passport.use(new LocalStrategy(function(username, password, done) {
   let user = new User();

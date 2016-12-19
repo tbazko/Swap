@@ -1,5 +1,5 @@
 "use strict";
-const User = require('../core/models/User');
+const User = require('../core/dataBaseObjects/User');
 
 var profile = function(req, res, next) {
    if(!req.isAuthenticated()) {

@@ -13,7 +13,7 @@ exports.up = function(knex, Promise) {
     table.string('phone');
     table.timestamp('reg_date');
   })
-  .createTableIfNotExists('products', function(table) {
+  .createTableIfNotExists('items', function(table) {
     table.increments('id').unsigned().notNullable().primary();
     table.string('name').notNullable();
     table.integer('user_id').unsigned().notNullable().references('users.id');
@@ -31,9 +31,9 @@ exports.up = function(knex, Promise) {
     table.string('phone');
     table.string('message');
   })
-  .createTableIfNotExists('productImages', function(table) {
+  .createTableIfNotExists('itemImages', function(table) {
     table.string('id').primary();
-    table.integer('product_id').unsigned().notNullable().references('products.id');
+    table.integer('item_id').unsigned().notNullable().references('items.id');
   })
   .createTableIfNotExists('tags', function(table) {
     table.increments('id').notNullable().unsigned().primary();
@@ -46,34 +46,34 @@ exports.up = function(knex, Promise) {
     table.integer('user_id').unsigned().notNullable().references('users.id');
     table.integer('swapRequest_id').unsigned().notNullable().references('swaprequests.id');
   })
-  .createTableIfNotExists('products_tags', function(table) {
-    table.integer('product_id').unsigned().notNullable().references('products.id');
+  .createTableIfNotExists('items_tags', function(table) {
+    table.integer('item_id').unsigned().notNullable().references('items.id');
     table.integer('tag_id').unsigned().notNullable().references('tags.id');
   })
-  .createTableIfNotExists('products_swapForTags', function(table) {
-    table.integer('product_id').unsigned().notNullable().references('products.id');
+  .createTableIfNotExists('items_swapForTags', function(table) {
+    table.integer('item_id').unsigned().notNullable().references('items.id');
     table.integer('tag_id').unsigned().notNullable().references('tags.id');
   })
-  .createTableIfNotExists('masterProducts_swapRequests', function(table) {
-    table.integer('product_id').unsigned().notNullable().references('products.id');
+  .createTableIfNotExists('masterItems_swapRequests', function(table) {
+    table.integer('item_id').unsigned().notNullable().references('items.id');
     table.integer('request_id').unsigned().notNullable().references('swaprequests.id');
   })
-  .createTableIfNotExists('slaveProducts_swapRequests', function(table) {
-    table.integer('product_id').unsigned().notNullable().references('products.id');
+  .createTableIfNotExists('slaveItems_swapRequests', function(table) {
+    table.integer('item_id').unsigned().notNullable().references('items.id');
     table.integer('request_id').unsigned().notNullable().references('swaprequests.id');
   });
 };
 
 exports.down = function(knex, Promise) {
   return knex.schema
-  .dropTable('masterProducts_swapRequests')
-  .dropTable('slaveProducts_swapRequests')
+  .dropTable('masterItems_swapRequests')
+  .dropTable('slaveItems_swapRequests')
   .dropTable('requestMessages')
   .dropTable('swapRequests')
-  .dropTable('products_swapForTags')
-  .dropTable('products_tags')
+  .dropTable('items_swapForTags')
+  .dropTable('items_tags')
   .dropTable('tags')
-  .dropTable('productImages')
-  .dropTable('products')
+  .dropTable('itemImages')
+  .dropTable('items')
   .dropTable('users');
 };

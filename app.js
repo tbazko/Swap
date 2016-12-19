@@ -1,33 +1,35 @@
 "use strict";
 
-let express       = require('express');
-let path          = require('path');
-let favicon       = require('serve-favicon');
-let logger        = require('morgan');
-let cookieParser  = require('cookie-parser');
-let bodyParser    = require('body-parser');
-let multer        = require('multer'); // v1.0.5
-let upload        = multer(); // for parsing multipart/form-data
+const express       = require('express');
+const path          = require('path');
+const favicon       = require('serve-favicon');
+const logger        = require('morgan');
+const cookieParser  = require('cookie-parser');
+const bodyParser    = require('body-parser');
+const multer        = require('multer'); // v1.0.5
+const upload        = multer(); // for parsing multipart/form-data
 
-let productList   = require('./app/productList/index');
-let signInOut     = require('./app/signInOut/index');
-let signUp        = require('./app/signUp/index');
-let profile       = require('./app/profile/index');
-let swapRequest   = require('./app/swapRequest/index');
-let product       = require('./app/product/index');
-let message       = require('./app/message/index');
-let userInfo      = require('./app/user/index');
-let jsonSender    = require('./app/jsonSender/index');
-let passport      = require('./config/passport');
-let session       = require('express-session');
-let app           = express();
+global.rootRequire = function(name) {
+  return require(__dirname + '/' + name);
+}
+
+const signInOut     = require('./app/signInOut');
+const signUp        = require('./app/signUp');
+const profile       = require('./app/profile');
+const swapRequest   = require('./app/swapRequest');
+const message       = require('./app/message');
+const userInfo      = require('./app/user');
+const passport      = require('./config/passport');
+const session       = require('express-session');
+const app           = express();
 
 // view engine setup
-app.set('views', path.join(__dirname, 'app/viewsCommon'));
+app.set('views', path.join(__dirname, 'app/templatesCommon'));
+
 var exphbs = require('express-handlebars');
 var hbs = exphbs.create({
-  layoutsDir: 'app/viewsCommon/layouts/',
-  partialsDir: 'app/viewsCommon/partials/',
+  layoutsDir: 'app/templatesCommon/layouts/',
+  partialsDir: 'app/templatesCommon/partials/',
   defaultLayout: 'main',
   extname: '.hbs',
   helpers: {
@@ -64,15 +66,14 @@ app.use(session({secret: 'secret strategic xxzzz code'}));
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.use(productList);
 app.use(signInOut);
 app.use(signUp);
 app.use(profile);
 app.use(swapRequest);
-app.use(product);
 app.use(message);
 app.use(userInfo);
-app.use(jsonSender);
+
+app.use(require('./app/router'));
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

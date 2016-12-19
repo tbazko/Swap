@@ -1,0 +1,61 @@
+{{#section 'scripts'}}
+  <script src="/javascripts/lib/require.js" data-main="/javascripts/editItemForm" async></script>
+{{/section}}
+
+<div class="main-container">
+  <div class="row">
+    <div class="col col-xs4 col-sm12 col-md8 col--mdPush2 paperStyle-container">
+      <h2 class="section-title text-center mb20 js-item-added is-hidden">New item added!</h2>
+      <h2 class="section-title text-center mb20 js-item-edited is-hidden">Item successfully edited!</h2>
+    {{#if newItem}}
+      <h1 class="main-title">Add new item</h1>
+      <form action="/item/create" enctype="multipart/form-data" method="post" class="js-editItemForm form" id="editItemForm">
+    {{else}}
+      <h1 class="main-title">Edit item</h1>
+      <form action="/item/{{item.id}}/edit" enctype="multipart/form-data" method="post" class="js-editItemForm form" id="editItemForm">
+    {{/if}}
+
+        <input type="hidden" name="newItem" value="{{newItem}}">
+        <input type="hidden" name="userId" value="{{userId}}">
+      {{#if newItem}}
+        <input type="text" name="name" placeholder="Name">
+      {{else}}
+        <input type="hidden" name="itemId" value="{{item.id}}">
+        <input type="text" name="name" placeholder="Name" value="{{item.name}}">
+      {{/if}}
+        <input type="text" name="tags" placeholder="Tags, keywords">
+        <input type="text" name="swapForTags" placeholder="Swap for? Some tags/keywords here...">
+        <p class="mb20">
+          <label for="">Condition&#32;</label>
+          <input type="radio" name="itemCondition" value="1">
+          &nbsp;1&nbsp;
+          <input type="radio" name="itemCondition" value="2">
+          &nbsp;2&nbsp;
+          <input type="radio" name="itemCondition" value="3">
+          &nbsp;3&nbsp;
+          <input type="radio" name="itemCondition" value="4">
+          &nbsp;4&nbsp;
+          <input type="radio" name="itemCondition" value="5">
+          &nbsp;5&nbsp;
+        </p>
+
+        <p class="mb20">
+          <label for="">Image&#32;</label>
+          <input type="file" name="upload" accept="image/*">
+        </p>
+
+        {{#if newItem}}
+          <textarea name="description" id="" cols="30" rows="10" placeholder="Description"></textarea>
+        {{else}}
+          <textarea name="description" id="" cols="30" rows="10" placeholder="Description" value="{{item.description}}">
+            {{item.description}}
+          </textarea>
+        {{/if}}
+        <p class="text-center mt20">
+          <input type="submit" value="Save changes" class="btn btn--turqoise">
+        </p>
+      </form>
+
+    </div>
+  </div>
+</div>

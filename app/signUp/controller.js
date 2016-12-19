@@ -1,6 +1,6 @@
 "use strict";
 let bcrypt = require('bcrypt-nodejs');
-const User = require('../core/models/User');
+const User = require('../core/dataBaseObjects/User');
 let signInController = require('../signInOut/controller');
 
 // sign up

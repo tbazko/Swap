@@ -1,26 +1,24 @@
 "use strict";
-const DataBaseObject = require('../../../config/database').Model;
+const Base = require('./Base');
+const DataBaseTag = require('../dataBaseSchemas/Tag');
 
-class Tag extends DataBaseObject {
-  static get tableName() {
-    return 'tags';
+class Tag extends Base {
+  constructor() {
+    super(DataBaseTag);
   }
 
-  static get relationMappings() {
-    return {
-      products: {
-        relation: DataBaseObject.ManyToManyRelation,
-        modelClass: __dirname + '/Product',
-        join: {
-          from: 'tags.id',
-          through: {
-            from: 'products_tags.tag_id',
-            to: 'products_tags.product_id'
-          },
-          to: 'products.id'
-        }
-      }
-    }
+  loadRelatedItemsWithRelations(tagName, relations, callback) {
+    this.DataBaseSchema
+      .query()
+      .where('name', '=', tagName)
+      // .first()
+      .eager(relations)
+      .then(function(tag) {
+        callback(null, tag[0].items);
+      })
+      .catch(function(err) {
+        callback(true, err);
+      });
   }
 }
 
