@@ -5,11 +5,12 @@ const DataBaseSwapRequest = require('../dataBaseSchemas/SwapRequest');
 class SwapRequest extends Base {
   constructor() {
     super(DataBaseSwapRequest);
+    this.req = undefined;
   }
 
-  create(req) {
-    let swapForm = req.body;
-    let masterItemId = req.params.id;
+  insert() {
+    let swapForm = this.req.body;
+    let masterItemId = this.req.params.id;
     let slaveItemIds = [];
     slaveItemIds = swapForm['itemId[]'];
 
@@ -17,7 +18,7 @@ class SwapRequest extends Base {
       .query()
       .insertAndFetch({
         seller_id: swapForm.authorId,
-        buyer_id: req.user.id,
+        buyer_id: this.req.user.id,
         email: swapForm.email,
         phone: swapForm.phone,
         message: swapForm.message
@@ -25,8 +26,6 @@ class SwapRequest extends Base {
       .then(function(request) {
         request.$relatedQuery('masterItems').relate(masterItemId)
           .then(function() {
-            console.log(slaveItemIds.length);
-            console.log(typeof slaveItemIds);
             if(slaveItemIds.length === 1) {
               request.$relatedQuery('slaveItems').relate(slaveItemIds).then();
             } else {
@@ -41,7 +40,7 @@ class SwapRequest extends Base {
       });
   }
 
-  getWithRelationsAndFilteredMessages(id, callback) {
+  getWithRelationsAndSortedMessages(id, callback) {
     this.DataBaseSchema
       .query()
       .where(this.idName, id)

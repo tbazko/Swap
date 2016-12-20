@@ -1,13 +1,12 @@
 'use strict';
 const events = require('events');
-const eventEmitter = new events.EventEmitter();
-const Item = rootRequire('app/core/dataBaseObjects/Item');
+const Item = rootRequire('app/core/dataBaseModels/Item');
 
 class ItemFormModel {
   constructor() {
     this._observerList = [];
     this._itemObjection = new Item();
-    this.eventEmitter = eventEmitter;
+    this.eventEmitter = new events.EventEmitter();
   }
 
   set itemId(itemId) {
@@ -86,7 +85,7 @@ class ItemFormModel {
   }
 
   _createItem() {
-    this._itemObjection.createAndGet(this.fields, this.files).then((newItem) => {
+    this._itemObjection.create(this.fields, this.files).then((newItem) => {
       this.eventEmitter.emit('formSaved', true, newItem);
     });
   }

@@ -5,12 +5,12 @@ var router        = express.Router();
 var passport      = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 var bcrypt        = require('bcrypt-nodejs');
-var User          = require('../app/core/dataBaseObjects/User');
+var User          = require('../app/core/dataBaseModels/User');
 
 passport.use(new LocalStrategy(function(username, password, done) {
   let user = new User();
-  user.identifier = 'email';
-
+  user.idName = 'email';
+  
   user.getOneByIdentifier(username, function(err, user) {
     if(user === null) {
        return done(null, false, {message: 'Invalid username or password'});
@@ -30,7 +30,7 @@ passport.serializeUser(function(user, done) {
 
 passport.deserializeUser(function(username, done) {
   let user = new User();
-  user.identifier = 'email';
+  user.idName = 'email';
 
   user.getOneByIdentifier(username, function(err, user) {
     done(null, user);

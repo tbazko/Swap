@@ -1,6 +1,6 @@
 "use strict";
 let bcrypt = require('bcrypt-nodejs');
-const User = require('../core/dataBaseObjects/User');
+const User = require('../core/dataBaseModels/User');
 let signInController = require('../signInOut/controller');
 
 // sign up
@@ -19,7 +19,7 @@ let signUpPost = function(req, res, next) {
    let userData = req.body;
    let usernamePromise = null;
    let user = new User(req);
-   user.identifier = 'email';
+   user.idName = 'email';
 
    user.getOneByIdentifier(userData.username, function(err, model) {
       if(model) {

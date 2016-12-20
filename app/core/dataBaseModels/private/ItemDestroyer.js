@@ -11,7 +11,7 @@ class ItemDestroyer {
     let destroyItemPromise = new Promise((resolve, reject) => {
       this._DBschema
         .query()
-        .where(this._DBobject.identifier, '=', id)
+        .where(this._DBobject.idName, '=', id)
         .first()
         .then(function(item) {
           var imagesPromise = item.$relatedQuery('images');

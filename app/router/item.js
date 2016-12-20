@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 const express = require('express');
 const ItemPresenter = rootRequire('app/item/ItemPresenter');
 const ItemFormPresenter = rootRequire('app/itemForm/ItemFormPresenter');
@@ -6,7 +6,6 @@ const DestroyButtonPresenter = rootRequire('app/destroyButton/DestroyButtonPrese
 const helpers = require('../helpers/index');
 let app = express();
 let itemFormPresenter;
-let itemFormMediator;
 
 app.get('/item/:id(\\d+)/', makeItemPresenter);
 app.get('/item/create', helpers.signInRedirect, makeItemFormPresenter);
@@ -34,13 +33,5 @@ function makeItemFormPresenter(req, res, next) {
   }
   itemFormPresenter.handle(req, res, next);
 }
-
-
-// app.get('/item/:id', controller.render);
-// app.get('/item-create', helpers.signInRedirect, controller.renderForm);
-// app.post('/item-destroy', controller.destroy);
-// app.post('/item-edit', helpers.signInRedirect, controller.renderForm);
-// app.post('/item-create', controller.create);
-
 
 module.exports = app;

@@ -1,5 +1,5 @@
 'use strict';
-const Item = rootRequire('app/core/dataBaseObjects/Item');
+const Item = rootRequire('app/core/dataBaseModels/Item');
 
 module.exports = {
   template: 'userItemListView',
@@ -10,7 +10,7 @@ module.exports = {
       email: model.user.email
     };
 
-    item.identifier = 'user_id';
+    item.idName = 'user_id';
     item.getWithRelations(model.user.id, '[images, tags, swapForTags]', function(err, items) {
       if(items) {
         resolve({ items: items, url: model.path, user: user });

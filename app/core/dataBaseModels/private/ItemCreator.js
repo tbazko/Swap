@@ -21,7 +21,7 @@ class ItemCreator {
     return this._itemData;
   }
 
-  createAndGet(fields, files) {
+  create(fields, files) {
     this._fields = fields;
     this._files = files;
     this._stripImageFormatRegExp = this._files.upload.name.replace(/\.jpg|\.jpeg|\.bmp|\.gif/gmi, '');

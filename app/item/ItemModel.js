@@ -1,5 +1,5 @@
 'use strict';
-const Item = rootRequire('app/core/dataBaseObjects/Item');
+const Item = rootRequire('app/core/dataBaseModels/Item');
 
 class ItemModel {
   set id(id) {

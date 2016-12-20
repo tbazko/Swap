@@ -7,8 +7,9 @@ class DestroyButtonPresenter {
   }
 
   destroy(req, res, next) {
-    this.model.modelData = req;
+    this.model.data = req;
     this.res = res;
+    this.model.destroy();
   }
 }
 

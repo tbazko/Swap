@@ -15,10 +15,6 @@ global.rootRequire = function(name) {
 
 const signInOut     = require('./app/signInOut');
 const signUp        = require('./app/signUp');
-const profile       = require('./app/profile');
-const swapRequest   = require('./app/swapRequest');
-const message       = require('./app/message');
-const userInfo      = require('./app/user');
 const passport      = require('./config/passport');
 const session       = require('express-session');
 const app           = express();
@@ -68,10 +64,6 @@ app.use(passport.session());
 
 app.use(signInOut);
 app.use(signUp);
-app.use(profile);
-app.use(swapRequest);
-app.use(message);
-app.use(userInfo);
 
 app.use(require('./app/router'));
 

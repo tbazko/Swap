@@ -26,9 +26,9 @@ class Item extends Base {
     return itemDestroyer.destroy(id);
   }
 
-  createAndGet(fields, files) {
+  create(fields, files) {
     let itemCreator = new ItemCreator(this);
-    return itemCreator.createAndGet(fields, files);
+    return itemCreator.create(fields, files);
   }
 
   getActive(callback) {
@@ -59,18 +59,18 @@ class Item extends Base {
   relateTags(tags, relation) {
     let tagsStr = tags.replace(/\s+/g, '');
     let tagsArray = tagsStr.split(',');
-    this.identifier = 'name';
+    this.idName = 'name';
 
     tagsArray.forEach(function(value, index) {
       this.relateModel(TagSchema, relation, {name: value});
     }.bind(this));
-    this.identifier = 'id';
+    this.idName = 'id';
   }
 
   relateModel(dataBaseSchema, relation, modelData) {
     dataBaseSchema
       .query()
-      .where(this.identifier, modelData[this.identifier])
+      .where(this.idName, modelData[this.idName])
       .first()
       .then(function(model) {
         let relationsPromise = this.currentItem.$relatedQuery(relation);

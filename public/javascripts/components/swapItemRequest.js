@@ -103,7 +103,7 @@ define([
 
 						this.openSwapOverlay();
 					} else if (response && userId === authorId) {
-						console.log('User\'s product');
+						console.log('User\'s item');
 					}
 				} else {
 					// TODO: Remove later
@@ -124,7 +124,8 @@ define([
 			var url = this.$swapForm.attr("action");
 			var formData = {};
 			var formData = utils.gatherFormData(this.$swapForm);
-			formData['authorId'] = $('.js-productDetails').find('.js-authorId').data('author-id');
+			formData['authorId'] = $('.js-itemDetails').find('.js-authorId').data('author-id');
+
 			$.ajax({
 				url: url,
 				method: 'POST',

@@ -1,6 +1,6 @@
 'use strict';
 const ItemListModel = rootRequire('app/itemList/ItemListModel');
-const Item = rootRequire('app/core/dataBaseObjects/Item');
+const Item = rootRequire('app/core/dataBaseModels/Item');
 
 describe('Item List Model', function() {
   let defaultModel = new ItemListModel(rootRequire('app/itemList/strategies/default'));

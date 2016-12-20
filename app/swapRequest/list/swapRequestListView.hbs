@@ -15,8 +15,7 @@
 
     {{#requests}}
       {{#if_eq seller_id ../user.id}}
-      Hello
-      <a href="/requests/{{id}}" class="row pb20">
+      <a href="/request/{{id}}" class="row pb20">
         <div class="col col-xs4 col-sm12 col-md4 clearfix">
         {{#masterItems}}
           <div class="left">
@@ -59,7 +58,7 @@
       {{../user.id}}
         <!-- if request.buyer_id === user.id -->
       {{#if_eq buyer_id ../user.id}}
-        <a href="/requests/{{id}}" class="row pb20">
+        <a href="/request/{{id}}" class="row pb20">
           <div class="col col-xs4 col-sm12 col-md4 clearfix">
           {{#masterItems}}
             <div class="left">{{thumbnail}}</div>

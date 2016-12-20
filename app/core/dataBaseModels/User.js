@@ -24,8 +24,6 @@ class User extends Base {
         callback(true, err);
       });
   }
-
-
 }
 
 module.exports = User;

@@ -5,12 +5,13 @@ const DataBaseMessage = require('../dataBaseSchemas/Message');
 class Message extends Base {
   constructor() {
     super(DataBaseMessage);
+    this.req = undefined;
   }
 
-  create(req, callback) {
-    var messageForm = req.body;
-    var userId = req.user.id;
-    var requestId = req.params.id;
+  create(callback) {
+    var messageForm = this.req.body;
+    var userId = this.req.user.id;
+    var requestId = this.req.params.id;
     this.DataBaseSchema
       .query()
       .insert({

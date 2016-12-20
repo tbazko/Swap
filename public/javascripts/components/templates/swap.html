@@ -5,8 +5,8 @@
 </div>
 
 
-{{#products}}
-  <label for="{{id}}" data-product-id="{{id}}" class="product product--inSwapList">
+{{#items}}
+<label for="{{id}}" data-item-id="{{id}}" class="item item--inSwapList">
     <div class="img-container">
       {{#images}}
         <img src="http://res.cloudinary.com/di42acdz9/image/upload/{{id}}" alt="">
@@ -14,8 +14,8 @@
     </div>
 
     <div class="content-container">
-      <h4 class="product-title">{{name}}</h4>
-      <p class="product-tag-title">
+      <h4 class="item-title">{{name}}</h4>
+      <p class="item-tag-title">
         <b>Tags:&nbsp;
           {{#tags}}
             <a href="/tag/{{tag.name}}">
@@ -28,6 +28,5 @@
 
     </div>
 
-    <input type="checkbox" id="{{id}}" name="productId" value="{{id}}" class="selectItem">
-  </label>
-{{/products}}
+    <input type="checkbox" id="{{id}}" name="itemId" value="{{id}}" class="selectItem">
+  </label> {{/items}}

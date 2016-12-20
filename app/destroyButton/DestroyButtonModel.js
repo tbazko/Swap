@@ -1,16 +1,10 @@
 'use strict';
-const Item = rootRequire('app/core/dataBaseObjects/Item');
-
+const Item = rootRequire('app/core/dataBaseModels/Item');
 
 class DestroyButtonModel {
-  constructor() {
-
-  }
-
-  set modelData(req) {
+  set data(req) {
     this._itemId = req.params.id;
     this._userId = req.user.id;
-    this.destroy();
   }
 
   get itemId() {

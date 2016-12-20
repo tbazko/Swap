@@ -1,6 +1,6 @@
 'use strict';
 const ItemFormModel = rootRequire('app/itemForm/ItemFormModel');
-const Item = rootRequire('app/core/dataBaseObjects/Item');
+const Item = rootRequire('app/core/dataBaseModels/Item');
 
 describe('Item Form Model', function() {
   let ifm = new ItemFormModel();

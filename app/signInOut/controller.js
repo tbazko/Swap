@@ -5,7 +5,7 @@ var passport = require('passport');
 // GET
 var signIn = function(req, res, next) {
   if(req.isAuthenticated()) {
-    res.redirect('/account/profile');
+    res.redirect('/user/profile');
   } else {
    res.render('signin', {title: 'Sign In'});
   }
@@ -19,6 +19,7 @@ var signInPost = function(req, res, next) {
      failureRedirect: '/account/signin'
    },
    function(err, user, info) {
+     console.log(2);
       if(err) {
         console.log(err.message);
         return res.render('signin', {
@@ -41,7 +42,7 @@ var signInPost = function(req, res, next) {
               title: 'Sign In',
               errorMessage: err.message});
          } else {
-            return res.redirect('/account/profile');
+            return res.redirect('/user/profile');
          }
       });
    })(req, res, next);

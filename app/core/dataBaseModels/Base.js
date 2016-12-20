@@ -6,14 +6,6 @@ class Base {
     this.idName = 'id';
   }
 
-  get identifier() {
-    return this.idName;
-  }
-
-  set identifier(str) {
-    this.idName = str;
-  }
-
   getWithRelations(id, relations, callback) {
     var promise;
     var idNameIsArray = typeof this.idName === 'object' && this.idName.length === 2;
@@ -51,7 +43,7 @@ class Base {
   getOneByIdentifier(id, callback) {
     this.DataBaseSchema
       .query()
-      .where(this.identifier, '=', id)
+      .where(this.idName, '=', id)
       .first()
       .then(function(item) {
         callback(null, item);
@@ -64,7 +56,7 @@ class Base {
   getAllByIdentifier(id, callback) {
     this.DataBaseSchema
       .query()
-      .where(this.identifier, '=', id)
+      .where(this.idName, '=', id)
       .then(function(items) {
         callback(null, items);
       })
