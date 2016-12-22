@@ -27,6 +27,7 @@ exports.up = function(knex, Promise) {
     table.increments('id').unsigned().notNullable().primary();
     table.integer('buyer_id').unsigned().notNullable().references('users.id');
     table.integer('seller_id').unsigned().notNullable().references('users.id');
+    table.boolean('new').defaultTo(true).notNullable();
     table.string('email');
     table.string('phone');
     table.string('message');
@@ -41,6 +42,7 @@ exports.up = function(knex, Promise) {
   })
   .createTableIfNotExists('requestMessages', function(table) {
     table.increments('id').notNullable().unsigned().primary();
+    table.boolean('new').defaultTo(true).notNullable();
     table.timestamp('reg_date');
     table.string('text');
     table.integer('user_id').unsigned().notNullable().references('users.id');
