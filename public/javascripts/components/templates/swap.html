@@ -4,22 +4,21 @@
   <textarea name="message" id="" cols="30" rows="10" placeholder="Leave a message for the owner"></textarea>
 </div>
 
-
 {{#items}}
 <label for="{{id}}" data-item-id="{{id}}" class="item item--inSwapList">
     <div class="img-container">
-      {{#images}}
+      {{#firstImage}}
         <img src="http://res.cloudinary.com/di42acdz9/image/upload/{{id}}" alt="">
-      {{/images}}
+      {{/firstImage}}
     </div>
 
-    <div class="content-container">
+    <div class="item-content">
       <h4 class="item-title">{{name}}</h4>
       <p class="item-tag-title">
         <b>Tags:&nbsp;
           {{#tags}}
             <a href="/tag/{{tag.name}}">
-              {{name}},&#32;
+              #{{name}}&#32;
             </a>
           {{/tags}}
         </b>

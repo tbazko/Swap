@@ -6,15 +6,19 @@ class ItemEditor extends ItemCreator {
     super(dataBaseObject);
   }
 
-  editAndGet(fields, files) {
+  editAndGet(itemId, fields, files) {
+
     this.itemData = fields;
+
     let editedItemPromise = new Promise((resolve, reject) => {
       this._DBschema
         .query()
-        .patchAndFetchById(this.itemData)
+        .patchAndFetchById(itemId, this.itemData)
         .then((editedItem) => {
+          console.log(2);
           resolve(editedItem);
         }).catch((err) => {
+          console.log(err);
           reject(err);
         });
     });

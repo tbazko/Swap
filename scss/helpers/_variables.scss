@@ -15,6 +15,8 @@ $color-sangria: #8A0A08;
 $color-fire-brick: #B53C25;
 $color-jaffa: #E06E42;
 $color-outrageous-orange: #FF5C2E;
+$color-main: $color-outrageous-orange;
+$color-alternate: $color-fire-brick;
 
 // greens
 $color-tusk: #D5E3AC;
@@ -26,7 +28,7 @@ $titleFont: 'Roboto', Helvetica, Arial, sans-serif;
 $mainFont: 'Lato', Helvetica, Arial, sans-serif;
 
 //SIZES
-$layoutWidth: 100%;
+$layoutWidth: 1240px;
 $navigationHeight: 54px;
 $p: 14px;
 $h1: 40px;
@@ -41,3 +43,12 @@ $font-sizes: (
   30: 30px,
   40: 40px
 );
+
+$z-stack: base,
+  content,
+  content-overlay,
+  content-navigation,
+  navigation-grey-overlay,
+  navigation,
+  dialog-grey-overlay,
+  dialog;

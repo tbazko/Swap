@@ -1,0 +1,26 @@
+.prev, .next {
+  cursor: pointer;
+  position: absolute;
+  color: $color-white;
+  font-size: 30px;
+  font-weight: 300;
+  opacity: 0;
+  top: 50%;
+  transform: translate(0, -50%);
+  transition: opacity .2s ease;
+  z-index: index($z-stack, content-navigation);
+}
+
+.slider:hover {
+  .prev, .next {
+    opacity: 1;
+    transition: opacity .2s ease;
+  }
+}
+
+.prev {
+  left: 20px;
+}
+.next {
+  right: 20px;
+}

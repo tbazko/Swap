@@ -1,0 +1,71 @@
+.menu {
+  text-align: left;
+  padding: 0;
+  z-index: index($z-stack, navigation);
+  line-height: 26px;
+  margin: 0;
+  height: 100%;
+  width: 100%;
+
+  @include breakpoint(medium) {
+    padding-right: 25px;
+    position: relative;
+    text-align: right;
+    height: auto;
+    width: auto;
+  }
+
+  li {
+    border-bottom: 1px solid $color-light-grey;
+    cursor: pointer;
+    display: block;
+
+    a {
+      cursor: pointer;
+      display: block;
+      padding: 10px 20px;
+      color: $color-alternate;
+      border: 0;
+    }
+
+    span {
+      cursor: pointer;
+    }
+
+    &:first-child {
+      border-top: 1px solid $color-light-grey;
+    }
+
+    @include breakpoint(medium) {
+      display: inline-block;
+      border: 0;
+
+      &:first-child {
+        border: 0;
+      }
+
+      &.is-active {
+        a > span {
+          display: block;
+          border-bottom: 1px dotted $color-main;
+        }
+      }
+
+      a {
+        padding: 0 10px;
+      }
+    }
+
+    a {
+      color: #303030;
+      font-weight: 400;
+      font-size: 16px;
+      text-decoration: none;
+      transition: color .2s ease;
+
+      &:hover {
+        color: $color-alternate;
+      }
+    }
+  }
+}

@@ -15,29 +15,24 @@ app.post('/request/item/:id/create', createRequest);
 
 function makeRequestsList(req, res, next) {
   app.set('views', __dirname + '/../swapRequest/list');
-  let swapRequestList = new SwapRequestListPresenter();
-  swapRequestList.handle(req, res, next);
+  let s = new SwapRequestListPresenter();
+  s.handle(req, res, next);
 }
 
 function makeRequestOverview(req, res, next) {
-  console.log(1);
   app.set('views', __dirname + '/../swapRequest/overview');
-  let swapRequestOverview = new SwapRequestOverviewPresenter();
-  console.log(2);
-  swapRequestOverview.handle(req, res, next);
+  let s = new SwapRequestOverviewPresenter();
+  s.handle(req, res, next);
 }
 
-function createMessage(req, res, next) {
-  let messageCreator = new MessageCreator();
-  messageCreator.handle(req, res, next);
+function createMessage(req, res, next) {  
+  let m = new MessageCreator();
+  m.handle(req, res, next);
 }
 
 function createRequest(req, res, next) {
-  let swapRequestCreator = new SwapRequestCreator();
-  swapRequestCreator.handle(req, res, next);
+  let s = new SwapRequestCreator();
+  s.handle(req, res, next);
 }
-
-// app.get('/requests', helpers.signInRedirect, controller.renderOverview);
-// app.get('/requests/:id', helpers.signInRedirect, controller.renderOne);
 
 module.exports = app;

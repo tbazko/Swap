@@ -1,0 +1,49 @@
+$icon-width: 30px;
+$icon-height: 23px;
+
+%line-style {
+  background: $color-night-rider;
+  display: block;
+  position: absolute;
+  height: 3px;
+  left: 0;
+  transition: transform .2s ease;
+  width: $icon-width;
+
+  .is-active & {
+    transition: transform .2s ease;
+  }
+}
+
+.menu-trigger-icon {
+  position: relative;
+  height: $icon-height;
+  width: $icon-width;
+}
+
+.menu-trigger-icon--top {
+  @extend %line-style;
+  top: 0;
+
+  .is-active & {
+    transform: rotate(45deg) translate(7px, 7px);
+  }
+}
+
+.menu-trigger-icon--middle {
+  @extend %line-style;
+  top: 10px;
+
+  .is-active & {
+    transform: rotate(-45deg);
+  }
+}
+
+.menu-trigger-icon--bottom {
+  @extend %line-style;
+  top: 20px;
+
+  .is-active & {
+    transform: rotate(-45deg) translate(7px, -7px);
+  }
+}

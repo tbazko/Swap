@@ -12,12 +12,12 @@
   .condition-#{$i} {
     span {
       &:before {
-        content: '\e80d';
+        content: '\e80e';
       }
 
       &:nth-of-type(-n+#{$i}) {
         &:before {
-          content: '\e80e';
+          content: '\e80d';
         }
       }
     }

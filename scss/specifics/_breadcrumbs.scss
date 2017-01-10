@@ -1,5 +1,5 @@
 .breadcrumbs {
-  font-size: 10px;
+  font-size: 11px;
   font-weight: bold;
   padding-bottom: 25px;
   text-transform: uppercase;
@@ -11,13 +11,7 @@
     padding: 0 8px;
   }
 
-  a:last-of-type {
-    &:after {
-      content: none;
-    }
-  }
-
-span {
+  span {
     color: $color-night-rider;
   }
 }

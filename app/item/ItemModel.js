@@ -27,6 +27,9 @@ class ItemModel {
             reject(err);
           }
           if(!!items.length) {
+            console.log(items[0].description.match(/\n/g));
+            let text = items[0].description;
+            items[0].description = text.replace(/\n/g, '<br>');
             resolve(items[0]);
           } else {
             reject(null);

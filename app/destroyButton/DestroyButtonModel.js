@@ -2,7 +2,12 @@
 const Item = rootRequire('app/core/dataBaseModels/Item');
 
 class DestroyButtonModel {
+  constructor() {
+    this.item = new Item();
+  }
+
   set data(req) {
+    this._url = req.params.path;
     this._itemId = req.params.id;
     this._userId = req.user.id;
   }
@@ -16,15 +21,17 @@ class DestroyButtonModel {
   }
 
   destroy() {
-    let itemDataBaseObject = new Item();
-    itemDataBaseObject.getOneByIdentifier(this.itemId, (err, item) => {
-      if(item.user_id === this.userId) {
-        itemDataBaseObject.destroy(this.itemId).then((response) => {
-          console.log(response);
-        });
-      }
-    });
+    this.item.getOneByIdentifier(this.itemId, this._removeFromDataBase.bind(this));
   }
+
+  _removeFromDataBase(err, item) {
+    if(item.user_id === this.userId) {
+      this.item.destroy(this.itemId).then((response) => {
+        console.log(response);
+      });
+    }
+  }
+
 }
 
 module.exports = DestroyButtonModel;

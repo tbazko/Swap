@@ -5,12 +5,20 @@
     <link rel="stylesheet" href="/stylesheets/master.css">
     {{{_sections.styles}}}
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <script data-main="/javascripts/base" src="/javascripts/lib/require.js" async></script>
-    {{{_sections.scripts}}}
   </head>
   <body>
-    {{> navigation}}
-    {{{body}}}
-    <footer class="footer"></footer>
+    <div id="main" class="main-container">
+      {{> navigation}}
+      {{{body}}}
+      <footer class="footer"></footer>
+    </div>
+
+    <script src="/socket.io/socket.io.js"></script>
+    {{#if _sections.scripts}}
+      {{{_sections.scripts}}}
+    {{else}}
+      <script data-main="/javascripts/base" src="/javascripts/lib/require.js"></script>
+    {{/if}}
+
   </body>
 </html>

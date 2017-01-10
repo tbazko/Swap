@@ -1,0 +1,16 @@
+$menu-height: 54px;
+
+.menu-trigger {
+  box-sizing: border-box;
+  cursor: pointer;
+  display: block;
+  position: relative;
+  height: $menu-height;
+  padding: 15px 12px;
+  width: $menu-height;
+  float: right;
+
+  @include breakpoint(medium) {
+    display: none;
+  }
+}

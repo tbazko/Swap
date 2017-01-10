@@ -3,6 +3,8 @@ html, body {
   background: $color-white-smoke;
   font-family: $mainFont;
   font-size: $p;
+  overflow-x: hidden;
+  width: 100vw;
 
   * {
     box-sizing: border-box;
@@ -69,6 +71,11 @@ textarea {
   border: 0;
 }
 
+.main-container {
+  min-height: calc(100vh - 108px);
+  padding-bottom: 300px;
+}
+
 .text-left {
   text-align: left;
 }
@@ -132,8 +139,9 @@ textarea {
 
 .paperStyle-container {
   @extend %paperStyle;
+  padding: 20px;
 
-  @include breakpoint('small') {
-    padding: 50px 90px;
+  @include breakpoint('large') {
+    padding: 50px 55px;
   }
 }

@@ -12,7 +12,7 @@ I.J	public/javascripts/lib/require.js	/^"Load timeout for modules: "+f,null,f),a
 I.P	public/javascripts/lib/require.js	/^"Load timeout for modules: "+f,null,f),a.contextName=h.contextName,B(a);g&&x(l,function(a){K(a,{},{})});c&&!b||!k||!F&&!ka||ca||(ca=setTimeout(function(){ca=0;I()},50));ba=!1}}function J(a){w(r,a[0])||u(q(a[0],null,!0)).init(a[1],a[2])}function P(a){a=a.currentTarget||a.srcElement;var b=h.onScriptLoad;a.detachEvent&&!da?a.detachEvent("onreadystatechange",b):a.removeEventListener("load",b,!1);b=h.onScriptError;a.detachEvent&&!da||a.removeEventListener("error",b,!1);return{node:a,id:a&&a.getAttribute("data-requiremodule")}}$/;"	f
 K	public/javascripts/lib/require.js	/^b,c){var f=a.id,l=g(t,f);if(!w(r,f)||l&&!l.defineEmitComplete)if(l=u(a),l.error&&"error"===b)c(l.error);else l.on(b,c);else"defined"===b&&c(r[f])}function B(a,b){var c=a.requireModules,f=!1;if(b)b(a);else if(x(c,function(b){if(b=g(t,b))b.error=a,b.events.error&&(f=!0,b.emit("error",a))}),!f)k.onError(a)}function C(){W.length&&(x(W,function(a){var b=a[0];"string"===typeof b&&(h.defQueueMap[b]=!0);H.push(a)}),W=[])}function D(a){delete t[a];delete aa[a]}function K(a,b,c){var f=a.map.id;a.error?a.emit("error",$/;"	f
 Knex	config/database.js	/^var Knex = require('knex');$/;"	v
-LocalStrategy	config/passport.js	/^var LocalStrategy = require('passport-local').Strategy;$/;"	v
+LocalStrategy	app/account/passport.js	/^var LocalStrategy = require('passport-local').Strategy;$/;"	v
 M	public/javascripts/lib/require.js	/^(function(ha){function L(b){return"[object Function]"===R.call(b)}function M(b){return"[object Array]"===R.call(b)}function x(b,c){if(b){var d;for(d=0;d<b.length&&(!b[d]||!c(b[d],d,b));d+=1);}}function Y(b,c){if(b){var d;for(d=b.length-1;-1<d&&(!b[d]||!c(b[d],d,b));--d);}}function w(b,c){return la.call(b,c)}function g(b,c){return w(b,c)&&b[c]}function E(b,c){for(var d in b)if(w(b,d)&&c(b[d],d))break}function Z(b,c,d,k){c&&E(c,function(c,g){if(d||!w(b,g))!k||"object"!==typeof c||!c||M(c)||L(c)||c instanceof$/;"	f
 M.E	public/javascripts/lib/require.js	/^(function(ha){function L(b){return"[object Function]"===R.call(b)}function M(b){return"[object Array]"===R.call(b)}function x(b,c){if(b){var d;for(d=0;d<b.length&&(!b[d]||!c(b[d],d,b));d+=1);}}function Y(b,c){if(b){var d;for(d=b.length-1;-1<d&&(!b[d]||!c(b[d],d,b));--d);}}function w(b,c){return la.call(b,c)}function g(b,c){return w(b,c)&&b[c]}function E(b,c){for(var d in b)if(w(b,d)&&c(b[d],d))break}function Z(b,c,d,k){c&&E(c,function(c,g){if(d||!w(b,g))!k||"object"!==typeof c||!c||M(c)||L(c)||c instanceof$/;"	f
 M.E.Z	public/javascripts/lib/require.js	/^(function(ha){function L(b){return"[object Function]"===R.call(b)}function M(b){return"[object Array]"===R.call(b)}function x(b,c){if(b){var d;for(d=0;d<b.length&&(!b[d]||!c(b[d],d,b));d+=1);}}function Y(b,c){if(b){var d;for(d=b.length-1;-1<d&&(!b[d]||!c(b[d],d,b));--d);}}function w(b,c){return la.call(b,c)}function g(b,c){return w(b,c)&&b[c]}function E(b,c){for(var d in b)if(w(b,d)&&c(b[d],d))break}function Z(b,c,d,k){c&&E(c,function(c,g){if(d||!w(b,g))!k||"object"!==typeof c||!c||M(c)||L(c)||c instanceof$/;"	f
@@ -36,15 +36,22 @@ Q.ba.baseUrl	public/javascripts/lib/require.js	/^function Q(){var a;for(C();H.le
 Q.ba.paths	public/javascripts/lib/require.js	/^function Q(){var a;for(C();H.length;){a=H.shift();if(null===a[0])return B(G("mismatch","Mismatched anonymous define() module: "+a[a.length-1]));J(a)}h.defQueueMap={}}var ba,ea,h,S,ca,m={waitSeconds:7,baseUrl:".\/",paths:{},bundles:{},pkgs:{},shim:{},config:{}},t={},aa={},fa={},H=[],r={},X={},ga={},R=1,U=1;S={require:function(a){return a.require?a.require:a.require=h.makeRequire(a.map)},exports:function(a){a.usingExports=!0;if(a.map.isDefine)return a.exports?r[a.map.id]=a.exports:a.exports=r[a.map.id]=$/;"	p
 Q.ba.waitSeconds	public/javascripts/lib/require.js	/^function Q(){var a;for(C();H.length;){a=H.shift();if(null===a[0])return B(G("mismatch","Mismatched anonymous define() module: "+a[a.length-1]));J(a)}h.defQueueMap={}}var ba,ea,h,S,ca,m={waitSeconds:7,baseUrl:".\/",paths:{},bundles:{},pkgs:{},shim:{},config:{}},t={},aa={},fa={},H=[],r={},X={},ga={},R=1,U=1;S={require:function(a){return a.require?a.require:a.require=h.makeRequire(a.map)},exports:function(a){a.usingExports=!0;if(a.map.isDefine)return a.exports?r[a.map.id]=a.exports:a.exports=r[a.map.id]=$/;"	p
 S.require	public/javascripts/lib/require.js	/^function Q(){var a;for(C();H.length;){a=H.shift();if(null===a[0])return B(G("mismatch","Mismatched anonymous define() module: "+a[a.length-1]));J(a)}h.defQueueMap={}}var ba,ea,h,S,ca,m={waitSeconds:7,baseUrl:".\/",paths:{},bundles:{},pkgs:{},shim:{},config:{}},t={},aa={},fa={},H=[],r={},X={},ga={},R=1,U=1;S={require:function(a){return a.require?a.require:a.require=h.makeRequire(a.map)},exports:function(a){a.usingExports=!0;if(a.map.isDefine)return a.exports?r[a.map.id]=a.exports:a.exports=r[a.map.id]=$/;"	m
-User	config/passport.js	/^var User          = require('..\/app\/core\/dataBaseModels\/User');$/;"	v
-bcrypt	config/passport.js	/^var bcrypt        = require('bcrypt-nodejs');$/;"	v
+User	app/account/passport.js	/^var User          = rootRequire('app\/core\/dataBaseModels\/User');$/;"	v
+accountSignIn	app/router/account.js	/^function accountSignIn(req, res, next) {$/;"	f
+accountSignOut	app/router/account.js	/^function accountSignOut(req, res, next) {$/;"	f
+accountSignUp	app/router/account.js	/^function accountSignUp(req, res, next) {$/;"	f
+always-semicolon	.csscomb.json	/^    "always-semicolon": true,$/;"	f
+bcrypt	app/account/passport.js	/^var bcrypt        = require('bcrypt-nodejs');$/;"	v
 bcrypt-nodejs	package.json	/^    "bcrypt-nodejs": "0.0.3",$/;"	f
+block-indent	.csscomb.json	/^    "block-indent": "  ",$/;"	f
 body-parser	package.json	/^    "body-parser": "~1.13.2",$/;"	f
 cloudinary	config/cloudinary.js	/^var cloudinary = require('cloudinary');$/;"	v
 cloudinary	package.json	/^    "cloudinary": "^1.3.1",$/;"	f
+color-case	.csscomb.json	/^    "color-case": "lower",$/;"	f
+color-shorthand	.csscomb.json	/^    "color-shorthand": true,$/;"	f
 connect-flash	package.json	/^    "connect-flash": "~0.1.1",$/;"	f
 cookie-parser	package.json	/^    "cookie-parser": "~1.3.5",$/;"	f
-createMessage	app/router/request.js	/^function createMessage(req, res, next) {$/;"	f
+createMessage	app/router/request.js	/^function createMessage(req, res, next) {  $/;"	f
 createRequest	app/router/request.js	/^function createRequest(req, res, next) {$/;"	f
 debug	package.json	/^    "debug": "~2.2.0",$/;"	f
 define	public/javascripts/lib/require.js	/^c+" at "+d,q,[c]))}};F&&!v.skipDataMain&&Y(document.getElementsByTagName("script"),function(b){D||(D=b.parentNode);if(P=b.getAttribute("data-main"))return u=P,v.baseUrl||(J=u.split("\/"),u=J.pop(),U=J.length?J.join("\/")+"\/":".\/",v.baseUrl=U),u=u.replace(V,""),k.jsExtRegExp.test(u)&&(u=P),v.deps=v.deps?v.deps.concat(u):[u],!0});define=function(b,c,d){var g,e;"string"!==typeof b&&(d=c,c=b,b=null);M(c)||(d=c,c=null);!c&&L(d)&&(c=[],d.length&&(d.toString().replace(qa,"").replace(ra,function(b,d){c.push(d)}),$/;"	f
@@ -53,6 +60,7 @@ dependencies	package.json	/^  "dependencies": {$/;"	f
 devDependencies	package.json	/^  "devDependencies": {$/;"	f
 ea	public/javascripts/lib/require.js	/^{}},module:function(a){return a.module?a.module:a.module={id:a.map.id,uri:a.map.url,config:function(){return g(m.config,a.map.id)||{}},exports:a.exports||(a.exports={})}}};ea=function(a){this.events=g(fa,a.id)||{};this.map=a;this.shim=g(m.shim,a.id);this.depExports=[];this.depMaps=[];this.depMatched=[];this.pluginMaps={};this.depCount=0};ea.prototype={init:function(a,b,c,f){f=f||{};if(!this.inited){this.factory=b;if(c)this.on("error",c);else this.events.error&&(c=y(this,function(a){this.emit("error",$/;"	c
 ea.init	public/javascripts/lib/require.js	/^{}},module:function(a){return a.module?a.module:a.module={id:a.map.id,uri:a.map.url,config:function(){return g(m.config,a.map.id)||{}},exports:a.exports||(a.exports={})}}};ea=function(a){this.events=g(fa,a.id)||{};this.map=a;this.shim=g(m.shim,a.id);this.depExports=[];this.depMaps=[];this.depMatched=[];this.pluginMaps={};this.depCount=0};ea.prototype={init:function(a,b,c,f){f=f||{};if(!this.inited){this.factory=b;if(c)this.on("error",c);else this.events.error&&(c=y(this,function(a){this.emit("error",$/;"	m
+element-case	.csscomb.json	/^    "element-case": "lower",$/;"	f
 entityMap."	public/javascripts/lib/mustache.js	/^    '>': '&gt;',$/;"	p
 entityMap.&	public/javascripts/lib/mustache.js	/^  var entityMap = {$/;"	p
 entityMap.'	public/javascripts/lib/mustache.js	/^    '"': '&quot;',$/;"	p
@@ -61,17 +69,18 @@ entityMap.<	public/javascripts/lib/mustache.js	/^    '&': '&amp;',$/;"	p
 entityMap.=	public/javascripts/lib/mustache.js	/^    '`': '&#x60;',$/;"	p
 entityMap.>	public/javascripts/lib/mustache.js	/^    '<': '&lt;',$/;"	p
 entityMap.`	public/javascripts/lib/mustache.js	/^    '\/': '&#x2F;',$/;"	p
+eof-newline	.csscomb.json	/^    "eof-newline": true,$/;"	f
 escapeRegExp	public/javascripts/lib/mustache.js	/^  function escapeRegExp (string) {$/;"	f
-exphbs	app.js	/^var exphbs = require('express-handlebars');$/;"	v
+exphbs	config/templates.js	/^var exphbs = require('express-handlebars');$/;"	v
 exports.down	migrations/20160325232652_pages.js	/^};$/;"	f
 exports.up	migrations/20160325232652_pages.js	/^$/;"	f
-express	config/passport.js	/^var express       = require('express');$/;"	v
+express	app/account/passport.js	/^var express       = require('express');$/;"	v
 express	package.json	/^    "express": "~4.13.1",$/;"	f
 express-handlebars	package.json	/^    "express-handlebars": "^3.0.0",$/;"	f
 express-session	package.json	/^    "express-session": "~1.0.0",$/;"	f
 f.f.f.ea.defineDep	public/javascripts/lib/require.js	/^a)}));this.depMaps=a&&a.slice(0);this.errback=c;this.inited=!0;this.ignore=f.ignore;f.enabled||this.enabled?this.enable():this.check()}},defineDep:function(a,b){this.depMatched[a]||(this.depMatched[a]=!0,--this.depCount,this.depExports[a]=b)},fetch:function(){if(!this.fetched){this.fetched=!0;h.startTime=(new Date).getTime();var a=this.map;if(this.shim)h.makeRequire(this.map,{enableBuildCallback:!0})(this.shim.deps||[],y(this,function(){return a.prefix?this.callPlugin():this.load()}));else return a.prefix?$/;"	m
 formidable	package.json	/^    "formidable": "^1.0.17",$/;"	f
-global.rootRequire	app.js	/^const upload        = multer(); \/\/ for parsing multipart\/form-data$/;"	f
+global.rootRequire	app.js	/^"use strict";$/;"	f
 global.rootRequire	spec/helpers/rootRequireGlobal.js	/^global.rootRequire = function(name) {$/;"	f
 grunt	package.json	/^    "grunt": "^0.4.5",$/;"	f
 grunt-autoprefixer	package.json	/^    "grunt-autoprefixer": "^3.0.3",$/;"	f
@@ -86,8 +95,8 @@ h.defQueueMap	public/javascripts/lib/require.js	/^g(t,a.id);b&&!b.enabled&&h.ena
 h.defined	public/javascripts/lib/require.js	/^g(t,a.id);b&&!b.enabled&&h.enable(a,this)}));this.enabling=!1;this.check()},on:function(a,b){var c=this.events[a];c||(c=this.events[a]=[]);c.push(b)},emit:function(a,b){x(this.events[a],function(a){a(b)});"error"===a&&delete this.events[a]}};h={config:m,contextName:b,registry:t,defined:r,urlFetched:X,defQueue:H,defQueueMap:{},Module:ea,makeModuleMap:q,nextTick:k.nextTick,onError:B,configure:function(a){a.baseUrl&&"\/"!==a.baseUrl.charAt(a.baseUrl.length-1)&&(a.baseUrl+="\/");var b=m.shim,c={paths:!0,$/;"	p
 h.registry	public/javascripts/lib/require.js	/^g(t,a.id);b&&!b.enabled&&h.enable(a,this)}));this.enabling=!1;this.check()},on:function(a,b){var c=this.events[a];c||(c=this.events[a]=[]);c.push(b)},emit:function(a,b){x(this.events[a],function(a){a(b)});"error"===a&&delete this.events[a]}};h={config:m,contextName:b,registry:t,defined:r,urlFetched:X,defQueue:H,defQueueMap:{},Module:ea,makeModuleMap:q,nextTick:k.nextTick,onError:B,configure:function(a){a.baseUrl&&"\/"!==a.baseUrl.charAt(a.baseUrl.length-1)&&(a.baseUrl+="\/");var b=m.shim,c={paths:!0,$/;"	p
 h.urlFetched	public/javascripts/lib/require.js	/^g(t,a.id);b&&!b.enabled&&h.enable(a,this)}));this.enabling=!1;this.check()},on:function(a,b){var c=this.events[a];c||(c=this.events[a]=[]);c.push(b)},emit:function(a,b){x(this.events[a],function(a){a(b)});"error"===a&&delete this.events[a]}};h={config:m,contextName:b,registry:t,defined:r,urlFetched:X,defQueue:H,defQueueMap:{},Module:ea,makeModuleMap:q,nextTick:k.nextTick,onError:B,configure:function(a){a.baseUrl&&"\/"!==a.baseUrl.charAt(a.baseUrl.length-1)&&(a.baseUrl+="\/");var b=m.shim,c={paths:!0,$/;"	p
+handleClient	app/socketio/index.js	/^function handleClient(socket) {$/;"	f
 hasProperty	public/javascripts/lib/mustache.js	/^  function hasProperty (obj, propName) {$/;"	f
-hbs	app.js	/^var hbs = exphbs.create({$/;"	v
 helpers	spec/support/jasmine.json	/^  "helpers": [$/;"	f
 idIsArray	app/core/dataBaseModels/Base.js	/^    var idIsArray = typeof id === 'object' && id.length === 2;$/;"	v
 idNameIsArray	app/core/dataBaseModels/Base.js	/^    var idNameIsArray = typeof this.idName === 'object' && this.idName.length === 2;$/;"	v
@@ -97,8 +106,10 @@ k	public/javascripts/lib/require.js	/^return B(G("scripterror",'Script error for
 k.exec	public/javascripts/lib/require.js	/^c=(1===d.length?["require"]:["require","exports","module"]).concat(c)));T&&(g=Q||pa())&&(b||(b=g.getAttribute("data-requiremodule")),e=K[g.getAttribute("data-requirecontext")]);e?(e.defQueue.push([b,c,d]),e.defQueueMap[b]=!0):W.push([b,c,d])};define.amd={jQuery:!0};k.exec=function(b){return eval(b)};k(v)}})(this);/;"	f
 knex	config/database.js	/^var knex = Knex({$/;"	v
 knex	package.json	/^    "knex": "^0.10.0",$/;"	f
-let	app/signUp/controller.js	/^let signInController = require('..\/signInOut\/controller');$/;"	f
+leading-zero	.csscomb.json	/^    "leading-zero": false,$/;"	f
+let.failureRedirect	app/router/account.js	/^  successRedirect: '\/user\/profile',$/;"	p
 let.id	spec/app/router/index.spec.js	/^let fakeUser = {id: 1};$/;"	p
+let.successRedirect	app/router/account.js	/^let redirects = {$/;"	p
 let.userId	app/itemList/strategies/filteredByUser.js	/^    let user = {$/;"	p
 makeDestroyButton	app/router/item.js	/^function makeDestroyButton(req, res, next) {$/;"	f
 makeItemFormPresenter	app/router/item.js	/^function makeItemFormPresenter(req, res, next) {$/;"	f
@@ -111,13 +122,19 @@ makeRequestsList	app/router/request.js	/^function makeRequestsList(req, res, nex
 makeUserProfile	app/router/user.js	/^function makeUserProfile(req, res, next) {$/;"	f
 method-override	package.json	/^    "method-override": "~1.0.0",$/;"	f
 mkdirp	package.json	/^    "mkdirp": "^0.5.1",$/;"	f
+model.parsedFormData.fields	app/itemForm/ItemFormPresenter.js	/^    this.model.parsedFormData = {fields: fields, files: files};$/;"	p
+model.parsedFormData.files	app/itemForm/ItemFormPresenter.js	/^    this.model.parsedFormData = {fields: fields, files: files};$/;"	p
 module.exports	Gruntfile.js	/^module.exports = function(grunt) {$/;"	f
 module.exports	app/helpers/isAuthenticated.js	/^module.exports = function(req, res, next) {$/;"	f
 module.exports	app/helpers/signInRedirect.js	/^module.exports = function(req, res, next) {$/;"	f
+module.exports.app	app.js	/^module.exports = {app: app, server: server};$/;"	p
 module.exports.development	knexfile.js	/^module.exports = {$/;"	p
+module.exports.getSocketio	app/socketio/index.js	/^let _socketio;$/;"	f
 module.exports.items	app/itemList/strategies/default.js	/^  template: 'itemListView',$/;"	m
 module.exports.items	app/itemList/strategies/filteredByTag.js	/^  template: 'itemListView',$/;"	m
 module.exports.items	app/itemList/strategies/filteredByUser.js	/^  template: 'userItemListView',$/;"	m
+module.exports.server	app.js	/^module.exports = {app: app, server: server};$/;"	p
+module.exports.setSocketio	app/socketio/index.js	/^}$/;"	f
 module.exports.template	app/itemList/strategies/default.js	/^module.exports = {$/;"	p
 module.exports.template	app/itemList/strategies/filteredByTag.js	/^module.exports = {$/;"	p
 module.exports.template	app/itemList/strategies/filteredByUser.js	/^module.exports = {$/;"	p
@@ -128,37 +145,51 @@ mysql	config/database.js	/^var mysql = require('mysql');$/;"	v
 mysql	package.json	/^    "mysql": "^2.10.2",$/;"	f
 name	package.json	/^  "name": "Swap",$/;"	f
 nonSpaceRe	public/javascripts/lib/mustache.js	/^  var nonSpaceRe = \/\\S\/;$/;"	v
-notFound404	app/signInOut/controller.js	/^var notFound404 = function(req, res, next) {$/;"	f
 objection	config/database.js	/^var objection = require('objection');$/;"	v
 objection	package.json	/^    "objection": "^0.5.5",$/;"	f
 pa	public/javascripts/lib/require.js	/^return B(G("scripterror",'Script error for "'+b.id+(c.length?'", needed by: '+c.join(", "):'"'),a,[b.id]))}}};h.require=h.makeRequire();return h}function pa(){if(O&&"interactive"===O.readyState)return O;Y(document.getElementsByTagName("script"),function(b){if("interactive"===b.readyState)return O=b});return O}var k,C,D,I,P,J,O,Q,u,U,qa=\/(\\\/\\*([\\s\\S]*?)\\*\\\/|([^:]|^)\\\/\\\/(.*)$)\/mg,ra=\/[^.]\\s*require\\s*\\(\\s*["']([^'"\\s]+)["']\\s*\\)\/g,V=\/\\.js$\/,na=\/^\\.\\\/\/;C=Object.prototype;var R=C.toString,la=C.hasOwnProperty,$/;"	f
 parsed	public/javascripts/lib/text.js	/^            var parsed = text.parseName(name),$/;"	v
-passport	app/signInOut/controller.js	/^var passport = require('passport');$/;"	v
-passport	config/passport.js	/^var passport      = require('passport');$/;"	v
+passport	app/account/passport.js	/^var passport      = require('passport');$/;"	v
 passport	package.json	/^    "passport": "~0.1.17",$/;"	f
 passport-facebook	package.json	/^    "passport-facebook": "~1.0.2",$/;"	f
 passport-google-oauth	package.json	/^    "passport-google-oauth": "~0.1.5",$/;"	f
 passport-local	package.json	/^    "passport-local": "~0.1.6",$/;"	f
 passport-twitter	package.json	/^    "passport-twitter": "~1.0.2",$/;"	f
 private	package.json	/^  "private": true,$/;"	f
+quotes	.csscomb.json	/^    "quotes": "double",$/;"	f
 random	spec/support/jasmine.json	/^  "random": false$/;"	f
 regExpTest	public/javascripts/lib/mustache.js	/^  var regExpTest = RegExp.prototype.test;$/;"	v
+remove-empty-rulesets	.csscomb.json	/^    "remove-empty-rulesets": true,$/;"	f
 request	package.json	/^    "request": "^2.79.0"$/;"	f
 requirejs	public/javascripts/lib/require.js	/^var requirejs,require,define;$/;"	v
-router	config/passport.js	/^var router        = express.Router();$/;"	v
 scripts	package.json	/^  "scripts": {$/;"	f
 serve-favicon	package.json	/^    "serve-favicon": "~2.3.0",$/;"	f
 set._itemData.name	app/core/dataBaseModels/private/ItemCreator.js	/^    this._itemData = {$/;"	p
-signIn	app/signInOut/controller.js	/^var signIn = function(req, res, next) {$/;"	f
-signInPost	app/signInOut/controller.js	/^var signInPost = function(req, res, next) {$/;"	f
-signOut	app/signInOut/controller.js	/^var signOut = function(req, res, next) {$/;"	f
+socket.io	package.json	/^    "socket.io": "^1.7.2",$/;"	f
+sort-order-fallback	.csscomb.json	/^    "sort-order-fallback": "abc",$/;"	f
+space-after-colon	.csscomb.json	/^    "space-after-colon": " ",$/;"	f
+space-after-combinator	.csscomb.json	/^    "space-after-combinator": " ",$/;"	f
+space-after-opening-brace	.csscomb.json	/^    "space-after-opening-brace": "\\n",$/;"	f
+space-after-selector-delimiter	.csscomb.json	/^    "space-after-selector-delimiter": "\\n",$/;"	f
+space-before-closing-brace	.csscomb.json	/^    "space-before-closing-brace": "\\n",$/;"	f
+space-before-colon	.csscomb.json	/^    "space-before-colon": "",$/;"	f
+space-before-combinator	.csscomb.json	/^    "space-before-combinator": " ",$/;"	f
+space-before-opening-brace	.csscomb.json	/^    "space-before-opening-brace": " ",$/;"	f
+space-before-selector-delimiter	.csscomb.json	/^    "space-before-selector-delimiter": "",$/;"	f
+space-between-declarations	.csscomb.json	/^    "space-between-declarations": "\\n",$/;"	f
 spec_dir	spec/support/jasmine.json	/^  "spec_dir": "spec",$/;"	f
 spec_files	spec/support/jasmine.json	/^  "spec_files": [$/;"	f
 start	package.json	/^    "start": "node .\/bin\/www"$/;"	f
 stopSpecOnExpectationFailure	spec/support/jasmine.json	/^  "stopSpecOnExpectationFailure": false,$/;"	f
+strip-spaces	.csscomb.json	/^    "strip-spaces": true,$/;"	f
+tab-size	.csscomb.json	/^    "tab-size": true,$/;"	f
 testRegExp	public/javascripts/lib/mustache.js	/^  function testRegExp (re, string) {$/;"	f
 text	package.json	/^    "text": "github:requirejs\/text"$/;"	f
 text.get	public/javascripts/lib/text.js	/^        fs = require.nodeRequire('fs');$/;"	f
 typeStr	public/javascripts/lib/mustache.js	/^  function typeStr (obj) {$/;"	f
 u	public/javascripts/lib/require.js	/^n,b,f){var l,d,z=null,k=n?n.name:null,m=a,q=!0,A="";a||(q=!1,a="_@r"+(R+=1));a=e(a);z=a[0];a=a[1];z&&(z=c(z,k,f),d=g(r,z));a&&(z?A=d&&d.normalize?d.normalize(a,function(a){return c(a,k,f)}):-1===a.indexOf("!")?c(a,k,f):a:(A=c(a,k,f),a=e(A),z=a[0],A=a[1],b=!0,l=h.nameToUrl(A)));b=!z||d||b?"":"_unnormalized"+(U+=1);return{prefix:z,name:A,parentMap:n,unnormalized:!!b,url:l,originalName:m,isDefine:q,id:(z?z+"!"+A:A)+b}}function u(a){var b=a.id,c=g(t,b);c||(c=t[b]=new h.Module(a));return c}function v(a,$/;"	f
-v	public/javascripts/lib/require.js	/^n,b,f){var l,d,z=null,k=n?n.name:null,m=a,q=!0,A="";a||(q=!1,a="_@r"+(R+=1));a=e(a);z=a[0];a=a[1];z&&(z=c(z,k,f),d=g(r,z));a&&(z?A=d&&d.normalize?d.normalize(a,function(a)let.id	spec/app/router/index.spec.js	/^let fakeUser = {id: 1};$/;"	p
+unitless-zero	.csscomb.json	/^    "unitless-zero": true,$/;"	f
+v	public/javascripts/lib/require.js	/^n,b,f){var l,d,z=null,k=n?n.name:null,m=a,q=!0,A="";a||(q=!1,a="_@r"+(R+=1));a=e(a);z=a[0];a=a[1];z&&(z=c(z,k,f),d=g(r,z));a&&(z?A=d&&d.normalize?d.normalize(a,function(a){return c(a,k,f)}):-1===a.indexOf("!")?c(a,k,f):a:(A=c(a,k,f),a=e(A),z=a[0],A=a[1],b=!0,l=h.nameToUrl(A)));b=!z||d||b?"":"_unnormalized"+(U+=1);return{prefix:z,name:A,parentMap:n,unnormalized:!!b,url:l,originalName:m,isDefine:q,id:(z?z+"!"+A:A)+b}}function u(a){var b=a.id,c=g(t,b);c||(c=t[b]=new h.Module(a));return c}function v(a,$/;"	f
+vendor-prefix-align	.csscomb.json	/^    "vendor-prefix-align": true$/;"	f
+version	package.json	/^  "version": "0.0.0",$/;"	f
+xhr.onreadystatechange	public/javascripts/lib/text.js	/^            }$/;"	f

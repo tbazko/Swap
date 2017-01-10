@@ -13,9 +13,9 @@ class User extends Base {
       .insertAndFetch({
         email: userData.username,
         password: userData.hash,
-        firstName: 'TamaraTest',
-        city: 'Amsterdam',
-        country: 'The Netherlands'
+        firstName: userData.firstName || 'Anonymous',
+        city: userData.city || '',
+        country: userData.country || ''
       })
       .then(function(user) {
         callback(null, user);

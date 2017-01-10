@@ -11,14 +11,14 @@ app.post('/user/items', helpers.isAuthenticated, makeItemListPresenter);
 
 function makeItemListPresenter(req, res, next) {
   app.set('views', __dirname + '/../itemList/');
-  let itemList = new ItemListPresenter(rootRequire('app/itemList/strategies/filteredByUser'));
-  itemList.handle(req, res, next);
+  let i = new ItemListPresenter(rootRequire('app/itemList/strategies/filteredByUser'));
+  i.handle(req, res, next);
 }
 
 function makeUserProfile(req, res, next) {
   app.set('views', __dirname + '/../userProfile/');
-  let userProfile = new UserProfilePresenter();
-  userProfile.handle(req, res, next);
+  let u = new UserProfilePresenter();
+  u.handle(req, res, next);
 }
 
 module.exports = app;

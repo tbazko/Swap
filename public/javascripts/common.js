@@ -9,6 +9,7 @@ requirejs.config({
     baseUrl: '/javascripts/lib',
     paths: {
         components: '../components',
+        modules: '../modules',
         templates: '../templates',
         mustache: 'mustache',
         text: 'text'

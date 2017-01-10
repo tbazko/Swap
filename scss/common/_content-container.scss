@@ -1,0 +1,10 @@
+.content-container {
+  position: relative;
+  max-width: $layoutWidth;
+  width: calc(100% - 20px);
+  margin: $navigationHeight+20 auto $navigationHeight;
+
+  @include breakpoint('small') {
+    margin: $navigationHeight*2 auto $navigationHeight;
+  }
+}

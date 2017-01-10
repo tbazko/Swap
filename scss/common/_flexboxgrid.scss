@@ -1,0 +1,73 @@
+*,
+*:after,
+*:before {
+  box-sizing: border-box;
+}
+
+.flex {
+  flex-flow: column nowrap;
+  position: relative;
+  z-index: index($z-stack, base);
+
+  @include breakpoint(small) {
+    flex-flow: row wrap;
+  }
+
+  &.column-all {
+    flex-flow: column nowrap;
+  }
+
+  &.flex-all {
+    flex-flow: row wrap;
+  }
+
+  @each $i in xsmall, small, medium, large {
+    &.column-#{$i} {
+      @include breakpoint(#{$i}) {
+        flex-flow: column nowrap;
+      }
+    }
+
+    &.flex-#{$i} {
+      @include breakpoint(#{$i}) {
+        flex-flow: row wrap;
+      }
+    }
+  }
+}
+
+.flex {
+  display: flex;
+  position: relative;
+
+  &.flex-layout-width {
+    max-width: $layoutWidth;
+    margin: 0 auto;
+  }
+
+  &.space-between {
+    justify-content: space-between;
+  }
+
+  &.flex-end {
+    justify-content: flex-end;
+  }
+
+  &.flex-alignment {
+    flex-flow: row wrap;
+  }
+
+  &.column-alignment {
+    flex-flow: column nowrap;
+  }
+
+  &.space-around {
+    justify-content: space-around;
+  }
+
+  &.valign {
+    &-center {
+      align-items: center;
+    }
+  }
+}

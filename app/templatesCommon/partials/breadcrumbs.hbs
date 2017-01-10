@@ -1,5 +1,5 @@
 <div class="breadcrumbs">
   <a href="/">Home</a>
-  <a href="/">Kids</a>
-  <a href="/">Toys</a>
+  {{#with item.tags.[0]}}<a href="/tag/{{this.name}}">{{this.name}}</a>{{/with}}
+  <span>{{item.name}}</span>
 </div>

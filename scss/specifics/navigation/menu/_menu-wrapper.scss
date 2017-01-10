@@ -1,0 +1,37 @@
+.menu-wrapper {
+  background: rgba($color-white, .97);
+  position: absolute;
+  font-family: $mainFont;
+  font-size: 18px;
+  top: 100%;
+  right: -40px;
+  transform: translateX(279px) translate3d(0, 0, 0);
+  height: 100vh;
+  width: 280px;
+  z-index: index($z-stack, navigation);
+  -webkit-perspective: 1000;
+  -webkit-backface-visibility: hidden;
+  transition: font-size .2s ease, transform .2s ease;
+
+  &.is-active {
+    transform: translateX(0);
+    transition: font-size .2s ease, transform .2s ease;
+  }
+
+  @include breakpoint(medium) {
+    background: transparent;
+    position: relative;
+    transform: initial;
+    top: auto;
+    right: auto;
+    margin-right: -10px;
+    height: auto;
+    width: auto;
+
+    .is-sticky & {
+      top: auto;
+      font-size: 14px;
+      transition: font-size .2s ease, transform .2s ease;
+    }
+  }
+}

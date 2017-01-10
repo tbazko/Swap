@@ -1,0 +1,24 @@
+.row.navigation {
+  background: rgba($color-white, .97);
+  z-index: index($z-stack, navigation);
+  top: 0;
+  position: fixed;
+  height: 54px;
+  width: 100%;
+
+  .col {
+    height: 100%;
+  }
+
+  &.is-sticky {
+    border-bottom: 1px solid $color-white-smoke;
+  }
+
+  @include breakpoint(small) {
+    height: $navigationHeight;
+  }
+
+  @include breakpoint(medium) {
+    height: $navigationHeight;
+  }
+}

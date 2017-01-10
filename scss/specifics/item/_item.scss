@@ -1,23 +1,52 @@
-.row-with-blocks-v2 {
-  margin-left: -20px !important;
-  min-width: 1000px;
+.row.row-with-blocks-v2 {
+  margin: 0 -10px;
+  max-width: calc(100% + 20px);
   padding-top: 40px;
+  font-size: 0;
+}
+
+.item-content {
+  background: #fff;
+  position: relative;
+  margin-top: -50px;
+  padding: 20px 0;
+
+  @include breakpoint(medium) {
+    padding: 20px 0 25px;
+  }
+
+  @include breakpoint(medium) {
+    padding: 20px 0 35px;
+  }
 }
 
 .item {
   display: inline-block;
-  height: 295px;
   margin-bottom: 40px;
   position: relative;
   vertical-align: top;
-  margin-left: 20px;
-  width: 230px;
+  margin: 0 10px;
+  font-size: 14px;
+  width: calc(100% - 20px);
+
+  @include breakpoint(xsmall) {
+    width: calc(50% - 20px);
+  }
+
+  @include breakpoint(small) {
+    width: calc(100%/3 - 20px);
+  }
+
+  @include breakpoint(medium) {
+    width: calc(25% - 20px);
+  }
 
   .img-container {
     display: block;
-    height: 220px;
     margin-bottom: 20px;
     overflow: hidden;
+    height: 0;
+    padding-top: 100%;
     width: 100%;
     position: relative;
   }
@@ -33,17 +62,16 @@
   }
 
   .item-title {
+    @extend %p-ellipsis;
     font-size: $p;
     font-family: $titleFont;
     margin-bottom: 5px;
     text-transform: uppercase;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
     color: $color-night-rider;
   }
 
   .item-tag-title {
+    @extend %p-ellipsis;
     font-family: $mainFont;
     color: $color-outrageous-orange;
 

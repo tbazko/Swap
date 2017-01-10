@@ -1,4 +1,5 @@
 //Load common code that includes config, then load the app logic for this page.
 requirejs(['./common'], function (common) {
-  requirejs(['components/editItemForm/base']);
+  requirejs(['modules/base']);
+  requirejs(['modules/editItemForm/base']);
 });

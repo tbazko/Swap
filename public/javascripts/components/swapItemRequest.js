@@ -49,6 +49,7 @@ define([
 
 		onOverlayCloseBtnClick: function () {
 			this.closeOverlay();
+			this.resetSwapForm();
 		},
 
 		onFormSubmit: function (event) {
@@ -88,9 +89,11 @@ define([
 				url: $(element).data('href'),
 				method: 'POST'
 			}).done(function (response) {
-				console.log(response);
 				if (response) {
-
+					response.items.forEach(function(item) {
+						item.firstImage = item.images[0];
+						delete item.images;
+					});
 					var userId = parseFloat(response.user.userId);
 					var authorId = $('.js-authorId').data('author-id');
 
@@ -124,7 +127,7 @@ define([
 			var url = this.$swapForm.attr("action");
 			var formData = {};
 			var formData = utils.gatherFormData(this.$swapForm);
-			formData['authorId'] = $('.js-itemDetails').find('.js-authorId').data('author-id');
+			formData['authorId'] = $('.js-authorId').data('author-id');
 
 			$.ajax({
 				url: url,
@@ -134,7 +137,6 @@ define([
 				if (resp.data) {
 					this.closeOverlay();
 					this.openConfirmationOverlay();
-					this.resetSwapForm();
 				}
 			}.bind(this)).fail(function (jqXHR, textStatus) {
 				console.log(jqXHR, textStatus);

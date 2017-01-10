@@ -1,5 +1,5 @@
 
-<div class="main-container paperStyle-container">
+<div class="content-container paperStyle-container">
   <h1 class="main-title">Requests</h1>
   <!-- <p class="pb30">You have: {{requests.length}} request[s]</p> -->
 
@@ -11,8 +11,8 @@
       <h4 class="font-size14">Sent requests</h4>
     </div>
 
-    <div class="pane js-pane is-active">
-
+    <div id="incomingRequests" class="pane js-pane is-active">
+    <!-- Incoming requests -->
     {{#requests}}
       {{#if_eq seller_id ../user.id}}
       <a href="/request/{{id}}" class="row pb20">
@@ -33,7 +33,7 @@
               </div>
             {{/slaveItems}}
           </div>
-      </div>
+        </div>
 
 
         <div class="col col-xs4 col-sm12 col-md6">
@@ -52,6 +52,7 @@
     {{/requests}}
     </div>
 
+    <!-- Sent requests -->
     <div class="pane js-pane">
     {{#requests}}
       {{buyer_id}}

@@ -10,6 +10,11 @@ class DestroyButtonPresenter {
     this.model.data = req;
     this.res = res;
     this.model.destroy();
+    this._redirectToSamePage();
+  }
+
+  _redirectToSamePage() {
+    this.res.redirect('/user/items');
   }
 }
 

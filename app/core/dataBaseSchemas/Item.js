@@ -18,7 +18,7 @@ class Item extends DataBaseSchema {
       },
       images: {
         relation: DataBaseSchema.HasManyRelation,
-        modelClass: __dirname + '/ItemImageModel',
+        modelClass: __dirname + '/ItemImage',
         join: {
           from: 'items.id',
           to: 'itemImages.item_id'

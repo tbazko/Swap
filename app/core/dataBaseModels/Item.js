@@ -83,9 +83,9 @@ class Item extends Base {
       }.bind(this));
   }
 
-  editAndGet(fields, files) {
+  editAndGet(itemId, fields, files) {
     let itemEditor = new ItemEditor(this);
-    return itemEditor.createAndGet(fields, files);
+    return itemEditor.editAndGet(itemId, fields, files);
   }
 }
 

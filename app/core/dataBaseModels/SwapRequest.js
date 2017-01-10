@@ -1,6 +1,7 @@
 "use strict";
 const Base = require('./Base');
 const DataBaseSwapRequest = require('../dataBaseSchemas/SwapRequest');
+const socketio = rootRequire('app/socketio').getSocketio();
 
 class SwapRequest extends Base {
   constructor() {
@@ -33,6 +34,8 @@ class SwapRequest extends Base {
                 request.$relatedQuery('slaveItems').relate(value).then();
               });
             }
+            
+            socketio.to(request.seller_id).emit('newSwapRequest', request);
           });
       })
       .catch(function(err) {

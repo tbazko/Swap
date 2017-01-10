@@ -1,0 +1,14 @@
+.slider {
+  display: block;
+  overflow: hidden;
+  position: relative;
+  height: 290px;
+
+  @include breakpoint(small) {
+    height: 0;
+    padding-top: 65%;
+    max-width: $layoutWidth;
+    margin: 0 auto;
+    width: 100%;
+  }
+}

@@ -2,7 +2,7 @@
   <script src="/javascripts/lib/require.js" data-main="/javascripts/editItemForm" async></script>
 {{/section}}
 
-<div class="main-container">
+<div class="content-container">
   <div class="row">
     <div class="col col-xs4 col-sm12 col-md8 col--mdPush2 paperStyle-container">
       <h2 class="section-title text-center mb20 js-item-added is-hidden">New item added!</h2>
@@ -41,7 +41,7 @@
 
         <p class="mb20">
           <label for="">Image&#32;</label>
-          <input type="file" name="upload" accept="image/*">
+          <input type="file" name="upload" accept="image/*" multiple="multiple">
         </p>
 
         {{#if newItem}}

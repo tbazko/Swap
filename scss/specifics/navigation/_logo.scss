@@ -1,0 +1,56 @@
+.navigation-logo {
+  height: 54px;
+  padding: 5px 0 3px;
+  font-size: 20px;
+  font-family: 'Raleway', sans-serif;
+  width: 100%;
+
+  @include breakpoint(small) {
+    margin-left: 0;
+    height: 100%;
+    max-height: 72px;
+    padding: 5px 0 3px;
+    font-size: 24px;
+
+    .is-sticky & {
+      max-height: $navigationHeight;
+      transition: max-height .2s ease;
+    }
+  }
+
+  @include breakpoint(medium) {
+    height: 100%;
+    max-height: 76px;
+    padding: 5px 0 3px;
+    transition: max-height .2s ease;
+  }
+}
+
+.navigation-logo {
+  display: block;
+  font-weight: normal;
+  text-decoration: none;
+
+  img {
+    width: auto;
+    height: 100%;
+  }
+
+  span {
+    color: $color-night-rider;
+    font-weight: bold;
+    vertical-align: top;
+    line-height: $navigationHeight - 9px;
+  }
+}
+
+.navigation-logo a {
+  border: 0;
+  display: block;
+  height: 100%;
+
+  &:hover,
+  &:active {
+    border: 0;
+  }
+}

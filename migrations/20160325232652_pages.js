@@ -18,7 +18,7 @@ exports.up = function(knex, Promise) {
     table.string('name').notNullable();
     table.integer('user_id').unsigned().notNullable().references('users.id');
     table.string('state');
-    table.string('description').defaultTo('');
+    table.text('description', 'longtext');
     table.string('condition').notNullable();
     table.string('thumbnail');
     table.timestamp('reg_date');

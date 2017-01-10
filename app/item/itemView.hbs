@@ -1,22 +1,33 @@
-<div class="main-container mb10">
-  <div class="row item-details paperStyle-container js-itemDetails animated">
+{{#section 'scripts'}}
+  <script src="/javascripts/lib/require.js" data-main="/javascripts/itemOverview" async></script>
+{{/section}}
+
+<div class="content-container paperStyle-container">
+  <div class="row itemOverview">
     <div class="col col-xs4 col-sm12 col-md7">
-      <div class="image-container">
-        <img src="http://res.cloudinary.com/di42acdz9/image/upload/{{itemImage.id}}" alt="">
+      <div class="slider js-slider">
+        <div class="prev js-prev icon-left-open"></div>
+        <div class="next js-next icon-right-open"></div>
+
+        <nav class="slider-dots js-dots">
+        </nav>
+        <div class="js-slides">
+          {{#each itemImage}}
+              <div class="slide js-slide {{#if_eq @index 0}}is-active{{/if_eq}}">
+                <img src="http://res.cloudinary.com/di42acdz9/image/upload/{{this.id}}" alt="">
+              </div>
+          {{/each}}
+        </div>
       </div>
     </div>
     <div class="col col-xs4 col-sm12 col-md5">
-      <div class="details-container">
+      <div class="itemOverview-details">
         {{> breadcrumbs}}
-        <h3 class="item-name">{{item.name}}</h3>
-        <p class="item-date">
-          Published by<a href="/user/{{author.id}}" data-author-id={{author.id}} class="js-authorId">{{author.firstName}}</a>
-          &nbsp;on 12.12.2015
-        </p>
-        <ul class="no-bullet pt30 pb30">
+        <h3 class="itemOverview-itemName">{{item.name}}</h3>
+        <ul class="no-bullet pt15 pb30">
           <li class="pt15 pb15 specs-item">
             <h5 class="inline-block property">Location:&nbsp;</h5>
-            <p class="inline value"><a href="">{{author.city}}</a></p>
+            <p class="inline value">{{author.city}}, {{author.country}}</p>
           </li>
           <li class="pb15 specs-item">
             <h5 class="inline-block property">Condition:&nbsp;</h5>
@@ -29,62 +40,51 @@
             </p>
           </li>
           <li class="pb15 specs-item">
-            <h5 class="inline-block property">Swap for:&nbsp;</h5>
-            {{#item.swapForTags}}
-              <p class="inline value">
-                <a href="/tag/{{name}}">{{name}}</a>
-              </p>
-            {{/item.swapForTags}}
+            <h5 class="inline-block property {{item.swapForTags.length}}">Swap for:&nbsp;</h5>
+            <p class="inline value">
+              {{#item.swapForTags}}
+                <a href="/tag/{{name}}">#{{name}}&nbsp;</a>
+              {{/item.swapForTags}}
+            </p>
+
+          </li>
+          <li class="pb15 specs-item">
+            <h5 class="inline-block property">Published:&nbsp;</h5>
+            <p class="inline value">
+              <span class="property">by&nbsp;</span><a href="/user/{{author.id}}" data-author-id={{author.id}} class="js-authorId">{{author.firstName}}</a>
+              &nbsp;<span class="property">on&nbsp;</span>12.12.2015
+            </p>
           </li>
         </ul>
-      {{#item.reason}}
-        <h4 class="pb10 pt30">Reason to swap:</h4>
-        <p class="pb30">{{reason}}</p>
-      {{/item.reason}}
-
-        <div class="text-right pt30">
-          {{> swapButtonsSet}}
-        </div>
-
       </div>
     </div>
-  {{#item.description}}
-    <div class="row clear pt30">
-      <div class="col col-xs4 col-sm12 col-md12">
+    <div class="itemOverview-swapButton clear">
+      {{#if authorIsCurrentUser}}
+        <a href="/item/{{item.id}}/edit" class="btn btn-secondary">Edit</a>
+      {{else}}
+        {{> swapButtonsSet}}
+      {{/if}}
+    </div>
+  </div>
+
+  <div class="row itemOverview pb0">
+    <div class="col col-xs4 col-sm12 col-md8 pb30">
+      {{#item.description}}
         <h4 class="pb10">Description:</h4>
-        <p class="pb30">{{description}}</p>
+        <p class="pb30">{{{this}}}</p>
+      {{/item.description}}
+      {{#item.reasonForSwap}}
+        <h4 class="pb10">Reason for swap:</h4>
+        <p class="pb30">{{this}}</p>
+      {{/item.reasonForSwap}}
+    </div>
+    <div class="col col-xs4 col-sm12 col-md4 itemOverview-map">
+      <div class="itemOverview-map-image" style="background-image: url('https://maps.googleapis.com/maps/api/staticmap?size=400x400&maptype=roadmap&markers=color:red%7C{{author.city}},{{author.country}}&key=AIzaSyCvLphh5RdATb2mbpFCZ0k02_ZqFQZjukk')">
       </div>
     </div>
-  {{/item.description}}
-
+    <a href="#" class="btn btn-small btn-dark itemOverview-moreItemsButton">More items from {{author.firstName}}</a>
   </div>
-
   {{> swapForm}}
-  <div class="row">
-    <div class="col col-xs4 col-sm12 col-md9">
-      <div class="paperStyle-container mt10 mr10">
-        {{> tabPane}}
-        <h5 class="pb10 pt30 mt10">More by&nbsp;
-          <a href="/user/{{author.id}}">{{author.email}}</a>:
-        </h5>
-
-        <div class="row row-with-blocks">
-          {{#author.items}}
-            <div class="col-item-block mb15">
-              <div class="thumbnail bordered">
-                <a href="/item/{{id}}"></a>
-              </div>
-            </div>
-          {{/author.items}}
-        </div>
-      </div>
-    </div>
-    <div class="col col-xs4 col-sm12 col-md3">
-      <div class="map mt10 text-center pt10">
-        {{item.thumbnail}}
-      </div>
-    </div>
-  </div>
 </div>
 
 <div class="paperStyle-container js-dialog dialog is-hidden">

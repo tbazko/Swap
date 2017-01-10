@@ -39,18 +39,16 @@ class ItemFormPresenter {
   }
 
   _parseForm() {
-    let formidableIncomingForm = new formidable.IncomingForm();
-    formidableIncomingForm.parse(this.req, (error, fields, files) => {
-      if(error) {
-        this.model.error = error;
-      }
-      this.model.parsedFormData = {
-        fields: fields,
-        files: files
-      }
-    });
+    let form = new formidable.IncomingForm();
+    form.multiples = true;
+    form.parse(this.req, this._handleParsedFormData.bind(this));
   }
-  
+
+  _handleParsedFormData(error, fields, files) {
+    if(error) this.model.error = error;
+    this.model.parsedFormData = {fields: fields, files: files};
+  }
+
   onFormError() {
 
   }

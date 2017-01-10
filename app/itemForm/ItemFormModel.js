@@ -4,7 +4,6 @@ const Item = rootRequire('app/core/dataBaseModels/Item');
 
 class ItemFormModel {
   constructor() {
-    this._observerList = [];
     this._itemObjection = new Item();
     this.eventEmitter = new events.EventEmitter();
   }
@@ -28,6 +27,9 @@ class ItemFormModel {
   set parsedFormData(data) {
     this._files = data.files;
     this._fields = data.fields;
+    let strippedFromHtmlText = this._fields.description.replace(/(<([^>]+)>)/ig,'');
+    console.log(strippedFromHtmlText);
+    this._fields.description = strippedFromHtmlText.replace(/\n/g, '<br>')
     if(this._fields.newItem === '1') {
       this._createItem();
     } else {
@@ -91,7 +93,7 @@ class ItemFormModel {
   }
 
   _updateItem() {
-    this._itemObjection.editAndGet(this.fields, this.fields).then((editedItem) => {
+    this._itemObjection.editAndGet(this.itemId, this.fields, this.fields).then((editedItem) => {
       this.eventEmitter.emit('formSaved', false, editedItem);
     });
   }
