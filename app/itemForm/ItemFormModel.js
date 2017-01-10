@@ -28,7 +28,6 @@ class ItemFormModel {
     this._files = data.files;
     this._fields = data.fields;
     let strippedFromHtmlText = this._fields.description.replace(/(<([^>]+)>)/ig,'');
-    console.log(strippedFromHtmlText);
     this._fields.description = strippedFromHtmlText.replace(/\n/g, '<br>')
     if(this._fields.newItem === '1') {
       this._createItem();

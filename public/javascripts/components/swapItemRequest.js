@@ -94,6 +94,7 @@ define([
 						item.firstImage = item.images[0];
 						delete item.images;
 					});
+					
 					var userId = parseFloat(response.user.userId);
 					var authorId = $('.js-authorId').data('author-id');
 
