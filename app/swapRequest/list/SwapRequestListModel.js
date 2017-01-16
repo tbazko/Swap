@@ -24,9 +24,20 @@ class SwapRequestListModel {
 
   _getAllUserRequests(resolve, reject) {
     this._swapRequest
-      .getWithRelations(this.userId, '[masterItems, slaveItems, seller, buyer]', (err, requests) => {
+      .getWithRelations(this.userId, '[masterItems.[images], slaveItems.[images], seller, buyer]', (err, requests) => {
         if(err) reject(err);
-        resolve(requests);
+        let sent = [];
+        let incoming = [];
+
+        requests.forEach((request) => {
+          if(request.seller_id === this.userId) {
+            incoming.push(request);
+          } else if(request.buyer_id === this.userId) {
+            sent.push(request);
+          }
+        });
+
+        resolve({incoming: incoming, sent: sent});
       });
   }
 

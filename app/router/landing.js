@@ -7,7 +7,6 @@ app.get('/', makeItemListPresenter);
 app.get('/tag/:id/', makeItemListPresenterFilteredByTag);
 
 function makeItemListPresenter(req, res, next) {
-  console.log(req.session);
   app.set('views', __dirname + '/../itemList/');
   let i = new ItemListPresenter(rootRequire('app/itemList/strategies/default'));
   i.handle(req, res, next);

@@ -1,50 +1,105 @@
+{{#section 'scripts'}}
+  <script src="/javascripts/lib/require.js" data-main="/javascripts/swapRequestOverview" async></script>
+{{/section}}
+
 <div class="content-container">
+  <h1 class="main-title">Request overview</h1>
   <div class="row pb20">
-    <div class="col col-xs4 col-sm12 col-md8 pr30">
-      <div class="pb25 mb20 js-messageForm">
-        <form action="{{url}}/message" class="form text-right" method="POST">
-          <textarea name="message" cols="30" rows="10" class="small light js-messageTextarea" placeholder="Leave a message for the owner"></textarea>
-          <input type="submit" value="Send message" class="btn btn-secondary btn-small mt10 js-messageSubmit">
-        </form>
-      </div>
-
-      {{#request.messages}}
-        <div class="{{#if_eq user_id ../user.id}}ml30{{else}}mr30{{/if_eq}} paperStyle pl30 pr30 pt25 pb25 mb20">
-          <p class="section-subtitle">
-            {{#if_eq user_id ../request.buyer_id}}
-              {{../request.buyer.email}}
-            {{else}}
-              {{../request.seller.email}}
-            {{/if_eq}}
-            {{reg_date}}:</p>
-          <p>{{text}}</p>
-        </div>
-      {{/request.messages}}
-
-      <div class="{{#if_eq user.id request.seller.id}}mr30{{else}}ml30{{/if_eq}} paperStyle pl30 pr30 pt25 pb25 mb20">
-        <p class="section-subtitle">{{request.email}}:</p>
-        <p>{{request.message}}</p>
-      </div>
-    </div>
-
-
-    <div class="col col-xs4 col-sm12 col-md4 paperStyle p30">
-    {{#request.masterItems}}
-      <div class="left">{{thumbnail}}</div>
-    {{/request.masterItems}}
-      <div class="left p30">
-        <p>===></p>
-        <p><===</p>
-      </div>
-      <div class="left requestsOverview">
-        {{#request.slaveItems}}
-          <div class="requestsOverview-slaveItems">
-            {{thumbnail}}
+    <div class="col-xs4 col-md6 paperStyle-container swapRequestOverview">
+      <div class="swapRequestOverview-head">
+        <div class="statusLabel statusLabel--inquiry"><p>Inquiry</p></div>
+        {{#if currentUserIsBuyer}}
+          <p class="mb10">You request:</p>
+        {{else}}
+          <p class="mb10">{{request.buyer.firstName}} requests:</p>
+        {{/if}}
+        {{#request.masterItems}}
+          <div class="swapRequestOverview-item">
+            {{#with images.[0]}}
+            <div class="swapRequestOverview-imageContainer swapRequestOverview-imageContainer--master">
+              <div class="swapRequestOverview-image" style="background-image: url('http://res.cloudinary.com/di42acdz9/image/upload/{{this.id}}')"></div>
+            </div>
+            {{/with}}
+              <h4 class="swapRequestOverview-title">
+                <a href="/item/{{this.id}}">{{this.name}}</a>
+              </h4>
           </div>
+        {{/request.masterItems}}
+      </div>
+
+      {{#if currentUserIsBuyer}}
+        <p class="mt20 mb10">You offer:</p>
+      {{else}}
+        <p class="mt20 mb10">{{request.buyer.firstName}} offers:</p>
+      {{/if}}
+      <div class="swapRequestOverview-body">
+        {{#request.slaveItems}}
+          <div class="swapRequestOverview-item">
+          {{#with images.[0]}}
+            <div class="swapRequestOverview-imageContainer">
+              <div class="swapRequestOverview-image" style="background-image: url('http://res.cloudinary.com/di42acdz9/image/upload/{{this.id}}')"></div>
+            </div>
+          {{/with}}
+            <div class="swapRequestOverview-itemDetails">
+              <h4 class="swapRequestOverview-title">
+                <a href="/item/{{this.id}}">{{this.name}}</a>
+              </h4>
+              <ul class="no-bullet pt5">
+                <li class="pt5 pb0 specs-item">
+                  <h5 class="inline-block property">Location:&nbsp;</h5>
+                  <p class="inline value">{{../request.buyer.city}}, {{../request.buyer.country}}</p>
+                </li>
+                <li class="pt5 pb0 specs-item">
+                  <h5 class="inline-block property">Condition:&nbsp;</h5>
+                  <p class="inline value condition-stars condition-{{this.condition}}">
+                    <span class="icon-condition"></span>
+                    <span class="icon-condition"></span>
+                    <span class="icon-condition"></span>
+                    <span class="icon-condition"></span>
+                    <span class="icon-condition"></span>
+                  </p>
+                </li>
+              </ul>
+            </div>
+            <input type="checkbox" name="" value="" class="is-hidden swapRequestOverview-itemDescription-checkbox" id="details-{{this.id}}">
+            <label for="details-{{this.id}}" class="swapRequestOverview-itemDescription-trigger icon-right-open-big"></label>
+            <div class="swapRequestOverview-itemDescription">
+              <h4>Description</h4>
+              <p>{{{this.description}}}</p>
+            </div>
+          </div>
+
         {{/request.slaveItems}}
       </div>
     </div>
 
+    <div class="col col-xs4 col-sm12 col-md6 pl30">
+      <div class="pb25 mb20">
+        <form id="messageForm" data-action="{{url}}/message" class="form text-right">
+          <textarea id="messageTextarea" name="message" cols="30" rows="10" class="small light" placeholder="Leave a message"></textarea>
+          <input id="messageSubmit" type="submit" value="Send message" class="btn btn-secondary btn-small mt10">
+        </form>
+      </div>
 
+      <div id="messages">
+        {{#each request.messages}}
+          <div class="{{#if_eq user_id ../user.id}}ml30{{else}}mr30{{/if_eq}} paperStyle pl30 pr30 pt25 pb25 mb20">
+            <p class="section-subtitle">
+              {{#if_eq user_id ../request.seller_id}}
+                {{../request.seller.firstName}}
+              {{else}}
+                {{../request.buyer.firstName}}
+              {{/if_eq}}
+              {{reg_date}}:</p>
+            <p>{{text}}</p>
+          </div>
+        {{/each}}
+
+        <div class="{{#if currentUserIsBuyer}}ml30{{else}}mr30{{/if}} paperStyle pl30 pr30 pt25 pb25 mb20">
+          <p class="section-subtitle">{{request.buyer.firstName}}:</p>
+          <p>{{request.message}}</p>
+        </div>
+      </div>
+    </div>
   </div>
 </div>

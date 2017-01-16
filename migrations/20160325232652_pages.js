@@ -12,6 +12,8 @@ exports.up = function(knex, Promise) {
     table.string('password');
     table.string('phone');
     table.timestamp('reg_date');
+    table.integer('unix_time');
+    table.string('local_time');
   })
   .createTableIfNotExists('items', function(table) {
     table.increments('id').unsigned().notNullable().primary();
@@ -20,17 +22,19 @@ exports.up = function(knex, Promise) {
     table.string('state');
     table.text('description', 'longtext');
     table.string('condition').notNullable();
-    table.string('thumbnail');
     table.timestamp('reg_date');
+    table.integer('unix_time');
+    table.string('local_time');
   })
   .createTableIfNotExists('swapRequests', function(table) {
     table.increments('id').unsigned().notNullable().primary();
     table.integer('buyer_id').unsigned().notNullable().references('users.id');
     table.integer('seller_id').unsigned().notNullable().references('users.id');
     table.boolean('new').defaultTo(true).notNullable();
-    table.string('email');
-    table.string('phone');
-    table.string('message');
+    table.text('message', 'longtext');
+    table.timestamp('reg_date');
+    table.integer('unix_time');
+    table.string('local_time');
   })
   .createTableIfNotExists('itemImages', function(table) {
     table.string('id').primary();
@@ -44,6 +48,8 @@ exports.up = function(knex, Promise) {
     table.increments('id').notNullable().unsigned().primary();
     table.boolean('new').defaultTo(true).notNullable();
     table.timestamp('reg_date');
+    table.integer('unix_time');
+    table.string('local_time');
     table.string('text');
     table.integer('user_id').unsigned().notNullable().references('users.id');
     table.integer('swapRequest_id').unsigned().notNullable().references('swaprequests.id');

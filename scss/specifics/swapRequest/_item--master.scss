@@ -1,0 +1,22 @@
+.swapRequest-item--master {
+  padding-top: 64%;
+  width: 64%;
+
+  &:first-of-type {
+    margin-left: 0;
+  }
+
+  @include breakpoint(small) {
+    padding-top: calc(100% - 2px);
+    width: calc(100% - 2px);
+  }
+
+  @include breakpoint(medium) {
+    padding-top: calc(100% - 20px);
+    width: calc(100% - 20px);
+
+    &:first-of-type {
+      margin-left: 0;
+    }
+  }
+}

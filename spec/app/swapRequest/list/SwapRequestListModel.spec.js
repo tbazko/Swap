@@ -34,7 +34,8 @@ describe('Swap Request List Model', () => {
 
   it('given user doesn\'t exist when resolved Promise should contain empty array', (done) => {
     srlm.requests.then((response) => {
-      expect(response).toEqual([]);
+      expect(response.incoming).toEqual([]);
+      expect(response.sent).toEqual([]);
       done();
     });
   });
@@ -43,11 +44,11 @@ describe('Swap Request List Model', () => {
     srlm.data = fakeReqWithRealUser;
 
     srlm.requests.then((response) => {
-      expect(response).toEqual(jasmine.any(Array));
-      expect(response[0]).toEqual(jasmine.any(Object));
-      expect(response[0].id).toEqual(jasmine.any(Number));
-      expect(response[0].buyer_id).toEqual(jasmine.any(Number));
-      expect(response[0].seller_id).toEqual(jasmine.any(Number));
+      expect(response).toEqual(jasmine.any(Object));
+      expect(response.incoming).toEqual(jasmine.any(Object));
+      expect(response.incoming[0].id).toEqual(jasmine.any(Number));
+      expect(response.incoming[0].buyer_id).toEqual(jasmine.any(Number));
+      expect(response.incoming[0].seller_id).toEqual(jasmine.any(Number));
       done();
     });
   });

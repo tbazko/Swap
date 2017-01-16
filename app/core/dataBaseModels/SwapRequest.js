@@ -1,7 +1,7 @@
 "use strict";
 const Base = require('./Base');
 const DataBaseSwapRequest = require('../dataBaseSchemas/SwapRequest');
-const socketio = rootRequire('app/socketio').getSocketio();
+const socket = rootRequire('app/socketAPI').getInstance();
 
 class SwapRequest extends Base {
   constructor() {
@@ -13,18 +13,20 @@ class SwapRequest extends Base {
     let swapForm = this.req.body;
     let masterItemId = this.req.params.id;
     let slaveItemIds = [];
+    let data = {
+      seller_id: swapForm.seller_id,
+      buyer_id: this.req.user.id,
+      message: swapForm.message,
+      unix_time: this.DataBaseSchema.raw('UNIX_TIMESTAMP()'),
+      local_time: this.DataBaseSchema.raw('date_format(now(), "%D %M %Y, %H:%i")')
+    }
     slaveItemIds = swapForm['itemId[]'];
 
     this.DataBaseSchema
       .query()
-      .insertAndFetch({
-        seller_id: swapForm.authorId,
-        buyer_id: this.req.user.id,
-        email: swapForm.email,
-        phone: swapForm.phone,
-        message: swapForm.message
-      })
+      .insertAndFetch(data)
       .then(function(request) {
+        request
         request.$relatedQuery('masterItems').relate(masterItemId)
           .then(function() {
             if(slaveItemIds.length === 1) {
@@ -35,7 +37,7 @@ class SwapRequest extends Base {
               });
             }
             
-            socketio.to(request.seller_id).emit('newSwapRequest', request);
+            socket.to(request.seller_id).emit('newSwapRequest', request);
           });
       })
       .catch(function(err) {
@@ -47,7 +49,7 @@ class SwapRequest extends Base {
     this.DataBaseSchema
       .query()
       .where(this.idName, id)
-      .eager('[masterItems, slaveItems, seller, buyer, messages(orderByRegDate)]', {
+      .eager('[masterItems.[images], slaveItems.[images], seller, buyer, messages(orderByRegDate)]', {
         orderByRegDate: function(builder) {
           builder.orderBy('reg_date', 'desc');
         }

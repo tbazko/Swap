@@ -2,96 +2,41 @@
   <script src="/javascripts/lib/require.js" data-main="/javascripts/itemOverview" async></script>
 {{/section}}
 
-<div class="content-container paperStyle-container">
-  <div class="row itemOverview">
-    <div class="col col-xs4 col-sm12 col-md7">
-      <div class="slider js-slider">
-        <div class="prev js-prev icon-left-open"></div>
-        <div class="next js-next icon-right-open"></div>
+<div class="row row--layoutWidth row--nowrap">
+  <div class="content-container paperStyle-container content-container--itemOverview">
+    <div class="row itemOverview">
+      <div class="itemOverview-sliderColumn">
+        {{> slider}}
+      </div>
+      <div class="itemOverview-detailsColumn">
+        {{> itemOverview-details}}
+      </div>
+      <div class="itemOverview-swapButton clear">
+        {{#if authorIsCurrentUser}}
+          <a href="/item/{{item.id}}/edit" class="btn btn-secondary">Edit</a>
+        {{else}}
+          {{> swapButtonsSet}}
+        {{/if}}
+      </div>
+    </div>
 
-        <nav class="slider-dots js-dots">
-        </nav>
-        <div class="js-slides">
-          {{#each itemImage}}
-              <div class="slide js-slide {{#if_eq @index 0}}is-active{{/if_eq}}">
-                <img src="http://res.cloudinary.com/di42acdz9/image/upload/{{this.id}}" alt="">
-              </div>
-          {{/each}}
+    <div class="row itemOverview pb0">
+      <div class="itemOverview-descriptionColumn pb30">
+        {{#item.description}}
+          <h4 class="pb10">Description:</h4>
+          <p class="pb30">{{{this}}}</p>
+        {{/item.description}}
+        {{#item.reasonForSwap}}
+          <h4 class="pb10">Reason for swap:</h4>
+          <p class="pb30">{{this}}</p>
+        {{/item.reasonForSwap}}
+      </div>
+      <div class="itemOverview-mapColumn">
+        <div class="itemOverview-map" style="background-image: url('https://maps.googleapis.com/maps/api/staticmap?size=400x400&maptype=roadmap&markers=color:red%7C{{author.city}},{{author.country}}&key=AIzaSyCvLphh5RdATb2mbpFCZ0k02_ZqFQZjukk')">
         </div>
       </div>
+      <a href="#" class="btn btn-small btn-dark itemOverview-moreItemsButton">More items from {{author.firstName}}</a>
     </div>
-    <div class="col col-xs4 col-sm12 col-md5">
-      <div class="itemOverview-details">
-        {{> breadcrumbs}}
-        <h3 class="itemOverview-itemName">{{item.name}}</h3>
-        <ul class="no-bullet pt15 pb30">
-          <li class="pt15 pb15 specs-item">
-            <h5 class="inline-block property">Location:&nbsp;</h5>
-            <p class="inline value">{{author.city}}, {{author.country}}</p>
-          </li>
-          <li class="pb15 specs-item">
-            <h5 class="inline-block property">Condition:&nbsp;</h5>
-            <p class="inline value condition-stars condition-{{item.condition}}">
-              <span class="icon-condition"></span>
-              <span class="icon-condition"></span>
-              <span class="icon-condition"></span>
-              <span class="icon-condition"></span>
-              <span class="icon-condition"></span>
-            </p>
-          </li>
-          <li class="pb15 specs-item">
-            <h5 class="inline-block property {{item.swapForTags.length}}">Swap for:&nbsp;</h5>
-            <p class="inline value">
-              {{#item.swapForTags}}
-                <a href="/tag/{{name}}">#{{name}}&nbsp;</a>
-              {{/item.swapForTags}}
-            </p>
-
-          </li>
-          <li class="pb15 specs-item">
-            <h5 class="inline-block property">Published:&nbsp;</h5>
-            <p class="inline value">
-              <span class="property">by&nbsp;</span><a href="/user/{{author.id}}" data-author-id={{author.id}} class="js-authorId">{{author.firstName}}</a>
-              &nbsp;<span class="property">on&nbsp;</span>12.12.2015
-            </p>
-          </li>
-        </ul>
-      </div>
-    </div>
-    <div class="itemOverview-swapButton clear">
-      {{#if authorIsCurrentUser}}
-        <a href="/item/{{item.id}}/edit" class="btn btn-secondary">Edit</a>
-      {{else}}
-        {{> swapButtonsSet}}
-      {{/if}}
-    </div>
-  </div>
-
-  <div class="row itemOverview pb0">
-    <div class="col col-xs4 col-sm12 col-md8 pb30">
-      {{#item.description}}
-        <h4 class="pb10">Description:</h4>
-        <p class="pb30">{{{this}}}</p>
-      {{/item.description}}
-      {{#item.reasonForSwap}}
-        <h4 class="pb10">Reason for swap:</h4>
-        <p class="pb30">{{this}}</p>
-      {{/item.reasonForSwap}}
-    </div>
-    <div class="col col-xs4 col-sm12 col-md4 itemOverview-map">
-      <div class="itemOverview-map-image" style="background-image: url('https://maps.googleapis.com/maps/api/staticmap?size=400x400&maptype=roadmap&markers=color:red%7C{{author.city}},{{author.country}}&key=AIzaSyCvLphh5RdATb2mbpFCZ0k02_ZqFQZjukk')">
-      </div>
-    </div>
-    <a href="#" class="btn btn-small btn-dark itemOverview-moreItemsButton">More items from {{author.firstName}}</a>
   </div>
   {{> swapForm}}
 </div>
-
-<div class="paperStyle-container js-dialog dialog is-hidden">
-  <div class="col col-xs4 col-sm12 col-md12">
-    <h2 class="section-subtitle">Choose one or more of your items to swap for {{item.name}}</h2>
-    <div class="row row-with-blocks-v2 js-swapItem"></div>
-  </div>
-</div>
-
-<div class="dialogOverlay js-dialogOverlay is-hidden"></div>

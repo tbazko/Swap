@@ -1,0 +1,18 @@
+.swapRequest-item-image,
+.swapRequest-item-text {
+  @extend %scalableBackgroundImage;
+}
+
+.swapRequest-item-text {
+  color: $color-white;
+  font-size: 14px;
+  text-align: center;
+  background-color: $color-dim-grey;
+
+  span {
+    font-size: 16px;
+    display: block;
+    margin-top: 50%;
+    transform: translateY(-50%);
+  }
+}

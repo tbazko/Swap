@@ -2,7 +2,7 @@
 const SwapRequestOverviewModel = rootRequire('app/swapRequest/overview/SwapRequestOverviewModel');
 const SwapRequest = rootRequire('app/core/dataBaseModels/SwapRequest');
 
-describe('Swap Request Overview Model', () => {
+describe('SwapRequestOverviewModel', () => {
   let srom = new SwapRequestOverviewModel();
   let fakeReq = {
     user: {
@@ -20,7 +20,7 @@ describe('Swap Request Overview Model', () => {
       id: 1
     },
     params: {
-      id: 1
+      id: 2
     },
     baseUrl: '/',
     path: 'path/to/smth'
@@ -50,7 +50,12 @@ describe('Swap Request Overview Model', () => {
 
   it('given user doesn\'t exist when resolved Promise should contain empty array', (done) => {
     srom.request.then((response) => {
-      expect(response).toEqual({request: undefined, user: { id: -1 }, url: '/path/to/smth' });
+      expect(response).toEqual({
+        request: undefined,
+        user: { id: -1 },
+        url: '/path/to/smth',
+        currentUserIsBuyer: false
+      });
       done();
     });
   });

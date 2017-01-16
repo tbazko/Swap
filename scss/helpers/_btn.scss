@@ -14,6 +14,12 @@
   padding: 0 20px;
   text-align: center;
   text-transform: uppercase;
+
+  &:disabled {
+    color: rgba($color-suva-grey, .9);
+    background: rgba($color-suva-grey, .4);
+    border-color: rgba($color-suva-grey, .4);
+  }
 }
 
 %btn-dark {

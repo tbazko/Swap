@@ -1,0 +1,18 @@
+.swapRequest-state {
+  position: absolute;
+  right: 0;
+  width: auto;
+
+  .date {
+    display: none;
+  }
+
+  @include breakpoint(small) {
+    position: relative;
+
+    .date {
+      display: block;
+      padding-top: 10px;
+    }
+  }
+}

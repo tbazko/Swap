@@ -2,5 +2,4 @@
 requirejs(['./common'], function (common) {
   requirejs(['modules/base']);
   requirejs(['modules/itemOverview']);
-  requirejs(['components/swapItemRequest']);
 });

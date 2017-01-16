@@ -4,7 +4,7 @@ define([
   $
 ) {
   var cookies;
-  
+
   return {
     activate: function($element) {
       $element.toggleClass('is-active', !$element.hasClass('is-active'));
@@ -42,6 +42,29 @@ define([
         }
 
         return cookies[name];
+    },
+
+    selectorMatches: function(el, selector) {
+    	var p = Element.prototype;
+    	var f = p.matches || p.webkitMatchesSelector || p.mozMatchesSelector || p.msMatchesSelector || function(s) {
+    		return [].indexOf.call(document.querySelectorAll(s), this) !== -1;
+    	};
+    	return f.call(el, selector);
+    },
+
+    addClass: function(element, className) {
+      if(this.selectorMatches(element, '.' + className)) return;
+
+      if (element.className != '') {
+  			element.className += ' ' + className;
+  		} else {
+  			element.className = className;
+  		}
+    },
+
+    removeClass: function(element, className) {
+      var regex = new RegExp('(?:^|\\s)' + className + '(?!\\S)', 'gi');
+			element.className = element.className.replace(regex, '');
     }
   }
 

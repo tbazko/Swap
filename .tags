@@ -95,7 +95,6 @@ h.defQueueMap	public/javascripts/lib/require.js	/^g(t,a.id);b&&!b.enabled&&h.ena
 h.defined	public/javascripts/lib/require.js	/^g(t,a.id);b&&!b.enabled&&h.enable(a,this)}));this.enabling=!1;this.check()},on:function(a,b){var c=this.events[a];c||(c=this.events[a]=[]);c.push(b)},emit:function(a,b){x(this.events[a],function(a){a(b)});"error"===a&&delete this.events[a]}};h={config:m,contextName:b,registry:t,defined:r,urlFetched:X,defQueue:H,defQueueMap:{},Module:ea,makeModuleMap:q,nextTick:k.nextTick,onError:B,configure:function(a){a.baseUrl&&"\/"!==a.baseUrl.charAt(a.baseUrl.length-1)&&(a.baseUrl+="\/");var b=m.shim,c={paths:!0,$/;"	p
 h.registry	public/javascripts/lib/require.js	/^g(t,a.id);b&&!b.enabled&&h.enable(a,this)}));this.enabling=!1;this.check()},on:function(a,b){var c=this.events[a];c||(c=this.events[a]=[]);c.push(b)},emit:function(a,b){x(this.events[a],function(a){a(b)});"error"===a&&delete this.events[a]}};h={config:m,contextName:b,registry:t,defined:r,urlFetched:X,defQueue:H,defQueueMap:{},Module:ea,makeModuleMap:q,nextTick:k.nextTick,onError:B,configure:function(a){a.baseUrl&&"\/"!==a.baseUrl.charAt(a.baseUrl.length-1)&&(a.baseUrl+="\/");var b=m.shim,c={paths:!0,$/;"	p
 h.urlFetched	public/javascripts/lib/require.js	/^g(t,a.id);b&&!b.enabled&&h.enable(a,this)}));this.enabling=!1;this.check()},on:function(a,b){var c=this.events[a];c||(c=this.events[a]=[]);c.push(b)},emit:function(a,b){x(this.events[a],function(a){a(b)});"error"===a&&delete this.events[a]}};h={config:m,contextName:b,registry:t,defined:r,urlFetched:X,defQueue:H,defQueueMap:{},Module:ea,makeModuleMap:q,nextTick:k.nextTick,onError:B,configure:function(a){a.baseUrl&&"\/"!==a.baseUrl.charAt(a.baseUrl.length-1)&&(a.baseUrl+="\/");var b=m.shim,c={paths:!0,$/;"	p
-handleClient	app/socketio/index.js	/^function handleClient(socket) {$/;"	f
 hasProperty	public/javascripts/lib/mustache.js	/^  function hasProperty (obj, propName) {$/;"	f
 helpers	spec/support/jasmine.json	/^  "helpers": [$/;"	f
 idIsArray	app/core/dataBaseModels/Base.js	/^    var idIsArray = typeof id === 'object' && id.length === 2;$/;"	v
@@ -109,6 +108,7 @@ knex	package.json	/^    "knex": "^0.10.0",$/;"	f
 leading-zero	.csscomb.json	/^    "leading-zero": false,$/;"	f
 let.failureRedirect	app/router/account.js	/^  successRedirect: '\/user\/profile',$/;"	p
 let.id	spec/app/router/index.spec.js	/^let fakeUser = {id: 1};$/;"	p
+let.seller_id	app/core/dataBaseModels/SwapRequest.js	/^    let data = {$/;"	p
 let.successRedirect	app/router/account.js	/^let redirects = {$/;"	p
 let.userId	app/itemList/strategies/filteredByUser.js	/^    let user = {$/;"	p
 makeDestroyButton	app/router/item.js	/^function makeDestroyButton(req, res, next) {$/;"	f
@@ -129,15 +129,15 @@ module.exports	app/helpers/isAuthenticated.js	/^module.exports = function(req, r
 module.exports	app/helpers/signInRedirect.js	/^module.exports = function(req, res, next) {$/;"	f
 module.exports.app	app.js	/^module.exports = {app: app, server: server};$/;"	p
 module.exports.development	knexfile.js	/^module.exports = {$/;"	p
-module.exports.getSocketio	app/socketio/index.js	/^let _socketio;$/;"	f
+module.exports.getInstance	app/socketAPI/index.js	/^};$/;"	f
 module.exports.items	app/itemList/strategies/default.js	/^  template: 'itemListView',$/;"	m
 module.exports.items	app/itemList/strategies/filteredByTag.js	/^  template: 'itemListView',$/;"	m
 module.exports.items	app/itemList/strategies/filteredByUser.js	/^  template: 'userItemListView',$/;"	m
 module.exports.server	app.js	/^module.exports = {app: app, server: server};$/;"	p
-module.exports.setSocketio	app/socketio/index.js	/^}$/;"	f
 module.exports.template	app/itemList/strategies/default.js	/^module.exports = {$/;"	p
 module.exports.template	app/itemList/strategies/filteredByTag.js	/^module.exports = {$/;"	p
 module.exports.template	app/itemList/strategies/filteredByUser.js	/^module.exports = {$/;"	p
+module.exports.wrapServer	app/socketAPI/index.js	/^const SocketAPI = require('.\/private\/socketAPI');$/;"	f
 module.module.module.id	public/javascripts/lib/require.js	/^{}},module:function(a){return a.module?a.module:a.module={id:a.map.id,uri:a.map.url,config:function(){return g(m.config,a.map.id)||{}},exports:a.exports||(a.exports={})}}};ea=function(a){this.events=g(fa,a.id)||{};this.map=a;this.shim=g(m.shim,a.id);this.depExports=[];this.depMaps=[];this.depMatched=[];this.pluginMaps={};this.depCount=0};ea.prototype={init:function(a,b,c,f){f=f||{};if(!this.inited){this.factory=b;if(c)this.on("error",c);else this.events.error&&(c=y(this,function(a){this.emit("error",$/;"	p
 morgan	package.json	/^    "morgan": "~1.6.1",$/;"	f
 multer	package.json	/^    "multer": "^1.1.0",$/;"	f

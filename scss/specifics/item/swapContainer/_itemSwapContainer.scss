@@ -1,0 +1,27 @@
+.itemSwapContainer {
+  position: relative;
+  background: $color-night-rider;
+  color: $color-white;
+
+  h3 {
+    color: $color-white;
+    margin-bottom: 15px;
+
+    strong {
+      color: $color-night-rider;
+    }
+  }
+
+  .row-with-blocks-v2 {
+    padding-top: 0;
+  }
+}
+
+.itemSwapContainer-close {
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 15px 13px;
+  font-size: 20px;
+  cursor: pointer;
+}

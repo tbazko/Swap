@@ -10,7 +10,8 @@ var knex = Knex({
     user     : 'root',
     password : '',
     database : 'Swap',
-    charset  : 'utf8'
+    charset  : 'utf8',
+    timezone : 'UTC'
   }
 });
 

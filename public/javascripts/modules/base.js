@@ -1,69 +1,38 @@
 define([
-  'jquery',
   'components/utils/utils',
-  'text!components/templates/requestListItem.html',
-  'mustache',
-  'components/Menu'
+  'components/Menu',
+  'components/Counter',
+  'components/SwapRequestList',
 ], function (
-  $,
   utils,
-  requestListItemTemplate,
-  Mustache,
-  Menu
+  Menu,
+  Counter,
+  SwapRequestList
 ) {
-
-  var RequestCounter = function() {
-    var self = {
-      id: 'requestCounter',
-      count: 0
-    }
-
-    self.update = function() {
-      var counter = document.getElementById(self.id);
-      counter.innerHTML = ++self.count;
-    }
-
-    return self;
-  }
-
-  var RequestList = function() {
-    var self = {
-      id: 'incomingRequests',
-      initialized: true
-    }
-
-    self.addItem = function(request) {
-      var incomingRequestsPane = document.getElementById(self.id);
-      var requestListItem = document.createElement("div");
-      requestListItem.innerHTML = Mustache.render(requestListItemTemplate, {request: request});
-
-      if(incomingRequestsPane.firstChild) {
-        incomingRequestsPane.insertBefore(requestListItem, incomingRequestsPane.firstChild);
-      } else {
-        incomingRequestsPane.appendChild(requestListItem);
-      }
-    }
-
-    return self;
-  }
-
   if(utils.readCookie('logged')) {
     var conversationId = utils.readCookie('logged');
-    var socket = io();
+    window.socket = io();
+    var socket = window.socket;
     var requestList;
-    var requestCounter;
+    var counter;
 
     socket.on('newSwapRequest', function(data) {
       if(!requestList) {
-        requestList = RequestList();
+        requestList = new SwapRequestList();
       }
       requestList.addItem(data);
 
-      if(!requestCounter) {
-        requestCounter = RequestCounter();
+      if(!counter) {
+        counter = new Counter();
       }
+      counter.update();
+    });
 
-      requestCounter.update();
+    socket.on('chatMessage', function(data) {
+      if(!counter) {
+        counter = new Counter();
+      }
+      counter.update();
     });
 
     socket.emit('joinRoom', conversationId);

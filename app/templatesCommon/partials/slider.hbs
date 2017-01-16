@@ -1,0 +1,14 @@
+<div class="slider js-slider">
+  <div class="prev js-prev icon-left-open"></div>
+  <div class="next js-next icon-right-open"></div>
+
+  <nav class="slider-dots js-dots">
+  </nav>
+  <div class="js-slides slides">
+    {{#each itemImage}}
+        <div class="slide js-slide {{#if_eq @index 0}}is-active{{/if_eq}}">
+          <img src="http://res.cloudinary.com/di42acdz9/image/upload/{{this.id}}" alt="">
+        </div>
+    {{/each}}
+  </div>
+</div>

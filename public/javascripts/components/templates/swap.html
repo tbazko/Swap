@@ -1,9 +1,9 @@
 <div class="swapFields">
-  <input type="text" placeholder="Email" name="email" value="{{user.email}}">
-  <input type="text" placeholder="Phone" name="phone">
-  <textarea name="message" id="" cols="30" rows="10" placeholder="Leave a message for the owner"></textarea>
+  <textarea name="message" id="" class="small" cols="30" rows="10" placeholder="Leave a message for the owner"></textarea>
+  <input type="submit" value="Send swap request" class="btn js-submit-swapRequest" disabled>
 </div>
 
+<h3 class="ml10 mr10">Select one or more items to create swap proposition</h3>
 {{#items}}
 <label for="{{id}}" data-item-id="{{id}}" class="item item--inSwapList">
     <div class="img-container">

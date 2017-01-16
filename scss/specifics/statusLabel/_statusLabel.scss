@@ -1,0 +1,27 @@
+.statusLabel {
+  border: 1px solid transparent;
+  border-radius: 2px;
+  display: inline-block;
+  padding: 0 5px 1px;
+  font-size: 12px;
+
+  @include breakpoint(small) {
+    padding: 5px 15px;
+    font-size: 14px;
+  }
+
+  &--inquiry {
+    color: #fff;
+    background: $color-alternate-lighter;
+  }
+
+  &--accepted {
+    color: #fff;
+    background: $color-ok;
+  }
+
+  &--declined {
+    color: $color-night-rider;
+    background: $color-cancel;
+  }
+}

@@ -10,6 +10,7 @@ describe('Account Presenter', () => {
       return this.user ? true : false;
     }
   }
+  function next() {};
 
   it('should be initialised', () => {
     expect(account).not.toBeUndefined();
@@ -17,20 +18,21 @@ describe('Account Presenter', () => {
 
   it('given model\'s method is GET', () => {
     spyOn(account, '_renderView');
-    account.signIn(fakeRequest, {}, {});
+    account.signIn(fakeRequest, {}, next);
     expect(account._renderView).toHaveBeenCalledTimes(1);
   });
 
   it('given model\'s method is GET', () => {
     spyOn(account, '_renderView');
-    account.signIn(fakeRequest, {}, {});
+    account.signIn(fakeRequest, {}, next);
     expect(account._renderView).toHaveBeenCalledTimes(1);
   });
 
   it('given model\'s method is POST', () => {
     spyOn(account, '_renderView');
     fakeRequest.method = 'POST';
-    account.signIn(fakeRequest, {}, {});
+
+    account.signIn(fakeRequest, {}, next);
     expect(account._renderView).toHaveBeenCalledTimes(0);
   });
 

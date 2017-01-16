@@ -32,7 +32,19 @@ class SwapRequestOverviewModel {
         this.requestId,
         (err, requests) => {
           if(err) reject(err);
-          resolve({request: requests[0], user: this.user, url: this.url});
+          let isBuyer = false;
+          let request = requests[0];
+
+          if(request && (request.buyer_id === this.user.id)) {
+            isBuyer = true;
+          }
+
+          resolve({
+            request: requests[0],
+            user: this.user,
+            url: this.url,
+            currentUserIsBuyer: isBuyer
+          });
       });
   }
 }

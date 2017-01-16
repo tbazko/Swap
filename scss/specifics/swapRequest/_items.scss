@@ -1,0 +1,22 @@
+.swapRequest-items {
+  padding-left: 25%;
+
+  @include breakpoint(small) {
+    padding-left: 0;
+
+    h5 {
+      margin-left: 0;
+    }
+
+    padding-left: calc(100% / 12 / 2 - 5px);
+    padding-right: calc(100% / 12 / 2 - 5px);
+  }
+
+  @include breakpoint(medium) {
+    padding: 0;
+
+    h5 {
+      margin-left: 20px;
+    }
+  }
+}

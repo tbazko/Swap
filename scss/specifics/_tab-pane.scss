@@ -1,5 +1,4 @@
 %review-style {
-  border: 1px solid $color-light-grey;
   font-size: 14px;
 }
 
@@ -15,13 +14,20 @@
 
     &.is-active {
       opacity: 1;
+      background: #fff;
+      box-shadow: -5px -5px 10px -5px $color-light-grey;
     }
   }
 
   .pane {
+    @extend %paperStyle;
     @extend %review-style;
     display: none;
-    padding: 33px 30px;
+    padding: 20px 15px;
+
+    @include breakpoint(small) {
+      padding: 33px 30px;
+    }
 
     &.is-active {
       display: block;

@@ -1,0 +1,44 @@
+<a href="/request/{{id}}" class="row swapRequest">
+  <div class="col-sm2 col-md2 col-sm-last swapRequest-state">
+    <!-- p Status (Inquiry, Accepted, Pending, Declined) -->
+    <div class="statusLabel statusLabel--inquiry">
+      <p class="statusLabel-state">Inquiry</p>
+    </div>
+    <p class="date">{{local_time}}</p>
+  </div>
+
+  <div class="col-xs4 col-sm5 col-md5 col-sm-last swapRequest-message">
+    <h5>{{buyer.firstName}}:</h5>
+    <p>{{message}}</p>
+  </div>
+
+  <div class="col-xs1 col-sm1 col-md1">
+    <h5>Request</h5>
+    {{#masterItems}}
+      <div class="swapRequest-item swapRequest-item--master">
+        {{#with images.[0]}}
+          <div class="swapRequest-item-image" style="background-image: url('http://res.cloudinary.com/di42acdz9/image/upload/{{this.id}}')"></div>
+        {{/with}}
+      </div>
+    {{/masterItems}}
+  </div>
+
+  <div class="col-xs3 col-sm4 col-md4 swapRequest-items">
+    <h5>Offer</h5>
+    {{#each slaveItems}}
+      <div class="swapRequest-item">
+        {{#with images.[0]}}
+          <div class="swapRequest-item-image" style="background-image: url('http://res.cloudinary.com/di42acdz9/image/upload/{{this.id}}')"></div>
+        {{/with}}
+      </div>
+    {{/each}}
+    {{#each slaveItems}}
+      {{#if_eq @index 2}}
+        <div class="swapRequest-item swapRequest-item--more">
+          <p class="swapRequest-item-text"><span>+{{subtract ../slaveItems.length 2}}</span></p>
+        </div>
+      {{/if_eq}}
+    {{/each}}
+
+  </div>
+</a>

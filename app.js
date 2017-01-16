@@ -15,7 +15,7 @@ const passport      = require('./app/account/passport');
 const session       = require('express-session');
 const app           = express();
 const server        = require('http').createServer(app);
-const socketio      = require('socket.io')(server);
+const socketAPI     = require('./app/socketAPI').wrapServer(server);
 const hbs           = require('./config/templates');
 
 app.engine('.hbs', hbs.engine);
@@ -33,8 +33,10 @@ app.use(session({secret: 'secret strategic xxzzz code'}));
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.socketio = socketio;
-require('./app/socketio').setSocketio(socketio);
+// require('./app/socketio').setSocketio(socketio);
+// const SocketAPI = require('./app/socketio');
+// console.log(SocketAPI.getInstance(socketio));
+
 app.use(require('./app/router'));
 
 module.exports = {app: app, server: server};

@@ -2,10 +2,21 @@
   box-sizing: border-box;
 }
 
+[class*="col-"] {
+  float: left;
+  min-height: 1px;
+}
+
 .col {
   float: left;
   width: 100%;
   min-height: 1px;
+}
+
+.col-sm-last {
+  @include breakpoint(small) {
+    float: right;
+  }
 }
 
 .col-item-block {
@@ -43,8 +54,17 @@
   display: block;
 }
 
+.row--layoutWidth {
+  max-width: $layoutWidth;
+  width: calc(100% - 20px);
+}
+
 .row-with-blocks {
   font-size: 0;
+}
+
+.row--nowrap {
+  white-space: nowrap;
 }
 
 .row:after {

@@ -3,7 +3,6 @@ const passport = require('passport');
 const bcrypt = require('bcrypt-nodejs');
 const AccountModel = require('./AccountModel');
 const User = rootRequire('app/core/dataBaseModels/User');
-const socketio = rootRequire('app/socketio').getSocketio();
 let AccountsList = {};
 
 class AccountPresenter {
@@ -47,7 +46,6 @@ class AccountPresenter {
 
     user.getOneByIdentifier(userData.username, (err, userDataModel) => {
        if(userDataModel) {
-         console.log(userDataModel);
          console.log('username already exists');
           // this.res.render('signup', {title: 'signup', errorMessage: 'username already exists'});
        } else {
@@ -56,7 +54,6 @@ class AccountPresenter {
           //****************************************************//
           userData.hash = bcrypt.hashSync(userData.password);
           user.createAndFetch(userData, (err, user) => {
-            console.log(user);
             this.signIn(this.req, this.res, this.next);
           });
        }
@@ -72,15 +69,6 @@ class AccountPresenter {
 
   _renderView() {
     if (this.model.userIsLoggedIn) {
-      // socketio.on('connection', (socket) => {
-      //   console.log(socket);
-      //   socket.join(this.model.user.id);
-      //   socket.emit('connectToRoom', `you are in room for user ${this.model.user.id}`)
-      //   socket.on('newSwapRequestFromClient', () => {
-      //     console.log('works with newSwapRequestFromClient');
-      //   });
-      // });
-
       this.res.redirect('/user/profile');
       this.res.cookie('logged', this.model.user.id, { maxAge: 900000 });
     } else {
@@ -126,7 +114,6 @@ class AccountPresenter {
       this.model.userIsLoggedIn = true;
       this.model.user = user;
       AccountsList[user.id] = this.model;
-      console.log(AccountsList);
       this._renderView();
     });
   }

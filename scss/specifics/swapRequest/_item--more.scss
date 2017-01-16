@@ -1,0 +1,7 @@
+.swapRequest-item.swapRequest-item--more {
+  display: inline-block;
+
+  @include breakpoint(small) {
+    display: none;
+  }
+}

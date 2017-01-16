@@ -1,0 +1,36 @@
+<div class="itemOverview-details">
+  {{> breadcrumbs}}
+  <h3 class="itemOverview-itemName">{{item.name}}</h3>
+  <ul class="no-bullet pt15 pb30">
+    <li class="pt15 pb15 specs-item">
+      <h5 class="inline-block property">Location:&nbsp;</h5>
+      <p class="inline value">{{author.city}}, {{author.country}}</p>
+    </li>
+    <li class="pb15 specs-item">
+      <h5 class="inline-block property">Condition:&nbsp;</h5>
+      <p class="inline value condition-stars condition-{{item.condition}}">
+        <span class="icon-condition"></span>
+        <span class="icon-condition"></span>
+        <span class="icon-condition"></span>
+        <span class="icon-condition"></span>
+        <span class="icon-condition"></span>
+      </p>
+    </li>
+    <li class="pb15 specs-item">
+      <h5 class="inline-block property {{item.swapForTags.length}}">Swap for:&nbsp;</h5>
+      <p class="inline value">
+        {{#item.swapForTags}}
+          <a href="/tag/{{name}}">#{{name}}&nbsp;</a>
+        {{/item.swapForTags}}
+      </p>
+
+    </li>
+    <li class="pb15 specs-item">
+      <h5 class="inline-block property">Published:&nbsp;</h5>
+      <p class="inline value">
+        <span class="property">by&nbsp;</span><a href="/user/{{author.id}}" data-seller-id={{author.id}} class="js-sellerId">{{author.firstName}}</a>
+        &nbsp;<span class="property">on&nbsp;</span>12.12.2015
+      </p>
+    </li>
+  </ul>
+</div>

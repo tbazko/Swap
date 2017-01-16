@@ -17,6 +17,9 @@ module.exports = exphbs.create({
       } else {
         return options.inverse(this);
       }
+    },
+    subtract: function(a, b) {
+      return a - b;
     }
   }
 });

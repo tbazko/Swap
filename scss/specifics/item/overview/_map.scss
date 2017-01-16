@@ -1,19 +1,20 @@
-.itemOverview-map {
+.itemOverview-mapColumn {
+  float: left;
   padding-top: 30%;
   position: relative;
   margin-bottom: 40px;
+  min-height: 200px;
+  width: 100%;
+  
+  @extend .col-md4;
 
   @include breakpoint(medium) {
     padding-top: 20%;
     margin-bottom: 0;
   }
-
-  &.col {
-    min-height: 200px;
-  }
 }
 
-.itemOverview-map-image {
+.itemOverview-map {
   position: absolute;
   top: 0;
   bottom: 0;

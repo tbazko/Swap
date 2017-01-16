@@ -1,0 +1,29 @@
+.swapRequest-message {
+  p {
+    white-space: nowrap;
+    overflow: hidden;
+    width: 100%;
+    text-overflow: ellipsis;
+    margin-bottom: 10px;
+  }
+
+  h5 {
+    color: $color-night-rider;
+    font-size: 15px;
+    width: 50%;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    margin-bottom: 10px;
+  }
+
+  @include breakpoint(small) {
+    padding-right: 30px;
+
+    p, h5 {
+      white-space: normal;
+      width: 100%;
+      margin-bottom: 0;
+    }
+  }
+}

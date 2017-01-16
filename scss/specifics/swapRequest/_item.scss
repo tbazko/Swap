@@ -1,0 +1,46 @@
+.swapRequest-item {
+  float: left;
+  position: relative;
+  margin: 0 2px 2px 0;
+  width: calc(100% / 3 - 2px);
+  padding-top: calc(100% / 3 - 2px);
+
+  &:nth-of-type(4n+4) {
+    margin-right: 0;
+  }
+
+  &:nth-of-type(n+3) {
+    display: none;
+  }
+
+  @include breakpoint(small) {
+    width: calc(100% / 3 - 5px);
+    padding-top: calc(100% / 3 - 5px);
+    margin: 0 5px 5px 0;
+
+    &:nth-of-type(4n+4) {
+      margin-right: 5px;
+    }
+
+    &:nth-of-type(3n+3) {
+      margin-right: 5px;
+    }
+
+    &:nth-of-type(3n+1) {
+      margin-left: 0;
+    }
+
+    &:nth-of-type(n+3) {
+      display: block;
+    }
+  }
+
+  @include breakpoint(medium) {
+    width: calc(25% - 20px);
+    padding-top: calc(25% - 20px);
+
+    &:nth-of-type(4n+1) {
+      margin-left: 20px;
+    }
+  }
+}
