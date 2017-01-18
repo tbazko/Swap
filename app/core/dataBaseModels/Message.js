@@ -8,22 +8,39 @@ class Message extends Base {
     this.req = undefined;
   }
 
-  create(callback) {
-    var messageForm = this.req.body;
-    var userId = this.req.user.id;
-    var requestId = this.req.params.id;
+  set data(data) {
+    this._data = {
+      text: data.message,
+      user_id: data.userId,
+      swapRequest_id: data.chatId
+    }
+  }
+
+  get data() {
+    return this._data;
+  }
+
+  insert(callback) {
     this.DataBaseSchema
       .query()
-      .insert({
-        text: messageForm.message,
-        user_id: userId,
-        swapRequest_id: requestId
-      }).then(function() {
+      .insert(this.data)
+      .then(function() {
         callback(null)
       })
       .catch(function(err) {
         callback(err)
       });
+  }
+
+  getAllById(id, callback) {
+    this.DataBaseSchema
+      .query()
+      .where(this.idName, id)
+      .orderBy('reg_date', 'desc')
+      .then((messages) => {
+        callback(null, messages);
+      })
+      .catch((err) => callback(true, err));
   }
 }
 

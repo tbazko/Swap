@@ -1,50 +1,38 @@
 'use strict';
 const SwapRequest = rootRequire('app/core/dataBaseModels/SwapRequest');
+const Chat = rootRequire('app/chat/Chat');
 
 class SwapRequestOverviewModel {
   set data(data) {
-    this._user = data.user;
     this._requestId = data.params.id;
+    this._user = data.user;
     this._url = data.baseUrl + data.path;
+    this._path = data.path;
     this._swapRequest = new SwapRequest();
   }
 
-  get user() {
-    return this._user;
+  get rawData() {
+    let requestPromise = new Promise(this._getRequestInfo.bind(this));
+    let messagesPromise = this.chat.messages;
+    return Promise.all([requestPromise, messagesPromise]);
   }
 
-  get requestId() {
-    return this._requestId;
+  createChat() {
+    this.chat = new Chat({
+      chatId: this._requestId,
+      currentUser: this._user,
+      path: this._path
+    });
+    this.chat.listen();
   }
 
-  get url() {
-    return this._url;
-  }
-
-  get request() {
-    let requestPromise = new Promise(this._getRequestFullInfo.bind(this));
-    return requestPromise;
-  }
-
-  _getRequestFullInfo(resolve, reject) {
+  _getRequestInfo(resolve, reject) {
     this._swapRequest
-      .getWithRelationsAndSortedMessages(
-        this.requestId,
+      .getWithRelations(this._requestId,
+        '[masterItems.[images], slaveItems.[images], seller, buyer]',
         (err, requests) => {
           if(err) reject(err);
-          let isBuyer = false;
-          let request = requests[0];
-
-          if(request && (request.buyer_id === this.user.id)) {
-            isBuyer = true;
-          }
-
-          resolve({
-            request: requests[0],
-            user: this.user,
-            url: this.url,
-            currentUserIsBuyer: isBuyer
-          });
+          resolve(requests[0]);
       });
   }
 }

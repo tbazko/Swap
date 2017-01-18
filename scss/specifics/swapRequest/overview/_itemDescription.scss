@@ -1,0 +1,55 @@
+.swapRequestOverview-itemDescription {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height .7s linear;
+
+  h4 {
+    text-transform: none;
+    padding-top: 25px;
+    padding-bottom: 15px;
+  }
+
+  p {
+    padding-bottom: 25px;
+  }
+
+  h4, p {
+    padding-left: 40px;
+    padding-right: 40px;
+  }
+}
+
+.swapRequestOverview-itemDescription-trigger {
+  color: $color-outrageous-orange;
+  cursor: pointer;
+  background: darken($color-white-smoke, 3%);
+  position: absolute;
+  top: 0;
+  padding-top: 25%;
+  right: 0;
+  width: 40px;
+  font-size: 30px;
+
+  &:hover {
+    background: darken($color-white-smoke, 6%);
+  }
+
+  &:before {
+    position: absolute;
+    top: 50%;
+    transform: rotate(0deg) translateY(-50%) translateX(0px);
+    transition: transform .3s ease;
+  }
+}
+
+.swapRequestOverview-itemDescription-checkbox:checked {
+  & ~ .swapRequestOverview-itemDescription-trigger {
+    &:before {
+      transform: rotate(90deg) translateX(-10px) translateY(3%);
+    }
+  }
+
+  & ~ .swapRequestOverview-itemDescription {
+    max-height: 1000px;
+  }
+}

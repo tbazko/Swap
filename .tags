@@ -37,6 +37,8 @@ Q.ba.paths	public/javascripts/lib/require.js	/^function Q(){var a;for(C();H.leng
 Q.ba.waitSeconds	public/javascripts/lib/require.js	/^function Q(){var a;for(C();H.length;){a=H.shift();if(null===a[0])return B(G("mismatch","Mismatched anonymous define() module: "+a[a.length-1]));J(a)}h.defQueueMap={}}var ba,ea,h,S,ca,m={waitSeconds:7,baseUrl:".\/",paths:{},bundles:{},pkgs:{},shim:{},config:{}},t={},aa={},fa={},H=[],r={},X={},ga={},R=1,U=1;S={require:function(a){return a.require?a.require:a.require=h.makeRequire(a.map)},exports:function(a){a.usingExports=!0;if(a.map.isDefine)return a.exports?r[a.map.id]=a.exports:a.exports=r[a.map.id]=$/;"	p
 S.require	public/javascripts/lib/require.js	/^function Q(){var a;for(C();H.length;){a=H.shift();if(null===a[0])return B(G("mismatch","Mismatched anonymous define() module: "+a[a.length-1]));J(a)}h.defQueueMap={}}var ba,ea,h,S,ca,m={waitSeconds:7,baseUrl:".\/",paths:{},bundles:{},pkgs:{},shim:{},config:{}},t={},aa={},fa={},H=[],r={},X={},ga={},R=1,U=1;S={require:function(a){return a.require?a.require:a.require=h.makeRequire(a.map)},exports:function(a){a.usingExports=!0;if(a.map.isDefine)return a.exports?r[a.map.id]=a.exports:a.exports=r[a.map.id]=$/;"	m
 User	app/account/passport.js	/^var User          = rootRequire('app\/core\/dataBaseModels\/User');$/;"	v
+_message.data.message	app/chat/Chat.js	/^    this._message.data = {$/;"	p
+_message.data.userId	app/chat/Chat.js	/^      message: text,$/;"	p
 accountSignIn	app/router/account.js	/^function accountSignIn(req, res, next) {$/;"	f
 accountSignOut	app/router/account.js	/^function accountSignOut(req, res, next) {$/;"	f
 accountSignUp	app/router/account.js	/^function accountSignUp(req, res, next) {$/;"	f
@@ -51,7 +53,7 @@ color-case	.csscomb.json	/^    "color-case": "lower",$/;"	f
 color-shorthand	.csscomb.json	/^    "color-shorthand": true,$/;"	f
 connect-flash	package.json	/^    "connect-flash": "~0.1.1",$/;"	f
 cookie-parser	package.json	/^    "cookie-parser": "~1.3.5",$/;"	f
-createMessage	app/router/request.js	/^function createMessage(req, res, next) {  $/;"	f
+createMessage	app/router/request.js	/^function createMessage(req, res, next) {$/;"	f
 createRequest	app/router/request.js	/^function createRequest(req, res, next) {$/;"	f
 debug	package.json	/^    "debug": "~2.2.0",$/;"	f
 define	public/javascripts/lib/require.js	/^c+" at "+d,q,[c]))}};F&&!v.skipDataMain&&Y(document.getElementsByTagName("script"),function(b){D||(D=b.parentNode);if(P=b.getAttribute("data-main"))return u=P,v.baseUrl||(J=u.split("\/"),u=J.pop(),U=J.length?J.join("\/")+"\/":".\/",v.baseUrl=U),u=u.replace(V,""),k.jsExtRegExp.test(u)&&(u=P),v.deps=v.deps?v.deps.concat(u):[u],!0});define=function(b,c,d){var g,e;"string"!==typeof b&&(d=c,c=b,b=null);M(c)||(d=c,c=null);!c&&L(d)&&(c=[],d.length&&(d.toString().replace(qa,"").replace(ra,function(b,d){c.push(d)}),$/;"	f
@@ -108,8 +110,10 @@ knex	package.json	/^    "knex": "^0.10.0",$/;"	f
 leading-zero	.csscomb.json	/^    "leading-zero": false,$/;"	f
 let.failureRedirect	app/router/account.js	/^  successRedirect: '\/user\/profile',$/;"	p
 let.id	spec/app/router/index.spec.js	/^let fakeUser = {id: 1};$/;"	p
+let.request	app/swapRequest/overview/SwapRequestOverviewPresenter.js	/^    let formatted = {$/;"	p
 let.seller_id	app/core/dataBaseModels/SwapRequest.js	/^    let data = {$/;"	p
 let.successRedirect	app/router/account.js	/^let redirects = {$/;"	p
+let.user	app/swapRequest/overview/SwapRequestOverviewPresenter.js	/^      request: request,$/;"	p
 let.userId	app/itemList/strategies/filteredByUser.js	/^    let user = {$/;"	p
 makeDestroyButton	app/router/item.js	/^function makeDestroyButton(req, res, next) {$/;"	f
 makeItemFormPresenter	app/router/item.js	/^function makeItemFormPresenter(req, res, next) {$/;"	f
@@ -164,6 +168,7 @@ request	package.json	/^    "request": "^2.79.0"$/;"	f
 requirejs	public/javascripts/lib/require.js	/^var requirejs,require,define;$/;"	v
 scripts	package.json	/^  "scripts": {$/;"	f
 serve-favicon	package.json	/^    "serve-favicon": "~2.3.0",$/;"	f
+set._data.text	app/core/dataBaseModels/Message.js	/^    this._data = {$/;"	p
 set._itemData.name	app/core/dataBaseModels/private/ItemCreator.js	/^    this._itemData = {$/;"	p
 socket.io	package.json	/^    "socket.io": "^1.7.2",$/;"	f
 sort-order-fallback	.csscomb.json	/^    "sort-order-fallback": "abc",$/;"	f

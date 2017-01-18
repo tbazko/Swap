@@ -33,10 +33,6 @@ app.use(session({secret: 'secret strategic xxzzz code'}));
 app.use(passport.initialize());
 app.use(passport.session());
 
-// require('./app/socketio').setSocketio(socketio);
-// const SocketAPI = require('./app/socketio');
-// console.log(SocketAPI.getInstance(socketio));
-
 app.use(require('./app/router'));
 
 module.exports = {app: app, server: server};

@@ -15,38 +15,31 @@ define([
   }
 
   Chat.prototype.init = function () {
+    window.socket.emit('joinRoom', location.pathname);
     this.bindEvents();
   };
 
   Chat.prototype.bindEvents = function () {
     this.form.addEventListener('submit', this.onFormSubmit.bind(this));
+    window.socket.on('chatMessage', this.renderMessage.bind(this));
   };
 
   Chat.prototype.onFormSubmit = function (e) {
     e.preventDefault();
-    var text = this.textarea.value;
+    window.socket.emit('chatMessage', this.textarea.value);
+  }
 
-    if(text !== '') {
-      var html = Mustache.render(messageTemplate, {text: text});
+  Chat.prototype.renderMessage = function (data) {
+    if(data.text !== '') {
+      var currentUserId = utils.readCookie('logged');
+      if(parseFloat(currentUserId) === data.senderId) {
+        data.senderName = false; // Will be replaced by 'Me' in template
+      }
+      var html = Mustache.render(messageTemplate, {message: data});
       var div = document.createElement('div');
       div.innerHTML = html;
       this.messages.insertBefore(div.firstChild, this.messages.firstChild);
-      this.sendMessageToServer(text);
     }
-  }
-
-  Chat.prototype.sendMessageToServer = function (text) {
-    var request = new XMLHttpRequest();
-    var url = this.form.getAttribute('data-action');
-    var data = JSON.stringify({'message' : text});
-    request.open('POST', url, true);
-    request.setRequestHeader("Content-type", "application/json");
-
-    request.onerror = function() {
-      // There was a connection error of some sort
-    };
-
-    request.send(data);
   };
 
   return Chat;

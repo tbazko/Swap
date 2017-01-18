@@ -1,8 +1,8 @@
 define([
   'components/Chat'
 ], function (
-  TabPane
+  Chat
 ) {
-	var tabPane = new TabPane('requestsTabPane');
-  tabPane.init();
+	var chat = new Chat();
+  chat.init();
 });

@@ -36,29 +36,12 @@ class SwapRequest extends Base {
                 request.$relatedQuery('slaveItems').relate(value).then();
               });
             }
-            
+
             socket.to(request.seller_id).emit('newSwapRequest', request);
           });
       })
       .catch(function(err) {
         console.log(err);
-      });
-  }
-
-  getWithRelationsAndSortedMessages(id, callback) {
-    this.DataBaseSchema
-      .query()
-      .where(this.idName, id)
-      .eager('[masterItems.[images], slaveItems.[images], seller, buyer, messages(orderByRegDate)]', {
-        orderByRegDate: function(builder) {
-          builder.orderBy('reg_date', 'desc');
-        }
-      })
-      .then(function(items) {
-        callback(null, items);
-      })
-      .catch(function(err) {
-        callback(true, err);
       });
   }
 }

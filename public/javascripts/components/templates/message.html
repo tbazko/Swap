@@ -1,4 +1,11 @@
-<div class="paperStyle pl30 pr30 pt25 pb25 ml30 mb20 js-message">
-  <p class="section-subtitle">Me:</p>
-  <p>{{text}}</p>
+<div class="paperStyle pl30 pr30 pt25 pb25 {{#message.senderName}}mr30{{/message.senderName}}{{^message.senderName}}ml30{{/message.senderName}} mb20 js-message">
+  <p class="section-subtitle">
+    {{#message.senderName}}
+      {{.}}
+    {{/message.senderName}}
+    {{^message.senderName}}
+      Me:
+    {{/message.senderName}}
+  </p>
+  <p>{{message.text}}</p>
 </div>

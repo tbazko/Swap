@@ -1,6 +1,5 @@
 'use strict';
 const Message = rootRequire('app/core/dataBaseModels/Message');
-const socket = rootRequire('app/socketAPI').getInstance();
 
 class MessageCreator {
   constructor() {
@@ -14,8 +13,6 @@ class MessageCreator {
   }
 
   _insertNewMessage() {
-    socket.emit('chatMessage');
-    console.log(this.message.req.body);
     this.message.create((err) => {
       if(err) {
         return console.log(err);

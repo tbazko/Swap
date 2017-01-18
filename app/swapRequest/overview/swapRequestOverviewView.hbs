@@ -14,7 +14,7 @@
           <p class="mb10">{{request.buyer.firstName}} requests:</p>
         {{/if}}
         {{#request.masterItems}}
-          <div class="swapRequestOverview-item">
+
             {{#with images.[0]}}
             <div class="swapRequestOverview-imageContainer swapRequestOverview-imageContainer--master">
               <div class="swapRequestOverview-image" style="background-image: url('http://res.cloudinary.com/di42acdz9/image/upload/{{this.id}}')"></div>
@@ -23,7 +23,7 @@
               <h4 class="swapRequestOverview-title">
                 <a href="/item/{{this.id}}">{{this.name}}</a>
               </h4>
-          </div>
+
         {{/request.masterItems}}
       </div>
 
@@ -82,15 +82,23 @@
       </div>
 
       <div id="messages">
-        {{#each request.messages}}
+        {{#each messages}}
           <div class="{{#if_eq user_id ../user.id}}ml30{{else}}mr30{{/if_eq}} paperStyle pl30 pr30 pt25 pb25 mb20">
             <p class="section-subtitle">
               {{#if_eq user_id ../request.seller_id}}
+                {{#if_eq ../user.id user_id}}
+                  Me:
+                {{else}}
                 {{../request.seller.firstName}}
+                {{/if_eq}}
               {{else}}
-                {{../request.buyer.firstName}}
+                {{#if_eq ../user.id user_id}}
+                  Me:
+                {{else}}
+                  {{../request.buyer.firstName}}:
+                {{/if_eq}}
               {{/if_eq}}
-              {{reg_date}}:</p>
+              </p>
             <p>{{text}}</p>
           </div>
         {{/each}}
