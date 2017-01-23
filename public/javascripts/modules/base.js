@@ -1,11 +1,13 @@
 define([
   'components/utils/utils',
   'components/Menu',
-  'components/Counter'
+  'components/Counter',
+  'components/Form'
 ], function (
   utils,
   Menu,
-  Counter
+  Counter,
+  Form
 ) {
   if(utils.readCookie('logged')) {
     var userId = utils.readCookie('logged');
@@ -25,5 +27,4 @@ define([
 
   var menu = new Menu('js-menu-wrapper', 'js-menu-trigger');
   menu.init();
-
 });

@@ -7,7 +7,6 @@ class ItemEditor extends ItemCreator {
   }
 
   editAndGet(itemId, fields, files) {
-
     this.itemData = fields;
 
     let editedItemPromise = new Promise((resolve, reject) => {

@@ -1,0 +1,15 @@
+<div class="content-head flex space-between valign-center {{request.status}}">
+  {{#if currentUserIsBuyer}}
+    <h1>Your request to {{request.seller.firstName}}</h1>
+  {{else}}
+    {{#if_eq request.status 'pending'}}
+      <h1>Request from {{request.buyer.firstName}}</h1>
+      <div id="swapRequestOverviewButtons" class="swapRequestOverviewButtons">
+        <a href="#" id="declineSwapRequest" class="btn swapRequestOverviewButtons-decline"><span>Decline</span></a>
+        <a href="#" id="acceptSwapRequest" class="btn swapRequestOverviewButtons-accept">Accept</a>
+      </div>
+    {{else}}
+      <h1>Request from {{request.buyer.firstName}}</h1>
+    {{/if_eq}}
+  {{/if}}
+</div>

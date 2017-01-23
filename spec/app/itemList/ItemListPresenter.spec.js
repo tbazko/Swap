@@ -4,7 +4,7 @@ const ItemListPresenter = rootRequire('app/itemList/ItemListPresenter');
 describe('Item List Presenter', function() {
   let defaultPresenter = new ItemListPresenter(rootRequire('app/itemList/strategies/default'));
   let filteredByTag = new ItemListPresenter(rootRequire('app/itemList/strategies/filteredByTag'));
-  let filteredByUser = new ItemListPresenter(rootRequire('app/itemList/strategies/filteredByUser'));
+  let filteredByCurrentUser = new ItemListPresenter(rootRequire('app/itemList/strategies/filteredByCurrentUser'));
 
   it('should initialise', function() {
     expect(defaultPresenter).not.toBeUndefined();
@@ -22,8 +22,8 @@ describe('Item List Presenter', function() {
     expect(filteredByTag.template).toEqual('itemListView');
   });
 
-  it('should return correct template for filteredByUser strategy', function() {
-    expect(filteredByUser.template).toEqual('userItemListView');
+  it('should return correct template for filteredByCurrentUser strategy', function() {
+    expect(filteredByCurrentUser.template).toEqual('userItemListView');
   });
 
   describe('Render in view async operations', function() {

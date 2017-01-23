@@ -1,19 +1,42 @@
 .btn {
-  @include btn("btn-default", false);
+  @include btn("btn-default", false, false);
 }
 
-.btn-dark {
-  @include btn("btn-dark");
-}
-
-.btn-transparent {
-  @include btn("btn-transparent");
-}
-
-.btn-secondary {
-  @include btn("btn-secondary");
-}
-
-.btn-small {
+.btn--fixedWidth {
   min-width: 150px;
+
+  @include breakpoint(small) {
+    min-width: 200px;
+  }
+}
+
+.btn--dark {
+  @include btn("btn--dark");
+}
+
+.btn--transparent {
+  @include btn("btn--transparent");
+}
+
+.btn--secondary {
+  @include btn("btn--secondary");
+}
+
+.btn--small {
+  min-width: 150px;
+}
+
+.btn--link {
+  @include btn("btn--link", $setMinWidth: false);
+}
+
+.btn--report {
+  color: $color-alternate;
+  text-transform: none;
+
+  &:before {
+    content: '\e810';
+    font-family: fontello;
+    margin-right: 5px;
+  }
 }

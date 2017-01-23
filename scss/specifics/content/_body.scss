@@ -1,4 +1,4 @@
-.content-container {
+.content-body {
   white-space: initial;
   position: relative;
   max-width: $layoutWidth;
@@ -7,26 +7,26 @@
   transition: width .4s ease, max-width .4s ease;
 
   @include breakpoint('small') {
-    margin: $navigationHeight*2 auto $navigationHeight;
+    margin: $navigationHeight+36 auto $navigationHeight;
   }
 }
 
-.content-container--itemOverview {
+.content-body--itemOverview {
   display: inline-block;
   width: 100%;
 }
 
-.content-container--swapRequestOverview,
-.content-container--swapRequestChat {
+.content-body--swapRequestOverview,
+.content-body--swapRequestChat {
   display: inline-block;
   width: 50%;
 }
 
-.content-container--swapRequestOverview {
-  
+.content-body--swapRequestOverview {
+
 }
 
-.content-container--form {
+.content-body--form {
   display: inline-block;
   width: calc(60% - 10px);
   margin-left: 7px;

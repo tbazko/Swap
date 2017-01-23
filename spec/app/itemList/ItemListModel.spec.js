@@ -5,7 +5,7 @@ const Item = rootRequire('app/core/dataBaseModels/Item');
 describe('Item List Model', function() {
   let defaultModel = new ItemListModel(rootRequire('app/itemList/strategies/default'));
   let filteredByTag = new ItemListModel(rootRequire('app/itemList/strategies/filteredByTag'));
-  let filteredByUser = new ItemListModel(rootRequire('app/itemList/strategies/filteredByUser'));
+  let filteredByCurrentUser = new ItemListModel(rootRequire('app/itemList/strategies/filteredByCurrentUser'));
 
   let mockModelData = {
     method: 'GET',
@@ -19,14 +19,14 @@ describe('Item List Model', function() {
     }
   }
 
-  defaultModel.modelData = mockModelData;
-  filteredByTag.modelData = mockModelData;
-  filteredByUser.modelData = mockModelData;
+  defaultModel.data = mockModelData;
+  filteredByTag.data = mockModelData;
+  filteredByCurrentUser.data = mockModelData;
 
   it('should initialise', function() {
     expect(defaultModel).not.toBeUndefined();
     expect(filteredByTag).not.toBeUndefined();
-    expect(filteredByUser).not.toBeUndefined();
+    expect(filteredByCurrentUser).not.toBeUndefined();
   });
 
   it('should return params object', function() {
@@ -59,8 +59,8 @@ describe('Item List Model', function() {
     });
   });
 
-  it('given type of element, should return collection of them (filteredByUser strategy)', function(done) {
-    filteredByUser.items.then(function(collection) {
+  it('given type of element, should return collection of them (filteredByCurrentUser strategy)', function(done) {
+    filteredByCurrentUser.items.then(function(collection) {
       expect(collection).toEqual(jasmine.any(Object));
       done();
     });
@@ -70,14 +70,14 @@ describe('Item List Model', function() {
     spyOn(defaultModel, 'notifyObservers');
     var fakeObserver = function() {};
     defaultModel.addObserver(fakeObserver);
-    defaultModel.modelData = mockModelData;
+    defaultModel.data = mockModelData;
     expect(defaultModel.notifyObservers).toHaveBeenCalledTimes(1);
   });
 
   it('if model changes observers should be called', function() {
     var fakeObserver = jasmine.createSpy('fakeObserver');
     defaultModel.addObserver(fakeObserver);
-    defaultModel.modelData = mockModelData;
+    defaultModel.data = mockModelData;
     expect(fakeObserver).toHaveBeenCalledTimes(1);
   });
 });

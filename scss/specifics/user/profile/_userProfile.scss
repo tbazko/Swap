@@ -1,0 +1,16 @@
+.userProfile {
+  position: relative;
+
+  .btn--report {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+  }
+}
+
+.userProfile-picture {
+  img {
+    max-width: 150px;
+    height: auto;
+  }
+}

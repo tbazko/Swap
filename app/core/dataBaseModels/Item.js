@@ -34,7 +34,7 @@ class Item extends Base {
   getActive(callback) {
     this.DataBaseSchema
       .query()
-      .whereIn('state', ['FOR_SALE', 'PENDING'])
+      .whereIn('status', ['for_sale'])
       .then(function(items) {
         callback(null, items);
       })
@@ -54,6 +54,20 @@ class Item extends Base {
           callback(true, err);
         });
     }.bind(this));
+  }
+
+  getActiveByIdWithRelations(id, relations, callback) {
+    this.DataBaseSchema
+      .query()
+      .whereIn('status', ['for_sale'])
+      .andWhere(this.idName, '=', id)
+      .eager(relations)
+      .then(function(items) {
+        callback(null, items);
+      })
+      .catch(function (err) {
+        callback(true, err);
+      });
   }
 
   relateTags(tags, relation) {

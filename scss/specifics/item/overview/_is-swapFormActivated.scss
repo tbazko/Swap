@@ -1,5 +1,5 @@
 .is-swapFormActivated {
-  .content-container {
+  .content-body {
     text-align: left;
     vertical-align: top;
     width: 40%;
@@ -7,7 +7,7 @@
     transition: width .4s ease, max-width .4s ease;
   }
 
-  .content-container--form {
+  .content-body--form {
     width: calc(60% - 10px);
     max-width: 744px;
     position: relative;
@@ -19,7 +19,7 @@
     padding-bottom: 0;
   }
 
-  .itemOverview-itemName {
+  .title--itemOverview {
     font-size: $h3;
     transition: font-size .4s ease;
   }

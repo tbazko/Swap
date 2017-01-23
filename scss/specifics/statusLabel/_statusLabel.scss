@@ -1,16 +1,24 @@
 .statusLabel {
   border: 1px solid transparent;
   border-radius: 2px;
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.4);
   display: inline-block;
   padding: 0 5px 1px;
   font-size: 12px;
+  text-transform: capitalize;
+  transition: background .25s ease;
 
   @include breakpoint(small) {
     padding: 5px 15px;
     font-size: 14px;
   }
 
-  &--inquiry {
+  &--new {
+    color: #fff;
+    background: $color-alternate;
+  }
+
+  &--pending {
     color: #fff;
     background: $color-alternate-lighter;
   }
@@ -23,5 +31,10 @@
   &--declined {
     color: $color-night-rider;
     background: $color-cancel;
+  }
+
+  &--expired {
+    color: #fff;
+    background: $color-suva-grey;
   }
 }

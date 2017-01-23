@@ -1,5 +1,21 @@
 .swapRequestOverview {
   position: relative;
+  border: 2px solid transparent;
+  border-radius: 2px;
+
+  .declined & {
+    border: 2px solid $color-cancel;
+    border-radius: 15px;
+    transition: border-color .25s ease,
+                border-radius .25s ease;
+  }
+
+  .accepted & {
+    border: 2px solid $color-ok;
+    border-radius: 15px;
+    transition: border-color .25s ease,
+                border-radius .25s ease;
+  }
 
   .statusLabel {
     position: absolute;

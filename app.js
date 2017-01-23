@@ -3,6 +3,7 @@
 global.rootRequire = function(name) {
   return require(__dirname + '/' + name);
 }
+global.sessionCookieAge = 60000 * 60 * 24 * 5;
 
 const express       = require('express');
 const path          = require('path');
@@ -29,7 +30,12 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use(session({secret: 'secret strategic xxzzz code'}));
+app.use(session({
+  secret: 'secret strategic xxzzz code',
+  cookie: {
+    maxAge: global.sessionCookieAge
+  }
+}));
 app.use(passport.initialize());
 app.use(passport.session());
 

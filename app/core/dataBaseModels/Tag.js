@@ -7,16 +7,19 @@ class Tag extends Base {
     super(DataBaseTag);
   }
 
-  loadRelatedItemsWithRelations(tagName, relations, callback) {
+  getRelatedActiveItems(id, callback) {
     this.DataBaseSchema
       .query()
-      .where('name', '=', tagName)
-      // .first()
-      .eager(relations)
-      .then(function(tag) {
-        callback(null, tag[0].items);
+      .where(this.idName, id)
+      .eager('[items(onlyActive).[images, swapForTags]]', {
+        onlyActive: function(builder) {
+          builder.where('status', 'for_sale');
+        }
       })
-      .catch(function(err) {
+      .then(function(items) {
+        callback(null, items);
+      })
+      .catch(function (err) {
         callback(true, err);
       });
   }

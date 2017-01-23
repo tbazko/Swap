@@ -6,7 +6,7 @@
 @import "thumbnail";
 @import "map";
 @import "search";
-@import "specs-item";
+@import "keyValue-item";
 
 @import "navigation/base";
 @import "item/base";
@@ -14,3 +14,5 @@
 @import "swapRequest/overview/base";
 @import "slider/base";
 @import "statusLabel/base";
+@import "content/base";
+@import "user/base";

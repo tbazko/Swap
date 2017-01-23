@@ -1,6 +1,6 @@
-<div class="content-container paperStyle-container">
+<div class="content-body">
   <div class="row">
-    <h1 class="main-title">My items list</h1>
+    <h1 class="main-title">My items</h1>
   </div>
   <div class="row row-with-blocks-v2">
   {{#items}}
@@ -12,6 +12,7 @@
     {{/with}}
       <div class="item-content">
         <h4 class="item-title">{{name}}</h4>
+        <p>{{status}}</p>
         <form action="/item/{{id}}/destroy" method="post" class="left">
           <input type="hidden" name="itemId" value="{{id}}">
           <button type="submit">Remove</button>
@@ -19,7 +20,6 @@
         <a href="/item/{{id}}/edit">Edit</a>
       </div>
     </div>
-
   {{/items}}
   </div>
 </div>

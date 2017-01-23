@@ -1,0 +1,35 @@
+<div class="content-body paperStyle-container userProfile mb30">
+  <div class="row">
+    <div class="col-xs4 col-sm6">
+      <h3 class="title--itemOverview">{{user.firstName}}</h3>
+      <ul class="no-bullet pt15 pb30 pr30">
+        <li class="pt15 pb15 keyValue-item">
+          <h5 class="inline-block key">Location:&nbsp;</h5>
+          <p class="inline value">{{user.city}}, {{user.country}}</p>
+        </li>
+
+        <li class="pb15 keyValue-item">
+          <h5 class="inline-block key">Response rate:&nbsp;</h5>
+          <p class="inline value">
+            <p class="inline value">100%</p>
+          </p>
+        </li>
+      </ul>
+      <button type="button" name="write" class="btn btn--fixedWidth is-hidden">Write to {{user.firstName}}</button>
+    </div>
+    <div class="col-xs4 col-sm6 text-right userProfile-picture">
+      <img src="https://pixy.org/placeholder/5885cc0e1ca9c.jpg" alt="User's avatar">
+      <button class="btn btn--link btn--report pr0 is-hidden">Report {{user.firstName}}</button>
+    </div>
+  </div>
+</div>
+<div class="content-body userProfile mt0 pt10">
+  {{#if items}}
+    <div class="row">
+      <div class="col-xs4 col-sm12">
+        <h3 class="title--itemOverview">{{user.firstName}}'s items</h3>
+      </div>
+    </div>
+  {{/if}}
+  {{> itemList}}
+</div>

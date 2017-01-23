@@ -24,12 +24,18 @@
       cursor: pointer;
       display: block;
       padding: 10px 20px;
-      color: $color-alternate;
       border: 0;
+      line-height: $navigationHeight;
     }
 
-    span {
-      cursor: pointer;
+    &.is-active a {
+      color: $color-outrageous-orange;
+      font-weight: bold;
+
+      &:hover {
+        color: $color-outrageous-orange;
+        cursor: default;;
+      }
     }
 
     &:first-child {
@@ -42,13 +48,6 @@
 
       &:first-child {
         border: 0;
-      }
-
-      &.is-active {
-        a > span {
-          display: block;
-          border-bottom: 1px dotted $color-main;
-        }
       }
 
       a {

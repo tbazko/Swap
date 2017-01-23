@@ -30,7 +30,7 @@ exports.up = function(knex, Promise) {
     table.increments('id').unsigned().notNullable().primary();
     table.integer('buyer_id').unsigned().notNullable().references('users.id');
     table.integer('seller_id').unsigned().notNullable().references('users.id');
-    table.boolean('new').defaultTo(true).notNullable();
+    table.string('status').defaultTo('NEW').notNullable();
     table.text('message', 'longtext');
     table.timestamp('reg_date');
     table.integer('unix_time');

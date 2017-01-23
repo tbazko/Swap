@@ -53,7 +53,6 @@ color-case	.csscomb.json	/^    "color-case": "lower",$/;"	f
 color-shorthand	.csscomb.json	/^    "color-shorthand": true,$/;"	f
 connect-flash	package.json	/^    "connect-flash": "~0.1.1",$/;"	f
 cookie-parser	package.json	/^    "cookie-parser": "~1.3.5",$/;"	f
-createMessage	app/router/request.js	/^function createMessage(req, res, next) {$/;"	f
 createRequest	app/router/request.js	/^function createRequest(req, res, next) {$/;"	f
 debug	package.json	/^    "debug": "~2.2.0",$/;"	f
 define	public/javascripts/lib/require.js	/^c+" at "+d,q,[c]))}};F&&!v.skipDataMain&&Y(document.getElementsByTagName("script"),function(b){D||(D=b.parentNode);if(P=b.getAttribute("data-main"))return u=P,v.baseUrl||(J=u.split("\/"),u=J.pop(),U=J.length?J.join("\/")+"\/":".\/",v.baseUrl=U),u=u.replace(V,""),k.jsExtRegExp.test(u)&&(u=P),v.deps=v.deps?v.deps.concat(u):[u],!0});define=function(b,c,d){var g,e;"string"!==typeof b&&(d=c,c=b,b=null);M(c)||(d=c,c=null);!c&&L(d)&&(c=[],d.length&&(d.toString().replace(qa,"").replace(ra,function(b,d){c.push(d)}),$/;"	f
@@ -73,6 +72,7 @@ entityMap.>	public/javascripts/lib/mustache.js	/^    '<': '&lt;',$/;"	p
 entityMap.`	public/javascripts/lib/mustache.js	/^    '\/': '&#x2F;',$/;"	p
 eof-newline	.csscomb.json	/^    "eof-newline": true,$/;"	f
 escapeRegExp	public/javascripts/lib/mustache.js	/^  function escapeRegExp (string) {$/;"	f
+eventEmitter.to	spec/helpers/SocketMock.js	/^const eventEmitter = new events.EventEmitter();$/;"	f
 exphbs	config/templates.js	/^var exphbs = require('express-handlebars');$/;"	v
 exports.down	migrations/20160325232652_pages.js	/^};$/;"	f
 exports.up	migrations/20160325232652_pages.js	/^$/;"	f
@@ -114,13 +114,16 @@ let.request	app/swapRequest/overview/SwapRequestOverviewPresenter.js	/^    let f
 let.seller_id	app/core/dataBaseModels/SwapRequest.js	/^    let data = {$/;"	p
 let.successRedirect	app/router/account.js	/^let redirects = {$/;"	p
 let.user	app/swapRequest/overview/SwapRequestOverviewPresenter.js	/^      request: request,$/;"	p
-let.userId	app/itemList/strategies/filteredByUser.js	/^    let user = {$/;"	p
+let.user	spec/helpers/requestMock.js	/^let reqWithCorrectData = {$/;"	p
+let.user	spec/helpers/requestMock.js	/^let reqWithWrongData = {$/;"	p
+let.userId	app/itemList/strategies/filteredByCurrentUser.js	/^    let user = {$/;"	p
 makeDestroyButton	app/router/item.js	/^function makeDestroyButton(req, res, next) {$/;"	f
 makeItemFormPresenter	app/router/item.js	/^function makeItemFormPresenter(req, res, next) {$/;"	f
 makeItemListPresenter	app/router/landing.js	/^function makeItemListPresenter(req, res, next) {$/;"	f
 makeItemListPresenter	app/router/user.js	/^function makeItemListPresenter(req, res, next) {$/;"	f
 makeItemListPresenterFilteredByTag	app/router/landing.js	/^function makeItemListPresenterFilteredByTag(req, res, next) {$/;"	f
 makeItemPresenter	app/router/item.js	/^function makeItemPresenter(req, res, next) {$/;"	f
+makePublicUserProfile	app/router/user.js	/^function makePublicUserProfile(req, res, next) {$/;"	f
 makeRequestOverview	app/router/request.js	/^function makeRequestOverview(req, res, next) {$/;"	f
 makeRequestsList	app/router/request.js	/^function makeRequestsList(req, res, next) {$/;"	f
 makeUserProfile	app/router/user.js	/^function makeUserProfile(req, res, next) {$/;"	f
@@ -135,10 +138,12 @@ module.exports.app	app.js	/^module.exports = {app: app, server: server};$/;"	p
 module.exports.development	knexfile.js	/^module.exports = {$/;"	p
 module.exports.getInstance	app/socketAPI/index.js	/^};$/;"	f
 module.exports.items	app/itemList/strategies/default.js	/^  template: 'itemListView',$/;"	m
+module.exports.items	app/itemList/strategies/filteredByCurrentUser.js	/^  template: 'userItemListView',$/;"	m
 module.exports.items	app/itemList/strategies/filteredByTag.js	/^  template: 'itemListView',$/;"	m
 module.exports.items	app/itemList/strategies/filteredByUser.js	/^  template: 'userItemListView',$/;"	m
 module.exports.server	app.js	/^module.exports = {app: app, server: server};$/;"	p
 module.exports.template	app/itemList/strategies/default.js	/^module.exports = {$/;"	p
+module.exports.template	app/itemList/strategies/filteredByCurrentUser.js	/^module.exports = {$/;"	p
 module.exports.template	app/itemList/strategies/filteredByTag.js	/^module.exports = {$/;"	p
 module.exports.template	app/itemList/strategies/filteredByUser.js	/^module.exports = {$/;"	p
 module.exports.wrapServer	app/socketAPI/index.js	/^const SocketAPI = require('.\/private\/socketAPI');$/;"	f

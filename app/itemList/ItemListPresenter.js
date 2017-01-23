@@ -11,7 +11,7 @@ class ItemListPresenter {
   handle(req, res, next) {
     this.res = res;
     this.next = next;
-    this.model.modelData = req;
+    this.model.data = req;
   }
 
   _onModelChange() {

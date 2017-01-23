@@ -1,0 +1,15 @@
+.swapRequestOverviewButtons {
+  opacity: 1;
+  transition: opacity .25s ease;
+
+  .btn {
+    min-width: 0;
+    padding-left: 35px;
+    padding-right: 35px;
+  }
+
+  &.is-hidden {
+    display: block;
+    opacity: 0;
+  }
+}

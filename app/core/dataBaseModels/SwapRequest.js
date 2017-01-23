@@ -6,7 +6,8 @@ const socket = rootRequire('app/socketAPI').getInstance();
 class SwapRequest extends Base {
   constructor() {
     super(DataBaseSwapRequest);
-    this.req = undefined;
+    this.req = null;
+    this.id = null;
   }
 
   insert() {
@@ -43,7 +44,7 @@ class SwapRequest extends Base {
       .catch(function(err) {
         console.log(err);
       });
-  }
+  }  
 }
 
 module.exports = SwapRequest;

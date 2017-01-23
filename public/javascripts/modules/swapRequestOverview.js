@@ -1,8 +1,12 @@
 define([
-  'components/Chat'
+  'components/Chat',
+  'components/SwapRequestStatusChanger'
 ], function (
-  Chat
+  Chat,
+  SwapRequestStatusChanger
 ) {
 	var chat = new Chat();
+  var state = new SwapRequestStatusChanger();
   chat.init();
+  state.init();
 });

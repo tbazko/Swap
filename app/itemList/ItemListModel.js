@@ -6,7 +6,7 @@ class ItemListModel {
     this._observerList = [];
   }
 
-  set modelData(req) {
+  set data(req) {
     this._path = req.path;
     this._user = req.user ? req.user : false;
     this._params = req.params ? req.params : false;
@@ -28,6 +28,10 @@ class ItemListModel {
 
   get user() {
     return this._user;
+  }
+
+  set user(user) {
+    this._user = user;
   }
 
   get path() {

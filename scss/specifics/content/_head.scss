@@ -1,0 +1,35 @@
+.content-head {
+  max-width: $layoutWidth;
+  margin: ($navigationHeight + $navigationHeight / 2) auto $navigationHeight / 2;
+  min-height: 37px;
+  line-height: 1;
+  font-size: 0;
+
+  h1 {
+    font-size: $h3;
+  }
+
+  h1, span {
+    transition: color .25s ease;
+  }
+
+  &.declined,
+  .declined & {
+    h1,
+    h1 span {
+      color: darken($color-cancel, 13%);
+    }
+  }
+
+  &.accepted,
+  .accepted & {
+    h1,
+    h1 span {
+      color: $color-ok;
+    }
+  }
+}
+
+.content-head + .content-body {
+  margin-top: 0;
+}

@@ -45,8 +45,8 @@ class Base {
       .query()
       .where(this.idName, '=', id)
       .first()
-      .then(function(item) {
-        callback(null, item);
+      .then(function(items) {
+        callback(null, items);
       })
       .catch(function(err) {
         callback(true, err);
@@ -65,22 +65,21 @@ class Base {
       });
   }
 
-  getAll(callback) {
-    this.DataBaseSchema
-      .query()
-      .then(function(items) {
-        callback(null, items);
-      })
-      .catch(function (err) {
-        callback(true, err);
-      });
-  }
-
   convertToJson() {
     getAll(function(error, response) {
       let json = response.toJSON();
       callback(error, json);
     });
+  }
+
+  patch(column, value) {
+    var columnUpdates = {};
+    columnUpdates[column] = value;
+    this.DataBaseSchema
+      .query()
+      .patch(columnUpdates)
+      .where(this.idName, this.id)
+      .then();
   }
 }
 

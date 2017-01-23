@@ -1,0 +1,17 @@
+.swapRequestOverviewButtons-decline {
+  background: transparent;
+  border-color: transparent;
+  color: $color-night-rider;
+  text-shadow: 0 1px 0 rgba(#fff, 0.4);
+
+  span {
+    border-bottom: 1px solid $color-night-rider;
+    transition: border-color .25s ease;
+  }
+
+  &:hover {
+    span {
+      border-bottom: 1px solid transparent;
+    }
+  }
+}

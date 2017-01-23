@@ -71,9 +71,9 @@ describe('Item Form Model', function() {
     });
   });
 
-  it('should return item object with item state, if Item exists', function(done) {
+  it('should return item object with item status, if Item exists', function(done) {
     ifm.item.then((response) => {
-      expect(response.state).toEqual(jasmine.any(String));
+      expect(response.status).toEqual(jasmine.any(String));
       done();
     });
   });

@@ -2,28 +2,34 @@
   <script src="/javascripts/lib/require.js" data-main="/javascripts/swapRequestOverview" async></script>
 {{/section}}
 
-<div class="content-container">
-  <h1 class="main-title">Request overview</h1>
+{{> swapRequestOverviewHead}}
+
+<div class="content-body {{request.status}}">
   <div class="row pb20">
     <div class="col-xs4 col-md6 paperStyle-container swapRequestOverview">
       <div class="swapRequestOverview-head">
-        <div class="statusLabel statusLabel--inquiry"><p>Inquiry</p></div>
+        <div class="statusLabel statusLabel--{{request.status}}">
+          <p>{{#if_eq request.status 'pending'}}
+              Inquiry
+            {{else}}
+              {{request.status}}
+            {{/if_eq}}</p>          
+        </div>
         {{#if currentUserIsBuyer}}
           <p class="mb10">You request:</p>
         {{else}}
           <p class="mb10">{{request.buyer.firstName}} requests:</p>
         {{/if}}
         {{#request.masterItems}}
-
-            {{#with images.[0]}}
-            <div class="swapRequestOverview-imageContainer swapRequestOverview-imageContainer--master">
-              <div class="swapRequestOverview-image" style="background-image: url('http://res.cloudinary.com/di42acdz9/image/upload/{{this.id}}')"></div>
-            </div>
-            {{/with}}
-              <h4 class="swapRequestOverview-title">
-                <a href="/item/{{this.id}}">{{this.name}}</a>
-              </h4>
-
+          {{status}}
+          {{#with images.[0]}}
+          <div class="swapRequestOverview-imageContainer swapRequestOverview-imageContainer--master">
+            <div class="swapRequestOverview-image" style="background-image: url('http://res.cloudinary.com/di42acdz9/image/upload/{{this.id}}')"></div>
+          </div>
+          {{/with}}
+            <h4 class="swapRequestOverview-title">
+              <a href="/item/{{this.id}}">{{this.name}}</a>
+            </h4>
         {{/request.masterItems}}
       </div>
 
@@ -45,12 +51,12 @@
                 <a href="/item/{{this.id}}">{{this.name}}</a>
               </h4>
               <ul class="no-bullet pt5">
-                <li class="pt5 pb0 specs-item">
-                  <h5 class="inline-block property">Location:&nbsp;</h5>
+                <li class="pt5 pb0 keyValue-item">
+                  <h5 class="inline-block key">Location:&nbsp;</h5>
                   <p class="inline value">{{../request.buyer.city}}, {{../request.buyer.country}}</p>
                 </li>
-                <li class="pt5 pb0 specs-item">
-                  <h5 class="inline-block property">Condition:&nbsp;</h5>
+                <li class="pt5 pb0 keyValue-item">
+                  <h5 class="inline-block key">Condition:&nbsp;</h5>
                   <p class="inline value condition-stars condition-{{this.condition}}">
                     <span class="icon-condition"></span>
                     <span class="icon-condition"></span>
@@ -74,12 +80,15 @@
     </div>
 
     <div class="col col-xs4 col-sm12 col-md6 pl30">
-      <div class="pb25 mb20">
-        <form id="messageForm" data-action="{{url}}/message" class="form text-right">
-          <textarea id="messageTextarea" name="message" cols="30" rows="10" class="small light" placeholder="Leave a message"></textarea>
-          <input id="messageSubmit" type="submit" value="Send message" class="btn btn-secondary btn-small mt10">
-        </form>
-      </div>
+      {{#if_eq request.status 'declined'}}
+      {{else}}
+        <div class="pb25 mb20">
+          <form id="messageForm" data-action="{{url}}/message" class="form text-right">
+            <textarea id="messageTextarea" name="message" cols="30" rows="10" class="small light" placeholder="Leave a message"></textarea>
+            <input id="messageSubmit" type="submit" value="Send message" class="btn btn--secondary btn--small mt10">
+          </form>
+        </div>
+      {{/if_eq}}
 
       <div id="messages">
         {{#each messages}}

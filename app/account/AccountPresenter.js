@@ -70,7 +70,7 @@ class AccountPresenter {
   _renderView() {
     if (this.model.userIsLoggedIn) {
       this.res.redirect('/user/profile');
-      this.res.cookie('logged', this.model.user.id, { maxAge: 900000 });
+      this.res.cookie('logged', this.model.user.id, { maxAge: global.sessionCookieAge });
     } else {
       this.res.render(this.template);
     }
@@ -78,7 +78,12 @@ class AccountPresenter {
 
   _signOutAndRedirect() {
     if (this.model.userIsLoggedIn) {
-      this.res.clearCookie('logged');
+      var cookies = this.req.cookies;
+      for (var key in cookies) {
+        // skip loop if the property is from prototype
+        if (!cookies.hasOwnProperty(key)) continue;
+        this.res.clearCookie(key);
+      }
       this.req.logout();
       this.res.redirect('/account/signin');
     } else {

@@ -15,8 +15,10 @@ define([
   }
 
   Chat.prototype.init = function () {
-    window.socket.emit('joinRoom', location.pathname);
-    this.bindEvents();
+    if(this.form) {
+      window.socket.emit('joinRoom', location.pathname);
+      this.bindEvents();
+    }
   };
 
   Chat.prototype.bindEvents = function () {
@@ -26,7 +28,11 @@ define([
 
   Chat.prototype.onFormSubmit = function (e) {
     e.preventDefault();
-    window.socket.emit('chatMessage', this.textarea.value);
+    var text = this.textarea.value;
+    if(text !== '') {
+      this.textarea.value = '';
+      window.socket.emit('chatMessage', text);
+    }
   }
 
   Chat.prototype.renderMessage = function (data) {

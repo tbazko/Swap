@@ -1,8 +1,7 @@
-<a href="/request/{{id}}" class="row swapRequest">
-  <div class="col-sm2 col-md2 col-sm-last swapRequest-state">
-    <!-- p Status (Inquiry, Accepted, Pending, Declined) -->
-    <div class="statusLabel statusLabel--inquiry">
-      <p class="statusLabel-state">Inquiry</p>
+<a href="/request/{{id}}" class="row swapRequest swapRequest--{{status}}">
+  <div class="col-sm2 col-md2 col-sm-last swapRequest-state text-right">
+    <div class="statusLabel statusLabel--{{status}}">
+      <p class="statusLabel-state">{{status}}</p>
     </div>
     <p class="date">{{local_time}}</p>
   </div>

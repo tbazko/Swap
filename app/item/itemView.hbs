@@ -3,7 +3,7 @@
 {{/section}}
 
 <div class="row row--layoutWidth row--nowrap">
-  <div class="content-container paperStyle-container content-container--itemOverview">
+  <div class="content-body paperStyle-container content-body--itemOverview">
     <div class="row itemOverview">
       <div class="itemOverview-sliderColumn">
         {{> slider}}
@@ -13,7 +13,7 @@
       </div>
       <div class="itemOverview-swapButton clear">
         {{#if authorIsCurrentUser}}
-          <a href="/item/{{item.id}}/edit" class="btn btn-secondary">Edit</a>
+          <a href="/item/{{item.id}}/edit" class="btn btn--secondary">Edit</a>
         {{else}}
           {{> swapButtonsSet}}
         {{/if}}
@@ -35,7 +35,7 @@
         <div class="itemOverview-map" style="background-image: url('https://maps.googleapis.com/maps/api/staticmap?size=400x400&maptype=roadmap&markers=color:red%7C{{author.city}},{{author.country}}&key=AIzaSyCvLphh5RdATb2mbpFCZ0k02_ZqFQZjukk')">
         </div>
       </div>
-      <a href="#" class="btn btn-small btn-dark itemOverview-moreItemsButton">More items from {{author.firstName}}</a>
+      <a href="#" class="btn btn--small btn--dark itemOverview-moreItemsButton">More items from {{author.firstName}}</a>
     </div>
   </div>
   {{> swapForm}}
