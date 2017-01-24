@@ -69,7 +69,8 @@ class AccountPresenter {
 
   _renderView() {
     if (this.model.userIsLoggedIn) {
-      this.res.redirect('/user/profile');
+      this.res.redirect(this.req.session.lastOpenedUrl);
+      this.req.session.lastOpenedUrl = null;
       this.res.cookie('logged', this.model.user.id, { maxAge: global.sessionCookieAge });
     } else {
       this.res.render(this.template);

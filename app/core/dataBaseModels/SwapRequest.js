@@ -27,7 +27,6 @@ class SwapRequest extends Base {
       .query()
       .insertAndFetch(data)
       .then(function(request) {
-        request
         request.$relatedQuery('masterItems').relate(masterItemId)
           .then(function() {
             if(slaveItemIds.length === 1) {
@@ -44,7 +43,19 @@ class SwapRequest extends Base {
       .catch(function(err) {
         console.log(err);
       });
-  }  
+  }
+
+  getNewByCurrentUser(id, callback) {
+    this.DataBaseSchema
+      .query()
+      .where('seller_id', id)
+      .andWhere('status', 'new')
+      .then((requests) => {
+        callback(null, requests);
+      }).catch((err) => {
+        callback(err);
+      });
+  }
 }
 
 module.exports = SwapRequest;

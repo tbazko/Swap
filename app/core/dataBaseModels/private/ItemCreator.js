@@ -11,7 +11,7 @@ class ItemCreator {
   set itemData(data) {
     this._itemData = {
       name: data.name,
-      status: 'FOR_SALE',
+      status: 'for_sale',
       description: data.description,
       user_id: data.userId,
       condition: data.itemCondition

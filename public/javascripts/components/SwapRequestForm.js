@@ -85,7 +85,10 @@ define([
       url: $(element).data('href'),
       method: 'POST'
     }).done(function (response) {
-      if (response) {
+      console.log(response);
+      if(response.redirect) {
+        window.location.replace(response.redirect);
+      } else if (response) {
         response.items.forEach(function (item) {
           item.firstImage = item.images[0];
           delete item.images;
@@ -105,9 +108,6 @@ define([
         } else if (response && userId === sellerId) {
           console.log('User\'s item');
         }
-      } else {
-        // TODO: Remove later
-        window.location.replace('http://localhost:3000/account/signin');
       }
     }.bind(this)).fail(function (jqXHR, textStatus) {
       console.log(jqXHR, textStatus);

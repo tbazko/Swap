@@ -3,6 +3,7 @@ module.exports = function(req, res, next) {
    if(req.cookies.logged) {
      res.clearCookie('logged');
    }
+   req.session.lastOpenedUrl = req.originalUrl;
    res.redirect('/account/signin');
   } else if(req.cookies.logged === undefined) {
    res.redirect('/account/signout');

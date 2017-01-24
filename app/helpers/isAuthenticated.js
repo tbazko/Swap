@@ -3,7 +3,9 @@ module.exports = function(req, res, next) {
      if(req.cookies.logged) {
        res.clearCookie('logged');
      }
-    res.send(false);
+     console.log(req);
+    req.session.lastOpenedUrl = req.header('Referer');
+    res.send({redirect: '/account/signin'});
    } else {
       return next();
    }
