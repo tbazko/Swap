@@ -14,9 +14,13 @@ class SwapRequestStatusChanger {
   }
 
   update() {
+    // Do not remove these, related to everything accepted at once bug
+    console.log('update');
     if(this.swapRequest.status === 'new') {
       this._changeTo('pending');
     } else {
+      console.log(this._currentStatus);
+      console.log(this.swapRequest.status);
       this._currentStatus = this.swapRequest.status;
     }
     return this._currentStatus;

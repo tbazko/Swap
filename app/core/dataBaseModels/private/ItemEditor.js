@@ -14,7 +14,6 @@ class ItemEditor extends ItemCreator {
         .query()
         .patchAndFetchById(itemId, this.itemData)
         .then((editedItem) => {
-          console.log(2);
           resolve(editedItem);
         }).catch((err) => {
           console.log(err);

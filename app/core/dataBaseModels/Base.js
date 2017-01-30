@@ -4,6 +4,7 @@ class Base {
   constructor(DataBaseSchema) {
     this.DataBaseSchema = DataBaseSchema;
     this.idName = 'id';
+    this.id = null;
   }
 
   getWithRelations(id, relations, callback) {

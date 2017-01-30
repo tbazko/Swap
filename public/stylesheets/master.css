@@ -125,7 +125,7 @@
   content: '\f1e0'; }
 
 /* '' */
-.btn, .btn--dark, .btn--transparent, .btn--secondary, .btn--link {
+.btn, .btn--dark, .btn--transparent, .btn--secondary, .btn--ok, .btn--link {
   cursor: pointer;
   background: #FF5C2E;
   border: 2px solid #FF5C2E;
@@ -142,7 +142,7 @@
   padding: 0 20px;
   text-align: center;
   text-transform: uppercase; }
-  .btn:disabled, .btn--dark:disabled, .btn--transparent:disabled, .btn--secondary:disabled, .btn--link:disabled {
+  .btn:disabled, .btn--dark:disabled, .btn--transparent:disabled, .btn--secondary:disabled, .btn--ok:disabled, .btn--link:disabled {
     color: rgba(153, 153, 153, 0.9);
     background: rgba(153, 153, 153, 0.4);
     border-color: rgba(153, 153, 153, 0.4); }
@@ -168,6 +168,11 @@
   min-width: 0; }
   .btn--link span {
     border-bottom: 1px solid #333333; }
+
+.btn--ok {
+  background: #79A877;
+  border-color: #79A877;
+  color: #fff; }
 
 /* ================= Placeholders ====================== */
 .item .item-title, .item .item-tag-title {
@@ -1081,7 +1086,10 @@ textarea {
 .item--inSwapList {
   cursor: pointer;
   position: relative;
-  transition: border .25s ease; }
+  transition: border .25s ease;
+  padding: 0;
+  box-shadow: none;
+  background: transparent; }
   .item--inSwapList .item-content {
     display: none; }
   .item--inSwapList .img-container {
@@ -1163,6 +1171,8 @@ textarea {
     .itemOverview-map {
       left: 40px; } }
 
+.is-swapFormActivated .breadcrumbs {
+  display: none; }
 .is-swapFormActivated .content-body {
   text-align: left;
   vertical-align: top;
@@ -1193,7 +1203,7 @@ textarea {
   width: 100%;
   transition: width .4s ease; }
 .is-swapFormActivated .itemOverview-sliderColumn {
-  height: 80px; }
+  min-height: 80px; }
 .is-swapFormActivated .slider {
   height: auto;
   padding-top: 0; }
@@ -1213,6 +1223,11 @@ textarea {
   padding: 0; }
 .is-swapFormActivated .itemOverview-map {
   left: 0; }
+.is-swapFormActivated .title--itemOverview {
+  display: none; }
+.is-swapFormActivated .title--forInSwapState {
+  display: block;
+  margin-bottom: 20px; }
 
 .itemSwapContainer {
   position: relative;
@@ -1694,6 +1709,12 @@ textarea {
     .btn--secondary {
       min-width: 200px; } }
 
+.btn--ok {
+  min-width: 150px; }
+  @media (min-width: 768px) {
+    .btn--ok {
+      min-width: 200px; } }
+
 .btn--small {
   min-width: 150px; }
 
@@ -2166,6 +2187,9 @@ ul.inline {
 .title--itemOverview {
   font-size: 30px;
   transition: font-size .4s ease; }
+
+.title--forInSwapState {
+  display: none; }
 
 .pl0 {
   padding-left: 0px; }

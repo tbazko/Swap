@@ -89,7 +89,8 @@ define([
       if(response.redirect) {
         window.location.replace(response.redirect);
       } else if (response) {
-        response.items.forEach(function (item) {
+        console.log(response);
+        response.forEach(function (item) {
           item.firstImage = item.images[0];
           delete item.images;
         });

@@ -15,7 +15,7 @@ app.post('/item/:id(\\d+)/edit', helpers.signInRedirect, makeItemFormPresenter);
 app.post('/item/:id(\\d+)/destroy', helpers.signInRedirect, makeDestroyButton);
 
 function makeDestroyButton(req, res, next) {
-  let d = new DestroyButtonPresenter();  
+  let d = new DestroyButtonPresenter();
   d.destroy(req, res, next);
 }
 

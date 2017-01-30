@@ -13,7 +13,7 @@ module.exports = {
     item.idName = 'user_id';
     item.getWithRelations(model.user.id, '[images, tags, swapForTags]', function(err, items) {
       if(items) {
-        resolve({ items: items, url: model.path, user: user });
+        resolve(items);
       } else {
         resolve(null);
       }

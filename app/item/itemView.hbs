@@ -6,6 +6,7 @@
   <div class="content-body paperStyle-container content-body--itemOverview">
     <div class="row itemOverview">
       <div class="itemOverview-sliderColumn">
+        <h3 class="title--itemOverview title--forInSwapState">{{item.name}}</h3>
         {{> slider}}
       </div>
       <div class="itemOverview-detailsColumn">
@@ -35,7 +36,7 @@
         <div class="itemOverview-map" style="background-image: url('https://maps.googleapis.com/maps/api/staticmap?size=400x400&maptype=roadmap&markers=color:red%7C{{author.city}},{{author.country}}&key=AIzaSyCvLphh5RdATb2mbpFCZ0k02_ZqFQZjukk')">
         </div>
       </div>
-      <a href="#" class="btn btn--small btn--dark itemOverview-moreItemsButton">More items from {{author.firstName}}</a>
+      <a href="/user/{{item.user_id}}/items" class="btn btn--small btn--dark itemOverview-moreItemsButton">More items from {{author.firstName}}</a>
     </div>
   </div>
   {{> swapForm}}

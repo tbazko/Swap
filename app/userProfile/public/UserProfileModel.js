@@ -1,13 +1,14 @@
 'use strict';
 const User = rootRequire('app/core/dataBaseModels/User');
 const ItemListModel = rootRequire('app/itemList/ItemListModel');
-const strategy = rootRequire('app/itemList/strategies/filteredByUser')
-
 
 class UserProfileModel {
   constructor() {
     this.userId = null;
     this._userDBmodel = new User();
+  }
+
+  createItemList(strategy) {
     this._itemList = new ItemListModel(strategy);
   }
 

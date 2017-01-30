@@ -60,6 +60,12 @@
   }
 }
 
+%btn--ok {
+  background: $color-ok;
+  border-color: $color-ok;
+  color: $color-white;
+}
+
 
 @mixin btn($skin, $includeDefault: true, $setMinWidth: true) {
   @if($includeDefault == true) {

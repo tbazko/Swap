@@ -1,0 +1,63 @@
+{{^itemsOnly}}
+<div class="content-body paperStyle-container userProfile mb30">
+  <div class="row">
+    <div class="col-xs4 col-sm6">
+      <h3 class="title--itemOverview">Your profile</h3>
+      <!-- <p>You have: {{newRequests}} new request(s)</p> -->
+      <ul class="no-bullet pt15 pb30 pr30">
+        <li class="pb15 keyValue-item">
+          <h5 class="inline-block key">Name:&nbsp;</h5>
+          <p class="inline value">{{user.firstName}}</p>
+        </li>
+        <li class="pt15 pb15 keyValue-item">
+          <h5 class="inline-block key">Location:&nbsp;</h5>
+          <p class="inline value">{{user.city}}, {{user.country}}</p>
+        </li>
+
+        <li class="pb15 keyValue-item">
+          <h5 class="inline-block key">Email:&nbsp;</h5>
+          <p class="inline value">{{user.email}}</p>
+        </li>
+        <li class="pb15 keyValue-item">
+          <h5 class="inline-block key">Response rate:&nbsp;</h5>
+          <p class="inline value">100%</p>
+        </li>
+      </ul>
+      <a href="/account/signout" title="sign out" class="btn btn--secondary mt10">Sign out</a>
+    </div>
+    <div class="col-xs4 col-sm6 text-right userProfile-picture">
+      <img src="https://pixy.org/placeholder/5885cc0e1ca9c.jpg" alt="User's avatar">
+      <button class="btn btn--link btn--report pr0 is-hidden">Report {{user.firstName}}</button>
+    </div>
+  </div>
+</div>
+{{/itemsOnly}}
+<div class="content-body userProfile {{^itemsOnly}}mt0{{/itemsOnly}} pt10">
+  {{#if items}}
+    <div class="row">
+      <div class="col-xs4 col-sm12">
+        <h3 class="title--itemOverview">Your items</h3>
+      </div>
+    </div>
+  {{/if}}
+  <div class="row row-with-blocks-v2">
+  {{#items}}
+    <div class="item" data-item-id="{{id}}">
+    {{#with images.[0]}}
+      <a href="/item/{{item_id}}" class="img-container">
+        <img src="http://res.cloudinary.com/di42acdz9/image/upload/{{this.id}}" alt="">
+      </a>
+    {{/with}}
+      <div class="item-content">
+        <h4 class="item-title">{{name}}</h4>
+        <p>{{status}}</p>
+        <form action="/item/{{id}}/destroy" method="post" class="left">
+          <input type="hidden" name="itemId" value="{{id}}">
+          <button type="submit">Remove</button>
+        </form>
+        <a href="/item/{{id}}/edit">Edit</a>
+      </div>
+    </div>
+  {{/items}}
+  </div>
+</div>

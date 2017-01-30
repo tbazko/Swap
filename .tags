@@ -7,6 +7,17 @@
 B	public/javascripts/lib/require.js	/^b,c){var f=a.id,l=g(t,f);if(!w(r,f)||l&&!l.defineEmitComplete)if(l=u(a),l.error&&"error"===b)c(l.error);else l.on(b,c);else"defined"===b&&c(r[f])}function B(a,b){var c=a.requireModules,f=!1;if(b)b(a);else if(x(c,function(b){if(b=g(t,b))b.error=a,b.events.error&&(f=!0,b.emit("error",a))}),!f)k.onError(a)}function C(){W.length&&(x(W,function(a){var b=a[0];"string"===typeof b&&(h.defQueueMap[b]=!0);H.push(a)}),W=[])}function D(a){delete t[a];delete aa[a]}function K(a,b,c){var f=a.map.id;a.error?a.emit("error",$/;"	f
 C	public/javascripts/lib/require.js	/^b,c){var f=a.id,l=g(t,f);if(!w(r,f)||l&&!l.defineEmitComplete)if(l=u(a),l.error&&"error"===b)c(l.error);else l.on(b,c);else"defined"===b&&c(r[f])}function B(a,b){var c=a.requireModules,f=!1;if(b)b(a);else if(x(c,function(b){if(b=g(t,b))b.error=a,b.events.error&&(f=!0,b.emit("error",a))}),!f)k.onError(a)}function C(){W.length&&(x(W,function(a){var b=a[0];"string"===typeof b&&(h.defQueueMap[b]=!0);H.push(a)}),W=[])}function D(a){delete t[a];delete aa[a]}function K(a,b,c){var f=a.map.id;a.error?a.emit("error",$/;"	f
 D	public/javascripts/lib/require.js	/^b,c){var f=a.id,l=g(t,f);if(!w(r,f)||l&&!l.defineEmitComplete)if(l=u(a),l.error&&"error"===b)c(l.error);else l.on(b,c);else"defined"===b&&c(r[f])}function B(a,b){var c=a.requireModules,f=!1;if(b)b(a);else if(x(c,function(b){if(b=g(t,b))b.error=a,b.events.error&&(f=!0,b.emit("error",a))}),!f)k.onError(a)}function C(){W.length&&(x(W,function(a){var b=a[0];"string"===typeof b&&(h.defQueueMap[b]=!0);H.push(a)}),W=[])}function D(a){delete t[a];delete aa[a]}function K(a,b,c){var f=a.map.id;a.error?a.emit("error",$/;"	f
+Dropzone._autoDiscoverFunction	public/javascripts/lib/dropzone.js	/^  };$/;"	f
+Dropzone.confirm	public/javascripts/lib/dropzone.js	/^  };$/;"	f
+Dropzone.createElement	public/javascripts/lib/dropzone.js	/^  };$/;"	f
+Dropzone.discover	public/javascripts/lib/dropzone.js	/^  Dropzone.autoDiscover = true;$/;"	f
+Dropzone.elementInside	public/javascripts/lib/dropzone.js	/^  };$/;"	f
+Dropzone.forElement	public/javascripts/lib/dropzone.js	/^  Dropzone.instances = [];$/;"	f
+Dropzone.getElement	public/javascripts/lib/dropzone.js	/^  };$/;"	f
+Dropzone.getElements	public/javascripts/lib/dropzone.js	/^  };$/;"	f
+Dropzone.isBrowserSupported	public/javascripts/lib/dropzone.js	/^  Dropzone.blacklistedBrowsers = [\/opera.*Macintosh.*version\\\/12\/i];$/;"	f
+Dropzone.isValidFile	public/javascripts/lib/dropzone.js	/^  };$/;"	f
+Dropzone.optionsForElement	public/javascripts/lib/dropzone.js	/^  Dropzone.options = {};$/;"	f
 I	public/javascripts/lib/require.js	/^a.error):(b[f]=!0,x(a.depMaps,function(f,d){var h=f.id,k=g(t,h);!k||a.depMatched[d]||c[h]||(g(b,h)?(a.defineDep(d,r[h]),a.check()):K(k,b,c))}),c[f]=!0)}function I(){var a,b,c=(a=1E3*m.waitSeconds)&&h.startTime+a<(new Date).getTime(),f=[],l=[],k=!1,g=!0;if(!ba){ba=!0;E(aa,function(a){var h=a.map,e=h.id;if(a.enabled&&(h.isDefine||l.push(a),!a.error))if(!a.inited&&c)p(e)?k=b=!0:(f.push(e),d(e));else if(!a.inited&&a.fetched&&h.isDefine&&(k=!0,!h.prefix))return g=!1});if(c&&f.length)return a=G("timeout",$/;"	f
 I.J	public/javascripts/lib/require.js	/^"Load timeout for modules: "+f,null,f),a.contextName=h.contextName,B(a);g&&x(l,function(a){K(a,{},{})});c&&!b||!k||!F&&!ka||ca||(ca=setTimeout(function(){ca=0;I()},50));ba=!1}}function J(a){w(r,a[0])||u(q(a[0],null,!0)).init(a[1],a[2])}function P(a){a=a.currentTarget||a.srcElement;var b=h.onScriptLoad;a.detachEvent&&!da?a.detachEvent("onreadystatechange",b):a.removeEventListener("load",b,!1);b=h.onScriptError;a.detachEvent&&!da||a.removeEventListener("error",b,!1);return{node:a,id:a&&a.getAttribute("data-requiremodule")}}$/;"	f
 I.P	public/javascripts/lib/require.js	/^"Load timeout for modules: "+f,null,f),a.contextName=h.contextName,B(a);g&&x(l,function(a){K(a,{},{})});c&&!b||!k||!F&&!ka||ca||(ca=setTimeout(function(){ca=0;I()},50));ba=!1}}function J(a){w(r,a[0])||u(q(a[0],null,!0)).init(a[1],a[2])}function P(a){a=a.currentTarget||a.srcElement;var b=h.onScriptLoad;a.detachEvent&&!da?a.detachEvent("onreadystatechange",b):a.removeEventListener("load",b,!1);b=h.onScriptError;a.detachEvent&&!da||a.removeEventListener("error",b,!1);return{node:a,id:a&&a.getAttribute("data-requiremodule")}}$/;"	f
@@ -47,18 +58,24 @@ bcrypt	app/account/passport.js	/^var bcrypt        = require('bcrypt-nodejs');$/
 bcrypt-nodejs	package.json	/^    "bcrypt-nodejs": "0.0.3",$/;"	f
 block-indent	.csscomb.json	/^    "block-indent": "  ",$/;"	f
 body-parser	package.json	/^    "body-parser": "~1.13.2",$/;"	f
+camelize	public/javascripts/lib/dropzone.js	/^  };$/;"	f
+checkElements	public/javascripts/lib/dropzone.js	/^      dropzones = [];$/;"	f
 cloudinary	config/cloudinary.js	/^var cloudinary = require('cloudinary');$/;"	v
 cloudinary	package.json	/^    "cloudinary": "^1.3.1",$/;"	f
 color-case	.csscomb.json	/^    "color-case": "lower",$/;"	f
 color-shorthand	.csscomb.json	/^    "color-shorthand": true,$/;"	f
 connect-flash	package.json	/^    "connect-flash": "~0.1.1",$/;"	f
+contentLoaded	public/javascripts/lib/dropzone.js	/^  };$/;"	f
 cookie-parser	package.json	/^    "cookie-parser": "~1.3.5",$/;"	f
 createRequest	app/router/request.js	/^function createRequest(req, res, next) {$/;"	f
+ctor	public/javascripts/lib/dropzone.js	/^    __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };$/;"	c
 debug	package.json	/^    "debug": "~2.2.0",$/;"	f
 define	public/javascripts/lib/require.js	/^c+" at "+d,q,[c]))}};F&&!v.skipDataMain&&Y(document.getElementsByTagName("script"),function(b){D||(D=b.parentNode);if(P=b.getAttribute("data-main"))return u=P,v.baseUrl||(J=u.split("\/"),u=J.pop(),U=J.length?J.join("\/")+"\/":".\/",v.baseUrl=U),u=u.replace(V,""),k.jsExtRegExp.test(u)&&(u=P),v.deps=v.deps?v.deps.concat(u):[u],!0});define=function(b,c,d){var g,e;"string"!==typeof b&&(d=c,c=b,b=null);M(c)||(d=c,c=null);!c&&L(d)&&(c=[],d.length&&(d.toString().replace(qa,"").replace(ra,function(b,d){c.push(d)}),$/;"	f
 define.amd.jQuery	public/javascripts/lib/require.js	/^c=(1===d.length?["require"]:["require","exports","module"]).concat(c)));T&&(g=Q||pa())&&(b||(b=g.getAttribute("data-requiremodule")),e=K[g.getAttribute("data-requirecontext")]);e?(e.defQueue.push([b,c,d]),e.defQueueMap[b]=!0):W.push([b,c,d])};define.amd={jQuery:!0};k.exec=function(b){return eval(b)};k(v)}})(this);/;"	p
 dependencies	package.json	/^  "dependencies": {$/;"	f
+detectVerticalSquash	public/javascripts/lib/dropzone.js	/^  Dropzone.SUCCESS = "success";$/;"	f
 devDependencies	package.json	/^  "devDependencies": {$/;"	f
+drawImageIOSFix	public/javascripts/lib/dropzone.js	/^  };$/;"	f
 ea	public/javascripts/lib/require.js	/^{}},module:function(a){return a.module?a.module:a.module={id:a.map.id,uri:a.map.url,config:function(){return g(m.config,a.map.id)||{}},exports:a.exports||(a.exports={})}}};ea=function(a){this.events=g(fa,a.id)||{};this.map=a;this.shim=g(m.shim,a.id);this.depExports=[];this.depMaps=[];this.depMatched=[];this.pluginMaps={};this.depCount=0};ea.prototype={init:function(a,b,c,f){f=f||{};if(!this.inited){this.factory=b;if(c)this.on("error",c);else this.events.error&&(c=y(this,function(a){this.emit("error",$/;"	c
 ea.init	public/javascripts/lib/require.js	/^{}},module:function(a){return a.module?a.module:a.module={id:a.map.id,uri:a.map.url,config:function(){return g(m.config,a.map.id)||{}},exports:a.exports||(a.exports={})}}};ea=function(a){this.events=g(fa,a.id)||{};this.map=a;this.shim=g(m.shim,a.id);this.depExports=[];this.depMaps=[];this.depMatched=[];this.pluginMaps={};this.depCount=0};ea.prototype={init:function(a,b,c,f){f=f||{};if(!this.inited){this.factory=b;if(c)this.on("error",c);else this.events.error&&(c=y(this,function(a){this.emit("error",$/;"	m
 element-case	.csscomb.json	/^    "element-case": "lower",$/;"	f
@@ -74,6 +91,7 @@ eof-newline	.csscomb.json	/^    "eof-newline": true,$/;"	f
 escapeRegExp	public/javascripts/lib/mustache.js	/^  function escapeRegExp (string) {$/;"	f
 eventEmitter.to	spec/helpers/SocketMock.js	/^const eventEmitter = new events.EventEmitter();$/;"	f
 exphbs	config/templates.js	/^var exphbs = require('express-handlebars');$/;"	v
+exports	public/javascripts/lib/dropzone.js	/^    var module = { exports: { } }; \/\/ Fake component$/;"	p
 exports.down	migrations/20160325232652_pages.js	/^};$/;"	f
 exports.up	migrations/20160325232652_pages.js	/^$/;"	f
 express	app/account/passport.js	/^var express       = require('express');$/;"	v
@@ -101,8 +119,10 @@ hasProperty	public/javascripts/lib/mustache.js	/^  function hasProperty (obj, pr
 helpers	spec/support/jasmine.json	/^  "helpers": [$/;"	f
 idIsArray	app/core/dataBaseModels/Base.js	/^    var idIsArray = typeof id === 'object' && id.length === 2;$/;"	v
 idNameIsArray	app/core/dataBaseModels/Base.js	/^    var idNameIsArray = typeof this.idName === 'object' && this.idName.length === 2;$/;"	v
+init	public/javascripts/lib/dropzone.js	/^    pre = (doc.addEventListener ? "" : "on");$/;"	f
 isFunction	public/javascripts/lib/mustache.js	/^  function isFunction (object) {$/;"	f
 isWhitespace	public/javascripts/lib/mustache.js	/^  function isWhitespace (string) {$/;"	f
+jQuery.fn.dropzone	public/javascripts/lib/dropzone.js	/^  if (typeof jQuery !== "undefined" && jQuery !== null) {$/;"	f
 k	public/javascripts/lib/require.js	/^return B(G("scripterror",'Script error for "'+b.id+(c.length?'", needed by: '+c.join(", "):'"'),a,[b.id]))}}};h.require=h.makeRequire();return h}function pa(){if(O&&"interactive"===O.readyState)return O;Y(document.getElementsByTagName("script"),function(b){if("interactive"===b.readyState)return O=b});return O}var k,C,D,I,P,J,O,Q,u,U,qa=\/(\\\/\\*([\\s\\S]*?)\\*\\\/|([^:]|^)\\\/\\\/(.*)$)\/mg,ra=\/[^.]\\s*require\\s*\\(\\s*["']([^'"\\s]+)["']\\s*\\)\/g,V=\/\\.js$\/,na=\/^\\.\\\/\/;C=Object.prototype;var R=C.toString,la=C.hasOwnProperty,$/;"	v
 k.exec	public/javascripts/lib/require.js	/^c=(1===d.length?["require"]:["require","exports","module"]).concat(c)));T&&(g=Q||pa())&&(b||(b=g.getAttribute("data-requiremodule")),e=K[g.getAttribute("data-requirecontext")]);e?(e.defQueue.push([b,c,d]),e.defQueueMap[b]=!0):W.push([b,c,d])};define.amd={jQuery:!0};k.exec=function(b){return eval(b)};k(v)}})(this);/;"	f
 knex	config/database.js	/^var knex = Knex({$/;"	v
@@ -117,6 +137,7 @@ let.user	app/swapRequest/overview/SwapRequestOverviewPresenter.js	/^      reques
 let.user	spec/helpers/requestMock.js	/^let reqWithCorrectData = {$/;"	p
 let.user	spec/helpers/requestMock.js	/^let reqWithWrongData = {$/;"	p
 let.userId	app/itemList/strategies/filteredByCurrentUser.js	/^    let user = {$/;"	p
+makeCurrentUserProfile	app/router/user.js	/^function makeCurrentUserProfile(req, res, next) {$/;"	f
 makeDestroyButton	app/router/item.js	/^function makeDestroyButton(req, res, next) {$/;"	f
 makeItemFormPresenter	app/router/item.js	/^function makeItemFormPresenter(req, res, next) {$/;"	f
 makeItemListPresenter	app/router/landing.js	/^function makeItemListPresenter(req, res, next) {$/;"	f
@@ -126,7 +147,6 @@ makeItemPresenter	app/router/item.js	/^function makeItemPresenter(req, res, next
 makePublicUserProfile	app/router/user.js	/^function makePublicUserProfile(req, res, next) {$/;"	f
 makeRequestOverview	app/router/request.js	/^function makeRequestOverview(req, res, next) {$/;"	f
 makeRequestsList	app/router/request.js	/^function makeRequestsList(req, res, next) {$/;"	f
-makeUserProfile	app/router/user.js	/^function makeUserProfile(req, res, next) {$/;"	f
 method-override	package.json	/^    "method-override": "~1.0.0",$/;"	f
 mkdirp	package.json	/^    "mkdirp": "^0.5.1",$/;"	f
 model.parsedFormData.fields	app/itemForm/ItemFormPresenter.js	/^    this.model.parsedFormData = {fields: fields, files: files};$/;"	p
@@ -154,6 +174,7 @@ mysql	config/database.js	/^var mysql = require('mysql');$/;"	v
 mysql	package.json	/^    "mysql": "^2.10.2",$/;"	f
 name	package.json	/^  "name": "Swap",$/;"	f
 nonSpaceRe	public/javascripts/lib/mustache.js	/^  var nonSpaceRe = \/\\S\/;$/;"	v
+noop	public/javascripts/lib/dropzone.js	/^    __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };$/;"	f
 objection	config/database.js	/^var objection = require('objection');$/;"	v
 objection	package.json	/^    "objection": "^0.5.5",$/;"	f
 pa	public/javascripts/lib/require.js	/^return B(G("scripterror",'Script error for "'+b.id+(c.length?'", needed by: '+c.join(", "):'"'),a,[b.id]))}}};h.require=h.makeRequire();return h}function pa(){if(O&&"interactive"===O.readyState)return O;Y(document.getElementsByTagName("script"),function(b){if("interactive"===b.readyState)return O=b});return O}var k,C,D,I,P,J,O,Q,u,U,qa=\/(\\\/\\*([\\s\\S]*?)\\*\\\/|([^:]|^)\\\/\\\/(.*)$)\/mg,ra=\/[^.]\\s*require\\s*\\(\\s*["']([^'"\\s]+)["']\\s*\\)\/g,V=\/\\.js$\/,na=\/^\\.\\\/\/;C=Object.prototype;var R=C.toString,la=C.hasOwnProperty,$/;"	f
@@ -164,6 +185,7 @@ passport-facebook	package.json	/^    "passport-facebook": "~1.0.2",$/;"	f
 passport-google-oauth	package.json	/^    "passport-google-oauth": "~0.1.5",$/;"	f
 passport-local	package.json	/^    "passport-local": "~0.1.6",$/;"	f
 passport-twitter	package.json	/^    "passport-twitter": "~1.0.2",$/;"	f
+poll	public/javascripts/lib/dropzone.js	/^    };$/;"	f
 private	package.json	/^  "private": true,$/;"	f
 quotes	.csscomb.json	/^    "quotes": "double",$/;"	f
 random	spec/support/jasmine.json	/^  "random": false$/;"	f
@@ -202,4 +224,5 @@ unitless-zero	.csscomb.json	/^    "unitless-zero": true,$/;"	f
 v	public/javascripts/lib/require.js	/^n,b,f){var l,d,z=null,k=n?n.name:null,m=a,q=!0,A="";a||(q=!1,a="_@r"+(R+=1));a=e(a);z=a[0];a=a[1];z&&(z=c(z,k,f),d=g(r,z));a&&(z?A=d&&d.normalize?d.normalize(a,function(a){return c(a,k,f)}):-1===a.indexOf("!")?c(a,k,f):a:(A=c(a,k,f),a=e(A),z=a[0],A=a[1],b=!0,l=h.nameToUrl(A)));b=!z||d||b?"":"_unnormalized"+(U+=1);return{prefix:z,name:A,parentMap:n,unnormalized:!!b,url:l,originalName:m,isDefine:q,id:(z?z+"!"+A:A)+b}}function u(a){var b=a.id,c=g(t,b);c||(c=t[b]=new h.Module(a));return c}function v(a,$/;"	f
 vendor-prefix-align	.csscomb.json	/^    "vendor-prefix-align": true$/;"	f
 version	package.json	/^  "version": "0.0.0",$/;"	f
+without	public/javascripts/lib/dropzone.js	/^  };$/;"	f
 xhr.onreadystatechange	public/javascripts/lib/text.js	/^            }$/;"	f

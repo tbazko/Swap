@@ -1,4 +1,8 @@
 .is-swapFormActivated {
+  .breadcrumbs {
+    display: none;
+  }
+
   .content-body {
     text-align: left;
     vertical-align: top;
@@ -38,7 +42,7 @@
   }
 
   .itemOverview-sliderColumn {
-    height: 80px;
+    min-height: 80px;
   }
 
   .slider {
@@ -70,6 +74,15 @@
 
   .itemOverview-map {
     left: 0;
+  }
+
+  .title--itemOverview {
+    display: none;
+  }
+
+  .title--forInSwapState {
+    display: block;
+    margin-bottom: 20px;
   }
 
 }

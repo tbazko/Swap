@@ -2,13 +2,24 @@ define([
   'components/utils/utils',
   'components/Menu',
   'components/Counter',
-  'components/Form'
+  'components/Form',
+  'dropzone'
 ], function (
   utils,
   Menu,
   Counter,
-  Form
+  Form,
+  Dropzone
 ) {
+
+  // var myDropzone = new Dropzone("div#dropzone", {
+  //   url: '/',
+  //   autoProcessQueue: false,
+  //   uploadMultiple: true,
+  //   parallelUploads: 100,
+  //   maxFiles: 10
+  // });
+
   if(utils.readCookie('logged')) {
     var userId = utils.readCookie('logged');
     window.socket = io();

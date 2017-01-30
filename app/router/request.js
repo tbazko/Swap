@@ -7,9 +7,9 @@ const SwapRequestOverviewPresenter = rootRequire('app/swapRequest/overview/SwapR
 let app = express();
 
 app.get('/requests', helpers.signInRedirect, makeRequestsList);
-app.get('/request/:id(\\d+)/', helpers.signInRedirect, makeRequestOverview);
+app.get('/request/:id(\\d+)', helpers.signInRedirect, makeRequestOverview);
 
-app.post('/request/item/:id(\\d+)//create', helpers.signInRedirect, createRequest);
+app.post('/request/item/:id(\\d+)/create', helpers.signInRedirect, createRequest);
 
 function makeRequestsList(req, res, next) {
   app.set('views', __dirname + '/../swapRequest/list');

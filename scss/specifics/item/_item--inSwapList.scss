@@ -2,6 +2,9 @@
   cursor: pointer;
   position: relative;
   transition: border .25s ease;
+  padding: 0;
+  box-shadow: none;
+  background: transparent;
 
   .item-content {
     display: none;

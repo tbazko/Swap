@@ -12,6 +12,7 @@ requirejs.config({
         modules: '../modules',
         templates: '../templates',
         mustache: 'mustache',
-        text: 'text'
+        text: 'text',
+        dropzone: 'dropzone'
     }
 });
