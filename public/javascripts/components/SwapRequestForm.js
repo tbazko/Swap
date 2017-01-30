@@ -85,24 +85,22 @@ define([
       url: $(element).data('href'),
       method: 'POST'
     }).done(function (response) {
-      console.log(response);
       if(response.redirect) {
         window.location.replace(response.redirect);
       } else if (response) {
-        console.log(response);
         response.forEach(function (item) {
           item.firstImage = item.images[0];
           delete item.images;
         });
 
-        var userId = parseFloat(response.user.userId);
+        var userId = parseFloat(response[0].user_id);
         var sellerId = $('.js-sellerId').data('seller-id');
 
         if (userId !== sellerId) {
-          if (!this.$storedData || this.$storedData.length !== response.data.length) {
-            var html = Mustache.render(swapTemplate, response);
+          if (!this.$storedData) {
+            var html = Mustache.render(swapTemplate, {items: response});
             this.$swapFormItems.append(html);
-            this.$storedData = response.data;
+            this.$storedData = response;
           }
 
           this.openSwapForm();
