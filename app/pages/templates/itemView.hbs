@@ -13,7 +13,7 @@
         {{> itemOverview-details}}
       </div>
       <div class="itemOverview-swapButton clear">
-        {{#if authorIsCurrentUser}}
+        {{#if itemBelongsToCurrentUser}}
           <a href="/item/{{item.id}}/edit" class="btn btn--secondary">Edit</a>
         {{else}}
           {{> swapButtonsSet}}

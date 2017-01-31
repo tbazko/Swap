@@ -88,17 +88,17 @@ define([
       if(response.redirect) {
         window.location.replace(response.redirect);
       } else if (response) {
-        response.forEach(function (item) {
+        response.items.forEach(function (item) {
           item.firstImage = item.images[0];
           delete item.images;
         });
 
-        var userId = parseFloat(response[0].user_id);
+        var userId = parseFloat(response.items[0].user_id);
         var sellerId = $('.js-sellerId').data('seller-id');
 
         if (userId !== sellerId) {
           if (!this.$storedData) {
-            var html = Mustache.render(swapTemplate, {items: response});
+            var html = Mustache.render(swapTemplate, response);
             this.$swapFormItems.append(html);
             this.$storedData = response;
           }

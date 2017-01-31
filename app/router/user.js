@@ -1,33 +1,31 @@
 "use strict";
 const express = require('express');
-const ItemListPresenter = rootRequire('app/itemList/ItemListPresenter');
-const CurrentUserProfilePresenter = rootRequire('app/userProfile/current/UserProfilePresenter');
-const PublicUserProfilePresenter = rootRequire('app/userProfile/public/UserProfilePresenter');
+const ItemList = rootRequire('app/itemList/ItemList');
+const UserProfilePagePresenter = rootRequire('app/pages/userProfile/UserProfilePagePresenter');
 const helpers = require('../helpers/index');
 let app = express();
+app.set('views', __dirname + '/../pages/templates');
+app.get('/user/:id(\\d+)/', makePublicUserProfilePage);
+app.get('/user/:id(\\d+)/items', makePublicUserProfilePage);
+app.get('/user/items', helpers.signInRedirect, makePublicUserProfilePage);
+app.get('/user/profile', helpers.signInRedirect, makePublicUserProfilePage);
+app.post('/user/items', helpers.isAuthenticated, makeItemList);
 
-app.get('/user/:id(\\d+)/', makePublicUserProfile);
-app.get('/user/:id(\\d+)/items', makePublicUserProfile);
-app.get('/user/items', helpers.signInRedirect, makeCurrentUserProfile);
-app.get('/user/profile', helpers.signInRedirect, makeCurrentUserProfile);
-app.post('/user/items', helpers.isAuthenticated, makeItemListPresenter);
-
-function makeItemListPresenter(req, res, next) {
-  app.set('views', __dirname + '/../itemList/');
-  let i = new ItemListPresenter(rootRequire('app/itemList/strategies/filteredByCurrentUser'));
-  i.handle(req, res, next);
+function makePublicUserProfilePage(req, res, next) {
+  let p = new UserProfilePagePresenter({
+    template: 'userProfileView',
+    itemListStrategy: rootRequire('app/itemList/strategies/filteredByUser')
+  });
+  p.render(req, res, next);
 }
 
-function makeCurrentUserProfile(req, res, next) {
-  app.set('views', __dirname + '/../userProfile/current');
-  let u = new CurrentUserProfilePresenter();
-  u.handle(req, res, next);
-}
-
-function makePublicUserProfile(req, res, next) {
-  app.set('views', __dirname + '/../userProfile/public');
-  let p = new PublicUserProfilePresenter();
-  p.handle(req, res, next);
+function makeItemList(req, res, next) {
+  req.itemListStrategy = rootRequire('app/itemList/strategies/filteredByCurrentUser');
+  req.userId = req.user.id;
+  let i = new ItemList(req);
+  i.responseDataPromise.then((response) => {
+    res.send(response);
+  });
 }
 
 module.exports = app;

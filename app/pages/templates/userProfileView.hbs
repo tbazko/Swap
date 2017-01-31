@@ -4,6 +4,12 @@
     <div class="col-xs4 col-sm6">
       <h3 class="title--itemOverview">{{user.firstName}}</h3>
       <ul class="no-bullet pt15 pb30 pr30">
+        {{#isCurrentUserProfile}}
+          <li class="pb15 keyValue-item">
+            <h5 class="inline-block key">Email:&nbsp;</h5>
+            <p class="inline value">{{user.email}}</p>
+          </li>
+        {{/isCurrentUserProfile}}
         <li class="pt15 pb15 keyValue-item">
           <h5 class="inline-block key">Location:&nbsp;</h5>
           <p class="inline value">{{user.city}}, {{user.country}}</p>
@@ -16,6 +22,9 @@
           </p>
         </li>
       </ul>
+      {{#isCurrentUserProfile}}
+        <a href="/account/signout" title="sign out" class="btn btn--secondary mt10">Sign out</a>
+      {{/isCurrentUserProfile}}
       <button type="button" name="write" class="btn btn--fixedWidth is-hidden">Write to {{user.firstName}}</button>
     </div>
     <div class="col-xs4 col-sm6 text-right userProfile-picture">

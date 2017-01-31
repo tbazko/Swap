@@ -136,15 +136,13 @@ let.successRedirect	app/router/account.js	/^let redirects = {$/;"	p
 let.user	app/swapRequest/overview/SwapRequestOverviewPresenter.js	/^      request: request,$/;"	p
 let.user	spec/helpers/requestMock.js	/^let reqWithCorrectData = {$/;"	p
 let.user	spec/helpers/requestMock.js	/^let reqWithWrongData = {$/;"	p
-let.userId	app/itemList/strategies/filteredByCurrentUser.js	/^    let user = {$/;"	p
-makeCurrentUserProfile	app/router/user.js	/^function makeCurrentUserProfile(req, res, next) {$/;"	f
 makeDestroyButton	app/router/item.js	/^function makeDestroyButton(req, res, next) {$/;"	f
+makeIndexPage	app/router/landing.js	/^function makeIndexPage(req, res, next) {$/;"	f
+makeIndexPageWithItemsFilteredByTag	app/router/landing.js	/^function makeIndexPageWithItemsFilteredByTag(req, res, next) {$/;"	f
 makeItemFormPresenter	app/router/item.js	/^function makeItemFormPresenter(req, res, next) {$/;"	f
-makeItemListPresenter	app/router/landing.js	/^function makeItemListPresenter(req, res, next) {$/;"	f
-makeItemListPresenter	app/router/user.js	/^function makeItemListPresenter(req, res, next) {$/;"	f
-makeItemListPresenterFilteredByTag	app/router/landing.js	/^function makeItemListPresenterFilteredByTag(req, res, next) {$/;"	f
-makeItemPresenter	app/router/item.js	/^function makeItemPresenter(req, res, next) {$/;"	f
-makePublicUserProfile	app/router/user.js	/^function makePublicUserProfile(req, res, next) {$/;"	f
+makeItemList	app/router/user.js	/^function makeItemList(req, res, next) {$/;"	f
+makeItemPage	app/router/item.js	/^function makeItemPage(req, res, next) {$/;"	f
+makePublicUserProfilePage	app/router/user.js	/^function makePublicUserProfilePage(req, res, next) {$/;"	f
 makeRequestOverview	app/router/request.js	/^function makeRequestOverview(req, res, next) {$/;"	f
 makeRequestsList	app/router/request.js	/^function makeRequestsList(req, res, next) {$/;"	f
 method-override	package.json	/^    "method-override": "~1.0.0",$/;"	f

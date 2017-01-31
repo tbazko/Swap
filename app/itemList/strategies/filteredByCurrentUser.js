@@ -5,15 +5,11 @@ module.exports = {
   template: 'userItemListView',
   items: function(resolve, reject, model) {
     let item = new Item();
-    let user = {
-      userId: model.user.id,
-      email: model.user.email
-    };
 
     item.idName = 'user_id';
-    item.getWithRelations(model.user.id, '[images, tags, swapForTags]', function(err, items) {
+    item.getWithRelations(model.userId, '[images, tags, swapForTags]', function(err, items) {
       if(items) {
-        resolve(items);
+        resolve({items: items});
       } else {
         resolve(null);
       }

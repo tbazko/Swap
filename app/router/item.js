@@ -1,12 +1,12 @@
 'use strict';
 const express = require('express');
-const ItemPresenter = rootRequire('app/item/ItemPresenter');
+const ItemPage = rootRequire('app/pages/item/ItemPagePresenter');
 const ItemFormPresenter = rootRequire('app/itemForm/ItemFormPresenter');
 const DestroyButtonPresenter = rootRequire('app/destroyButton/DestroyButtonPresenter');
 const helpers = require('../helpers/index');
 let app = express();
 
-app.get('/item/:id(\\d+)/', makeItemPresenter);
+app.get('/item/:id(\\d+)/', makeItemPage);
 app.get('/item/create', helpers.signInRedirect, makeItemFormPresenter);
 app.get('/item/:id(\\d+)/edit', helpers.signInRedirect, makeItemFormPresenter);
 
@@ -19,10 +19,12 @@ function makeDestroyButton(req, res, next) {
   d.destroy(req, res, next);
 }
 
-function makeItemPresenter(req, res, next) {
-  app.set('views', __dirname + '/../item/');
-  let i = new ItemPresenter();
-  i.handle(req, res, next);
+function makeItemPage(req, res, next) {
+  app.set('views', __dirname + '/../pages/templates');
+  let p = new ItemPage({
+    template: 'itemView'
+  });
+  p.render(req, res, next);
 }
 
 function makeItemFormPresenter(req, res, next) {

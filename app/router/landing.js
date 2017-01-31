@@ -1,21 +1,25 @@
 "use strict";
 const express = require('express');
-const ItemListPresenter = rootRequire('app/itemList/ItemListPresenter');
+const IndexPagePresenter = rootRequire('app/pages/index/IndexPagePresenter');
 let app = express();
+app.set('views', __dirname + '/../pages/templates');
+app.get('/tag/:id/', makeIndexPageWithItemsFilteredByTag);
+app.get('/', makeIndexPage);
 
-app.get('/', makeItemListPresenter);
-app.get('/tag/:id/', makeItemListPresenterFilteredByTag);
-
-function makeItemListPresenter(req, res, next) {
-  app.set('views', __dirname + '/../itemList/');
-  let i = new ItemListPresenter(rootRequire('app/itemList/strategies/default'));
-  i.handle(req, res, next);
+function makeIndexPageWithItemsFilteredByTag(req, res, next) {
+  let p = new IndexPagePresenter({
+    template: 'landingPageView',
+    itemListStrategy: rootRequire('app/itemList/strategies/filteredByTag')
+  });
+  p.render(req, res, next);
 }
 
-function makeItemListPresenterFilteredByTag(req, res, next) {
-  app.set('views', __dirname + '/../itemList/');
-  let i = new ItemListPresenter(rootRequire('app/itemList/strategies/filteredByTag'));
-  i.handle(req, res, next);
+function makeIndexPage(req, res, next) {
+  let p = new IndexPagePresenter({
+    template: 'landingPageView',
+    itemListStrategy: rootRequire('app/itemList/strategies/default')
+  });
+  p.render(req, res, next);
 }
 
 module.exports = app;
