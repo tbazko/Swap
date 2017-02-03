@@ -8,7 +8,13 @@
       {{/with}}
       <div class="item-content">
         <h4 class="item-title">{{name}}</h4>
-        <!-- <p>{{status}}</p> -->
+        {{#if ../isCurrentUserProfile}}
+        <form action="/item/{{id}}/destroy" method="post" class="left">
+          <input type="hidden" name="itemId" value="{{id}}">
+          <button type="submit" class="item-remove">Remove</button>
+        </form>
+        <a href="/item/{{id}}/edit">Edit</a>
+        {{else}}
         <p class="item-tag-title">
           <b>Seeks:&nbsp;
             {{#swapForTags}}
@@ -16,6 +22,8 @@
             {{/swapForTags}}
           </b>
         </p>
+        {{/if}}
+
       </div>
     </div>
   {{/items}}

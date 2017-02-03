@@ -1,0 +1,14 @@
+.pac-item {
+  border: 0;
+  cursor: pointer;
+  padding: 0 10px;
+  margin: 0 5px;
+
+  .pac-icon {
+    display: none;
+  }
+
+  &.pac-item-selected {
+    background: lighten($color-tusk, 13%);
+  }
+}

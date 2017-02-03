@@ -11,7 +11,6 @@ class ItemPagePresenter extends BasePagePresenter {
   _parseRequest() {
     super._parseRequest();
     this.model.itemId = this.req.params.id;
-    this.model.currentUserId = this.req.user ? this.req.user.id : undefined;
   }
 }
 

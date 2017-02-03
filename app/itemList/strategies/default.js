@@ -7,8 +7,8 @@ module.exports = {
     let item = new Item();
 
     item.getActiveWithRelations('[images, tags, swapForTags]', function(err, items) {
-      if(items) {
-        resolve({items: items, url: model.path });
+      if(items && items.length > 0) {
+        resolve({items: items});        
       } else {
         resolve(null);
       }

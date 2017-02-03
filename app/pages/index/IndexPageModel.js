@@ -6,6 +6,9 @@ class IndexPageModel extends BasePageModel {
   constructor() {
     super();
     this.itemListStrategy = null;
+    this.userId = null;
+    this.path = null;
+    this.params = null;
   }
 
   addComponents() {

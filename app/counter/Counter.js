@@ -4,7 +4,7 @@ const SwapRequest = rootRequire('app/core/dataBaseModels/SwapRequest');
 class Counter {
   constructor(pageModel) {
     this._swapRequest = new SwapRequest();
-    this.userId = pageModel.userId;
+    this.userId = pageModel.currentUserId;
   }
 
   get responseDataPromise() {
@@ -16,7 +16,7 @@ class Counter {
     let lengthPromise = new Promise((resolve, reject) => {
       this._swapRequest.getNewByCurrentUser(this.userId, (err, requests) => {
         if(err) reject(err);
-        resolve({count: requests.length});
+        resolve({count: requests.length > 0 && !!this.userId ? requests.length : false});
       });
     });
 

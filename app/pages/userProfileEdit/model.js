@@ -1,0 +1,23 @@
+'use strict';
+const events = require('events');
+const BasePageModel = rootRequire('app/pages/base/BasePageModel');
+const UserProfile = rootRequire('app/userProfile/UserProfile');
+
+class UserProfileEditPageModel extends BasePageModel {
+  constructor() {
+    super();
+    this.currentUser = null;
+    this.eventEmitter = new events.EventEmitter();
+  }
+
+  addComponents() {
+    super.addComponents();
+    this.userProfile = this._create(UserProfile);
+  }
+
+  handleFormData(error, fields, files) {
+    this.userProfile.handleFormData(error, fields, files);
+  }
+}
+
+module.exports = UserProfileEditPageModel;

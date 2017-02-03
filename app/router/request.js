@@ -1,26 +1,28 @@
 'use strict';
 const express = require('express');
 const helpers = require('../helpers/index');
+const RequestListPage = rootRequire('app/pages/swapRequestList/presenter');
+const RequestOverviewPage = rootRequire('app/pages/swapRequestOverview/presenter');
 const SwapRequestCreator = rootRequire('app/swapRequest/SwapRequestCreator');
-const SwapRequestListPresenter = rootRequire('app/swapRequest/list/SwapRequestListPresenter');
-const SwapRequestOverviewPresenter = rootRequire('app/swapRequest/overview/SwapRequestOverviewPresenter');
 let app = express();
-
-app.get('/requests', helpers.signInRedirect, makeRequestsList);
-app.get('/request/:id(\\d+)', helpers.signInRedirect, makeRequestOverview);
+app.set('views', __dirname + '/../templatesCommon');
+app.get('/requests', helpers.signInRedirect, makeRequestListPage);
+app.get('/request/:id(\\d+)', helpers.signInRedirect, makeRequestOverviewPage);
 
 app.post('/request/item/:id(\\d+)/create', helpers.signInRedirect, createRequest);
 
-function makeRequestsList(req, res, next) {
-  app.set('views', __dirname + '/../swapRequest/list');
-  let s = new SwapRequestListPresenter();
-  s.handle(req, res, next);
+function makeRequestListPage(req, res, next) {
+  let p = new RequestListPage({
+    template: 'pages/swapRequestListView'
+  });
+  p.render(req, res, next);
 }
 
-function makeRequestOverview(req, res, next) {
-  app.set('views', __dirname + '/../swapRequest/overview');
-  let s = new SwapRequestOverviewPresenter();
-  s.handle(req, res, next);
+function makeRequestOverviewPage(req, res, next) {
+  let p = new RequestOverviewPage({
+    template: 'pages/swapRequestOverviewView'
+  });
+  p.render(req, res, next);
 }
 
 function createRequest(req, res, next) {

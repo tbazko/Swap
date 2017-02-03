@@ -12,11 +12,6 @@ class AbstractPagePresenter {
     this._renderView();
   }
 
-  send(req, res, next) {
-    this._handleCommonSetup(req, res);
-    this._sendToView();
-  }
-
   _handleCommonSetup(req, res) {
     this.view = res;
     this.req = req;
@@ -32,13 +27,6 @@ class AbstractPagePresenter {
     this.model.pageDataPromise.then((pageData) => {
       let response = this._arrayToObject(pageData);
       this.view.render(this.template, response);
-    });
-  }
-
-  _sendToView() {
-    this.model.pageDataPromise.then((pageData) => {
-      let response = this._arrayToObject(pageData);
-      this.view.send(response);
     });
   }
 

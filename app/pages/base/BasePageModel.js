@@ -1,15 +1,18 @@
 'use strict';
 const AbstractPageModel = require('../AbstractPageModel');
 const Counter = rootRequire('app/counter/Counter');
+const CurrentUrl = rootRequire('app/CurrentUrl');
 
 class BasePageModel extends AbstractPageModel {
   constructor() {
     super();
-    this.userId = null;
+    this.currentUserId = null;
+    this.originalUrl = null;
   }
 
   addComponents() {
     this._add(Counter);
+    this._add(CurrentUrl);
   }
 }
 

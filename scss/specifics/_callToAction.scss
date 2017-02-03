@@ -1,0 +1,13 @@
+.callToAction {
+  display: inline-block;
+  color: lighten($color-dim-grey, 3%);
+  background: rgba($color-white, .89);
+  padding: 10px;
+  font-size: 18px;
+  margin-top: 20px;
+
+  span {
+    color: $color-outrageous-orange;
+    border-bottom: 1px solid $color-outrageous-orange;
+  }
+}

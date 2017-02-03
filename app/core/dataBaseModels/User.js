@@ -1,28 +1,46 @@
 "use strict";
 const Base = require('./Base');
 const DataBaseUser = require('../dataBaseSchemas/User');
+const UserEditor = require('./private/UserEditor');
 
 class User extends Base {
   constructor() {
     super(DataBaseUser);
   }
 
-  createAndFetch(userData, callback) {
+  set userData(userData) {
+    this._userData = {
+      email: userData.email,
+      password: userData.hash,
+      firstName: userData.firstName || 'Anonymous',
+      lastName: userData.lastName,
+      phone: userData.phone,
+      city: userData.city || '',
+      state: userData.state,
+      country: userData.country || ''
+    }
+  }
+
+  get userData() {
+    return this._userData;
+  }
+
+  createAndFetch(data, callback) {
+    this.userData = data;
     this.DataBaseSchema
       .query()
-      .insertAndFetch({
-        email: userData.username,
-        password: userData.hash,
-        firstName: userData.firstName || 'Anonymous',
-        city: userData.city || '',
-        country: userData.country || ''
-      })
+      .insertAndFetch(this.userData)
       .then(function(user) {
         callback(null, user);
       })
       .catch(function(err) {
         callback(true, err);
       });
+  }
+
+  editAndGet(user, fields, files) {
+    let u = new UserEditor(this);
+    return u.editAndGet(user, fields, files);
   }
 }
 

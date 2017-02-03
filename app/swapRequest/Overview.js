@@ -1,36 +1,24 @@
 'use strict';
 const SwapRequest = rootRequire('app/core/dataBaseModels/SwapRequest');
 const SwapRequestStatusChanger = rootRequire('app/swapRequest/SwapRequestStatusChanger');
-const Chat = rootRequire('app/chat/Chat');
 
-class SwapRequestOverviewModel {
-  constructor() {
-    this._chat = null;
+class SwapRequestOverview {
+  constructor(pageModel) {
     this._status = new SwapRequestStatusChanger();
     this._swapRequestModel = new SwapRequest();
-  }
-
-  set data(data) {
-    this._requestId = data.params.id;
-    this._user = data.user;
-    this._url = data.baseUrl + data.path;
-    this._path = data.path;
-    this._status.room = this._path;
+    this._requestId = pageModel.requestId;
+    this._currentUser = pageModel.currentUser;
+    this._path = pageModel.path;
+    this._status.room = pageModel.path;
   }
 
   get rawData() {
     let rawDataPromise = new Promise(this._requestRawData.bind(this));
-    let messagesPromise = this._chat.messages;
-    return Promise.all([rawDataPromise, messagesPromise]);
+    return rawDataPromise;
   }
 
-  createChat() {
-    this._chat = new Chat({
-      chatId: this._requestId,
-      currentUser: this._user,
-      path: this._path
-    });
-    this._chat.listen();
+  get responseDataPromise() {
+    return this.rawData;
   }
 
   _requestRawData(resolve, reject) {
@@ -44,12 +32,17 @@ class SwapRequestOverviewModel {
             this._status.swapRequest = this.swapRequest;
             this.swapRequest.status = this._status.update();
             this._status.listen();
-            resolve(this.swapRequest);
+            resolve({
+              request: this.swapRequest,
+              user: this._currentUser,
+              currentUserIsBuyer: this.swapRequest.buyer_id === this._currentUser.id
+            });
           } else {
             resolve(undefined);
           }
       });
   }
+
 }
 
-module.exports = SwapRequestOverviewModel;
+module.exports = SwapRequestOverview;

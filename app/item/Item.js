@@ -9,11 +9,9 @@ class Item {
 
   get fullInfo() {
     let item = new ItemModel();
-    // console.log(this.id, this.currentUserId);
     let fullInfoPromise = new Promise((resolve, reject) => {
       item
         .getWithRelations(this.id, '[user.[items], images, tags, swapForTags]', (err, items) => {
-          console.log(err);
           if(err) {
             reject(err);
           }

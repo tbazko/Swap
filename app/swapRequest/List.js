@@ -1,20 +1,12 @@
 'use strict';
 const SwapRequest = rootRequire('app/core/dataBaseModels/SwapRequest');
 
-class SwapRequestListModel {
-  set data(data) {
-    this._user = data.user;
-    this._userId = data.user.id;
+class SwapRequestList {
+  constructor(pageModel) {
+    this.user = pageModel.currentUser;
+    this.userId = pageModel.currentUserId;
     this._swapRequest = new SwapRequest();
     this._swapRequest.idName = ['buyer_id', 'seller_id'];
-  }
-
-  get user() {
-    return this._user;
-  }
-
-  get userId() {
-    return this._userId;
   }
 
   get requests() {
@@ -37,10 +29,18 @@ class SwapRequestListModel {
           }
         });
 
-        resolve({incoming: incoming, sent: sent});
+        resolve({
+          requests: {
+            incoming: incoming,
+            sent: sent
+          }
+        });
       });
   }
 
+  get responseDataPromise() {
+    return this.requests;
+  }
 }
 
-module.exports = SwapRequestListModel;
+module.exports = SwapRequestList;

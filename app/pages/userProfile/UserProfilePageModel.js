@@ -5,8 +5,9 @@ const UserProfile = rootRequire('app/userProfile/UserProfile');
 class UserProfilePageModel extends IndexPageModel {
   constructor() {
     super();
-    this.itemListStrategy = null;
     this.itemsOnly = null;
+    this.userId = null;
+    this.isCurrentUserProfile = null;
   }
 
   addComponents() {

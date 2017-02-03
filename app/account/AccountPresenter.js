@@ -44,10 +44,11 @@ class AccountPresenter {
     let user = new User(this.req);
     user.idName = 'email';
 
-    user.getOneByIdentifier(userData.username, (err, userDataModel) => {
+    user.getOneByIdentifier(userData.email, (err, userDataModel) => {
        if(userDataModel) {
-         console.log('username already exists');
-          // this.res.render('signup', {title: 'signup', errorMessage: 'username already exists'});
+         this.res.render(this.template, {
+           errorMessage: 'Account with such Email already exists'
+         });
        } else {
           //****************************************************//
           // MORE VALIDATION GOES HERE(E.G. PASSWORD VALIDATION)
@@ -67,11 +68,17 @@ class AccountPresenter {
     this._signOutAndRedirect();
   }
 
-  _renderView() {
+  _renderView(error) {
     if (this.model.userIsLoggedIn) {
-      this.res.redirect(this.req.session.lastOpenedUrl);
-      this.req.session.lastOpenedUrl = null;
+      if(this.req.session.lastOpenedUrl) {
+        this.res.redirect(this.req.session.lastOpenedUrl);
+        this.req.session.lastOpenedUrl = null;
+      } else {
+        this.res.redirect(this.redirects.successRedirect);
+      }
       this.res.cookie('logged', this.model.user.id, { maxAge: global.sessionCookieAge });
+    } else if(error) {
+      this.res.render(this.template, {errorMessage: error})
     } else {
       this.res.render(this.template);
     }
@@ -103,18 +110,18 @@ class AccountPresenter {
 
   _authenticationHandler(error, user, info) {
     if (error) {
-      console.log(err.message);
-      return this._renderView();
+      console.log(error.message);
+      return this._renderView(error.message);
     }
 
     if (!user) {
       console.log(info.message);
-      return this._renderView();
+      return this._renderView(info.message);
     }
 
     return this.req.logIn(user, (error) => {
       if (error) {
-        console.log(err.message);
+        console.log(error.message);
       }
 
       this.model.userIsLoggedIn = true;

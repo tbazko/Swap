@@ -50,6 +50,7 @@ S.require	public/javascripts/lib/require.js	/^function Q(){var a;for(C();H.lengt
 User	app/account/passport.js	/^var User          = rootRequire('app\/core\/dataBaseModels\/User');$/;"	v
 _message.data.message	app/chat/Chat.js	/^    this._message.data = {$/;"	p
 _message.data.userId	app/chat/Chat.js	/^      message: text,$/;"	p
+accountForgotPasswordPage	app/router/account.js	/^function accountForgotPasswordPage(req, res, next) {$/;"	f
 accountSignIn	app/router/account.js	/^function accountSignIn(req, res, next) {$/;"	f
 accountSignOut	app/router/account.js	/^function accountSignOut(req, res, next) {$/;"	f
 accountSignUp	app/router/account.js	/^function accountSignUp(req, res, next) {$/;"	f
@@ -130,25 +131,22 @@ knex	package.json	/^    "knex": "^0.10.0",$/;"	f
 leading-zero	.csscomb.json	/^    "leading-zero": false,$/;"	f
 let.failureRedirect	app/router/account.js	/^  successRedirect: '\/user\/profile',$/;"	p
 let.id	spec/app/router/index.spec.js	/^let fakeUser = {id: 1};$/;"	p
-let.request	app/swapRequest/overview/SwapRequestOverviewPresenter.js	/^    let formatted = {$/;"	p
 let.seller_id	app/core/dataBaseModels/SwapRequest.js	/^    let data = {$/;"	p
 let.successRedirect	app/router/account.js	/^let redirects = {$/;"	p
-let.user	app/swapRequest/overview/SwapRequestOverviewPresenter.js	/^      request: request,$/;"	p
 let.user	spec/helpers/requestMock.js	/^let reqWithCorrectData = {$/;"	p
 let.user	spec/helpers/requestMock.js	/^let reqWithWrongData = {$/;"	p
 makeDestroyButton	app/router/item.js	/^function makeDestroyButton(req, res, next) {$/;"	f
 makeIndexPage	app/router/landing.js	/^function makeIndexPage(req, res, next) {$/;"	f
 makeIndexPageWithItemsFilteredByTag	app/router/landing.js	/^function makeIndexPageWithItemsFilteredByTag(req, res, next) {$/;"	f
-makeItemFormPresenter	app/router/item.js	/^function makeItemFormPresenter(req, res, next) {$/;"	f
+makeItemFormPage	app/router/item.js	/^function makeItemFormPage(req, res, next) {$/;"	f
 makeItemList	app/router/user.js	/^function makeItemList(req, res, next) {$/;"	f
 makeItemPage	app/router/item.js	/^function makeItemPage(req, res, next) {$/;"	f
-makePublicUserProfilePage	app/router/user.js	/^function makePublicUserProfilePage(req, res, next) {$/;"	f
-makeRequestOverview	app/router/request.js	/^function makeRequestOverview(req, res, next) {$/;"	f
-makeRequestsList	app/router/request.js	/^function makeRequestsList(req, res, next) {$/;"	f
+makeRequestListPage	app/router/request.js	/^function makeRequestListPage(req, res, next) {$/;"	f
+makeRequestOverviewPage	app/router/request.js	/^function makeRequestOverviewPage(req, res, next) {$/;"	f
+makeUserProfileEditPage	app/router/user.js	/^function makeUserProfileEditPage(req, res, next) {$/;"	f
+makeUserProfilePage	app/router/user.js	/^function makeUserProfilePage(req, res, next) {$/;"	f
 method-override	package.json	/^    "method-override": "~1.0.0",$/;"	f
 mkdirp	package.json	/^    "mkdirp": "^0.5.1",$/;"	f
-model.parsedFormData.fields	app/itemForm/ItemFormPresenter.js	/^    this.model.parsedFormData = {fields: fields, files: files};$/;"	p
-model.parsedFormData.files	app/itemForm/ItemFormPresenter.js	/^    this.model.parsedFormData = {fields: fields, files: files};$/;"	p
 module.exports	Gruntfile.js	/^module.exports = function(grunt) {$/;"	f
 module.exports	app/helpers/isAuthenticated.js	/^module.exports = function(req, res, next) {$/;"	f
 module.exports	app/helpers/signInRedirect.js	/^module.exports = function(req, res, next) {$/;"	f
@@ -195,6 +193,7 @@ scripts	package.json	/^  "scripts": {$/;"	f
 serve-favicon	package.json	/^    "serve-favicon": "~2.3.0",$/;"	f
 set._data.text	app/core/dataBaseModels/Message.js	/^    this._data = {$/;"	p
 set._itemData.name	app/core/dataBaseModels/private/ItemCreator.js	/^    this._itemData = {$/;"	p
+set._userData.email	app/core/dataBaseModels/User.js	/^    this._userData = {$/;"	p
 socket.io	package.json	/^    "socket.io": "^1.7.2",$/;"	f
 sort-order-fallback	.csscomb.json	/^    "sort-order-fallback": "abc",$/;"	f
 space-after-colon	.csscomb.json	/^    "space-after-colon": " ",$/;"	f
@@ -214,13 +213,15 @@ stopSpecOnExpectationFailure	spec/support/jasmine.json	/^  "stopSpecOnExpectatio
 strip-spaces	.csscomb.json	/^    "strip-spaces": true,$/;"	f
 tab-size	.csscomb.json	/^    "tab-size": true,$/;"	f
 testRegExp	public/javascripts/lib/mustache.js	/^  function testRegExp (re, string) {$/;"	f
-text	package.json	/^    "text": "github:requirejs\/text"$/;"	f
+text	package.json	/^    "text": "github:requirejs\/text",$/;"	f
 text.get	public/javascripts/lib/text.js	/^        fs = require.nodeRequire('fs');$/;"	f
 typeStr	public/javascripts/lib/mustache.js	/^  function typeStr (obj) {$/;"	f
 u	public/javascripts/lib/require.js	/^n,b,f){var l,d,z=null,k=n?n.name:null,m=a,q=!0,A="";a||(q=!1,a="_@r"+(R+=1));a=e(a);z=a[0];a=a[1];z&&(z=c(z,k,f),d=g(r,z));a&&(z?A=d&&d.normalize?d.normalize(a,function(a){return c(a,k,f)}):-1===a.indexOf("!")?c(a,k,f):a:(A=c(a,k,f),a=e(A),z=a[0],A=a[1],b=!0,l=h.nameToUrl(A)));b=!z||d||b?"":"_unnormalized"+(U+=1);return{prefix:z,name:A,parentMap:n,unnormalized:!!b,url:l,originalName:m,isDefine:q,id:(z?z+"!"+A:A)+b}}function u(a){var b=a.id,c=g(t,b);c||(c=t[b]=new h.Module(a));return c}function v(a,$/;"	f
 unitless-zero	.csscomb.json	/^    "unitless-zero": true,$/;"	f
 v	public/javascripts/lib/require.js	/^n,b,f){var l,d,z=null,k=n?n.name:null,m=a,q=!0,A="";a||(q=!1,a="_@r"+(R+=1));a=e(a);z=a[0];a=a[1];z&&(z=c(z,k,f),d=g(r,z));a&&(z?A=d&&d.normalize?d.normalize(a,function(a){return c(a,k,f)}):-1===a.indexOf("!")?c(a,k,f):a:(A=c(a,k,f),a=e(A),z=a[0],A=a[1],b=!0,l=h.nameToUrl(A)));b=!z||d||b?"":"_unnormalized"+(U+=1);return{prefix:z,name:A,parentMap:n,unnormalized:!!b,url:l,originalName:m,isDefine:q,id:(z?z+"!"+A:A)+b}}function u(a){var b=a.id,c=g(t,b);c||(c=t[b]=new h.Module(a));return c}function v(a,$/;"	f
+validator	package.json	/^    "validator": "^6.2.1"$/;"	f
 vendor-prefix-align	.csscomb.json	/^    "vendor-prefix-align": true$/;"	f
+verify	app/router/landing.js	/^function verify(req, res, next) {$/;"	f
 version	package.json	/^  "version": "0.0.0",$/;"	f
 without	public/javascripts/lib/dropzone.js	/^  };$/;"	f
 xhr.onreadystatechange	public/javascripts/lib/text.js	/^            }$/;"	f

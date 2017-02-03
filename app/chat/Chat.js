@@ -9,7 +9,7 @@ class Chat {
     this._chatId = options.chatId;
     this._currentUser = options.currentUser;
     this._socket = socket;
-    this._path = options.path;
+    this._chatRoom = options.path;
   }
 
   listen() {
@@ -20,14 +20,18 @@ class Chat {
     let messagesPromise = new Promise((resolve, reject) => {
       this._message.getAllById(this._chatId, (err, messages) => {
         if(err) reject(err);
-        resolve(messages);
+        resolve({messages: messages});
       });
     });
     return messagesPromise;
   }
 
+  get responseDataPromise() {
+    return this.messages;
+  }
+
   _update(text) {
-    this._socket.to(this._path).emit('chatMessage', {
+    this._socket.to(this._chatRoom).emit('chatMessage', {
       text: text,
       senderName: this._currentUser.firstName,
       senderId: this._currentUser.id

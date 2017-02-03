@@ -10,7 +10,7 @@ module.exports = {
     tag.getRelatedActiveItems(tagName, function(err, tags) {
       if(err) {reject(err)}
       if(tags) {
-        resolve({items: tags[0].items, url: model.path, tag: tagName});
+        resolve({items: tags[0].items, tag: tagName});
       } else {
         resolve(null);
       }

@@ -26,22 +26,23 @@ class ItemCreator {
     this._fields = fields;
     this._files = files;
     this.itemData = this._fields;
-
+    console.log(this.itemData);
     let newItemPromise = new Promise((resolve, reject) => {
       this._DBschema
         .query()
         .insertAndFetch(this.itemData)
         .then((newItem) => {
+          console.log(newItem);
           this._DBobject.currentItem = newItem;
           this._addItemImages();
           this._relateTags();
           resolve(this._DBobject.currentItem);
         })
         .catch((err) => {
+          console.log(err);
           reject(err);
         });
     });
-
     return newItemPromise;
   }
 

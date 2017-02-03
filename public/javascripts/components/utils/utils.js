@@ -65,6 +65,10 @@ define([
     removeClass: function(element, className) {
       var regex = new RegExp('(?:^|\\s)' + className + '(?!\\S)', 'gi');
 			element.className = element.className.replace(regex, '');
+    },
+
+    insertAfter: function(newNode, referenceNode) {
+      referenceNode.parentNode.insertBefore(newNode, referenceNode.nextSibling);
     }
   }
 

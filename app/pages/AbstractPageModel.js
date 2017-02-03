@@ -18,6 +18,13 @@ class AbstractPageModel {
     let promise = c.responseDataPromise;
     this.componentsResponseDataPromises.push(promise);
   }
+
+  _create(componentClass) {
+    let c = new componentClass(this);
+    let promise = c.responseDataPromise;
+    this.componentsResponseDataPromises.push(promise);
+    return c;
+  }
 }
 
 module.exports = AbstractPageModel;

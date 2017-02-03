@@ -31,7 +31,9 @@ class UserVerification {
   }
 
   _verifyPassword(user) {
-    if(!bcrypt.compareSync(this.password, user.password)) {
+    if(!user) {
+      return this.callback(null, false, {message: 'Invalid username or password'});
+    } else if(!bcrypt.compareSync(this.password, user.password)) {
        return this.callback(null, false, {message: 'Invalid username or password'});
     } else {
        return this.callback(null, user);
@@ -40,7 +42,10 @@ class UserVerification {
 }
 
 let userVerification = new UserVerification();
-passport.use(new LocalStrategy(userVerification.verify.bind(userVerification)));
+passport.use(new LocalStrategy({
+  usernameField: 'email',
+  passwordField: 'password'
+}, userVerification.verify.bind(userVerification)));
 
 passport.serializeUser((user, callback) => callback(null, user.email));
 passport.deserializeUser(function(username, callback) {

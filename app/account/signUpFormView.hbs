@@ -1,21 +1,33 @@
+{{#section 'scripts'}}
+  <script src="/javascripts/lib/require.js" data-main="/javascripts/signUp" async></script>
+{{/section}}
+
 <div class="content-body">
   <div class="row text-center">
     <div class="col col-xs4 col-sm10 col-md6 col--smPush1 col--mdPush3 paperStyle-container">
-      <h1 class="main-title">Sign Up</h1>
-      <form method="post" action="/account/signup" class="form">
-        <input id="username" type="text" name="username" placeholder="Email" required="true" class="mb20"/>
-        <input id="password" type="text" name="password" placeholder="Password" required="true" class="mb20"/>
-        <input id="firstName" type="text" name="firstName" placeholder="First name" class="mb20"/>
-        <input id="city" type="text" name="city" placeholder="City" class="mb20"/>
-        <select id="country" name="country" class="mb20">
-          <option value="Netherlands">Netherlands</option>
-          <option value="Ukraine">Ukraine</option>
-        </select>
-        <p class="pb20">
-          <input id="signup" type="submit" name="signup" value="register" class="btn btn--fixedWidth"/>
+      <h1 class="main-title">Регистрация</h1>
+      {{#if errorMessage}}
+      <div class="formError">
+        {{errorMessage}}
+      </div>
+      {{/if}}
+      <form method="post" action="/account/signup" class="form js-form">
+        <input id="email" type="email" name="email" placeholder="Email" required />
+        <input id="password" type="password" name="password" placeholder="Password" required />
+        <input id="firstName" type="text" name="firstName" placeholder="First name" />
+        <input id="autocomplete" type="text" name="address" placeholder="City" required />
+        <input id="locality" name="city" type="text" disabled="true" class="is-hidden"></input>
+        <input id="administrative_area_level_1" type="text" disabled="true" name="state" class="is-hidden"></input>
+        <input id="country" name="country" type="text" disabled="true" class="is-hidden"></input>
+        <p>
+          <input id="signup" type="submit" name="signup" value="Создать аккаунт" class="btn btn--fixedWidth mt15"/>
         </p>
       </form>
-      <p>Already have an account?&#32;<a href="/account/signin">Login</a></p>
+    </div>
+  </div>
+  <div class="row text-center">
+    <div class="col-xs4">
+      <a href="/account/signin" class="callToAction">Already have an account?&#32;<span>Login</span></a>
     </div>
   </div>
 </div>

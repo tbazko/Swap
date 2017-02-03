@@ -19,6 +19,9 @@
         <input type="hidden" name="userId" value="{{userId}}">
       {{#if newItem}}
         <input type="text" name="name" placeholder="Name">
+        <p>В названии <b>не допускаются: номер телефона, электронный адрес, ссылки</b>
+          <br>Имя не должно состоять из одных заглавных букв (кроме аббревиатур).
+        </p>
       {{else}}
         <input type="hidden" name="itemId" value="{{item.id}}">
         <input type="text" name="name" placeholder="Name" value="{{item.name}}">
@@ -46,6 +49,11 @@
 
         {{#if newItem}}
           <textarea name="description" id="" cols="30" rows="10" placeholder="Description"></textarea>
+          <ul class="suggest">
+            <li><b>Добавьте описание вашего товара/услуги,</b> укажите преимущества и важные детали.</li>
+            <li>В описании <b>не допускается указание контактных данных.</b></li>
+            <li>Описание должно соответствовать заголовку и предлагаемому товару/услуге.</li>
+            <li>Не допускаются заглавные буквы (кроме аббревиатур).</li></ul>
         {{else}}
           <textarea name="description" id="" cols="30" rows="10" placeholder="Description" value="{{item.description}}">
             {{item.description}}

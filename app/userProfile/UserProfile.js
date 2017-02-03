@@ -3,10 +3,12 @@ const User = rootRequire('app/core/dataBaseModels/User');
 
 class UserProfile {
   constructor(pageModel) {
-    this.userId = pageModel.userId;
+    this.userId = pageModel.currentUserId;
+    this.user = pageModel.currentUser;
     this.itemsOnly = pageModel.itemsOnly;
     this.isCurrentUserProfile = pageModel.isCurrentUserProfile;
     this.userDBmodel = new User();
+    this.eventEmitter = pageModel.eventEmitter;
   }
 
   get userPromise() {
@@ -25,6 +27,19 @@ class UserProfile {
 
   get responseDataPromise() {
     return this.userPromise;
+  }
+
+  handleFormData(error, fields, files) {
+    if(error) this.error = error;
+    this.files = files;
+    this.fields = fields;
+    this._updateUserProfile();
+  }
+
+  _updateUserProfile() {
+    this.userDBmodel.editAndGet(this.user, this.fields, this.files).then((editedUser) => {
+      this.eventEmitter.emit('formSaved', editedUser);
+    });
   }
 }
 

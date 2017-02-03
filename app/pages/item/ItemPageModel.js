@@ -6,11 +6,9 @@ class ItemPageModel extends BasePageModel {
   constructor() {
     super();
     this.itemId = null;
-    this.currentUserId = undefined;
   }
 
   addComponents() {
-    console.log(this.currentUserId);
     super.addComponents();
     this._add(Item);
   }

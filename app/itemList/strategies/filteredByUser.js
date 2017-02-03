@@ -8,7 +8,7 @@ module.exports = {
 
     item.idName = 'user_id';
     item.getActiveByIdWithRelations(model.userId, '[images, tags, swapForTags]', function(err, items) {
-      if(items) {
+      if(items && items.length > 0) {
         resolve({items: items});
       } else {
         resolve(null);

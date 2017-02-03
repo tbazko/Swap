@@ -5,9 +5,12 @@ exports.up = function(knex, Promise) {
     table.increments('id').unsigned().notNullable().primary();
     table.string('firstName');
     table.string('lastName');
-    table.string('address');
+    table.integer('streetNumber');
+    table.string('street');
     table.string('city');
+    table.string('state');
     table.string('country');
+    table.integer('postcode');
     table.string('email').unique();
     table.string('password');
     table.string('phone');
@@ -19,7 +22,7 @@ exports.up = function(knex, Promise) {
     table.increments('id').unsigned().notNullable().primary();
     table.string('name').notNullable();
     table.integer('user_id').unsigned().notNullable().references('users.id');
-    table.string('state');
+    table.string('status');
     table.text('description', 'longtext');
     table.string('condition').notNullable();
     table.timestamp('reg_date');
