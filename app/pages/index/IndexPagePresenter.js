@@ -9,8 +9,8 @@ class IndexPagePresenter extends BasePagePresenter {
     this.model.itemListStrategy = options.itemListStrategy;
   }
 
-  _parseRequest() {
-    super._parseRequest();
+  parseRequest() {
+    super.parseRequest();
     this.model.path = this.req.path;
     this.model.userId = this.req.user ? this.req.user.id : false;
     this.model.params = this.req.params ? this.req.params : false;

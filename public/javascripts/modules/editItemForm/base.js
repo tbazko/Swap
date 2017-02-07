@@ -1,9 +1,11 @@
 define([
 	'jquery',
-	'components/utils/utils'
+	'components/utils/utils',
+	'components/Form'
 ], function (
 	$,
-	utils
+	utils,
+	Form
 ) {
 	var EditItemForm = {
 		$form: undefined,
@@ -12,6 +14,8 @@ define([
 		initialize: function () {
 			this.$form = $(this.formSelector);
 			this.bindEvents();
+			this.formvalidator = new Form('js-editItemForm');
+
 		},
 
 		bindEvents: function () {

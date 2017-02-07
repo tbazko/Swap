@@ -1,6 +1,6 @@
 'use strict';
 const IndexPageModel = rootRequire('app/pages/index/IndexPageModel');
-const UserProfile = rootRequire('app/userProfile/UserProfile');
+const UserProfile = rootRequire('app/UserProfile');
 
 class UserProfilePageModel extends IndexPageModel {
   constructor() {

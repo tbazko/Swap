@@ -1,4 +1,12 @@
 .inputError {
   text-align: left;
   color: $color-fire-brick;
+  font-size: 12px;
+  font-weight: normal;
+  font-family: $mainFont;
+
+  .title--itemOverview & {
+    position: absolute;
+    bottom: -10px;
+  }
 }

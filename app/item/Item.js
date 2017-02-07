@@ -30,7 +30,9 @@ class Item {
               itemBelongsToCurrentUser: itemBelongsToCurrentUser
             });
           } else {
-            reject(null);
+            resolve({
+              item: null
+            });
           }
         });
     });

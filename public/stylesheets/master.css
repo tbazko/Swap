@@ -2158,10 +2158,12 @@ textarea {
   .form input[type="password"]:first-of-type,
   .form input[type="email"]:first-of-type {
     margin-top: 0; }
-.form input:focus {
+.form input:focus, .form textarea:focus {
   outline: none; }
-.form input.is-invalid {
+.form input.is-invalid, .form textarea.is-invalid {
   border: 2px solid red; }
+.form input.is-valid, .form textarea.is-valid {
+  border: 2px solid #79A877; }
 .form textarea {
   background: #eeeeee;
   border: 0;
@@ -2188,7 +2190,13 @@ textarea {
 
 .inputError {
   text-align: left;
-  color: #B53C25; }
+  color: #B53C25;
+  font-size: 12px;
+  font-weight: normal;
+  font-family: "Lato", Helvetica, Arial, sans-serif; }
+  .title--itemOverview .inputError {
+    position: absolute;
+    bottom: -10px; }
 
 .formError {
   color: #B53C25;
@@ -2196,6 +2204,16 @@ textarea {
   border-radius: 4px;
   padding: 10px;
   margin-bottom: 20px; }
+
+.form input.form-editingInput {
+  background: transparent;
+  display: inline-block;
+  width: auto;
+  color: #333333; }
+.form input.form-editingInput--fullWidth {
+  width: 100%; }
+.form input.form-editingInput--header {
+  font-size: 20px; }
 
 .footer {
   background: #333333;
@@ -2262,6 +2280,7 @@ ul.inline {
     opacity: 1; }
 
 .title--itemOverview {
+  position: relative;
   font-size: 30px;
   transition: font-size .4s ease; }
 

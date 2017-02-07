@@ -5,6 +5,7 @@ const ItemFormPage = rootRequire('app/pages/itemForm/ItemFormPagePresenter');
 const DestroyButtonPresenter = rootRequire('app/destroyButton/DestroyButtonPresenter');
 const helpers = require('../helpers/index');
 let app = express();
+
 app.set('views', __dirname + '/../templatesCommon');
 app.get('/item/:id(\\d+)/', makeItemPage);
 app.get('/item/create', helpers.signInRedirect, makeItemFormPage);

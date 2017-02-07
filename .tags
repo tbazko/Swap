@@ -23,7 +23,7 @@ I.J	public/javascripts/lib/require.js	/^"Load timeout for modules: "+f,null,f),a
 I.P	public/javascripts/lib/require.js	/^"Load timeout for modules: "+f,null,f),a.contextName=h.contextName,B(a);g&&x(l,function(a){K(a,{},{})});c&&!b||!k||!F&&!ka||ca||(ca=setTimeout(function(){ca=0;I()},50));ba=!1}}function J(a){w(r,a[0])||u(q(a[0],null,!0)).init(a[1],a[2])}function P(a){a=a.currentTarget||a.srcElement;var b=h.onScriptLoad;a.detachEvent&&!da?a.detachEvent("onreadystatechange",b):a.removeEventListener("load",b,!1);b=h.onScriptError;a.detachEvent&&!da||a.removeEventListener("error",b,!1);return{node:a,id:a&&a.getAttribute("data-requiremodule")}}$/;"	f
 K	public/javascripts/lib/require.js	/^b,c){var f=a.id,l=g(t,f);if(!w(r,f)||l&&!l.defineEmitComplete)if(l=u(a),l.error&&"error"===b)c(l.error);else l.on(b,c);else"defined"===b&&c(r[f])}function B(a,b){var c=a.requireModules,f=!1;if(b)b(a);else if(x(c,function(b){if(b=g(t,b))b.error=a,b.events.error&&(f=!0,b.emit("error",a))}),!f)k.onError(a)}function C(){W.length&&(x(W,function(a){var b=a[0];"string"===typeof b&&(h.defQueueMap[b]=!0);H.push(a)}),W=[])}function D(a){delete t[a];delete aa[a]}function K(a,b,c){var f=a.map.id;a.error?a.emit("error",$/;"	f
 Knex	config/database.js	/^var Knex = require('knex');$/;"	v
-LocalStrategy	app/account/passport.js	/^var LocalStrategy = require('passport-local').Strategy;$/;"	v
+LocalStrategy	app/authentication/passport.js	/^var LocalStrategy = require('passport-local').Strategy;$/;"	v
 M	public/javascripts/lib/require.js	/^(function(ha){function L(b){return"[object Function]"===R.call(b)}function M(b){return"[object Array]"===R.call(b)}function x(b,c){if(b){var d;for(d=0;d<b.length&&(!b[d]||!c(b[d],d,b));d+=1);}}function Y(b,c){if(b){var d;for(d=b.length-1;-1<d&&(!b[d]||!c(b[d],d,b));--d);}}function w(b,c){return la.call(b,c)}function g(b,c){return w(b,c)&&b[c]}function E(b,c){for(var d in b)if(w(b,d)&&c(b[d],d))break}function Z(b,c,d,k){c&&E(c,function(c,g){if(d||!w(b,g))!k||"object"!==typeof c||!c||M(c)||L(c)||c instanceof$/;"	f
 M.E	public/javascripts/lib/require.js	/^(function(ha){function L(b){return"[object Function]"===R.call(b)}function M(b){return"[object Array]"===R.call(b)}function x(b,c){if(b){var d;for(d=0;d<b.length&&(!b[d]||!c(b[d],d,b));d+=1);}}function Y(b,c){if(b){var d;for(d=b.length-1;-1<d&&(!b[d]||!c(b[d],d,b));--d);}}function w(b,c){return la.call(b,c)}function g(b,c){return w(b,c)&&b[c]}function E(b,c){for(var d in b)if(w(b,d)&&c(b[d],d))break}function Z(b,c,d,k){c&&E(c,function(c,g){if(d||!w(b,g))!k||"object"!==typeof c||!c||M(c)||L(c)||c instanceof$/;"	f
 M.E.Z	public/javascripts/lib/require.js	/^(function(ha){function L(b){return"[object Function]"===R.call(b)}function M(b){return"[object Array]"===R.call(b)}function x(b,c){if(b){var d;for(d=0;d<b.length&&(!b[d]||!c(b[d],d,b));d+=1);}}function Y(b,c){if(b){var d;for(d=b.length-1;-1<d&&(!b[d]||!c(b[d],d,b));--d);}}function w(b,c){return la.call(b,c)}function g(b,c){return w(b,c)&&b[c]}function E(b,c){for(var d in b)if(w(b,d)&&c(b[d],d))break}function Z(b,c,d,k){c&&E(c,function(c,g){if(d||!w(b,g))!k||"object"!==typeof c||!c||M(c)||L(c)||c instanceof$/;"	f
@@ -47,15 +47,12 @@ Q.ba.baseUrl	public/javascripts/lib/require.js	/^function Q(){var a;for(C();H.le
 Q.ba.paths	public/javascripts/lib/require.js	/^function Q(){var a;for(C();H.length;){a=H.shift();if(null===a[0])return B(G("mismatch","Mismatched anonymous define() module: "+a[a.length-1]));J(a)}h.defQueueMap={}}var ba,ea,h,S,ca,m={waitSeconds:7,baseUrl:".\/",paths:{},bundles:{},pkgs:{},shim:{},config:{}},t={},aa={},fa={},H=[],r={},X={},ga={},R=1,U=1;S={require:function(a){return a.require?a.require:a.require=h.makeRequire(a.map)},exports:function(a){a.usingExports=!0;if(a.map.isDefine)return a.exports?r[a.map.id]=a.exports:a.exports=r[a.map.id]=$/;"	p
 Q.ba.waitSeconds	public/javascripts/lib/require.js	/^function Q(){var a;for(C();H.length;){a=H.shift();if(null===a[0])return B(G("mismatch","Mismatched anonymous define() module: "+a[a.length-1]));J(a)}h.defQueueMap={}}var ba,ea,h,S,ca,m={waitSeconds:7,baseUrl:".\/",paths:{},bundles:{},pkgs:{},shim:{},config:{}},t={},aa={},fa={},H=[],r={},X={},ga={},R=1,U=1;S={require:function(a){return a.require?a.require:a.require=h.makeRequire(a.map)},exports:function(a){a.usingExports=!0;if(a.map.isDefine)return a.exports?r[a.map.id]=a.exports:a.exports=r[a.map.id]=$/;"	p
 S.require	public/javascripts/lib/require.js	/^function Q(){var a;for(C();H.length;){a=H.shift();if(null===a[0])return B(G("mismatch","Mismatched anonymous define() module: "+a[a.length-1]));J(a)}h.defQueueMap={}}var ba,ea,h,S,ca,m={waitSeconds:7,baseUrl:".\/",paths:{},bundles:{},pkgs:{},shim:{},config:{}},t={},aa={},fa={},H=[],r={},X={},ga={},R=1,U=1;S={require:function(a){return a.require?a.require:a.require=h.makeRequire(a.map)},exports:function(a){a.usingExports=!0;if(a.map.isDefine)return a.exports?r[a.map.id]=a.exports:a.exports=r[a.map.id]=$/;"	m
-User	app/account/passport.js	/^var User          = rootRequire('app\/core\/dataBaseModels\/User');$/;"	v
-_message.data.message	app/chat/Chat.js	/^    this._message.data = {$/;"	p
-_message.data.userId	app/chat/Chat.js	/^      message: text,$/;"	p
+User	app/authentication/passport.js	/^var User          = rootRequire('app\/core\/dataBaseModels\/User');$/;"	v
+_message.data.message	app/Chat.js	/^    this._message.data = {$/;"	p
+_message.data.userId	app/Chat.js	/^      message: text,$/;"	p
 accountForgotPasswordPage	app/router/account.js	/^function accountForgotPasswordPage(req, res, next) {$/;"	f
-accountSignIn	app/router/account.js	/^function accountSignIn(req, res, next) {$/;"	f
-accountSignOut	app/router/account.js	/^function accountSignOut(req, res, next) {$/;"	f
-accountSignUp	app/router/account.js	/^function accountSignUp(req, res, next) {$/;"	f
 always-semicolon	.csscomb.json	/^    "always-semicolon": true,$/;"	f
-bcrypt	app/account/passport.js	/^var bcrypt        = require('bcrypt-nodejs');$/;"	v
+bcrypt	app/authentication/passport.js	/^var bcrypt        = require('bcrypt-nodejs');$/;"	v
 bcrypt-nodejs	package.json	/^    "bcrypt-nodejs": "0.0.3",$/;"	f
 block-indent	.csscomb.json	/^    "block-indent": "  ",$/;"	f
 body-parser	package.json	/^    "body-parser": "~1.13.2",$/;"	f
@@ -89,13 +86,21 @@ entityMap.=	public/javascripts/lib/mustache.js	/^    '`': '&#x60;',$/;"	p
 entityMap.>	public/javascripts/lib/mustache.js	/^    '<': '&lt;',$/;"	p
 entityMap.`	public/javascripts/lib/mustache.js	/^    '\/': '&#x2F;',$/;"	p
 eof-newline	.csscomb.json	/^    "eof-newline": true,$/;"	f
+errorMessages.address	app/FormValidator.js	/^      email: 'Invalid email format',$/;"	p
+errorMessages.city	app/FormValidator.js	/^      firstName: 'First name contains forbidden symbols',$/;"	p
+errorMessages.country	app/FormValidator.js	/^      state: 'State name contains forbidden symbols',$/;"	p
+errorMessages.email	app/FormValidator.js	/^    this.errorMessages = {$/;"	p
+errorMessages.emailIsTaken	app/FormValidator.js	/^      password: 'Password should contain at least 6 symbols',$/;"	p
+errorMessages.firstName	app/FormValidator.js	/^      address: 'Address contains forbidden symbols',$/;"	p
+errorMessages.password	app/FormValidator.js	/^      country: 'Country name contains forbidden symbols',$/;"	p
+errorMessages.state	app/FormValidator.js	/^      city: 'City name contains forbidden symbols',$/;"	p
 escapeRegExp	public/javascripts/lib/mustache.js	/^  function escapeRegExp (string) {$/;"	f
 eventEmitter.to	spec/helpers/SocketMock.js	/^const eventEmitter = new events.EventEmitter();$/;"	f
 exphbs	config/templates.js	/^var exphbs = require('express-handlebars');$/;"	v
 exports	public/javascripts/lib/dropzone.js	/^    var module = { exports: { } }; \/\/ Fake component$/;"	p
 exports.down	migrations/20160325232652_pages.js	/^};$/;"	f
 exports.up	migrations/20160325232652_pages.js	/^$/;"	f
-express	app/account/passport.js	/^var express       = require('express');$/;"	v
+express	app/authentication/passport.js	/^var express       = require('express');$/;"	v
 express	package.json	/^    "express": "~4.13.1",$/;"	f
 express-handlebars	package.json	/^    "express-handlebars": "^3.0.0",$/;"	f
 express-session	package.json	/^    "express-session": "~1.0.0",$/;"	f
@@ -143,6 +148,9 @@ makeItemList	app/router/user.js	/^function makeItemList(req, res, next) {$/;"	f
 makeItemPage	app/router/item.js	/^function makeItemPage(req, res, next) {$/;"	f
 makeRequestListPage	app/router/request.js	/^function makeRequestListPage(req, res, next) {$/;"	f
 makeRequestOverviewPage	app/router/request.js	/^function makeRequestOverviewPage(req, res, next) {$/;"	f
+makeSignInPage	app/router/account.js	/^function makeSignInPage(req, res, next) {$/;"	f
+makeSignOut	app/router/account.js	/^function makeSignOut(req, res, next) {$/;"	f
+makeSignUpPage	app/router/account.js	/^function makeSignUpPage(req, res, next) {$/;"	f
 makeUserProfileEditPage	app/router/user.js	/^function makeUserProfileEditPage(req, res, next) {$/;"	f
 makeUserProfilePage	app/router/user.js	/^function makeUserProfilePage(req, res, next) {$/;"	f
 method-override	package.json	/^    "method-override": "~1.0.0",$/;"	f
@@ -175,7 +183,7 @@ objection	config/database.js	/^var objection = require('objection');$/;"	v
 objection	package.json	/^    "objection": "^0.5.5",$/;"	f
 pa	public/javascripts/lib/require.js	/^return B(G("scripterror",'Script error for "'+b.id+(c.length?'", needed by: '+c.join(", "):'"'),a,[b.id]))}}};h.require=h.makeRequire();return h}function pa(){if(O&&"interactive"===O.readyState)return O;Y(document.getElementsByTagName("script"),function(b){if("interactive"===b.readyState)return O=b});return O}var k,C,D,I,P,J,O,Q,u,U,qa=\/(\\\/\\*([\\s\\S]*?)\\*\\\/|([^:]|^)\\\/\\\/(.*)$)\/mg,ra=\/[^.]\\s*require\\s*\\(\\s*["']([^'"\\s]+)["']\\s*\\)\/g,V=\/\\.js$\/,na=\/^\\.\\\/\/;C=Object.prototype;var R=C.toString,la=C.hasOwnProperty,$/;"	f
 parsed	public/javascripts/lib/text.js	/^            var parsed = text.parseName(name),$/;"	v
-passport	app/account/passport.js	/^var passport      = require('passport');$/;"	v
+passport	app/authentication/passport.js	/^var passport      = require('passport');$/;"	v
 passport	package.json	/^    "passport": "~0.1.17",$/;"	f
 passport-facebook	package.json	/^    "passport-facebook": "~1.0.2",$/;"	f
 passport-google-oauth	package.json	/^    "passport-google-oauth": "~0.1.5",$/;"	f
@@ -186,6 +194,7 @@ private	package.json	/^  "private": true,$/;"	f
 quotes	.csscomb.json	/^    "quotes": "double",$/;"	f
 random	spec/support/jasmine.json	/^  "random": false$/;"	f
 regExpTest	public/javascripts/lib/mustache.js	/^  var regExpTest = RegExp.prototype.test;$/;"	v
+regex	app/FormValidator.js	/^    var regex = \/^(([^<>()\\[\\]\\\\.,;:\\s@"]+(\\.[^<>()\\[\\]\\\\.,;:\\s@"]+)*)|(".+"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$\/i;$/;"	v
 remove-empty-rulesets	.csscomb.json	/^    "remove-empty-rulesets": true,$/;"	f
 request	package.json	/^    "request": "^2.79.0"$/;"	f
 requirejs	public/javascripts/lib/require.js	/^var requirejs,require,define;$/;"	v
@@ -194,6 +203,7 @@ serve-favicon	package.json	/^    "serve-favicon": "~2.3.0",$/;"	f
 set._data.text	app/core/dataBaseModels/Message.js	/^    this._data = {$/;"	p
 set._itemData.name	app/core/dataBaseModels/private/ItemCreator.js	/^    this._itemData = {$/;"	p
 set._userData.email	app/core/dataBaseModels/User.js	/^    this._userData = {$/;"	p
+set._userData.firstName	app/core/dataBaseModels/private/UserEditor.js	/^    this._userData = {$/;"	p
 socket.io	package.json	/^    "socket.io": "^1.7.2",$/;"	f
 sort-order-fallback	.csscomb.json	/^    "sort-order-fallback": "abc",$/;"	f
 space-after-colon	.csscomb.json	/^    "space-after-colon": " ",$/;"	f

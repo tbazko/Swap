@@ -8,8 +8,8 @@ class SwapRequestListPresenter extends BasePagePresenter {
     this.model = new Model();
   }
 
-  _parseRequest() {
-    super._parseRequest();
+  parseRequest() {
+    super.parseRequest();
     this.model.currentUser = this.req.user;
   }
 }

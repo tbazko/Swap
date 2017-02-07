@@ -22,19 +22,33 @@ class ItemCreator {
     return this._itemData;
   }
 
+  set files(files) {
+    if(!files.upload.length && files.upload.size === 0) {
+      this._files = null;
+    } else if(!files.upload.length) {
+      this._files = [files.upload]
+    } else {
+      this._files = files.upload;
+    }
+  }
+
+  get files() {
+    return this._files;
+  }
+
   create(fields, files) {
-    this._fields = fields;
-    this._files = files;
-    this.itemData = this._fields;
-    console.log(this.itemData);
+    this.fields = fields;
+    this.files = files;
+    this.itemData = this.fields;
     let newItemPromise = new Promise((resolve, reject) => {
       this._DBschema
         .query()
         .insertAndFetch(this.itemData)
         .then((newItem) => {
-          console.log(newItem);
           this._DBobject.currentItem = newItem;
-          this._addItemImages();
+          if(this.files) {
+            this._addItemImages();
+          }
           this._relateTags();
           resolve(this._DBobject.currentItem);
         })
@@ -47,7 +61,7 @@ class ItemCreator {
   }
 
   _addItemImages() {
-    this._files.upload.forEach((file, index) => {
+    this.files.forEach((file, index) => {
       file.name = this._getFormattedImageName(file.name);
       this._insertItemImage(file);
       this._uploadImageToCloudinary(file);
@@ -74,11 +88,11 @@ class ItemCreator {
   }
 
   _relateTags() {
-    if(this._fields.tags) {
-      this._DBobject.relateTags(this._fields.tags, 'tags');
+    if(this.fields.tags) {
+      this._DBobject.relateTags(this.fields.tags, 'tags');
     }
-    if(this._fields.swapForTags) {
-      this._DBobject.relateTags(this._fields.swapForTags, 'swapForTags');
+    if(this.fields.swapForTags) {
+      this._DBobject.relateTags(this.fields.swapForTags, 'swapForTags');
     }
   }
 }

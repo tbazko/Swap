@@ -16,8 +16,8 @@ class UserProfileEditPagePresenter extends BasePagePresenter {
     this.eventEmitter.on('formSaved', (user) => this.onFormSaved(user));
   }
 
-  _parseRequest() {
-    super._parseRequest();
+  parseRequest() {
+    super.parseRequest();
     this.model.currentUser = this.req.user;
     this.method = this.req.method;
   }
@@ -41,7 +41,7 @@ class UserProfileEditPagePresenter extends BasePagePresenter {
   }
 
   onFormSaved(user) {
-    this.view.json({user: user});
+    this.view.redirect('/user/profile');
   }
 }
 

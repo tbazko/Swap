@@ -9,8 +9,8 @@ class UserProfilePagePresenter extends IndexPagePresenter {
     this.model.itemListStrategy = options.itemListStrategy;
   }
 
-  _parseRequest() {
-    super._parseRequest();
+  parseRequest() {
+    super.parseRequest();
     this.model.itemsOnly = /\/items/.test(this.req.path);
     this.model.userId = this.req.params.id || this.req.user.id;
     this.model.isCurrentUserProfile = this.req.params.id ? false : true;

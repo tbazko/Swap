@@ -34,13 +34,17 @@
     }
   }
 
-  input {
+  input, textarea {
     &:focus {
       outline: none;
     }
 
     &.is-invalid {
       border: 2px solid $color-input-invalid;
+    }
+
+    &.is-valid {
+      border: 2px solid $color-ok;
     }
   }
 

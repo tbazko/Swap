@@ -1,7 +1,7 @@
 'use strict';
 const BasePageModel = rootRequire('app/pages/base/BasePageModel');
 const SwapRequestOverview = rootRequire('app/swapRequest/Overview');
-const Chat = rootRequire('app/chat/Chat');
+const Chat = rootRequire('app/Chat');
 
 class SwapRequestOverviewModel extends BasePageModel {
   constructor() {

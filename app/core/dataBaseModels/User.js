@@ -13,11 +13,11 @@ class User extends Base {
       email: userData.email,
       password: userData.hash,
       firstName: userData.firstName || 'Anonymous',
-      lastName: userData.lastName,
-      phone: userData.phone,
-      city: userData.city || '',
-      state: userData.state,
-      country: userData.country || ''
+      lastName: '',
+      phone: 'not set',
+      city: userData.city || userData.address,
+      state: userData.state || '',
+      country: userData.country || 'Ukraine'
     }
   }
 

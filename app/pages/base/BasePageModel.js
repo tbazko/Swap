@@ -1,6 +1,6 @@
 'use strict';
 const AbstractPageModel = require('../AbstractPageModel');
-const Counter = rootRequire('app/counter/Counter');
+const Counter = rootRequire('app/Counter');
 const CurrentUrl = rootRequire('app/CurrentUrl');
 
 class BasePageModel extends AbstractPageModel {

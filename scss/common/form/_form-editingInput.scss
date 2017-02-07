@@ -1,0 +1,18 @@
+.form {
+  input {
+    &.form-editingInput {
+      background: transparent;
+      display: inline-block;
+      width: auto;
+      color: $color-night-rider;
+    }
+
+    &.form-editingInput--fullWidth {
+      width: 100%;
+    }
+
+    &.form-editingInput--header {
+      font-size: 20px;
+    }
+  }
+}

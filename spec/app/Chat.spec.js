@@ -1,5 +1,5 @@
 'use strict';
-const Chat = rootRequire('app/chat/Chat');
+const Chat = rootRequire('app/Chat');
 
 describe('Chat', function() {
   let chat = new Chat(2);
@@ -10,7 +10,7 @@ describe('Chat', function() {
 
   it('should return all messages related to the swapRequest id or empty Array', (done) => {
     chat.messages.then((messages) => {
-      expect(messages).toEqual(jasmine.any(Array));
+      expect(messages).toEqual({messages: jasmine.any(Array)});
       done();
     });
   });

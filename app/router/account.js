@@ -1,39 +1,46 @@
 'use strict';
 const express = require('express');
-const AccountPresenter = rootRequire('app/account/AccountPresenter')
+const SignInPage = rootRequire('app/pages/signIn/presenter');
+const SignUpPage = rootRequire('app/pages/signUp/presenter');
+const Authentication = rootRequire('app/authentication/Authentication');
 let app = express();
 let redirects = {
   successRedirect: '/user/profile',
   failureRedirect: '/account/signin'
 }
 app.set('views', __dirname + '/../templatesCommon');
-app.get('/account/signin', accountSignIn);
-app.get('/account/signout', accountSignOut);
-app.get('/account/signup', accountSignUp);
+app.get('/account/signin', makeSignInPage);
+app.get('/account/signout', makeSignOut);
+app.get('/account/signup', makeSignUpPage);
 app.get('/account/forgot-password', accountForgotPasswordPage);
 
-app.post('/account/signin', accountSignIn);
-app.post('/account/signup', accountSignUp);
+app.post('/account/signin', makeSignInPage);
+app.post('/account/signup', makeSignUpPage);
 
-function accountSignIn(req, res, next) {
-  app.set('views', __dirname + '/../account/');
-  let a = new AccountPresenter('signInFormView');
-  a.redirects = redirects;
-  a.signIn(req, res, next);
+function makeSignInPage(req, res, next) {
+  app.set('views', __dirname + '/../templatesCommon');
+  let p = new SignInPage({
+    template: 'pages/signInFormView',
+    redirects: redirects
+  });
+  p.render(req, res, next);
 }
 
-function accountSignOut(req, res, next) {
-  app.set('views', __dirname + '/../account/');
-  let a = new AccountPresenter('signInFormView');
-  a.redirects = redirects;
-  a.signOut(req, res, next);
+function makeSignUpPage(req, res, next) {
+  app.set('views', __dirname + '/../templatesCommon');
+  let p = new SignUpPage({
+    template: 'pages/signUpFormView',
+    redirects: redirects
+  });
+  p.render(req, res, next);
 }
 
-function accountSignUp(req, res, next) {
-  app.set('views', __dirname + '/../account/');
-  let a = new AccountPresenter('signUpFormView');
+function makeSignOut(req, res, next) {
+  let a = new Authentication();
+  a.req = req;
+  a.res = res;
   a.redirects = redirects;
-  a.signUp(req, res, next);
+  a.signOut();
 }
 
 function accountForgotPasswordPage(req, res, next) {

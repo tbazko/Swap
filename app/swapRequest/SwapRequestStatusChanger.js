@@ -11,7 +11,6 @@ class SwapRequestStatusChanger {
     this._itemDBmodel = new Item();
     this._socket = socket;
     this._currentStatus = null;
-    console.log(this.room);
   }
 
   update() {

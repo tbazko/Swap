@@ -42,6 +42,7 @@
 }
 
 .title--itemOverview {
+  position: relative;
   font-size: $h2;
   transition: font-size .4s ease;
 }

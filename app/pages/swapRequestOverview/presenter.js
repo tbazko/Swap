@@ -8,8 +8,8 @@ class SwapRequestOverviewPresenter extends BasePagePresenter {
     this.model = new Model();
   }
 
-  _parseRequest() {
-    super._parseRequest();
+  parseRequest() {
+    super.parseRequest();
     this.model.requestId = this.req.params.id;
     this.model.chatId = this.req.params.id;
     this.model.currentUser = this.req.user;

@@ -1,0 +1,45 @@
+{{#section 'scripts'}}
+  <script src="/javascripts/lib/require.js" data-main="/javascripts/signUp" async></script>
+{{/section}}
+
+<div class="content-body">
+  <div class="row text-center">
+    <div class="col col-xs4 col-sm10 col-md6 col--smPush1 col--mdPush3 paperStyle-container">
+      <h1 class="main-title">Sign up</h1>
+      {{#if errorMessages}}
+        <div class="formError">
+          {{#each errorMessages}}
+            {{.}}<br>
+          {{/each}}
+        </div>
+      {{/if}}
+      <form method="post" action="/account/signup" class="form js-form">
+        {{#if errorMessages}}
+          <input id="email" value="{{data.email}}" type="email" name="email" placeholder="Email" required />
+          <input id="password" type="password" name="password" placeholder="Password" required data-validate="true" />
+          <input id="firstName" value="{{data.firstName}}" type="text" name="firstName" placeholder="First name" />
+          <input id="autocomplete" value="{{data.address}}" type="text" name="address" placeholder="City" required />
+          <input id="locality" value="{{data.city}}" name="city" type="text" disabled="true" class="is-hidden"></input>
+          <input id="administrative_area_level_1" value="{{data.state}}" type="text" disabled="true" name="state" class="is-hidden"></input>
+          <input id="country" value="{{data.country}}" name="country" type="text" disabled="true" class="is-hidden"></input>
+        {{else}}
+          <input id="email" type="email" name="email" placeholder="Email" required />
+          <input id="password" type="password" name="password" placeholder="Password" required data-validate="true" />
+          <input id="firstName" type="text" name="firstName" placeholder="First name" />
+          <input id="autocomplete" type="text" name="address" placeholder="City" required />
+          <input id="locality" name="city" type="text" disabled="true" class="is-hidden"></input>
+          <input id="administrative_area_level_1" type="text" disabled="true" name="state" class="is-hidden"></input>
+          <input id="country" name="country" type="text" disabled="true" class="is-hidden"></input>
+        {{/if}}
+        <p>
+          <input id="signup" type="submit" name="signup" value="Create an account" class="btn btn--fixedWidth mt15"/>
+        </p>
+      </form>
+    </div>
+  </div>
+  <div class="row text-center">
+    <div class="col-xs4">
+      <a href="/account/signin" class="callToAction">Already have an account?&#32;<span>Login</span></a>
+    </div>
+  </div>
+</div>

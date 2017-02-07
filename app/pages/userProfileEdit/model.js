@@ -1,7 +1,7 @@
 'use strict';
 const events = require('events');
 const BasePageModel = rootRequire('app/pages/base/BasePageModel');
-const UserProfile = rootRequire('app/userProfile/UserProfile');
+const UserProfile = rootRequire('app/UserProfile');
 
 class UserProfileEditPageModel extends BasePageModel {
   constructor() {

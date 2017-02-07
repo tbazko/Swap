@@ -8,25 +8,33 @@ class AbstractPagePresenter {
 
   render(req, res, next) {
     if(!this.model) return console.log('model is not set');
-    this._handleCommonSetup(req, res);
+    this._handleCommonSetup(req, res, next);
     this._renderView();
   }
 
-  _handleCommonSetup(req, res) {
+  _handleCommonSetup(req, res, next) {
     this.view = res;
     this.req = req;
-    this._parseRequest();
+    this.next = next;
+    this.parseRequest();
     this.model.addComponents();
   }
 
-  _parseRequest() {
+  parseRequest() {
     return console.log('parseRequest is not set');
   }
 
   _renderView() {
     this.model.pageDataPromise.then((pageData) => {
       let response = this._arrayToObject(pageData);
-      this.view.render(this.template, response);
+      if(response) {
+        this.view.render(this.template, response);
+      } else {
+        this.view.redirect('/404');
+      }
+    }).catch((err) => {
+      console.log('Abstract _renderView error ' + err)
+      this.view.redirect('/404');
     });
   }
 

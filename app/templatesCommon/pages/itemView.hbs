@@ -3,41 +3,47 @@
 {{/section}}
 
 <div class="row row--layoutWidth row--nowrap">
-  <div class="content-body paperStyle-container content-body--itemOverview">
-    <div class="row itemOverview">
-      <div class="itemOverview-sliderColumn">
-        <h3 class="title--itemOverview title--forInSwapState">{{item.name}}</h3>
-        {{> slider}}
-      </div>
-      <div class="itemOverview-detailsColumn">
-        {{> itemOverview-details}}
-      </div>
-      <div class="itemOverview-swapButton clear">
-        {{#if itemBelongsToCurrentUser}}
-          <a href="/item/{{item.id}}/edit" class="btn btn--secondary">Edit</a>
-        {{else}}
-          {{> swapButtonsSet}}
-        {{/if}}
-      </div>
-    </div>
-
-    <div class="row itemOverview pb0">
-      <div class="itemOverview-descriptionColumn pb30">
-        {{#item.description}}
-          <h4 class="pb10">Description:</h4>
-          <p class="pb30">{{{this}}}</p>
-        {{/item.description}}
-        {{#item.reasonForSwap}}
-          <h4 class="pb10">Reason for swap:</h4>
-          <p class="pb30">{{this}}</p>
-        {{/item.reasonForSwap}}
-      </div>
-      <div class="itemOverview-mapColumn">
-        <div class="itemOverview-map" style="background-image: url('https://maps.googleapis.com/maps/api/staticmap?size=400x400&maptype=roadmap&markers=color:red%7C{{author.city}},{{author.country}}&key=AIzaSyCvLphh5RdATb2mbpFCZ0k02_ZqFQZjukk')">
+  {{#if item}}
+    <div class="content-body paperStyle-container content-body--itemOverview">
+      <div class="row itemOverview">
+        <div class="itemOverview-sliderColumn">
+          <h3 class="title--itemOverview title--forInSwapState">{{item.name}}</h3>
+          {{> slider}}
+        </div>
+        <div class="itemOverview-detailsColumn">
+          {{> itemOverview-details}}
+        </div>
+        <div class="itemOverview-swapButton clear">
+          {{#if itemBelongsToCurrentUser}}
+            <a href="/item/{{item.id}}/edit" class="btn btn--secondary">Edit</a>
+          {{else}}
+            {{> swapButtonsSet}}
+          {{/if}}
         </div>
       </div>
-      <a href="/user/{{item.user_id}}/items" class="btn btn--small btn--dark itemOverview-moreItemsButton">More items from {{author.firstName}}</a>
+
+      <div class="row itemOverview pb0">
+        <div class="itemOverview-descriptionColumn pb30">
+          {{#item.description}}
+            <h4 class="pb10">Description:</h4>
+            <p class="pb30">{{this}}</p>
+          {{/item.description}}
+          {{#item.reasonForSwap}}
+            <h4 class="pb10">Reason for swap:</h4>
+            <p class="pb30">{{this}}</p>
+          {{/item.reasonForSwap}}
+        </div>
+        <div class="itemOverview-mapColumn">
+          <div class="itemOverview-map" style="background-image: url('https://maps.googleapis.com/maps/api/staticmap?size=400x400&maptype=roadmap&markers=color:red%7C{{author.city}},{{author.country}}&key=AIzaSyCvLphh5RdATb2mbpFCZ0k02_ZqFQZjukk')">
+          </div>
+        </div>
+        <a href="/user/{{item.user_id}}/items" class="btn btn--small btn--dark itemOverview-moreItemsButton">More items from {{author.firstName}}</a>
+      </div>
     </div>
-  </div>
-  {{> swapForm}}
+    {{> swapForm}}
+    {{else}}
+    <div class="content-head paperStyle-container">
+      <h3>Sorry, such item doesn't exist</h3>
+    </div>
+  {{/if}}
 </div>

@@ -20,7 +20,7 @@ define([
   //   maxFiles: 10
   // });
 
-  if(utils.readCookie('logged')) {
+  // if(utils.readCookie('logged')) {
     var userId = utils.readCookie('logged');
     window.socket = io();
     var socket = window.socket;
@@ -34,7 +34,7 @@ define([
     });
 
     socket.emit('joinRoom', userId);
-  }
+  // }
   var form = new Form('js-form');
   var menu = new Menu('js-menu-wrapper', 'js-menu-trigger');
   form.init();

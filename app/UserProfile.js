@@ -3,7 +3,7 @@ const User = rootRequire('app/core/dataBaseModels/User');
 
 class UserProfile {
   constructor(pageModel) {
-    this.userId = pageModel.currentUserId;
+    this.userId = pageModel.userId;
     this.user = pageModel.currentUser;
     this.itemsOnly = pageModel.itemsOnly;
     this.isCurrentUserProfile = pageModel.isCurrentUserProfile;
@@ -16,7 +16,7 @@ class UserProfile {
       this.userDBmodel.getWithRelations(this.userId, 'items.[images]', (err, users) => {
         if(err) reject(err);
         resolve({
-          user: users[0],
+          user: users[0] ? users[0] : null,
           itemsOnly: this.itemsOnly,
           isCurrentUserProfile: this.isCurrentUserProfile
         });

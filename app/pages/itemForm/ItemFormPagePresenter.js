@@ -11,8 +11,8 @@ class ItemFormPagePresenter extends BasePagePresenter {
     this.bindEvents();
   }
 
-  _parseRequest() {
-    super._parseRequest();
+  parseRequest() {
+    super.parseRequest();
     this.model.itemId = this.req.params && this.req.params.id;
     this.model.path = this.req.path;
     this.model.user = this.req.user ? this.req.user : false;

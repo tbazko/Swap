@@ -27,6 +27,7 @@ define(['async!https://maps.googleapis.com/maps/api/js?key=AIzaSyCvLphh5RdATb2mb
 
   PlacesAutoComplete.prototype.fillInAddress = function () {
     var place = this.autocomplete.getPlace();
+  
     for (var component in this.addressForm) {
       if(document.getElementById(component)) {
         document.getElementById(component).value = '';
@@ -35,14 +36,17 @@ define(['async!https://maps.googleapis.com/maps/api/js?key=AIzaSyCvLphh5RdATb2mb
     }
 
     var addressComponents = place.address_components;
+    var components = {};
     for (var i = 0, l = addressComponents.length; i < l; i++) {
       var addressType = addressComponents[i].types[0];
       if (this.addressForm[addressType]) {
         var val = addressComponents[i][this.addressForm[addressType]];
         if(document.getElementById(addressType)) {
           document.getElementById(addressType).value = val;
+          components[addressType] = val;
         }
       }
+
     }
   };
 

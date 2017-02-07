@@ -8,8 +8,8 @@ class ItemPagePresenter extends BasePagePresenter {
     this.model = new ItemPageModel();
   }
 
-  _parseRequest() {
-    super._parseRequest();
+  parseRequest() {
+    super.parseRequest();
     this.model.itemId = this.req.params.id;
   }
 }

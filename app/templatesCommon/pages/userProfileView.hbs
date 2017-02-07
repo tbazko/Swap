@@ -1,3 +1,4 @@
+{{#if user}}
 {{^itemsOnly}}
 <div class="content-body paperStyle-container userProfile mb30">
   <div class="row">
@@ -75,3 +76,9 @@
   {{/if}}
   {{> itemList}}
 </div>
+
+{{else}}
+  <div class="content-head paperStyle-container">
+    <h3>Sorry, such user doesn't exist</h3>
+  </div>
+{{/if}}

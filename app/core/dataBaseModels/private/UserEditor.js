@@ -1,4 +1,5 @@
 'use strict';
+const stredit = rootRequire('app/helpers/StringEditor');
 
 class UserEditor {
   constructor(dataBaseObject) {
@@ -7,11 +8,21 @@ class UserEditor {
   }
 
   set userData(userData) {
-    this._DBobject.userData = userData;
+    this._userData = {
+      firstName: userData.firstName || 'Anonymous',
+      lastName: userData.lastName,
+      phone: userData.phone,
+      streetNumber: userData.streetNumber,
+      street: userData.street,
+      postcode: userData.postcode,
+      city: userData.city || userData.address,
+      state: userData.state || '',
+      country: userData.country || 'Ukraine'
+    }
   }
 
   get userData() {
-    return this._DBobject.userData;
+    return this._userData;
   }
 
   editAndGet(user, fields, files) {

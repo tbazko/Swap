@@ -7,6 +7,6 @@ define([
   p.options = {
     types: ['geocode'],
     componentRestrictions: {country: 'ua'}
-  }  
+  }
   p.init();
 });
