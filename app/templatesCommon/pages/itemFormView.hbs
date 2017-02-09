@@ -18,10 +18,12 @@
         <input type="hidden" name="newItem" value="{{newItem}}">
         <input type="hidden" name="userId" value="{{userId}}">
       {{#if newItem}}
-        <input type="text" name="name" placeholder="Name">
-        <p class="tooltip">
-          Note: emails, phones and url's are forbidden.
-        </p>
+        <div class="tooltip-container">
+          <input type="text" name="name" placeholder="Name">
+          <p class="tooltip">
+            Note: emails, phones and url's are forbidden.
+          </p>
+        </div>
       {{else}}
         <input type="hidden" name="itemId" value="{{item.id}}">
         <input type="text" name="name" placeholder="Name" value="{{item.name}}">
@@ -56,16 +58,20 @@
         </p>
 
         {{#if newItem}}
-          <textarea name="description" id="" cols="30" rows="10" placeholder="Description"></textarea>
-          <ul class="tooltip">
-            <li>Add description and important details</li>
-            <li>Shouldn't contain your contact information.</li>
-            <li>Description should match title of the item.</li>
-          </ul>
-          <textarea class="small" name="reasonForSwap" id="" cols="30" rows="5" placeholder="Reason for swap"></textarea>
-          <ul class="tooltip">
-            <li>If you wish you can add a reason why you want to swap the item.</li>
-          </ul>
+          <div class="tooltip-container">
+            <textarea name="description" id="" cols="30" rows="10" placeholder="Description"></textarea>
+            <div class="tooltip">
+              <p class="icon-circle">Add description and important details</p>
+              <p class="icon-circle">Shouldn't contain your contact information.</p>
+              <p class="icon-circle">Description should match title of the item.</p>
+            </div>
+          </div>
+          <div class="tooltip-container">
+            <textarea class="small" name="reasonForSwap" id="" cols="30" rows="5" placeholder="Reason for swap"></textarea>
+            <p class="tooltip">
+              If you wish you can add a reason why you want to swap the item.
+            </p>
+          </div>
         {{else}}
           <textarea name="description" id="" cols="30" rows="10" placeholder="Description" value="{{item.description}}">
             {{item.description}}
