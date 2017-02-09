@@ -1,11 +1,11 @@
 define([
 	'jquery',
 	'components/utils/utils',
-	'components/Form'
+	'components/TagTransformer'
 ], function (
 	$,
 	utils,
-	Form
+	TagTransformer
 ) {
 	var EditItemForm = {
 		$form: undefined,
@@ -14,8 +14,10 @@ define([
 		initialize: function () {
 			this.$form = $(this.formSelector);
 			this.bindEvents();
-			this.formvalidator = new Form('js-editItemForm');
-
+			this.tags = new TagTransformer('tags');
+			this.swapForTags = new TagTransformer('swapForTags');
+			this.tags.init();
+			this.swapForTags.init();
 		},
 
 		bindEvents: function () {

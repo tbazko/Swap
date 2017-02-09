@@ -36,7 +36,7 @@ class FormValidator {
 
   checkEmail(email) {
     let emailStr = email || this.formData.email;
-    if(!this.isEmail(email)) {
+    if(!FormValidator.isEmail(email)) {
       this.errors.push(this.errorMessages.email);
     }
   }
@@ -47,25 +47,25 @@ class FormValidator {
     }
   }
 
-  checkStringInput(restrictedStrings) {
-    let strings = restrictedStrings || this.formData.restrictedStrings;
+  checkString(restrictedStrings) {
+    let strings = restrictedStrings;
     for(var key in strings) {
       if (!strings.hasOwnProperty(key)) continue;
-      if(strings[key] && strings[key] != '' && !this.isValidString(strings[key])) {
+      if(strings[key] && strings[key] != '' && !FormValidator.isValidString(strings[key])) {
         this.errors.push(this.errorMessages[key]);
       }
     }
   }
 
-  isEmail(email) {
+  static isEmail(email) {
     if(!email) return false;
     var regex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/i;
     return regex.test(email);
   }
 
-  isValidString(str) {
+  static isValidString(str) {
     if(!str) return false;
-    var regex = /^[а-яА-ЯЁёІіЇїҐґЄєЩщa-zA-Z0-9.,!"'_\-()#@?:; \u00A0]+$/;
+    var regex = /^[а-яА-ЯЁёІіЇїҐґЄєЩщa-zA-Z0-9.,!"'_\-()@?:;\s\u00A0\u00A0\u000D\u000A\000C]+$/gm;
     return regex.test(str);
   }
 }

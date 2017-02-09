@@ -69,6 +69,29 @@ define([
 
     insertAfter: function(newNode, referenceNode) {
       referenceNode.parentNode.insertBefore(newNode, referenceNode.nextSibling);
+    },
+
+    trim: function(str, chars) {
+      if(!str) return str;
+      return this.rtrim(this.ltrim(str, chars), chars);
+    },
+
+    ltrim: function(str, chars) {
+      if(!str) return str;
+      var pattern = chars ? new RegExp('^[' + chars + ']+', 'g') : /^\s+/g;
+      return str.replace(pattern, '');
+    },
+
+    rtrim: function(str, chars) {
+      if(!str) return str;
+      var pattern = chars ? new RegExp('[' + chars + ']') : /\s/;
+
+      var idx = str.length - 1;
+      while (idx >= 0 && pattern.test(str[idx])) {
+        idx--;
+      }
+
+      return idx < str.length ? str.substr(0, idx + 1) : str;
     }
   }
 

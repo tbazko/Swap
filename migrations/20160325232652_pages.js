@@ -24,6 +24,7 @@ exports.up = function(knex, Promise) {
     table.integer('user_id').unsigned().notNullable().references('users.id');
     table.string('status');
     table.text('description', 'longtext');
+    table.text('reasonForSwap', 'longtext');
     table.string('condition').notNullable();
     table.timestamp('reg_date');
     table.integer('unix_time');

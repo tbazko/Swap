@@ -148,6 +148,7 @@ makeItemList	app/router/user.js	/^function makeItemList(req, res, next) {$/;"	f
 makeItemPage	app/router/item.js	/^function makeItemPage(req, res, next) {$/;"	f
 makeRequestListPage	app/router/request.js	/^function makeRequestListPage(req, res, next) {$/;"	f
 makeRequestOverviewPage	app/router/request.js	/^function makeRequestOverviewPage(req, res, next) {$/;"	f
+makeSearch	app/router/landing.js	/^function makeSearch(req, res, next) {$/;"	f
 makeSignInPage	app/router/account.js	/^function makeSignInPage(req, res, next) {$/;"	f
 makeSignOut	app/router/account.js	/^function makeSignOut(req, res, next) {$/;"	f
 makeSignUpPage	app/router/account.js	/^function makeSignUpPage(req, res, next) {$/;"	f
@@ -231,7 +232,6 @@ unitless-zero	.csscomb.json	/^    "unitless-zero": true,$/;"	f
 v	public/javascripts/lib/require.js	/^n,b,f){var l,d,z=null,k=n?n.name:null,m=a,q=!0,A="";a||(q=!1,a="_@r"+(R+=1));a=e(a);z=a[0];a=a[1];z&&(z=c(z,k,f),d=g(r,z));a&&(z?A=d&&d.normalize?d.normalize(a,function(a){return c(a,k,f)}):-1===a.indexOf("!")?c(a,k,f):a:(A=c(a,k,f),a=e(A),z=a[0],A=a[1],b=!0,l=h.nameToUrl(A)));b=!z||d||b?"":"_unnormalized"+(U+=1);return{prefix:z,name:A,parentMap:n,unnormalized:!!b,url:l,originalName:m,isDefine:q,id:(z?z+"!"+A:A)+b}}function u(a){var b=a.id,c=g(t,b);c||(c=t[b]=new h.Module(a));return c}function v(a,$/;"	f
 validator	package.json	/^    "validator": "^6.2.1"$/;"	f
 vendor-prefix-align	.csscomb.json	/^    "vendor-prefix-align": true$/;"	f
-verify	app/router/landing.js	/^function verify(req, res, next) {$/;"	f
 version	package.json	/^  "version": "0.0.0",$/;"	f
 without	public/javascripts/lib/dropzone.js	/^  };$/;"	f
 xhr.onreadystatechange	public/javascripts/lib/text.js	/^            }$/;"	f

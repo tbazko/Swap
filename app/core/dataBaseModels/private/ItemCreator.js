@@ -2,10 +2,12 @@
 const cloudinary = rootRequire('config/cloudinary');
 const ItemImage = rootRequire('app/core/dataBaseSchemas/ItemImage');
 
+
 class ItemCreator {
   constructor(dataBaseObject) {
     this._DBschema = dataBaseObject.DataBaseSchema;
     this._DBobject = dataBaseObject;
+    this._eventEmitter = dataBaseObject.eventEmitter;
   }
 
   set itemData(data) {
@@ -14,7 +16,8 @@ class ItemCreator {
       status: 'for_sale',
       description: data.description,
       user_id: data.userId,
-      condition: data.itemCondition
+      condition: data.itemCondition,
+      reasonForSwap: data.reasonForSwap
     }
   }
 
@@ -87,11 +90,16 @@ class ItemCreator {
     );
   }
 
-  _relateTags() {
+  _relateTags(tags) {
     if(this.fields.tags) {
       this._DBobject.relateTags(this.fields.tags, 'tags');
-    }
-    if(this.fields.swapForTags) {
+      
+      if(this.fields.swapForTags) {
+        this._eventEmitter.once('allTagsAdded', () => {
+          this._DBobject.relateTags(this.fields.swapForTags, 'swapForTags');
+        });
+      }
+    } else if(this.fields.swapForTags) {
       this._DBobject.relateTags(this.fields.swapForTags, 'swapForTags');
     }
   }

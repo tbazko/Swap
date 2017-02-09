@@ -26,8 +26,16 @@
         <input type="hidden" name="itemId" value="{{item.id}}">
         <input type="text" name="name" placeholder="Name" value="{{item.name}}">
       {{/if}}
-        <input type="text" name="tags" placeholder="Tags, keywords">
-        <input type="text" name="swapForTags" placeholder="Swap for? Some tags/keywords here...">
+        <input type="text" id="real-tags" name="tags" value="" readonly class="is-hidden">
+        <input type="text" id="real-swapForTags" name="swapForTags" value="" readonly class="is-hidden">
+
+        <label id="tags" class="tags" for="addTag">
+          <input id="addTag" class="js-addTag tags-input custom" autocomplete="off" maxlength="30" name="tag" type="text" data-custom-validation="true" placeholder="Tags, keywords">
+        </label>
+        <label id="swapForTags" class="tags" for="addSwapForTag">
+          <input id="addSwapForTag" class="js-addTag tags-input custom" autocomplete="off" maxlength="30" type="text" data-custom-validation="true" name="swapForTag" placeholder="Swap for keywords here...">
+        </label>
+
         <p class="mb20">
           <label for="">Condition&#32;</label>
           <input type="radio" name="itemCondition" value="1">

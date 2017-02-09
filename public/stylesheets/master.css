@@ -887,7 +887,7 @@ textarea {
         .menu li a {
           padding: 0 10px; } }
     .menu li a {
-      color: #303030;
+      color: #eeeeee;
       font-weight: 400;
       font-size: 16px;
       text-decoration: none;
@@ -1019,7 +1019,7 @@ textarea {
     width: auto;
     height: 100%; }
   .navigation-logo span {
-    color: #333333;
+    color: #eeeeee;
     font-weight: bold;
     vertical-align: top;
     line-height: 45px; }
@@ -1032,7 +1032,7 @@ textarea {
     border: 0; }
 
 .row.navigation {
-  background: rgba(255, 255, 255, 0.97);
+  background: rgba(51, 51, 51, 0.92);
   z-index: 6;
   top: 0;
   position: fixed;
@@ -1041,7 +1041,7 @@ textarea {
   .row.navigation [class*="col-"] {
     height: 100%; }
   .row.navigation.is-sticky {
-    border-bottom: 1px solid #eeeeee; }
+    border-bottom: 1px solid #333333; }
   @media (min-width: 768px) {
     .row.navigation {
       height: 54px; } }
@@ -1746,6 +1746,37 @@ textarea {
 .pac-logo:after {
   display: none; }
 
+.tags {
+  display: block;
+  background: #eeeeee;
+  border: 2px solid #eeeeee;
+  padding: 0 11px;
+  vertical-align: middle;
+  margin-bottom: 5px;
+  margin-top: 15px; }
+
+.tags-tag {
+  background: #FF5C2E;
+  color: #eeeeee;
+  padding: 3px 4px 5px 8px;
+  border-radius: 3px;
+  display: inline-block;
+  margin: 1px 5px 4px 0;
+  vertical-align: middle; }
+  .tags-tag-remove {
+    cursor: pointer; }
+
+.tags-input {
+  background: transparent;
+  width: auto;
+  border: 0;
+  height: 34px;
+  color: #808080;
+  font-family: "Roboto", sans-serif;
+  font-size: 14px; }
+  .tags-input:focus {
+    outline: none; }
+
 .btn--fixedWidth {
   min-width: 150px; }
   @media (min-width: 768px) {
@@ -2140,9 +2171,9 @@ textarea {
     content: '*';
     color: #FF5C2E;
     margin-left: 3px; }
-.form input[type="text"],
-.form input[type="password"],
-.form input[type="email"] {
+.form input[type="text"]:not(.custom),
+.form input[type="password"]:not(.custom),
+.form input[type="email"]:not(.custom) {
   background: #eeeeee;
   border: 2px solid #eeeeee;
   border-radius: 2px;
@@ -2154,15 +2185,15 @@ textarea {
   font-family: "Roboto", sans-serif;
   font-size: 14px;
   width: 100%; }
-  .form input[type="text"]:first-of-type,
-  .form input[type="password"]:first-of-type,
-  .form input[type="email"]:first-of-type {
-    margin-top: 0; }
-.form input:focus, .form textarea:focus {
+.form input[type="text"]:first-of-type,
+.form input[type="password"]:first-of-type,
+.form input[type="email"]:first-of-type {
+  margin-top: 0; }
+.form input:not(.custom):focus, .form textarea:not(.custom):focus {
   outline: none; }
-.form input.is-invalid, .form textarea.is-invalid {
+.form input:not(.custom).is-invalid, .form textarea:not(.custom).is-invalid {
   border: 2px solid red; }
-.form input.is-valid, .form textarea.is-valid {
+.form input:not(.custom).is-valid, .form textarea:not(.custom).is-valid {
   border: 2px solid #79A877; }
 .form textarea {
   background: #eeeeee;

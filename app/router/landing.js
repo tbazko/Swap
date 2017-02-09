@@ -1,11 +1,14 @@
 "use strict";
 const express = require('express');
 const IndexPagePresenter = rootRequire('app/pages/index/IndexPagePresenter');
+const Search = rootRequire('app/Search');
 let app = express();
+
 app.set('views', __dirname + '/../templatesCommon');
 app.get('/tag/:id/', makeIndexPageWithItemsFilteredByTag);
 app.get('/', makeIndexPage);
-app.get('/stressy--KbtDED_a_-rupwxm9AV.html', verify);
+app.get('/search', makeSearch);
+
 
 function makeIndexPageWithItemsFilteredByTag(req, res, next) {
   let p = new IndexPagePresenter({
@@ -23,8 +26,11 @@ function makeIndexPage(req, res, next) {
   p.render(req, res, next);
 }
 
-function verify(req, res, next) {
-  res.render('pages/stressy--KbtDED_a_-rupwxm9AV');
+function makeSearch(req, res, next) {
+  let s = new Search();
+  s.search(req.query.key, function(results) {
+    res.end(JSON.stringify(results));
+  });
 }
 
 module.exports = app;

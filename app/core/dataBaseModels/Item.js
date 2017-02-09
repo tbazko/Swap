@@ -1,4 +1,5 @@
 "use strict";
+const events = require('events');
 const Base = require('./Base');
 const ItemSchema = require('../dataBaseSchemas/Item');
 const TagSchema = require('../dataBaseSchemas/Tag');
@@ -11,6 +12,7 @@ class Item extends Base {
   constructor(id) {
     super(ItemSchema);
     this.idName = 'id';
+    this.eventEmitter = new events.EventEmitter();
   }
 
   set currentItem(item) {
@@ -71,30 +73,58 @@ class Item extends Base {
   }
 
   relateTags(tags, relation) {
-    let tagsStr = tags.replace(/\s+/g, '');
-    let tagsArray = tagsStr.split(',');
+    let tagsStr = tags.replace(/\s+|,$/g, '');
+    let tagsArray = this.uniqueArray(tagsStr.split(','));
+    let promisesArray = [];
     this.idName = 'name';
+    this.eventEmitter.once('lastItemAdded', () => {
+      this.eventEmitter.emit('allTagsAdded');
+    });
+    tagsArray.forEach((value, index) => {
+      this.relateModel(TagSchema, relation, {name: value}, tagsArray.length - 1 === index);
+    });
 
-    tagsArray.forEach(function(value, index) {
-      this.relateModel(TagSchema, relation, {name: value});
-    }.bind(this));
     this.idName = 'id';
   }
 
-  relateModel(dataBaseSchema, relation, modelData) {
+  uniqueArray(arrArg) {
+    return arrArg.filter((elem, pos, arr) => {
+      return arr.indexOf(elem) == pos;
+    });
+  }
+
+  relateModel(dataBaseSchema, relation, modelData, isLastItem) {
     dataBaseSchema
       .query()
-      .where(this.idName, modelData[this.idName])
+      .where(this.idName, modelData.name)
       .first()
-      .then(function(model) {
+      .then((model) => {
         let relationsPromise = this.currentItem.$relatedQuery(relation);
-        // TODO: something broke in relationing
+
         if(model) {
-          return relationsPromise.relate(model.id);
+          relationsPromise.relate(model.id).then(() => {
+            if(isLastItem) {
+              this.eventEmitter.emit('lastItemAdded');
+            }
+          });
         } else {
-          return relationsPromise.insert(modelData);
+          relationsPromise.insert(modelData).then(() => {
+            if(isLastItem) {
+              this.eventEmitter.emit('lastItemAdded');
+            }
+          });
         }
-      }.bind(this));
+      }).catch((err) => {
+        console.log(err)
+      });
+  }
+
+  searchPromise(str) {
+    return this.DataBaseSchema
+      .query()
+      .where('status', 'for_sale')
+      .andWhere('name', 'like', '%' + str + '%')
+      .orWhere('description', 'like', '%' + str + '%');
   }
 
   editAndGet(itemId, fields, files) {

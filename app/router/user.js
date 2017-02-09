@@ -18,7 +18,7 @@ app.post('/user/profile/edit', helpers.signInRedirect, makeUserProfileEditPage);
 function makeUserProfilePage(req, res, next) {
   let p = new UserProfilePage({
     template: 'pages/userProfileView',
-    itemListStrategy: rootRequire('app/itemList/strategies/filteredByUser')
+    itemListStrategy: rootRequire('app/itemList/strategies/filteredByCurrentUser')
   });
   p.render(req, res, next);
 }

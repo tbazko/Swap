@@ -14,6 +14,8 @@ requirejs.config({
         mustache: 'mustache',
         text: 'text',
         dropzone: 'dropzone',
-        async: 'async'
+        async: 'async',
+        typeahead: 'typeahead',
+        bloodhound: 'bloodhound'
     }
 });

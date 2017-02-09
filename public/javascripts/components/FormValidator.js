@@ -52,15 +52,13 @@ define([
     }
   }
 
-  Form.prototype.isValidForm = function () {
-    // this.validateAllInput();
-    let invalidInputs = this.currentForm.querySelector('.is-invalid');
-    return invalidInputs ? false : true;
-  };
-
-  Form.prototype.submitForm = function () {
-    if(this.currentForm.getAttribute('data-ajax-submit')) return false;
-    this.currentForm.submit();
+  Form.prototype.setCurrentForm = function (target) {
+    while(target != document) {
+      if (target && utils.selectorMatches(target, '.js-form')) {
+        this.currentForm = target;
+      }
+      target = target.parentNode;
+    }
   };
 
   Form.prototype.validateInput = function(input) {
@@ -93,6 +91,7 @@ define([
   }
 
   Form.prototype.validateForRestrictedCharacters = function (input) {
+    if(input.getAttribute('data-custom-validation')) return;
     if(!this.isValidString(input.value)) {
       utils.removeClass(input, 'is-valid');
       utils.addClass(input, 'is-invalid');
@@ -104,12 +103,26 @@ define([
     }
   };
 
+  Form.prototype.isValidForm = function () {
+    let invalidInputs = this.currentForm.querySelector('.is-invalid');
+    return invalidInputs ? false : true;
+  };
+
+  Form.prototype.submitForm = function () {
+    if(this.currentForm.getAttribute('data-ajax-submit')) return;
+    this.currentForm.submit();
+  };
+
   Form.prototype.removeEmails = function (input) {
-    input.value = input.value.replace(this.emailRegex, '((Forbidden))');
+    if(this.emailRegex.test(input.value)) {
+      input.value = input.value.replace(this.emailRegex, '((Forbidden))');
+    }
   };
 
   Form.prototype.removeUrls = function (input) {
-    input.value = input.value.replace(this.urlRegex, '((Forbidden))');
+    if(this.urlRegex.test(input.value)) {
+      input.value = input.value.replace(this.urlRegex, '((Forbidden))');
+    }
   };
 
   Form.prototype.validatePassword = function (input) {
@@ -125,7 +138,7 @@ define([
   };
 
   Form.prototype.isValidString = function (str) {
-    var regex = /^[а-яА-ЯЁёІіЇїҐґЄєЩщa-zA-Z0-9.,!"'_\-()@?#:; \u00A0]+$/;
+    var regex = /^[а-яА-ЯЁёІіЇїҐґЄєЩщa-zA-Z0-9.,!"'_\-()@?#:;\s\u00A0\u000D\u000A\000C]+$/gm;
     return regex.test(str);
   };
 
@@ -154,15 +167,6 @@ define([
       parent.removeChild(next);
     }
   }
-
-  Form.prototype.setCurrentForm = function (target) {
-    while(target != document) {
-      if (target && utils.selectorMatches(target, '.js-form')) {
-        this.currentForm = target;
-      }
-      target = target.parentNode;
-    }
-  };
 
   Form.prototype.isEmail = function(email) {
     var regex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/i;

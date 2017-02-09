@@ -3,12 +3,12 @@
     <div class="item" data-item-id="{{id}}">
       {{#if images}}
         {{#with images.[0]}}
-          <a href="/item/{{item_id}}" class="img-container">
+          <a href="/item/{{../id}}" class="img-container">
             <img src="http://res.cloudinary.com/di42acdz9/image/upload/{{this.id}}" alt="">
           </a>
-      {{/with}}
+          {{/with}}
       {{else}}
-        <a href="/item/{{item_id}}" class="img-container">
+        <a href="/item/{{id}}" class="img-container">
           <img src="http://res.cloudinary.com/di42acdz9/image/upload/sample.jpg" alt="">
         </a>
       {{/if}}
@@ -20,16 +20,28 @@
           <button type="submit" class="item-remove">Remove</button>
         </form>
         <a href="/item/{{id}}/edit">Edit</a>
-        {{else}}
         <p class="item-tag-title">
-          <b>Seeks:&nbsp;
+          <b>Tags:&nbsp;
+            {{#tags}}
+              <a href="/tag/{{name}}">#{{name}} </a>
+            {{/tags}}
+          </b>
+        </p>
+        {{/if}}
+        <p class="item-tag-title">
+          <b>Tags:&nbsp;
+            {{#tags}}
+              <a href="/tag/{{name}}">#{{name}} </a>
+            {{/tags}}
+          </b>
+        </p>
+        <p class="item-tag-title">
+          <b>Swap for:&nbsp;
             {{#swapForTags}}
               <a href="/tag/{{name}}">#{{name}} </a>
             {{/swapForTags}}
           </b>
         </p>
-        {{/if}}
-
       </div>
     </div>
   {{/items}}

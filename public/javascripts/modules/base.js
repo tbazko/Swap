@@ -1,14 +1,18 @@
 define([
+  'jquery',
   'components/utils/utils',
   'components/Menu',
   'components/Counter',
-  'components/Form',
+  'components/FormValidator',
+  'components/Search',
   'dropzone'
 ], function (
+  $,
   utils,
   Menu,
   Counter,
-  Form,
+  FormValidator,
+  Search,
   Dropzone
 ) {
 
@@ -35,8 +39,10 @@ define([
 
     socket.emit('joinRoom', userId);
   // }
-  var form = new Form('js-form');
+  var form = new FormValidator('js-form');
   var menu = new Menu('js-menu-wrapper', 'js-menu-trigger');
+  var search = new Search();
   form.init();
   menu.init();
+  search.init();
 });

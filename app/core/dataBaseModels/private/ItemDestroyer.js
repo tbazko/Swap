@@ -15,7 +15,6 @@ class ItemDestroyer {
         .first()
         .then(function(item) {
           var imagesPromise = item.$relatedQuery('images');
-
           imagesPromise.then((images) => {
             images.forEach((image) => {
               cloudinary.uploader.destroy(image.id);

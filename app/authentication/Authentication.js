@@ -40,7 +40,7 @@ class Authentication {
       if(emailIsFree) {
         this.validator.checkEmail(formData.email);
         this.validator.checkPassword(formData.password);
-        this.validator.checkStringInput({
+        this.validator.checkString({
           firstName: formData.firstName,
           city: formData.city || formData.address,
           state: formData.state,

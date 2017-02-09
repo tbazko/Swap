@@ -1,0 +1,13 @@
+.tags-input {
+  background: transparent;
+  width: auto;
+  border: 0;
+  height: 34px;
+  color: #808080;
+  font-family: "Roboto", sans-serif;
+  font-size: 14px;
+
+  &:focus {
+    outline: none;
+  }
+}

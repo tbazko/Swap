@@ -17,17 +17,19 @@
   input[type="text"],
   input[type="password"],
   input[type="email"] {
-    background: $color-white-smoke;
-    border: 2px solid $color-white-smoke;
-    border-radius: 2px;
-    margin-bottom: 5px;
-    margin-top: 15px;
-    height: 38px;
-    padding: 0 11px;
-    color: #808080;
-    font-family: "Roboto", sans-serif;
-    font-size: 14px;
-    width: 100%;
+    &:not(.custom) {
+      background: $color-white-smoke;
+      border: 2px solid $color-white-smoke;
+      border-radius: 2px;
+      margin-bottom: 5px;
+      margin-top: 15px;
+      height: 38px;
+      padding: 0 11px;
+      color: #808080;
+      font-family: "Roboto", sans-serif;
+      font-size: 14px;
+      width: 100%;
+    }
 
     &:first-of-type {
       margin-top: 0;
@@ -35,16 +37,18 @@
   }
 
   input, textarea {
-    &:focus {
-      outline: none;
-    }
+    &:not(.custom) {
+      &:focus {
+        outline: none;
+      }
 
-    &.is-invalid {
-      border: 2px solid $color-input-invalid;
-    }
+      &.is-invalid {
+        border: 2px solid $color-input-invalid;
+      }
 
-    &.is-valid {
-      border: 2px solid $color-ok;
+      &.is-valid {
+        border: 2px solid $color-ok;
+      }
     }
   }
 

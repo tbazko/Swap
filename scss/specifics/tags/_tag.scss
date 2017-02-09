@@ -1,0 +1,13 @@
+.tags-tag {
+  background: $color-outrageous-orange;
+  color: $color-white-smoke;
+  padding: 3px 4px 5px 8px;
+  border-radius: 3px;
+  display: inline-block;
+  margin: 1px 5px 4px 0;
+  vertical-align: middle;
+
+  &-remove {
+    cursor: pointer;
+  }
+}
