@@ -40,6 +40,8 @@ define([
 			}).done(function (resp) {
 				if (resp.isNewItem) {
 					$('.js-item-added').removeClass('is-hidden');
+				} else if(resp.error) {
+					$('.js-item-edited').text(resp.error).removeClass('is-hidden');
 				} else {
 					$('.js-item-edited').removeClass('is-hidden');
 				}

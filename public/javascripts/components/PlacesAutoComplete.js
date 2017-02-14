@@ -27,7 +27,7 @@ define(['async!https://maps.googleapis.com/maps/api/js?key=AIzaSyCvLphh5RdATb2mb
 
   PlacesAutoComplete.prototype.fillInAddress = function () {
     var place = this.autocomplete.getPlace();
-  
+
     for (var component in this.addressForm) {
       if(document.getElementById(component)) {
         document.getElementById(component).value = '';

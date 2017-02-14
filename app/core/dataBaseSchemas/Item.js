@@ -16,6 +16,14 @@ class Item extends DataBaseSchema {
           to: 'users.id'
         }
       },
+      user: {
+        relation: DataBaseSchema.BelongsToOneRelation,
+        modelClass: __dirname + '/Category',
+        join: {
+          from: 'items.category_id',
+          to: 'categories.id'
+        }
+      },
       images: {
         relation: DataBaseSchema.HasManyRelation,
         modelClass: __dirname + '/ItemImage',

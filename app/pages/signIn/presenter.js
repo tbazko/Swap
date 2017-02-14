@@ -20,7 +20,7 @@ class SignInPage extends BasePagePresenter {
     this.authentication.handleAccountRender = this.handleAccountRender.bind(this);
   }
 
-  _renderView() {
+  renderView() {
     if (this.req.method === 'GET') {
       this.handleAccountRender();
     } else {

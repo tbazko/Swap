@@ -22,9 +22,9 @@ class UserProfileEditPagePresenter extends BasePagePresenter {
     this.method = this.req.method;
   }
 
-  _renderView() {
+  renderView() {
     if(this.method === 'GET') {
-      super._renderView();
+      super.renderView();
     } else if(this.method === 'POST') {
       this._parseForm();
     }

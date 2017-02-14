@@ -2,6 +2,7 @@
   <script src="/javascripts/lib/require.js" data-main="/javascripts/editItemForm" async></script>
 {{/section}}
 
+{{#if itemBelongsToCurrentUser}}
 <div class="content-body">
   <div class="row">
     <div class="col col-xs4 col-sm12 col-md8 col--mdPush2 paperStyle-container">
@@ -10,6 +11,8 @@
     {{#if newItem}}
       <h1 class="main-title">Add new item</h1>
       <form data-ajax-submit="true" action="/item/create" enctype="multipart/form-data" method="post" class="js-editItemForm form js-form" id="editItemForm">
+    {{else if error}}
+      {{error}}
     {{else}}
       <h1 class="main-title">Edit item</h1>
       <form data-ajax-submit="true" action="/item/{{item.id}}/edit" enctype="multipart/form-data" method="post" class="js-editItemForm form js-form" id="editItemForm">
@@ -19,15 +22,16 @@
         <input type="hidden" name="userId" value="{{userId}}">
       {{#if newItem}}
         <div class="tooltip-container">
-          <input type="text" name="name" placeholder="Name">
+          <input type="text" name="name" placeholder="Name" required>
           <p class="tooltip">
             Note: emails, phones and url's are forbidden.
           </p>
         </div>
-      {{else}}
-        <input type="hidden" name="itemId" value="{{item.id}}">
-        <input type="text" name="name" placeholder="Name" value="{{item.name}}">
-      {{/if}}
+        <select class="category" name="category_id">
+          {{#each categories}}
+            <option value="{{this.id}}">{{this.name}}</option>
+          {{/each}}
+        </select>
         <input type="text" id="real-tags" name="tags" value="" readonly class="is-hidden">
         <input type="text" id="real-swapForTags" name="swapForTags" value="" readonly class="is-hidden">
 
@@ -37,19 +41,44 @@
         <label id="swapForTags" class="tags" for="addSwapForTag">
           <input id="addSwapForTag" class="js-addTag tags-input custom" autocomplete="off" maxlength="30" type="text" data-custom-validation="true" name="swapForTag" placeholder="Swap for keywords here...">
         </label>
+      {{else}}
+        <input type="hidden" name="itemId" value="{{item.id}}">
+        <input type="text" name="name" placeholder="Name" value="{{item.name}}" required>
+        <input type="text" id="real-tags" name="tags" value="{{#item.tags}}{{name}},{{/item.tags}}" readonly class="is-hidden">
+        <input type="text" id="real-swapForTags" name="swapForTags" value="{{#item.swapForTags}}{{name}},{{/item.swapForTags}}" readonly class="is-hidden">
+
+        <label id="tags" class="tags" for="addTag">
+          {{#item.tags}}
+            <span class="tags-tag js-tag">
+              {{name}}
+              <span class="icon-cancel tags-tag-remove js-removeTag"></span>
+            </span>
+          {{/item.tags}}
+          <input id="addTag" class="js-addTag tags-input custom" autocomplete="off" maxlength="30" name="tag" type="text" data-custom-validation="true" placeholder="Tags, keywords">
+        </label>
+        <label id="swapForTags" class="tags" for="addSwapForTag">
+          {{#item.swapForTags}}
+            <span class="tags-tag js-tag">
+              {{name}}
+              <span class="icon-cancel tags-tag-remove js-removeTag"></span>
+            </span>
+          {{/item.swapForTags}}
+          <input id="addSwapForTag" class="js-addTag tags-input custom" autocomplete="off" maxlength="30" type="text" data-custom-validation="true" name="swapForTag" placeholder="Swap for keywords here...">
+        </label>
+      {{/if}}
 
         <p class="mb20">
-          <label for="">Condition&#32;</label>
-          <input type="radio" name="itemCondition" value="1">
+          <label for="">Condition of item:&#32;</label>
           &nbsp;1&nbsp;
-          <input type="radio" name="itemCondition" value="2">
+          <input type="radio" name="itemCondition" value="1" required>
           &nbsp;2&nbsp;
-          <input type="radio" name="itemCondition" value="3">
+          <input type="radio" name="itemCondition" value="2">
           &nbsp;3&nbsp;
-          <input type="radio" name="itemCondition" value="4">
+          <input type="radio" name="itemCondition" value="3">
           &nbsp;4&nbsp;
-          <input type="radio" name="itemCondition" value="5">
+          <input type="radio" name="itemCondition" value="4">
           &nbsp;5&nbsp;
+          <input type="radio" name="itemCondition" value="5">
         </p>
 
         <p class="mb20">
@@ -58,7 +87,7 @@
         </p>
 
         {{#if newItem}}
-          <div class="tooltip-container">
+          <div class="tooltip-container mb15">
             <textarea name="description" id="" cols="30" rows="10" placeholder="Description"></textarea>
             <div class="tooltip">
               <p class="icon-circle">Add description and important details</p>
@@ -73,9 +102,23 @@
             </p>
           </div>
         {{else}}
-          <textarea name="description" id="" cols="30" rows="10" placeholder="Description" value="{{item.description}}">
-            {{item.description}}
+          <div class="uploaded mb20">
+            <p>Already uploaded:</p>
+            {{#item.images}}
+              <img src="http://res.cloudinary.com/di42acdz9/image/upload/{{this.id}}" alt="" width="100" style="vertical-align: top;">
+            {{/item.images}}
+          </div>
+          <textarea name="description" id="" cols="30" rows="10" placeholder="Description" value="{{item.description}}" class="mb15">
+            {{~item.description~}}
           </textarea>
+          <div class="tooltip-container">
+            <textarea class="small" name="reasonForSwap" id="" cols="30" rows="5" placeholder="Reason for swap">
+              {{~item.reasonForSwap~}}
+            </textarea>
+            <p class="tooltip">
+              If you wish you can add a reason why you want to swap the item.
+            </p>
+          </div>
         {{/if}}
         <p class="text-center mt20">
           <input type="submit" value="Save changes" class="btn btn--turqoise">
@@ -85,3 +128,8 @@
     </div>
   </div>
 </div>
+{{else}}
+  <div class="content-head paperStyle-container">
+    <h3>Sorry, you don't have such item to edit</h3>
+  </div>
+{{/if}}

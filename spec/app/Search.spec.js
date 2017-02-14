@@ -6,7 +6,6 @@ describe('Search', () => {
   let s = new Search();
   let fakeFunc = function(err, length) {return true};
   this.item = new Item();
-  s._socket = global.SocketAPImock;
 
   afterAll((done) => {
     this.item.destroy(this.itemId).then((response) => {
@@ -41,9 +40,8 @@ describe('Search', () => {
     });
   });
 
-  describe('handling client data from sockets', () => {
+  describe('handling client data', () => {
     beforeAll(() => {
-
       spyOn(s, 'resultsPromise').and.callThrough();
       spyOn(s, '_sendResultsToClient').and.callThrough();
       s.search('Test', fakeFunc);
@@ -57,7 +55,7 @@ describe('Search', () => {
       expect(s._sendResultsToClient).toHaveBeenCalledTimes(1);
     });
 
-    it('should emit "results" event with results array', (done) => {
+    it('should callback with results array', (done) => {
       spyOn(s, 'searchCallback');
       s.resultsPromise().then((results) => {
         expect(s.searchCallback).toHaveBeenCalledTimes(1);
@@ -67,7 +65,7 @@ describe('Search', () => {
     });
   });
 
-  describe('handling empty or invalid client data from sockets', () => {
+  describe('handling empty or invalid client data', () => {
     let invalidsearch;
     beforeEach(() => {
       invalidsearch = new Search();

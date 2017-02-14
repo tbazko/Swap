@@ -5,12 +5,12 @@
   <div class="row">
     <div class="col-xs4 col-sm8">
 
-      <form class="form js-form" action="/user/profile/edit" enctype="multipart/form-data" method="post" class="js-editUserForm form js-form" id="editUserProfileForm">
-        <h3 class="title--itemOverview">
-          <input type="text" class="form-editingInput form-editingInput--header" name="firstName" value="{{user.firstName}}" placeholder="First name">
-          <input type="text" class="form-editingInput form-editingInput--header" name="lastName" value="{{user.lastName}}" placeholder="Last name">
+      <form class="js-editUserForm form js-form pr10 pl10" action="/user/profile/edit" enctype="multipart/form-data" method="post" id="editUserProfileForm">
+        <h3 class="title--itemOverview row row-with-blocks-v2">
+          <input type="text" class="form-editingInput form-editingInput--header custom" name="firstName" value="{{user.firstName}}" placeholder="First name">
+          <input type="text" class="form-editingInput form-editingInput--header custom" name="lastName" value="{{user.lastName}}" placeholder="Last name">
         </h3>
-        <ul class="no-bullet pt15 pb30 pr30">
+        <ul class="no-bullet pt15 pb30">
 
           <li class="pb15 keyValue-item">
             <h5 class="inline-block key">Email:&nbsp;</h5>
@@ -19,20 +19,20 @@
 
           <li class="pt15 pb15 keyValue-item">
             <h5 class="inline-block key mb10">Start typing your location:&nbsp;</h5>
-            <p class="inline value">
-              <input id="autocomplete" class="form-editingInput form-editingInput--fullWidth" type="text" name="address" value="{{#if user.street}}{{user.street}},&nbsp;{{/if}}{{#if user.streetNumber}}{{user.streetNumber}},&nbsp;{{/if}}{{#if user.city}}{{user.city}},&nbsp;{{/if}}{{#if user.postcode}}{{user.postcode}},&nbsp;{{/if}}{{#if user.state}}{{user.state}},&nbsp;{{/if}}{{#if user.country}}{{user.country}}&nbsp;{{/if}}" placeholder="Address">
-              <input id="street_number" class="form-editingInput" type="text" name="streetNumber" value="{{user.streetNumber}}" placeholder="Street number">
-              <input id="route" class="form-editingInput" type="text" name="street" value="{{user.street}}" placeholder="Street">
-              <input id="postal_code" class="form-editingInput" type="text" name="postcode" value="{{user.postcode}}" placeholder="Postal code">
-              <input id="locality" class="form-editingInput" type="text" name="city" value="{{user.city}}" placeholder="City">
-              <input id="administrative_area_level_1" class="form-editingInput" type="text" name="state" value="{{user.state}}" placeholder="State">
-              <input id="country" class="form-editingInput" type="text" name="country" value="{{user.country}}" placeholder="Country">
+            <p class="inline value row row-with-blocks-v2">
+              <input id="autocomplete" class="form-editingInput form-editingInput--fullWidth custom" type="text" name="address" value="{{#if user.street}}{{user.street}},&nbsp;{{/if}}{{#if user.streetNumber}}{{user.streetNumber}},&nbsp;{{/if}}{{#if user.city}}{{user.city}},&nbsp;{{/if}}{{#if user.postcode}}{{user.postcode}},&nbsp;{{/if}}{{#if user.state}}{{user.state}},&nbsp;{{/if}}{{#if user.country}}{{user.country}}&nbsp;{{/if}}" placeholder="Address">
+              <input id="street_number" class="form-editingInput custom" type="text" name="streetNumber" value="{{user.streetNumber}}" placeholder="Street number">
+              <input id="route" class="form-editingInput custom" type="text" name="street" value="{{user.street}}" placeholder="Street">
+              <input id="postal_code" class="form-editingInput custom" type="text" name="postcode" value="{{user.postcode}}" placeholder="Postal code">
+              <input id="locality" class="form-editingInput custom" type="text" name="city" value="{{user.city}}" placeholder="City">
+              <input id="administrative_area_level_1" class="form-editingInput custom" type="text" name="state" value="{{user.state}}" placeholder="State">
+              <input id="country" class="form-editingInput custom" type="text" name="country" value="{{user.country}}" placeholder="Country">
             </p>
           </li>
           <li class="pt15 pb15 keyValue-item">
             <h5 class="inline-block key">Phone:&nbsp;</h5>
             <p class="inline value">
-              <input type="text" class="form-editingInput" name="phone" placeholder="Phone" value="{{user.phone}}">
+              <input type="text" class="form-editingInput custom" name="phone" placeholder="Phone" value="{{user.phone}}">
             </p>
           </li>
         </ul>

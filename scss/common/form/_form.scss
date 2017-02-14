@@ -1,3 +1,16 @@
+%input-skin {
+  background: $color-white-smoke;
+  border: 2px solid $color-white-smoke;
+  border-radius: 2px;
+  margin-bottom: 5px;
+  margin-top: 15px;
+  height: 38px;
+  padding: 0 11px;
+  color: #808080;
+  font-family: "Roboto", sans-serif;
+  font-size: 14px;
+}
+
 .form {
   label {
     color: $color-night-rider;
@@ -18,16 +31,7 @@
   input[type="password"],
   input[type="email"] {
     &:not(.custom) {
-      background: $color-white-smoke;
-      border: 2px solid $color-white-smoke;
-      border-radius: 2px;
-      margin-bottom: 5px;
-      margin-top: 15px;
-      height: 38px;
-      padding: 0 11px;
-      color: #808080;
-      font-family: "Roboto", sans-serif;
-      font-size: 14px;
+      @extend %input-skin;
       width: 100%;
     }
 

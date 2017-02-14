@@ -7,13 +7,19 @@ class ItemEditor extends ItemCreator {
   }
 
   editAndGet(itemId, fields, files) {
-    this.itemData = fields;
+    this.fields = fields;
+    this.files = files;
+    this.itemData = this.fields;
 
     let editedItemPromise = new Promise((resolve, reject) => {
       this._DBschema
         .query()
         .patchAndFetchById(itemId, this.itemData)
         .then((editedItem) => {
+          this._DBobject.currentItem = editedItem;
+          if(this.files) {
+            this._addItemImages();
+          }
           resolve(editedItem);
         }).catch((err) => {
           console.log(err);

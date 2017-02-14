@@ -18,10 +18,16 @@ exports.up = function(knex, Promise) {
     table.integer('unix_time');
     table.string('local_time');
   })
+  .createTableIfNotExists('categories', function(table) {
+    table.increments('id').notNullable().unsigned().primary();
+    table.string('name').notNullable().unique();
+    table.integer('parent').defaultTo(null);
+  })
   .createTableIfNotExists('items', function(table) {
     table.increments('id').unsigned().notNullable().primary();
     table.string('name').notNullable();
     table.integer('user_id').unsigned().notNullable().references('users.id');
+    table.integer('category_id').unsigned().references('categories.id');
     table.string('status');
     table.text('description', 'longtext');
     table.text('reasonForSwap', 'longtext');
@@ -87,5 +93,6 @@ exports.down = function(knex, Promise) {
   .dropTable('tags')
   .dropTable('itemImages')
   .dropTable('items')
+  .dropTable('categories')
   .dropTable('users');
 };

@@ -14,6 +14,7 @@ class ItemCreator {
     this._itemData = {
       name: data.name,
       status: 'for_sale',
+      category_id: data.category_id,
       description: data.description,
       user_id: data.userId,
       condition: data.itemCondition,
@@ -93,7 +94,7 @@ class ItemCreator {
   _relateTags(tags) {
     if(this.fields.tags) {
       this._DBobject.relateTags(this.fields.tags, 'tags');
-      
+
       if(this.fields.swapForTags) {
         this._eventEmitter.once('allTagsAdded', () => {
           this._DBobject.relateTags(this.fields.swapForTags, 'swapForTags');

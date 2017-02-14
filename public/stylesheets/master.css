@@ -2225,6 +2225,20 @@ textarea:focus + .tooltip {
         -ms-flex-align: center;
             align-items: center; }
 
+.form input[type="text"]:not(.custom),
+.form input[type="password"]:not(.custom),
+.form input[type="email"]:not(.custom), .form input.form-editingInput {
+  background: #eeeeee;
+  border: 2px solid #eeeeee;
+  border-radius: 2px;
+  margin-bottom: 5px;
+  margin-top: 15px;
+  height: 38px;
+  padding: 0 11px;
+  color: #808080;
+  font-family: "Roboto", sans-serif;
+  font-size: 14px; }
+
 .form label {
   color: #333333;
   font-size: 14px;
@@ -2237,16 +2251,6 @@ textarea:focus + .tooltip {
 .form input[type="text"]:not(.custom),
 .form input[type="password"]:not(.custom),
 .form input[type="email"]:not(.custom) {
-  background: #eeeeee;
-  border: 2px solid #eeeeee;
-  border-radius: 2px;
-  margin-bottom: 5px;
-  margin-top: 15px;
-  height: 38px;
-  padding: 0 11px;
-  color: #808080;
-  font-family: "Roboto", sans-serif;
-  font-size: 14px;
   width: 100%; }
 .form input[type="text"]:first-of-type,
 .form input[type="password"]:first-of-type,
@@ -2303,7 +2307,8 @@ textarea:focus + .tooltip {
   background: transparent;
   display: inline-block;
   width: auto;
-  color: #333333; }
+  color: #333333;
+  min-width: calc(100% / 3); }
 .form input.form-editingInput--fullWidth {
   width: 100%; }
 .form input.form-editingInput--header {

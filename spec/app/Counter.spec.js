@@ -13,7 +13,7 @@ describe('Counter', () => {
     expect(c.getNewRequestsLength()).toEqual(jasmine.any(Promise));
   });
 
-  xit('should include new messages count in promise', (done) => {
+  it('should include new messages count in promise', (done) => {
     c.getNewRequestsLength().then((length) => {
       expect(length).toEqual({count: jasmine.any(Number)});
       done();

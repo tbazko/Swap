@@ -16,7 +16,7 @@ class Counter {
     let lengthPromise = new Promise((resolve, reject) => {
       this._swapRequest.getNewByCurrentUser(this.userId, (err, requests) => {
         if(err) reject(err);
-        resolve({count: requests.length > 0 && !!this.userId ? requests.length : false});
+        resolve({count: requests.length});
       });
     });
 

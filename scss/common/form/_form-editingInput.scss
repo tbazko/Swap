@@ -1,10 +1,12 @@
 .form {
   input {
     &.form-editingInput {
+      @extend %input-skin;
       background: transparent;
       display: inline-block;
       width: auto;
       color: $color-night-rider;
+      min-width: calc(100% / 3);
     }
 
     &.form-editingInput--fullWidth {

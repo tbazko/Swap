@@ -2,7 +2,10 @@
 const FormValidator = rootRequire('app/FormValidator');
 
 describe('FormValidator', () => {
-  let v = new FormValidator();
+  let v;
+  beforeEach(() => {
+    v = new FormValidator();
+  });
   let fakeFunc = function(err, length) {return true};
 
   it('should be initialized', () => {
@@ -53,7 +56,7 @@ describe('FormValidator', () => {
     expect(FormValidator.isEmail('isemail@yep.com')).toBe(true);
   });
 
-  xit('should return string with error description if email is invalid', () => {
+  it('should return string with error description if email is invalid', () => {
     v.checkEmail('notanemail');
     expect(v.errors[0]).toEqual('Invalid email format');
   });

@@ -8,18 +8,16 @@ class ItemFormPagePresenter extends BasePagePresenter {
     super(options);
     this.model = new ItemFormPageModel();
     this.eventEmitter = this.model.eventEmitter;
-    this.bindEvents();
+    this._bindEvents();
   }
 
   parseRequest() {
     super.parseRequest();
     this.model.itemId = this.req.params && this.req.params.id;
-    this.model.path = this.req.path;
-    this.model.user = this.req.user ? this.req.user : false;
     this.method = this.req.method;
   }
 
-  _renderView() {
+  renderView() {
     if(this.method === 'GET') {
       this._renderForm();
     } else if(this.method === 'POST') {
@@ -27,9 +25,9 @@ class ItemFormPagePresenter extends BasePagePresenter {
     }
   }
 
-  bindEvents() {
-    this.eventEmitter.on('formError', () => this.onFormError());
-    this.eventEmitter.on('formSaved', (isNew, item) => this.onFormSaved(isNew, item));
+  _bindEvents() {
+    this.eventEmitter.on('formError', () => this._onFormError());
+    this.eventEmitter.on('formSaved', (isNew, item) => this._onFormSaved(isNew, item));
   }
 
   _renderForm() {
@@ -46,31 +44,38 @@ class ItemFormPagePresenter extends BasePagePresenter {
     form.parse(this.req, this.model.handleFormData.bind(this.model));
   }
 
-  onFormError() {
-
+  _onFormError() {
+    this.view.json({error: this.model.error});
   }
 
-  onFormSaved(isNew, item) {
+  _onFormSaved(isNew, item) {
     this.view.json({isNewItem: isNew, changed: true, item: item});
   }
 
   _renderEmptyForm() {
-    this.view.render(this.template, {userId: this.model.user.id, newItem: 1});
+    this.view.render(this.template, {userId: this.model.currentUserId, newItem: 1, itemBelongsToCurrentUser: true});
   }
 
   _renderEditForm() {
     this.model.pageDataPromise.then((pageData) => {
       let response = this._arrayToObject(pageData);
-      response.userId = this.model.user.id;
-      response.newItem = 0;
-      response.url = this.model.path;
       if(response.item) {
+        if(!response.itemBelongsToCurrentUser) return this._denyItemEditing();
+        response.userId = this.model.currentUserId;
+        response.newItem = 0;
         this.view.render(this.template, response);
       } else {
-        this.view.send('Sorry such item doesn\'t exist');
-        // this._renderEmptyForm();
+        this._redirectToItemNotExists();
       }
     });
+  }
+
+  _denyItemEditing() {
+    this.view.render(this.template, {itemBelongsToCurrentUser: response.itemBelongsToCurrentUser});
+  }
+
+  _redirectToItemNotExists() {
+    this.view.redirect(this.model.path.replace(/\/edit/gi, ''));
   }
 }
 

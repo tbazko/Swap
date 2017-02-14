@@ -17,7 +17,7 @@
     </div>
     <div class="menu-wrapper js-menu-wrapper">
       <ul class="menu">
-        <li class="is-active"><a href="/requests" class="link">Messages {{#count}}<span id="requestCounter">{{.}}</span>{{/count}}</a></li>
+        <li class="is-active"><a href="/requests" class="link">Messages {{#if count}}<span id="requestCounter">{{count}}</span>{{/if}}</a></li>
         <li><a href="/" class="link">Offers</a></li>
         <li><a href="/user/profile" class="link">Profile</a></li>
         <!-- <nav class="subNav paperStyle">

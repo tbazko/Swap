@@ -19,6 +19,9 @@ class ItemFormPageModel extends BasePageModel {
     this.itemForm.handleFormData(error, fields, files);
   }
 
+  get error() {
+    return this.itemForm.error;
+  }
 }
 
 module.exports = ItemFormPageModel;
