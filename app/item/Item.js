@@ -11,6 +11,9 @@ class Item {
 
   get coreInfo() {
     let coreInfoPromise = new Promise((resolve, reject) => {
+      if(!this.itemId) {
+        resolve(null);
+      }
       this.itemDataBaseModel.idName = 'id';
       this.itemDataBaseModel.getOneByIdentifier(this.itemId, (err, item) => {
         if(err) return console.log(err);
@@ -26,12 +29,17 @@ class Item {
 
   get fullInfo() {
     let fullInfoPromise = new Promise((resolve, reject) => {
+      if(!this.itemId) {
+        resolve({item: null});
+      }
+
       this.itemDataBaseModel.idName = 'id';
       this.itemDataBaseModel
         .getWithRelations(this.itemId, '[user.[items], images, tags, swapForTags]', (err, items) => {
           if(err) {
             reject(err);
           }
+
           if(!!items.length) {
             let item = items[0];
             let itemBelongsToCurrentUser = false;
@@ -41,7 +49,7 @@ class Item {
             }
             resolve({
               item: item,
-              author: item.user,
+              user: item.user,
               itemImage: item.images,
               itemBelongsToCurrentUser: itemBelongsToCurrentUser
             });

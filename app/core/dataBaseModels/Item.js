@@ -72,6 +72,14 @@ class Item extends Base {
       });
   }
 
+  getActiveByRangeWithRelations(idsRange, relations) {
+    return this.DataBaseSchema
+      .query()
+      .whereBetween(this.idName, idsRange)
+      .andWhere('status', ['for_sale'])
+      .eager(relations);
+  }
+
   relateTags(tags, relation) {
     let tagsStr = tags.replace(/\s+|,$/g, '');
     let tagsArray = this.uniqueArray(tagsStr.split(','));

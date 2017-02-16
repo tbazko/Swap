@@ -1,41 +1,39 @@
-<div class="row row-with-blocks-v2">
-  {{#items}}
-    <div class="item" data-item-id="{{id}}">
-      {{#if images}}
-        {{#with images.[0]}}
-          <a href="/item/{{../id}}" class="img-container">
-            <img src="http://res.cloudinary.com/di42acdz9/image/upload/{{this.id}}" alt="">
-          </a>
-          {{/with}}
-      {{else}}
-        <a href="/item/{{id}}" class="img-container">
-          <img src="http://res.cloudinary.com/di42acdz9/image/upload/sample.jpg" alt="">
+{{#items}}
+  <div class="item" data-item-id="{{id}}">
+    {{#if images}}
+      {{#with images.[0]}}
+        <a href="/item/{{../id}}" class="img-container">
+          <img src="http://res.cloudinary.com/di42acdz9/image/upload/{{this.id}}" alt="">
         </a>
+        {{/with}}
+    {{else}}
+      <a href="/item/{{id}}" class="img-container">
+        <img src="http://res.cloudinary.com/di42acdz9/image/upload/sample.jpg" alt="">
+      </a>
+    {{/if}}
+    <div class="item-content">
+      <h4 class="item-title">{{name}}</h4>
+      {{#if ../isCurrentUserProfile}}
+      <form action="/item/{{id}}/destroy" method="post" class="left">
+        <input type="hidden" name="itemId" value="{{id}}">
+        <button type="submit" class="item-remove">Remove</button>
+      </form>
+      <a href="/item/{{id}}/edit">Edit</a>
       {{/if}}
-      <div class="item-content">
-        <h4 class="item-title">{{name}}</h4>
-        {{#if ../isCurrentUserProfile}}
-        <form action="/item/{{id}}/destroy" method="post" class="left">
-          <input type="hidden" name="itemId" value="{{id}}">
-          <button type="submit" class="item-remove">Remove</button>
-        </form>
-        <a href="/item/{{id}}/edit">Edit</a>
-        {{/if}}
-        <p class="item-tag-title">
-          <b>Tags:&nbsp;
-            {{#tags}}
-              <a href="/tag/{{name}}">#{{name}} </a>
-            {{/tags}}
-          </b>
-        </p>
-        <p class="item-tag-title">
-          <b>Swap for:&nbsp;
-            {{#swapForTags}}
-              <a href="/tag/{{name}}">#{{name}} </a>
-            {{/swapForTags}}
-          </b>
-        </p>
-      </div>
+      <p class="item-tag-title">
+        <b>Tags:&nbsp;
+          {{#tags}}
+            <a href="/tag/{{name}}">#{{name}} </a>
+          {{/tags}}
+        </b>
+      </p>
+      <p class="item-tag-title">
+        <b>Swap for:&nbsp;
+          {{#swapForTags}}
+            <a href="/tag/{{name}}">#{{name}} </a>
+          {{/swapForTags}}
+        </b>
+      </p>
     </div>
-  {{/items}}
-</div>
+  </div>
+{{/items}}

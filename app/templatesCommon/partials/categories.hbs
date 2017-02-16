@@ -1,0 +1,7 @@
+{{#each categories}}
+  {{^this.parent}}
+    <a href="/category/{{name}}" class="category" style="background-image: url('http://res.cloudinary.com/di42acdz9/image/upload/category/{{this.id}}.jpg')">
+      <span>{{this.name}}</span>
+    </a>
+  {{/this.parent}}
+{{/each}}

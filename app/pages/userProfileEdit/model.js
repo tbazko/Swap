@@ -7,6 +7,8 @@ class UserProfileEditPageModel extends BasePageModel {
   constructor() {
     super();
     this.currentUser = null;
+    this.userId = null;
+    this.isCurrentUserProfile = null;
     this.eventEmitter = new events.EventEmitter();
   }
 

@@ -1,11 +1,13 @@
 define([
 	'jquery',
 	'components/utils/utils',
-	'components/TagTransformer'
+	'components/TagTransformer',
+	'components/CategorySelector'
 ], function (
 	$,
 	utils,
-	TagTransformer
+	TagTransformer,
+	CategorySelector
 ) {
 	var EditItemForm = {
 		$form: undefined,
@@ -14,8 +16,10 @@ define([
 		initialize: function () {
 			this.$form = $(this.formSelector);
 			this.bindEvents();
+			this.category = new CategorySelector();
 			this.tags = new TagTransformer('tags');
 			this.swapForTags = new TagTransformer('swapForTags');
+			this.category.init();
 			this.tags.init();
 			this.swapForTags.init();
 		},
@@ -29,7 +33,9 @@ define([
 			var url = this.$form.attr('action');
 			var form = document.getElementById('editItemForm');
 			var formData = new FormData(form);
-
+			for (var value of formData.values()) {
+			   console.log(value);
+			}
 			$.ajax({
 				url: url,
 				method: 'POST',

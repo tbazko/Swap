@@ -142,6 +142,7 @@ let.user	spec/helpers/requestMock.js	/^let reqWithCorrectData = {$/;"	p
 let.user	spec/helpers/requestMock.js	/^let reqWithWrongData = {$/;"	p
 makeDestroyButton	app/router/item.js	/^function makeDestroyButton(req, res, next) {$/;"	f
 makeIndexPage	app/router/landing.js	/^function makeIndexPage(req, res, next) {$/;"	f
+makeIndexPageWithItemsFilteredByCategory	app/router/landing.js	/^function makeIndexPageWithItemsFilteredByCategory(req, res, next) {$/;"	f
 makeIndexPageWithItemsFilteredByTag	app/router/landing.js	/^function makeIndexPageWithItemsFilteredByTag(req, res, next) {$/;"	f
 makeItemFormPage	app/router/item.js	/^function makeItemFormPage(req, res, next) {$/;"	f
 makeItemList	app/router/user.js	/^function makeItemList(req, res, next) {$/;"	f
@@ -159,10 +160,12 @@ mkdirp	package.json	/^    "mkdirp": "^0.5.1",$/;"	f
 module.exports	Gruntfile.js	/^module.exports = function(grunt) {$/;"	f
 module.exports	app/helpers/isAuthenticated.js	/^module.exports = function(req, res, next) {$/;"	f
 module.exports	app/helpers/signInRedirect.js	/^module.exports = function(req, res, next) {$/;"	f
+module.exports._getActiveItems	app/itemList/strategies/filteredByCategory.js	/^  },$/;"	m
 module.exports.app	app.js	/^module.exports = {app: app, server: server};$/;"	p
 module.exports.development	knexfile.js	/^module.exports = {$/;"	p
 module.exports.getInstance	app/socketAPI/index.js	/^};$/;"	f
 module.exports.items	app/itemList/strategies/default.js	/^  template: 'itemListView',$/;"	m
+module.exports.items	app/itemList/strategies/filteredByCategory.js	/^module.exports = {$/;"	m
 module.exports.items	app/itemList/strategies/filteredByCurrentUser.js	/^  template: 'userItemListView',$/;"	m
 module.exports.items	app/itemList/strategies/filteredByTag.js	/^  template: 'itemListView',$/;"	m
 module.exports.items	app/itemList/strategies/filteredByUser.js	/^  template: 'userItemListView',$/;"	m
@@ -181,7 +184,7 @@ name	package.json	/^  "name": "Swap",$/;"	f
 nonSpaceRe	public/javascripts/lib/mustache.js	/^  var nonSpaceRe = \/\\S\/;$/;"	v
 noop	public/javascripts/lib/dropzone.js	/^    __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };$/;"	f
 objection	config/database.js	/^var objection = require('objection');$/;"	v
-objection	package.json	/^    "objection": "^0.5.5",$/;"	f
+objection	package.json	/^    "objection": "^0.6.2",$/;"	f
 pa	public/javascripts/lib/require.js	/^return B(G("scripterror",'Script error for "'+b.id+(c.length?'", needed by: '+c.join(", "):'"'),a,[b.id]))}}};h.require=h.makeRequire();return h}function pa(){if(O&&"interactive"===O.readyState)return O;Y(document.getElementsByTagName("script"),function(b){if("interactive"===b.readyState)return O=b});return O}var k,C,D,I,P,J,O,Q,u,U,qa=\/(\\\/\\*([\\s\\S]*?)\\*\\\/|([^:]|^)\\\/\\\/(.*)$)\/mg,ra=\/[^.]\\s*require\\s*\\(\\s*["']([^'"\\s]+)["']\\s*\\)\/g,V=\/\\.js$\/,na=\/^\\.\\\/\/;C=Object.prototype;var R=C.toString,la=C.hasOwnProperty,$/;"	f
 parsed	public/javascripts/lib/text.js	/^            var parsed = text.parseName(name),$/;"	v
 passport	app/authentication/passport.js	/^var passport      = require('passport');$/;"	v

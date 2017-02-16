@@ -19,13 +19,14 @@ class UserProfileEditPagePresenter extends BasePagePresenter {
   parseRequest() {
     super.parseRequest();
     this.model.currentUser = this.req.user;
-    this.method = this.req.method;
+    this.model.userId = this.req.params.id || this.req.user.id;
+    this.model.isCurrentUserProfile = this.req.params.id ? false : true;
   }
 
   renderView() {
-    if(this.method === 'GET') {
+    if(this.req.method === 'GET') {
       super.renderView();
-    } else if(this.method === 'POST') {
+    } else if(this.req.method === 'POST') {
       this._parseForm();
     }
   }

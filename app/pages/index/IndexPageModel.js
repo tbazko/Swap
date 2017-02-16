@@ -1,6 +1,7 @@
 'use strict';
 const BasePageModel = rootRequire('app/pages/base/BasePageModel');
 const ItemList = rootRequire('app/itemList/ItemList');
+const CategoryTree = rootRequire('app/CategoryTree');
 
 class IndexPageModel extends BasePageModel {
   constructor() {
@@ -14,6 +15,7 @@ class IndexPageModel extends BasePageModel {
   addComponents() {
     super.addComponents();
     this._add(ItemList);
+    this._add(CategoryTree);
   }
 }
 

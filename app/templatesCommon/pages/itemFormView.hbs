@@ -18,59 +18,59 @@
       <form data-ajax-submit="true" action="/item/{{item.id}}/edit" enctype="multipart/form-data" method="post" class="js-editItemForm form js-form" id="editItemForm">
     {{/if}}
 
-        <input type="hidden" name="newItem" value="{{newItem}}">
-        <input type="hidden" name="userId" value="{{userId}}">
-      {{#if newItem}}
-        <div class="tooltip-container">
-          <input type="text" name="name" placeholder="Name" required>
-          <p class="tooltip">
-            Note: emails, phones and url's are forbidden.
-          </p>
-        </div>
-        <select class="category" name="category_id">
-          {{#each categories}}
-            <option value="{{this.id}}">{{this.name}}</option>
-          {{/each}}
-        </select>
-        <input type="text" id="real-tags" name="tags" value="" readonly class="is-hidden">
-        <input type="text" id="real-swapForTags" name="swapForTags" value="" readonly class="is-hidden">
-
-        <label id="tags" class="tags" for="addTag">
-          <input id="addTag" class="js-addTag tags-input custom" autocomplete="off" maxlength="30" name="tag" type="text" data-custom-validation="true" placeholder="Tags, keywords">
-        </label>
-        <label id="swapForTags" class="tags" for="addSwapForTag">
-          <input id="addSwapForTag" class="js-addTag tags-input custom" autocomplete="off" maxlength="30" type="text" data-custom-validation="true" name="swapForTag" placeholder="Swap for keywords here...">
-        </label>
-      {{else}}
-        <input type="hidden" name="itemId" value="{{item.id}}">
+      <input type="hidden" name="newItem" value="{{newItem}}">
+      <input type="hidden" name="userId" value="{{userId}}">
+      <div class="tooltip-container">
         <input type="text" name="name" placeholder="Name" value="{{item.name}}" required>
-        <input type="text" id="real-tags" name="tags" value="{{#item.tags}}{{name}},{{/item.tags}}" readonly class="is-hidden">
-        <input type="text" id="real-swapForTags" name="swapForTags" value="{{#item.swapForTags}}{{name}},{{/item.swapForTags}}" readonly class="is-hidden">
+        <p class="tooltip">
+          Note: emails, phones and url's are forbidden.
+        </p>
+      </div>
+      <select id="category" class="category" name="category_id">
+        <option value="0">Category</option>
+        {{#each categories}}
+          {{^this.parent}}
+            <option value="{{this.id}}" class="category-parent">{{this.name}}</option>
+          {{/this.parent}}
+        {{/each}}
+      </select>
+      <select id="subcategory" class="subcategory" name="category_id" {{#item.category_id}}data-savedCategoryId="{{.}}"{{/item.category_id}}>
+        <option value="0" data-parentId="0">Subcategory</option>
+        {{#each categories}}
+          {{#if this.parent}}
+            <option value="{{this.id}}" data-parentId="{{this.parent}}">{{this.name}}</option>
+          {{/if}}
+        {{/each}}
+      </select>
+      <input type="text" id="real-tags" name="tags" value="{{#item.tags}}{{name}},{{/item.tags}}" readonly class="is-hidden">
+      <input type="text" id="real-swapForTags" name="swapForTags" value="{{#item.swapForTags}}{{name}},{{/item.swapForTags}}" readonly class="is-hidden">
 
-        <label id="tags" class="tags" for="addTag">
-          {{#item.tags}}
-            <span class="tags-tag js-tag">
-              {{name}}
-              <span class="icon-cancel tags-tag-remove js-removeTag"></span>
-            </span>
-          {{/item.tags}}
-          <input id="addTag" class="js-addTag tags-input custom" autocomplete="off" maxlength="30" name="tag" type="text" data-custom-validation="true" placeholder="Tags, keywords">
-        </label>
-        <label id="swapForTags" class="tags" for="addSwapForTag">
-          {{#item.swapForTags}}
-            <span class="tags-tag js-tag">
-              {{name}}
-              <span class="icon-cancel tags-tag-remove js-removeTag"></span>
-            </span>
-          {{/item.swapForTags}}
-          <input id="addSwapForTag" class="js-addTag tags-input custom" autocomplete="off" maxlength="30" type="text" data-custom-validation="true" name="swapForTag" placeholder="Swap for keywords here...">
-        </label>
-      {{/if}}
+      <label id="tags" class="tags" for="addTag">
+        {{#item.tags}}
+          <span class="tags-tag js-tag">
+            {{name}}
+            <span class="icon-cancel tags-tag-remove js-removeTag"></span>
+          </span>
+        {{/item.tags}}
+        <input id="addTag" class="js-addTag tags-input custom" autocomplete="off" maxlength="30" name="tag" type="text" data-custom-validation="true" placeholder="Tags, keywords">
+      </label>
+      <label id="swapForTags" class="tags" for="addSwapForTag">
+        {{#item.swapForTags}}
+          <span class="tags-tag js-tag">
+            {{name}}
+            <span class="icon-cancel tags-tag-remove js-removeTag"></span>
+          </span>
+        {{/item.swapForTags}}
+        <input id="addSwapForTag" class="js-addTag tags-input custom" autocomplete="off" maxlength="30" type="text" data-custom-validation="true" name="swapForTag" placeholder="Swap for keywords here...">
+      </label>
+      {{#unless newItem}}
+        <input type="hidden" name="itemId" value="{{item.id}}">
+      {{/unless}}
 
         <p class="mb20">
           <label for="">Condition of item:&#32;</label>
           &nbsp;1&nbsp;
-          <input type="radio" name="itemCondition" value="1" required>
+          <input type="radio" name="itemCondition" value="1" {{#if newItem}}required{{/if}}>
           &nbsp;2&nbsp;
           <input type="radio" name="itemCondition" value="2">
           &nbsp;3&nbsp;
@@ -85,10 +85,16 @@
           <label for="">Image&#32;</label>
           <input type="file" name="upload" accept="image/*" multiple="multiple">
         </p>
-
-        {{#if newItem}}
+        {{#unless newItem}}
+          <div class="uploaded mb20">
+            <p>Already uploaded:</p>
+            {{#item.images}}
+              <img src="http://res.cloudinary.com/di42acdz9/image/upload/{{this.id}}" alt="" width="100" style="vertical-align: top;">
+            {{/item.images}}
+          </div>
+        {{/unless}}
           <div class="tooltip-container mb15">
-            <textarea name="description" id="" cols="30" rows="10" placeholder="Description"></textarea>
+            <textarea name="description" id="" cols="30" rows="10" placeholder="Description">{{~item.description~}}</textarea>
             <div class="tooltip">
               <p class="icon-circle">Add description and important details</p>
               <p class="icon-circle">Shouldn't contain your contact information.</p>
@@ -96,30 +102,11 @@
             </div>
           </div>
           <div class="tooltip-container">
-            <textarea class="small" name="reasonForSwap" id="" cols="30" rows="5" placeholder="Reason for swap"></textarea>
+            <textarea class="small" name="reasonForSwap" id="" cols="30" rows="5" placeholder="Reason for swap">{{~item.reasonForSwap~}}</textarea>
             <p class="tooltip">
               If you wish you can add a reason why you want to swap the item.
             </p>
           </div>
-        {{else}}
-          <div class="uploaded mb20">
-            <p>Already uploaded:</p>
-            {{#item.images}}
-              <img src="http://res.cloudinary.com/di42acdz9/image/upload/{{this.id}}" alt="" width="100" style="vertical-align: top;">
-            {{/item.images}}
-          </div>
-          <textarea name="description" id="" cols="30" rows="10" placeholder="Description" value="{{item.description}}" class="mb15">
-            {{~item.description~}}
-          </textarea>
-          <div class="tooltip-container">
-            <textarea class="small" name="reasonForSwap" id="" cols="30" rows="5" placeholder="Reason for swap">
-              {{~item.reasonForSwap~}}
-            </textarea>
-            <p class="tooltip">
-              If you wish you can add a reason why you want to swap the item.
-            </p>
-          </div>
-        {{/if}}
         <p class="text-center mt20">
           <input type="submit" value="Save changes" class="btn btn--turqoise">
         </p>

@@ -2,6 +2,7 @@
 const events = require('events');
 const BasePageModel = rootRequire('app/pages/base/BasePageModel');
 const ItemForm = rootRequire('app/item/ItemForm');
+const CategoryTree = rootRequire('app/CategoryTree');
 
 class ItemFormPageModel extends BasePageModel {
   constructor() {
@@ -12,6 +13,7 @@ class ItemFormPageModel extends BasePageModel {
 
   addComponents() {
     super.addComponents();
+    this._add(CategoryTree);
     this.itemForm = this._create(ItemForm);
   }
 

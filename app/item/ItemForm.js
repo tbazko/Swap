@@ -54,6 +54,18 @@ class ItemForm extends Item {
       this.eventEmitter.emit('formSaved', false, editedItem);
     });
   }
+
+  get responseDataPromise() {
+    if(!this.itemId) {
+      return Promise.resolve({
+        userId: this.currentUserId,
+        newItem: 1,
+        itemBelongsToCurrentUser: true
+      });
+    } else {
+      return this.fullInfo;
+    }
+  }
 }
 
 module.exports = ItemForm;

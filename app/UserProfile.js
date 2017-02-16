@@ -12,6 +12,7 @@ class UserProfile {
   }
 
   get userPromise() {
+    console.log(this.userId);
     let userPromise = new Promise((resolve, reject) => {
       this.userDBmodel.getWithRelations(this.userId, 'items.[images]', (err, users) => {
         if(err) reject(err);

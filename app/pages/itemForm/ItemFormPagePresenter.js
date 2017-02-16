@@ -53,7 +53,7 @@ class ItemFormPagePresenter extends BasePagePresenter {
   }
 
   _renderEmptyForm() {
-    this.view.render(this.template, {userId: this.model.currentUserId, newItem: 1, itemBelongsToCurrentUser: true});
+    super.renderView();
   }
 
   _renderEditForm() {
