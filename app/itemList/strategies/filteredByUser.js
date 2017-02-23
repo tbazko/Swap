@@ -2,17 +2,8 @@
 const Item = rootRequire('app/core/dataBaseModels/Item');
 
 module.exports = {
-  template: 'userItemListView',
-  items: function(resolve, reject, model) {
-    let item = new Item();
-
-    item.idName = 'user_id';
-    item.getActiveByIdWithRelations(model.userId, '[images, tags, swapForTags]', function(err, items) {
-      if(items && items.length > 0) {
-        resolve({items: items});
-      } else {
-        resolve(null);
-      }
-    });
+  configureFilter: function(model) {
+    model.filter.userId = model.userId;
+    model.filter.onlyActive = true;
   }
 }

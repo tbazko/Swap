@@ -17,7 +17,9 @@ class UserEditor {
       postcode: userData.postcode,
       city: userData.city || userData.address,
       state: userData.state || '',
-      country: userData.country || 'Ukraine'
+      country: userData.country || 'Ukraine',
+      reset_password_token: userData.resetPasswordToken || null,
+      reset_token_expires: userData.resetPasswordExpires || null
     }
   }
 
@@ -27,8 +29,10 @@ class UserEditor {
 
   editAndGet(user, fields, files) {
     this.user = user;
-    this.userData = fields;
-
+    this.userData = typeof fields === 'object' ? fields : user;
+    if(user.passwordChange) {
+      this._userData.password = user.password;
+    }
     let editedItemPromise = new Promise((resolve, reject) => {
       this._DBschema
         .query()

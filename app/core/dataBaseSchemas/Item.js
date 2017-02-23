@@ -16,11 +16,19 @@ class Item extends DataBaseSchema {
           to: 'users.id'
         }
       },
-      user: {
+      category: {
         relation: DataBaseSchema.BelongsToOneRelation,
         modelClass: __dirname + '/Category',
         join: {
           from: 'items.category_id',
+          to: 'categories.id'
+        }
+      },
+      subcategory: {
+        relation: DataBaseSchema.BelongsToOneRelation,
+        modelClass: __dirname + '/SubCategory',
+        join: {
+          from: 'items.subcategory_id',
           to: 'categories.id'
         }
       },

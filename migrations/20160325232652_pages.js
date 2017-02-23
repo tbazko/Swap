@@ -28,6 +28,7 @@ exports.up = function(knex, Promise) {
     table.string('name').notNullable();
     table.integer('user_id').unsigned().notNullable().references('users.id');
     table.integer('category_id').unsigned().references('categories.id');
+    table.integer('subcategory_id').unsigned().references('categories.id');
     table.string('status');
     table.text('description', 'longtext');
     table.text('reasonForSwap', 'longtext');

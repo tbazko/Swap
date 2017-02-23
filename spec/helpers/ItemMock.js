@@ -5,18 +5,28 @@ const ItemDataBaseModel = rootRequire('app/core/dataBaseModels/Item');
 let itemOwnerUserId = 1;
 let item = new ItemDataBaseModel();
 
-afterAll((done) => {
-  item.destroy(this.itemId).then((response) => {
-    delete global.itemId;
+beforeAll((done) => {
+  item.create({
+    name: 'Testy test',
+    status: 'not_for_sale',
+    categoryId: 100,
+    description: 'test',
+    itemCondition: '1',
+    tags: 'testTag',
+    userId: itemOwnerUserId
+    }, {
+      upload: {size: 0}
+    }).then((item) => {
+    global.itemId = item.id;
     done();
   });
 });
 
-beforeAll((done) => {
-  item.create({name: 'Testy test', description: 'test', itemCondition: '1', userId: itemOwnerUserId}, {upload: {size: 0}}).then((item) => {
-    global.itemId = item.id;
+afterAll((done) => {
+  item.destroy(global.itemId).then((response) => {
+    delete global.itemId;
     done();
-  });
+  }).catch((err) => console.log(`Error from ItemMock ${err}`));
 });
 
 module.exports.ownerId = itemOwnerUserId;

@@ -75,7 +75,7 @@ class ItemFormPagePresenter extends BasePagePresenter {
   }
 
   _redirectToItemNotExists() {
-    this.view.redirect(this.model.path.replace(/\/edit/gi, ''));
+    this.view.redirect(this.req.path.replace(/\/edit/gi, ''));
   }
 }
 

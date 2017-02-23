@@ -1,3 +1,4 @@
+
 {{#section 'scripts'}}
   <script src="/javascripts/lib/require.js" data-main="/javascripts/editItemForm" async></script>
 {{/section}}
@@ -20,28 +21,14 @@
 
       <input type="hidden" name="newItem" value="{{newItem}}">
       <input type="hidden" name="userId" value="{{userId}}">
-      <div class="tooltip-container">
+      <div class="tooltip-container mb10">
         <input type="text" name="name" placeholder="Name" value="{{item.name}}" required>
         <p class="tooltip">
           Note: emails, phones and url's are forbidden.
         </p>
       </div>
-      <select id="category" class="category" name="category_id">
-        <option value="0">Category</option>
-        {{#each categories}}
-          {{^this.parent}}
-            <option value="{{this.id}}" class="category-parent">{{this.name}}</option>
-          {{/this.parent}}
-        {{/each}}
-      </select>
-      <select id="subcategory" class="subcategory" name="category_id" {{#item.category_id}}data-savedCategoryId="{{.}}"{{/item.category_id}}>
-        <option value="0" data-parentId="0">Subcategory</option>
-        {{#each categories}}
-          {{#if this.parent}}
-            <option value="{{this.id}}" data-parentId="{{this.parent}}">{{this.name}}</option>
-          {{/if}}
-        {{/each}}
-      </select>
+      {{> categorySelect}}
+      {{> subCategorySelect}}
       <input type="text" id="real-tags" name="tags" value="{{#item.tags}}{{name}},{{/item.tags}}" readonly class="is-hidden">
       <input type="text" id="real-swapForTags" name="swapForTags" value="{{#item.swapForTags}}{{name}},{{/item.swapForTags}}" readonly class="is-hidden">
 

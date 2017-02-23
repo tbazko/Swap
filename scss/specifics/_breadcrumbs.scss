@@ -11,7 +11,7 @@
     padding: 0 8px;
   }
 
-  span {
-    color: $color-night-rider;
+  a:last-of-type:after {
+    content: "";
   }
 }

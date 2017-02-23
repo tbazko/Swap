@@ -1,0 +1,8 @@
+<select id="subcategory" class="category-select" name="subcategory_id" {{#item.subcategory_id}}data-savedCategoryId="{{.}}"{{/item.subcategory_id}}>
+  <option value="0" data-parentId="0">Subcategory</option>
+  {{#each categories}}
+    {{#if this.parent}}
+      <option value="{{this.id}}" data-parentId="{{this.parent}}">{{this.name}}</option>
+    {{/if}}
+  {{/each}}
+</select>

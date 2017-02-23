@@ -4,7 +4,23 @@
   <ul class="no-bullet pt15 pb30">
     <li class="pt15 pb15 keyValue-item">
       <h5 class="inline-block key">Location:&nbsp;</h5>
-      <p class="inline value">{{author.city}}, {{author.country}}</p>
+      <p class="inline value">
+        {{#if user.street}}
+          {{user.street}},&nbsp;
+        {{/if}}
+        {{#if user.city}}
+          {{user.city}},&nbsp;
+        {{/if}}
+        {{#if user.postcode}}
+          {{user.postcode}},&nbsp;
+        {{/if}}
+        {{#if user.state}}
+          {{user.state}},&nbsp;
+        {{/if}}
+        {{#if user.country}}
+          {{user.country}}&nbsp;
+        {{/if}}
+      </p>
     </li>
     <li class="pb15 keyValue-item">
       <h5 class="inline-block key">Condition:&nbsp;</h5>
@@ -28,7 +44,7 @@
     <li class="pb15 keyValue-item">
       <h5 class="inline-block key">Published:&nbsp;</h5>
       <p class="inline value">
-        <span class="key">by&nbsp;</span><a href="/user/{{author.id}}" data-seller-id={{author.id}} class="js-sellerId">{{author.firstName}}</a>
+        <span class="key">by&nbsp;</span><a href="/user/{{user.id}}" data-seller-id={{user.id}} class="js-sellerId">{{user.firstName}}</a>
         &nbsp;<span class="key">on&nbsp;</span>12.12.2015
       </p>
     </li>

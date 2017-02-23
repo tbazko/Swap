@@ -30,17 +30,42 @@ class SignInPage extends BasePagePresenter {
 
   handleAccountRender(error) {
     if (this.req.isAuthenticated()) {
-      if(this.req.session.lastOpenedUrl) {
-        this.view.redirect(this.req.session.lastOpenedUrl);
-        this.req.session.lastOpenedUrl = null;
-      } else {
-        this.view.redirect(this.redirects.successRedirect);
-      }
-      this.view.cookie('logged', this.model.currentUserId, { maxAge: global.sessionCookieAge });
+      this.model.currentUserId = this.req.user.id;
+      this._redirect();
+      this._setLoggedCookie();
     } else if(error) {
-      this.view.render(this.template, {errorMessage: error, email: this.req.body.email})
+      this.model.pageDataPromise.then((pageData) => {
+        this._renderAccountFormError(error, pageData);
+      }).catch((err) => {
+        console.log('SignInPage handleAccountRender error ' + err)
+        this.view.redirect('/404');
+      });
     } else {
-      this.view.render(this.template);
+      super.renderView();
+    }
+  }
+
+  _redirect() {
+    if(this.req.session.lastOpenedUrl) {
+      this.view.redirect(this.req.session.lastOpenedUrl);
+      this.req.session.lastOpenedUrl = null;
+    } else {
+      this.view.redirect(this.redirects.successRedirect);
+    }
+  }
+
+  _setLoggedCookie() {
+    this.view.cookie('logged', this.model.currentUserId, { maxAge: global.sessionCookieAge });
+  }
+
+  _renderAccountFormError(error, pageData) {
+    let response = this._arrayToObject(pageData);
+    if(response) {
+      response.errorMessage = error;
+      response.email = this.req.body.email;
+      this.view.render(this.template, response);
+    } else {
+      this.view.redirect('/404');
     }
   }
 }

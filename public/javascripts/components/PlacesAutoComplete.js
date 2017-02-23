@@ -1,4 +1,4 @@
-define(['async!https://maps.googleapis.com/maps/api/js?key=AIzaSyCvLphh5RdATb2mbpFCZ0k02_ZqFQZjukk&libraries=places&language=ru'], function () {
+define(['async!https://maps.googleapis.com/maps/api/js?key=AIzaSyCvLphh5RdATb2mbpFCZ0k02_ZqFQZjukk&libraries=places&language=en'], function () {
   function PlacesAutoComplete(inputId) {
     this.input = document.getElementById(inputId);
     this.options = {};

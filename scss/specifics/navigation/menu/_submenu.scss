@@ -1,0 +1,46 @@
+.menu-item:hover {
+  .menu-submenu {
+    max-height: 500px;
+    transition: max-height .4s ease;
+  }
+}
+
+.menu-submenu {
+  max-height: 0px;
+  overflow: hidden;
+  position: absolute;
+  left: -10px;
+  padding: 0 10px;
+  background: rgba($color-navigation-background, .92);
+  color: $color-white;
+  width: 150px;
+  text-align: left;
+  transition: max-height .4s ease;
+
+  a {
+    font-size: 13px;
+    cursor: pointer;
+    display: block;
+    padding: 0 10px 5px;
+    color: $color-navigation-font;
+    font-weight: 400;
+    font-size: 14px;
+    text-decoration: none;
+    transition: color .2s ease;
+
+    &:hover {
+      color: $color-main;
+    }
+
+    &:last-of-type {
+      border-top: 1px solid $color-dim-grey;
+      padding: 7px 10px 10px;
+    }
+
+    &:before {
+      font-size: 12px;
+      margin-right: 7px;
+      margin-left: 0;
+    }
+  }
+}

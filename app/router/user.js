@@ -24,9 +24,9 @@ function makeUserProfilePage(req, res, next) {
 }
 
 function makeUserProfileEditPage(req, res, next) {
-  console.log(1);
   let p = new UserProfileEditPage({
-    template: 'pages/userProfileEditView'
+    template: 'pages/userProfileEditView',
+    itemListStrategy: rootRequire('app/itemList/strategies/filteredByUser')
   });
   p.render(req, res, next);
 }

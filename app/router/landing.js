@@ -1,45 +1,42 @@
 "use strict";
 const express = require('express');
 const IndexPagePresenter = rootRequire('app/pages/index/IndexPagePresenter');
+const SearchResultsPagePresenter = rootRequire('app/pages/searchResults/presenter');
 const Search = rootRequire('app/Search');
 let app = express();
 
 app.set('views', __dirname + '/../templatesCommon');
-app.get('/tag/:id/', makeIndexPageWithItemsFilteredByTag);
-app.get('/category/:id/', makeIndexPageWithItemsFilteredByCategory);
 app.get('/', makeIndexPage);
-app.get('/search', makeSearch);
+app.get('/category/:id/', makeCategoryPage);
+app.get('/suggest', makeSuggestedSearch);
+app.get('/search', makeSearchResultsPage);
 
-
-function makeIndexPageWithItemsFilteredByTag(req, res, next) {
+function makeCategoryPage(req, res, next) {
   let p = new IndexPagePresenter({
-    template: 'pages/indexPageView',
-    itemListStrategy: rootRequire('app/itemList/strategies/filteredByTag')
-  });
-  p.render(req, res, next);
-}
-
-function makeIndexPageWithItemsFilteredByCategory(req, res, next) {
-  let p = new IndexPagePresenter({
-    template: 'pages/indexPageView',
-    itemListStrategy: rootRequire('app/itemList/strategies/filteredByCategory')
+    template: 'pages/categoryPageView'
   });
   p.render(req, res, next);
 }
 
 function makeIndexPage(req, res, next) {
   let p = new IndexPagePresenter({
-    template: 'pages/indexPageView',
-    itemListStrategy: rootRequire('app/itemList/strategies/default')
+    template: 'pages/indexPageView'
   });
   p.render(req, res, next);
 }
 
-function makeSearch(req, res, next) {
+function makeSuggestedSearch(req, res, next) {
   let s = new Search();
-  s.search(req.query.key, function(results) {
+  s.search(req.query.search, function(results) {
     res.end(JSON.stringify(results));
   });
+}
+
+function makeSearchResultsPage(req, res, next) {
+  let p = new IndexPagePresenter({
+    template: 'pages/searchResultsView'
+  });
+  p.render(req, res, next);
 }
 
 module.exports = app;

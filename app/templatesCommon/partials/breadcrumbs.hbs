@@ -1,5 +1,11 @@
 <div class="breadcrumbs">
   <a href="/">Home</a>
-  {{#with item.tags.[0]}}<a href="/tag/{{this.name}}">{{this.name}}</a>{{/with}}
-  <span>{{item.name}}</span>
+  {{#if item.category.name}}
+    <a href="/category/{{item.category.name}}?cid={{item.category.id}}">{{item.category.name}}</a>
+  {{#if item.subcategory.name}}
+    <a href="/category/{{item.subcategory.name}}?cid={{item.subcategory.id}}">{{item.subcategory.name}}</a>
+  {{/if}}
+  {{else}}
+    {{#with item.tags.[0]}}<a href="/?tag={{this.name}}">{{this.name}}</a>{{/with}}
+  {{/if}}
 </div>

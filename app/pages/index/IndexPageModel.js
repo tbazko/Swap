@@ -10,11 +10,12 @@ class IndexPageModel extends BasePageModel {
     this.userId = null;
     this.path = null;
     this.params = null;
+    this.query = null;
   }
 
   addComponents() {
     super.addComponents();
-    this._add(ItemList);
+    this.itemList = this._create(ItemList);
     this._add(CategoryTree);
   }
 }

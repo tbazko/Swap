@@ -11,7 +11,7 @@ class Tag extends Base {
     this.DataBaseSchema
       .query()
       .where(this.idName, id)
-      .eager('[items(onlyActive).[images, swapForTags]]', {
+      .eager('[items(onlyActive).[images, swapForTags, tags]]', {
         onlyActive: function(builder) {
           builder.where('status', 'for_sale');
         }
@@ -22,6 +22,12 @@ class Tag extends Base {
       .catch(function (err) {
         callback(true, err);
       });
+  }
+
+  searchPromise(str) {
+    return this.DataBaseSchema
+      .query()
+      .where('name', 'like', '%' + str + '%');
   }
 }
 

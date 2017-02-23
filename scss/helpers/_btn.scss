@@ -15,11 +15,17 @@
   padding: 0 20px;
   text-align: center;
   text-transform: uppercase;
+  transition: background .25s ease;
 
   &:disabled {
     color: rgba($color-suva-grey, .9);
     background: rgba($color-suva-grey, .4);
     border-color: rgba($color-suva-grey, .4);
+  }
+
+  &:hover {
+    background: darken($color-outrageous-orange, 10%);
+    transition: background .25s ease;
   }
 }
 
@@ -27,16 +33,35 @@
   background: $color-night-rider;
   color: $color-white;
   border-color: $color-night-rider;
+
+  &:hover {
+    background: darken($color-night-rider, 15%);
+    border-color: lighten($color-night-rider, 10%);
+    transition: border-color .25s ease, background .25s ease;
+  }
 }
 
 %btn--transparent {
   background: transparent;
   color: $color-outrageous-orange;
+  transition: border-color .25s ease;
+
+  &:hover {
+    background: transparent;
+    border-color: $color-night-rider;
+    transition: border-color .25s ease;
+  }
 }
 
 %btn--secondary {
   background: transparent;
   color: $color-night-rider;
+
+  &:hover {
+    background: transparent;
+    border-color: $color-night-rider;
+    transition: border-color .25s ease;
+  }
 }
 
 %btn-long {
@@ -64,6 +89,10 @@
   background: $color-ok;
   border-color: $color-ok;
   color: $color-white;
+
+  &:hover {
+    background: darken($color-ok, 10%);
+  }
 }
 
 

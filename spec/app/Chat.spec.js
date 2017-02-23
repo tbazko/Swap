@@ -15,7 +15,7 @@ describe('Chat', function() {
     });
   });
 
-  it('if messages exist, should have data', () => {
+  it('if messages exist, should have data', (done) => {
     chat.messages.then((messages) => {
       if(messages[0]) {
         expect(messages[0].id).toEqual(jasmine.any(Number) || null);

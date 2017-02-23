@@ -24,7 +24,7 @@
     transform: initial;
     top: auto;
     right: auto;
-    margin-right: -10px;
+    margin-right: 0;
     height: auto;
     width: auto;
 
@@ -33,5 +33,10 @@
       font-size: 14px;
       transition: font-size .2s ease, transform .2s ease;
     }
+  }
+
+  .btn--menu {
+    vertical-align: top;
+    margin-top: 9px;
   }
 }

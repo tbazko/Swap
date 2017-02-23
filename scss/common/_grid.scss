@@ -54,13 +54,15 @@
   display: block;
 }
 
+.row-with-blocks-v2 {
+  margin: 0 -10px;
+  max-width: calc(100% + 20px);
+  font-size: 0;
+}
+
 .row--layoutWidth {
   max-width: $layoutWidth;
   width: calc(100% - 20px);
-}
-
-.row-with-blocks {
-  font-size: 0;
 }
 
 .row--nowrap {

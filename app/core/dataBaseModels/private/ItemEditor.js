@@ -17,6 +17,8 @@ class ItemEditor extends ItemCreator {
         .patchAndFetchById(itemId, this.itemData)
         .then((editedItem) => {
           this._DBobject.currentItem = editedItem;
+          this.currentItem = editedItem;
+          this.relateTags();
           if(this.files) {
             this._addItemImages();
           }
@@ -28,6 +30,17 @@ class ItemEditor extends ItemCreator {
     });
     return editedItemPromise;
   }
+
+  relateTags() {
+    this.currentItem.$relatedQuery('tags').unrelate()
+    .then((res) => {
+      this.currentItem.$relatedQuery('swapForTags').unrelate()
+      .then((res) => {
+        super.relateTags();
+      });
+    });
+  }
+
 }
 
 module.exports = ItemEditor;

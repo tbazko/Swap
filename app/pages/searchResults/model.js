@@ -2,7 +2,7 @@
 const events = require('events');
 const BasePageModel = rootRequire('app/pages/base/BasePageModel');
 
-class UserProfileEditPageModel extends BasePageModel {
+class SearchResultsPageModel extends BasePageModel {
   constructor() {
     super();
   }
@@ -12,4 +12,4 @@ class UserProfileEditPageModel extends BasePageModel {
   }
 }
 
-module.exports = UserProfileEditPageModel;
+module.exports = SearchResultsPageModel;

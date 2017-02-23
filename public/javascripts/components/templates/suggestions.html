@@ -1,8 +1,21 @@
 {{#suggestions}}
 <div>
-  <a href="/item/{{id}}">
-    <h4>{{name}}</h4>
-    <p>{{description}}</p>
-  </a>
+  {{^tag}}
+    {{#category}}
+      <a href="/category/{{name}}?cid={{id}}&search={{name}}">
+        <p>{{name}} in <span class="highlight">{{category}}</span></p>
+      </a>
+    {{/category}}
+    {{^category}}
+      <a href="/search?search={{name}}">
+        <p>{{name}} in <span class="highlight">All categories</span></p>
+      </a>
+    {{/category}}
+  {{/tag}}
+  {{#tag}}
+    <a href="/?tag={{name}}">
+      <p>#{{name}}</p>
+    </a>
+  {{/tag}}
 </div>
 {{/suggestions}}

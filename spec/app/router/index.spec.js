@@ -12,13 +12,6 @@ describe('Index Page (routing check)', function() {
     });
   });
 
-  it('GET /tag/:id/ on render returns status code 200', function(done) {
-    request.get(baseUrl + '/tag/anime/', function(error, response, body) {
-      expect(response.statusCode).toBe(200);
-      done();
-    });
-  });
-
   it('GET /user/items on render returns status code 200', function(done) {
     request.get(baseUrl + '/user/items/', function(error, response, body) {
       expect(response.statusCode).toBe(200);

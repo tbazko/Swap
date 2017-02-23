@@ -117,6 +117,10 @@ textarea {
   display: inline-block;
 }
 
+.relative {
+  position: relative;
+}
+
 .is-hidden {
   display: none;
 }
@@ -144,5 +148,14 @@ textarea {
 
   @include breakpoint('large') {
     padding: 50px 55px;
+  }
+}
+
+.highlight {
+  color: $color-outrageous-orange;
+
+  .tt-highlight {
+    color: $color-outrageous-orange;
+    font-weight: normal;   
   }
 }

@@ -58,18 +58,12 @@ class Item extends Base {
     }.bind(this));
   }
 
-  getActiveByIdWithRelations(id, relations, callback) {
-    this.DataBaseSchema
+  getActiveByIdWithRelations(id, relations) {
+    return this.DataBaseSchema
       .query()
       .whereIn('status', ['for_sale'])
       .andWhere(this.idName, '=', id)
-      .eager(relations)
-      .then(function(items) {
-        callback(null, items);
-      })
-      .catch(function (err) {
-        callback(true, err);
-      });
+      .eager(relations);
   }
 
   getActiveByRangeWithRelations(idsRange, relations) {
@@ -127,13 +121,16 @@ class Item extends Base {
       });
   }
 
-  searchPromise(str) {
-    return this.DataBaseSchema
-      .query()
-      .where('status', 'for_sale')
-      .andWhere('name', 'like', '%' + str + '%')
-      .orWhere('description', 'like', '%' + str + '%');
-  }
+  // searchPromise(str) {
+  //   return this.DataBaseSchema
+  //     .query()
+  //     .where(function() {
+  //       this.where('name', 'like', '%' + str + '%')
+  //       .orWhere('description', 'like', '%' + str + '%')
+  //     })
+  //     .andWhere('status', 'for_sale')
+  //     .pick(['id']);
+  // }
 
   editAndGet(itemId, fields, files) {
     let itemEditor = new ItemEditor(this);

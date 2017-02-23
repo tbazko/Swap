@@ -16,6 +16,14 @@ class Category extends DataBaseSchema {
           to: 'items.category_id'
         }
       },
+      subitems: {
+        relation: DataBaseSchema.HasManyRelation,
+        modelClass: __dirname + '/Item',
+        join: {
+          from: 'categories.id',
+          to: 'items.subcategory_id'
+        }
+      }
     }
   }
 }

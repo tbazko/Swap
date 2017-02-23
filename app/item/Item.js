@@ -35,7 +35,7 @@ class Item {
 
       this.itemDataBaseModel.idName = 'id';
       this.itemDataBaseModel
-        .getWithRelations(this.itemId, '[user.[items], images, tags, swapForTags]', (err, items) => {
+        .getWithRelations(this.itemId, '[user.[items], images, tags, swapForTags, category, subcategory]', (err, items) => {
           if(err) {
             reject(err);
           }

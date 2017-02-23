@@ -1,6 +1,7 @@
 "use strict";
 const Base = require('./Base');
 const DataBaseCategory = require('../dataBaseSchemas/Category');
+const Item = require('../dataBaseSchemas/Item');
 
 class Category extends Base {
   constructor() {
@@ -23,16 +24,22 @@ class Category extends Base {
       .where(this.idName, '=', id)
       .first();
   }
-  // getRelatedActiveItems(id, callback) {
-  //   return this.DataBaseSchema
-  //     .query()
-  //     .where(this.idName, id)
-  //     .eager('[items(onlyActive).[images, swapForTags, tags]]', {
-  //       onlyActive: function(builder) {
-  //         builder.where('status', 'for_sale');
-  //       }
-  //     });
-  // }
+
+  searchPromise(str) {
+    return this.DataBaseSchema
+      .query()
+      .eager('[items(withTerm), subitems(withTerm)]', {
+        withTerm: (builder) => {
+          builder.where(function() {
+            this.where('name', 'like', `%${str}%`)
+            .orWhere('description', 'like', `%${str}%`)
+          })
+          .andWhere('status', 'for_sale');
+        }
+      })
+      .pick(this.DataBaseSchema, ['id', 'name', 'items', 'subitems'])
+      .pick(Item, ['name', 'description'])
+  }
 }
 
 module.exports = Category;

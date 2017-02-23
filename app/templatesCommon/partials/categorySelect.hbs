@@ -1,0 +1,8 @@
+<select id="category" class="category-select" name="category_id">
+  <option value="0">Category</option>
+  {{#each categories}}
+    {{^this.parent}}
+      <option value="{{this.id}}" class="category-parent">{{this.name}}</option>
+    {{/this.parent}}
+  {{/each}}
+</select>

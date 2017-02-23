@@ -14,8 +14,6 @@ class BasePageModel extends AbstractPageModel {
   addComponents() {
     this._add(Counter);
     this._add(CurrentUrl);
-    // this.search = this._create(Search);
-    // this.search.listen();
   }
 }
 

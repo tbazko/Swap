@@ -36,19 +36,20 @@ $titleFont: 'Roboto', Helvetica, Arial, sans-serif;
 $mainFont: 'Lato', Helvetica, Arial, sans-serif;
 
 //Applied per component
-$color-navigation-font: $color-white-smoke;
+$color-navigation-font: $color-night-rider;
+$color-navigation-background: $color-white;
 
 //SIZES
 $layoutWidth: 1240px;
 $navigationHeight: 54px;
-$p: 14px;
+$p: 15px;
 $h1: 40px;
 $h2: 30px;
 $h3: 24px;
 $h4: 16px;
 
 $font-sizes: (
-  14: 14px,
+  15: 15px,
   16: 16px,
   24: 24px,
   30: 30px,
@@ -59,7 +60,7 @@ $z-stack: base,
   content,
   content-overlay,
   content-navigation,
-  navigation-grey-overlay,
+  search,
   navigation,
   dialog-grey-overlay,
   dialog;

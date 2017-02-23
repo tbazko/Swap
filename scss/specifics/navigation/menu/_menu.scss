@@ -19,8 +19,9 @@
     border-bottom: 1px solid $color-light-grey;
     cursor: pointer;
     display: block;
+    position: relative;
 
-    a {
+    & > a {
       cursor: pointer;
       display: block;
       padding: 10px 20px;
@@ -50,12 +51,12 @@
         border: 0;
       }
 
-      a {
+      & > a {
         padding: 0 10px;
       }
     }
 
-    a {
+    & > a {
       color: $color-navigation-font;
       font-weight: 400;
       font-size: 16px;
@@ -63,7 +64,7 @@
       transition: color .2s ease;
 
       &:hover {
-        color: $color-alternate;
+        color: $color-main;
       }
     }
   }

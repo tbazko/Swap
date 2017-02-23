@@ -1,24 +1,10 @@
 'use strict';
+const ItemMock = rootRequire('spec/helpers/ItemMock');
 const Search = rootRequire('app/Search');
-const Item = rootRequire('app/core/dataBaseModels/Item');
 
 describe('Search', () => {
   let s = new Search();
   let fakeFunc = function(err, length) {return true};
-  this.item = new Item();
-
-  afterAll((done) => {
-    this.item.destroy(this.itemId).then((response) => {
-      done();
-    });
-  });
-
-  beforeAll((done) => {
-    this.item.create({name: 'Testy test', description: 'test', itemCondition: '1', userId: '1'}, {upload: {size: 0}}).then((item) => {
-      this.itemId = item.id;
-      done();
-    });
-  });
 
   it('should be initialized', () => {
     expect(s).not.toBeUndefined();
@@ -32,12 +18,38 @@ describe('Search', () => {
     });
   });
 
-  it('should find match in item\'s title or description and return array of items', (done) => {
+  xit('should find match in item\'s title or description and return array of items', (done) => {
     s.str = 'Test';
     s.resultsPromise().then((items) => {
-      expect(items).toContain(jasmine.objectContaining({id: this.itemId}));
+      let itemId;
+      items.forEach((cluster) => {
+        for(var key in cluster) {
+          if (!cluster.hasOwnProperty(key)) continue;
+          if(cluster[key].id === global.itemId) {
+            itemId = cluster[key].id
+          }
+        }
+      });
+      expect(itemId).toEqual(global.itemId);
+      expect(items).toEqual(jasmine.any(Array));
       done();
-    });
+    }).catch((err) => console.log(err));
+  });
+
+  it('should find match in active items', (done) => {
+    s.str = 'Test';
+    s.resultsPromise().then((items) => {
+      let itemId;
+      items.forEach((cluster) => {
+        for(var key in cluster) {
+          if (!cluster.hasOwnProperty(key)) continue;
+          if(cluster[key].status) {
+            expect(cluster[key].status).toEqual('for_sale');
+          }
+        }
+      });
+      done();
+    }).catch((err) => console.log(err));
   });
 
   describe('handling client data', () => {

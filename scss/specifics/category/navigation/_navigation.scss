@@ -1,0 +1,40 @@
+.category-navigation {
+  background: $color-white;
+}
+
+.category-navigation-main {
+  font-size: $h4;
+  display: block;
+  padding-bottom: 3px;
+  text-transform: none;
+  color: lighten($color-night-rider, 10%);
+
+  &:first-of-type {
+    padding-bottom: 10px;
+  }
+
+  span {
+    border-bottom: 1px solid $color-night-rider;
+  }
+
+  &.is-active {
+    color: $color-outrageous-orange;
+
+    span {
+      border-color: $color-outrageous-orange;
+    }
+  }
+}
+
+.category-navigation-sub,
+a.category-navigation-sub {
+  display: block;
+  font-size: $p;
+  color: $color-night-rider;
+  display: block;
+  padding-left: 5px;
+
+  &.is-active {
+    color: $color-outrageous-orange;
+  }
+}

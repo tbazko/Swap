@@ -1,14 +1,29 @@
 .search {
   position: relative;
+  display: inline-block;
+  padding-right: 100px;
+  width: 100%;
+  z-index: index($z-stack, search);
+
+  @include breakpoint(small) {
+    width: 70%;
+  };
+}
+
+.twitter-typeahead {
+  width: 100%;
+  z-index: index($z-stack, content);
 }
 
 .search-box {
   border-radius: 20px;
-  border: 1px solid $color-light-grey;
+  border: 1px solid $color-ok;
   line-height: 37px;
   height: 37px;
   padding: 0 34px 0 15px;
-  width: 235px;
+  width: 100%;
+  position: relative;
+  z-index: index($z-stack, content);
 
   &:focus {
     outline: none;
@@ -17,9 +32,34 @@
 
 .search-btn {
   border: 0;
-  background: transparent;
+  background: $color-ok;
+  color: $color-white;
   position: absolute;
-  top: 0;
-  right: 5px;
+  top: 0px;
+  right: 0px;
   height: 37px;
+  padding-left: 50px;
+  width: 150px;
+  z-index: index($z-stack, base);
+  border-radius: 20px;
+}
+
+.tt-menu {
+  background: $color-white;
+  left: 0;
+  right: 0;
+  text-align: left;
+  padding: 10px 15px;
+
+  h4, p {
+    text-transform: none;
+  }
+}
+
+.tt-highlight {
+  color: $color-ok;
+}
+
+.tt-hint {
+  color: $color-suva-grey;
 }

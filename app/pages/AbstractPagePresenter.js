@@ -9,7 +9,11 @@ class AbstractPagePresenter {
   render(req, res, next) {
     if(!this.model) return console.log('model is not set');
     this._handleCommonSetup(req, res, next);
-    this.renderView();
+    if(this.redirectUrl) {
+      this.redirect();
+    } else {
+      this.renderView();
+    }
   }
 
   _handleCommonSetup(req, res, next) {
@@ -17,11 +21,17 @@ class AbstractPagePresenter {
     this.req = req;
     this.next = next;
     this.parseRequest();
-    this.model.addComponents();
+    if(!this.redirectUrl) {
+      this.model.addComponents();
+    }
   }
 
   parseRequest() {
     return console.log('parseRequest is not set');
+  }
+
+  redirect() {
+    this.view.redirect(this.redirectUrl);
   }
 
   renderView() {

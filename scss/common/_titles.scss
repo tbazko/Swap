@@ -8,11 +8,17 @@
 }
 
 .section-title {
-  font-size: $p;
+  font-size: $h4;
   font-weight: normal;
   color: $color-suva-grey;
   font-family: $titleFont;
-  text-transform: uppercase;
+}
+
+.section-title--okBg {
+  padding: 10px;
+  background: rgba($color-ok, .9);
+  border-radius: 2px;
+  color: $color-white;
 }
 
 .section-subtitle {

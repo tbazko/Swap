@@ -17,6 +17,10 @@ class Chat {
   }
 
   get messages() {
+    if(!this._chatId) {
+      return Promise.resolve({messages: []});
+    }
+    
     let messagesPromise = new Promise((resolve, reject) => {
       this._message.getAllById(this._chatId, (err, messages) => {
         if(err) reject(err);

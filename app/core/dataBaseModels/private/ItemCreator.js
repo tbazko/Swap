@@ -1,6 +1,7 @@
 'use strict';
 const cloudinary = rootRequire('config/cloudinary');
 const ItemImage = rootRequire('app/core/dataBaseSchemas/ItemImage');
+const Category = rootRequire('app/core/dataBaseModels/Category');
 
 
 class ItemCreator {
@@ -13,8 +14,9 @@ class ItemCreator {
   set itemData(data) {
     this._itemData = {
       name: data.name,
-      status: 'for_sale',
-      category_id: data.category_id,
+      status: data.status || 'for_sale',
+      category_id: data.category_id != 0 ? data.category_id : null,
+      subcategory_id: data.subcategory_id != 0 ? data.subcategory_id : null,
       description: data.description,
       user_id: data.userId,
       condition: data.itemCondition,
@@ -53,7 +55,7 @@ class ItemCreator {
           if(this.files) {
             this._addItemImages();
           }
-          this._relateTags();
+          this.relateTags();
           resolve(this._DBobject.currentItem);
         })
         .catch((err) => {
@@ -91,10 +93,9 @@ class ItemCreator {
     );
   }
 
-  _relateTags(tags) {
+  relateTags(tags) {
     if(this.fields.tags) {
       this._DBobject.relateTags(this.fields.tags, 'tags');
-
       if(this.fields.swapForTags) {
         this._eventEmitter.once('allTagsAdded', () => {
           this._DBobject.relateTags(this.fields.swapForTags, 'swapForTags');
