@@ -1,6 +1,6 @@
 "use strict";
 let socketAPI;
-const SocketAPI = require('./private/socketAPI');
+const SocketAPI = rootRequire('socketApi/private/socketAPI');
 
 module.exports.wrapServer = function(server) {
   let socketio = require('socket.io')(server);
