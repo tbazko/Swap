@@ -5,9 +5,7 @@
   "description": "A platform for finding and swaping (exchanging) collectable or other items",
   "author": "Tamara Bazko tamarabazko@gmail.com",
   "scripts": {
-    "start": "node ./bin/www",
-    "predeploy": "echo im about to deploy",
-    "postdeploy": "echo ive deployed"
+    "start": "node ./bin/www"
   },
   "engines": {
     "node": "7.6.0",
@@ -41,9 +39,7 @@
     "serve-favicon": "~2.3.0",
     "socket.io": "^1.7.2",
     "text": "github:requirejs/text",
-    "validator": "^6.2.1"
-  },
-  "devDependencies": {
+    "validator": "^6.2.1",
     "grunt": "^0.4.5",
     "grunt-sass": "^1.1.0",
     "grunt-autoprefixer": "^3.0.3",
