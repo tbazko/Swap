@@ -3,7 +3,7 @@
 /**
  * Module dependencies.
  */
-
+console.log('Get\'s till www?');
 var app = require('../app').app;
 var debug = require('debug')('Swap:server');
 var http = require('http');
