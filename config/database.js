@@ -6,10 +6,10 @@ var Knex = require('knex');
 var knex = Knex({
   client: 'mysql',
   connection: {
-    host     : '127.0.0.1',
-    user     : 'root',
-    password : '',
-    database : 'Swap',
+    host     : process.env.DBHOST,
+    user     : process.env.DBUSER,
+    password : process.env.DBPASS,
+    database : process.env.DBNAME,
     charset  : 'utf8',
     timezone : 'UTC'
   }
