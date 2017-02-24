@@ -51,8 +51,8 @@ class ResetPassword {
     var smtpTransport = nodemailer.createTransport({
       service: 'gmail',
       auth: {
-          user: '',
-          pass: ''
+        user: process.env.MAILLOGIN,
+        pass: process.env.MAILPASS
       }
     });
     var mailOptions = {

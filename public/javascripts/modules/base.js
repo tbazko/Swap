@@ -4,16 +4,16 @@ define([
   'components/Menu',
   'components/Counter',
   'components/FormValidator',
-  'components/Search',
-  'dropzone'
+  'components/Search'
+  // 'dropzone'
 ], function (
   $,
   utils,
   Menu,
   Counter,
   FormValidator,
-  Search,
-  Dropzone
+  Search
+  // Dropzone
 ) {
 
   // var myDropzone = new Dropzone("div#dropzone", {

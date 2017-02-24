@@ -1,9 +1,16 @@
 {
-  "name": "Swap",
-  "version": "0.0.0",
+  "name": "SwapIt",
+  "version": "0.0.1",
   "private": true,
+  "description": "A platform for finding and swaping (exchanging) collectable or other items",
+  "author": "Tamara Bazko tamarabazko@gmail.com",
   "scripts": {
-    "start": "node ./bin/www"
+    "start": "node ./bin/www",
+    "predeploy": "echo im about to deploy",
+    "postdeploy": "echo ive deployed"
+  },
+  "engines": {
+    "node": "7.6.0"
   },
   "dependencies": {
     "async": "^2.1.5",
@@ -43,5 +50,6 @@
     "grunt-contrib-sass": "~0.9.2",
     "grunt-contrib-watch": "^0.6.1",
     "request": "^2.79.0"
-  }
+  },
+  "license": "MIT"
 }
