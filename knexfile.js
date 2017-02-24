@@ -1,14 +1,12 @@
 // Update with your config settings.
-
 module.exports = {
-
   development: {
     client: 'mysql',
     connection: {
-      host     : '127.0.0.1',
-      user     : 'root',
-      password : '',
-      database : 'Swap',
+      host     : process.env.DBHOST,
+      user     : process.env.DBUSER,
+      password : process.env.DBPASS,
+      database : process.env.DBNAME,
       charset  : 'utf8'
     }
   },
@@ -16,10 +14,10 @@ module.exports = {
   staging: {
     client: 'mysql',
     connection: {
-      host     : '127.0.0.1',
-      user     : 'root',
-      password : '',
-      database : 'Swap',
+      host     : process.env.DBHOST,
+      user     : process.env.DBUSER,
+      password : process.env.DBPASS,
+      database : process.env.DBNAME,
       charset  : 'utf8'
     },
     pool: {
@@ -34,10 +32,10 @@ module.exports = {
   production: {
     client: 'mysql',
     connection: {
-      host     : '127.0.0.1',
-      user     : 'root',
-      password : '',
-      database : 'Swap',
+      host     : process.env.DBHOST,
+      user     : process.env.DBUSER,
+      password : process.env.DBPASS,
+      database : process.env.DBNAME,
       charset  : 'utf8'
     },
     pool: {

@@ -6,6 +6,7 @@ global.rootRequire = function(name) {
 global.sessionCookieAge = 60000 * 60 * 24 * 5;
 
 const express       = require('express');
+const app           = express();
 const path          = require('path');
 const favicon       = require('serve-favicon');
 const logger        = require('morgan');
@@ -14,10 +15,16 @@ const bodyParser    = require('body-parser');
 const multer        = require('multer')(); // for parsing multipart/form-data
 const passport      = require('./app/authentication/passport');
 const session       = require('express-session');
-const app           = express();
+const KnexSessionStore = require('connect-session-knex')(session);
 const server        = require('http').createServer(app);
 const socketAPI     = require('./app/socketAPI').wrapServer(server);
 const hbs           = require('./config/templates');
+const knex          = require('./config/database').knex;
+
+const store = new KnexSessionStore({
+    knex: knex,
+    tablename: 'sessions'
+});
 
 app.engine('.hbs', hbs.engine);
 app.set('view engine', '.hbs');
@@ -31,10 +38,11 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(session({
-  secret: 'secret strategic xxzzz code',
+  secret: process.env.SESSION_SECRET,
   cookie: {
     maxAge: global.sessionCookieAge
-  }
+  },
+  store: store
 }));
 app.use(passport.initialize());
 app.use(passport.session());
