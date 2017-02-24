@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 let socketAPI;
 const SocketAPI = rootRequire('socketApi/private/socketAPI');
 
