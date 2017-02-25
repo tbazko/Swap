@@ -6,7 +6,7 @@ define([
   var p = new PlacesAutoComplete('autocomplete');
   p.options = {
     types: ['geocode'],
-    componentRestrictions: {country: 'ua'}
+    componentRestrictions: {country: 'nl'}
   }
-  p.init();
+  p.init();  
 });
