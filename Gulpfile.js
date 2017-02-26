@@ -1,4 +1,5 @@
 var gulp          = require('gulp');
+var gutil         = require('gutil');
 var sass          = require('gulp-sass');
 var source        = require('vinyl-source-stream');
 var browserify    = require('browserify');
@@ -29,20 +30,22 @@ gulp.task('js', function() {
                   presets : [ 'es2015', 'react' ]
                 });
 
-  if (IS_PRODUCTION) {
-    bundler = bundler.plugin('minifyify', {
-      map      : false,
-      compress : {
-        drop_debugger : true,
-        drop_console  : true
-      }
-    })
-  }
+  // if (IS_PRODUCTION) {
+  //   bundler = bundler.plugin('minifyify', {
+  //     map      : false,
+  //     compress : {
+  //       drop_debugger : true,
+  //       drop_console  : true
+  //     }
+  //   })
+  // }
 
-  bundler.bundle().on('error', function(err) {
-    console.error('[browserify error]', err.message);
-  }).pipe(source('bundle.js'))
-    .pipe(gulp.dest('./public/javascripts/'));
+  bundler.bundle()
+    .on('error', gutil.log)
+    .pipe(source('bundle.js'))
+    .on('error', gutil.log)
+    .pipe(gulp.dest('./public/javascripts/'))
+    .on('error', gutil.log);
 });
 
 gulp.task('serve', [ 'css', 'js' ], function () {

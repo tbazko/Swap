@@ -1,6 +1,6 @@
-var utils = require('components/utils/utils');
-var TabPane = require('components/TabPane');
-var SwapRequestList = require('components/SwapRequestList');
+var utils = require('../components/utils/utils');
+var TabPane = require('../components/TabPane');
+var SwapRequestList = require('../components/SwapRequestList');
 
 var tabPane = new TabPane('requestsTabPane');
 var requestList;

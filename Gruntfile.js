@@ -8,7 +8,7 @@ module.exports = function(grunt) {
       },
       dist: {
         files: {
-          'public/stylesheets/master.css' : 'scss/master.scss'
+          'public/stylesheets/master.css' : 'client/scss/master.scss'
         }
       }
     },
@@ -22,19 +22,59 @@ module.exports = function(grunt) {
         }
       }
     },
-    watch: {
-      css: {
-        files: 'scss/**/*.scss',
+    uglify: {
+			my_target: {
+				files: {
+					'public/javascripts/base.js': ['public/javascripts/base.js'],
+          'public/javascripts/itemOverview.js': ['public/javascripts/itemOverview.js'],
+          'public/javascripts/signUp.js': ['public/javascripts/signUp.js'],
+          'public/javascripts/swapRequestOverview.js': ['public/javascripts/swapRequestOverview.js'],
+          'public/javascripts/swapRequestList.js': ['public/javascripts/swapRequestList.js'],
+          'public/javascripts/userProfileEdit.js': ['public/javascripts/userProfileEdit.js'],
+          'public/javascripts/editItemForm.js': ['public/javascripts/editItemForm.js']
+				}
+			}
+		},
+		watch: {
+			css: {
+        files: 'client/scss/**/*.scss',
         tasks: ['sass', 'autoprefixer'],
         options: {
           livereload: true, // needed to run LiveReload
         }
-      }
-    }
+      },
+			browserify: {
+				files: ['./client/js/*.js', './client/js/**/*.js'],
+				tasks: ['browserify']
+			}
+		},
+		browserify: {
+			dist: {
+				options: {
+					transform: [
+						['babelify', {
+							presets: ['es2015', 'react']
+						}]
+					]
+				},
+				files: {
+					'public/javascripts/base.js': ['client/js/modules/base.js'],
+          'public/javascripts/itemOverview.js': ['client/js/modules/base.js', 'client/js/modules/itemOverview.js'],
+          'public/javascripts/signUp.js': ['client/js/modules/base.js', 'client/js/modules/signUp.js'],
+          'public/javascripts/swapRequestOverview.js': ['client/js/modules/base.js', 'client/js/modules/swapRequestOverview.js'],
+          'public/javascripts/swapRequestList.js': ['client/js/modules/base.js', 'client/js/modules/swapRequestList.js'],
+          'public/javascripts/userProfileEdit.js': ['client/js/modules/base.js', 'client/js/modules/userProfileEdit.js'],
+          'public/javascripts/editItemForm.js': ['client/js/modules/base.js', 'client/js/modules/editItemForm.js']
+				}
+			}
+		}
   });
 
-  grunt.loadNpmTasks('grunt-contrib-watch');
-  grunt.loadNpmTasks('grunt-autoprefixer');
-  grunt.loadNpmTasks('grunt-contrib-sass');
-  grunt.registerTask('default', ['watch']);
+  grunt.loadNpmTasks('grunt-browserify');
+	grunt.loadNpmTasks('grunt-contrib-watch');
+	grunt.loadNpmTasks('grunt-autoprefixer');
+	grunt.loadNpmTasks('grunt-contrib-sass');
+	grunt.loadNpmTasks('grunt-contrib-uglify');
+	grunt.registerTask('default', ['watch']);
+	grunt.registerTask('build', ['browserify', 'uglify']);
 }

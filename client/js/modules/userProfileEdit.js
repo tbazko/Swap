@@ -1,8 +1,8 @@
-var PlacesAutoComplete = require('components/PlacesAutoComplete');
+var PlacesAutoComplete = require('../components/PlacesAutoComplete');
 
 var p = new PlacesAutoComplete('autocomplete');
 p.options = {
-  types: ['(cities)'],
+  types: ['geocode'],
   componentRestrictions: {country: 'nl'}
 }
-p.init();
+p.init();  

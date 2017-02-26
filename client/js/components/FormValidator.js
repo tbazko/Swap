@@ -141,7 +141,7 @@ Form.prototype.isValidString = function (str) {
 
 Form.prototype.showInputError = function(input, error) {
   if(input.nextElementSibling) {
-    next = input.nextElementSibling;
+    var next = input.nextElementSibling;
     if(utils.selectorMatches(next, '.inputError')) return;
   }
 

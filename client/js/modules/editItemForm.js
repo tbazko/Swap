@@ -1,8 +1,7 @@
-define(function (require){
-	var $ = require('jquery');
-	var utils = require('components/utils/utils');
-	var TagTransformer = require('components/TagTransformer');
-	var CategorySelector = require('components/CategorySelector');
+var $ = require('jquery');
+var utils = require('../components/utils/utils');
+var TagTransformer = require('../components/TagTransformer');
+var CategorySelector = require('../components/CategorySelector');
 
 	var EditItemForm = {
 		$form: undefined,
@@ -28,9 +27,7 @@ define(function (require){
 			var url = this.$form.attr('action');
 			var form = document.getElementById('editItemForm');
 			var formData = new FormData(form);
-			for (var value of formData.values()) {
-			   console.log(value);
-			}
+			
 			$.ajax({
 				url: url,
 				method: 'POST',
@@ -53,5 +50,3 @@ define(function (require){
 	}
 
 	EditItemForm.initialize();
-
-});

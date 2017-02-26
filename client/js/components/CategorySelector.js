@@ -62,4 +62,4 @@ CategorySelector.prototype.selectSavedValues = function () {
   });
 };
 
-return CategorySelector;
+module.exports = CategorySelector;

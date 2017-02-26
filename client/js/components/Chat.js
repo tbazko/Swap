@@ -1,5 +1,16 @@
 var utils = require('./utils/utils');
-var messageTemplate = require('text!templates/message.html');
+var messageTemplate = '<div class="paperStyle pl30 pr30 pt25 pb25 {{#message.senderName}}mr30{{/message.senderName}}{{^message.senderName}}ml30{{/message.senderName}} mb20 js-message">' +
+  '<p class="section-subtitle">' +
+    '{{#message.senderName}}' +
+      '{{.}}' +
+    '{{/message.senderName}}' +
+    '{{^message.senderName}}' +
+      'Me:' +
+    '{{/message.senderName}}' +
+  '</p>' +
+  '<p>{{message.text}}</p>' +
+'</div>';
+
 var Mustache = require('mustache');
 
 function Chat() {
@@ -43,4 +54,4 @@ Chat.prototype.renderMessage = function (data) {
   }
 };
 
-return Chat;
+module.exports = Chat;
