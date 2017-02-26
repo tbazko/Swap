@@ -1,9 +1,9 @@
-  // var $ = require('../lib/jquery');
-  // var utils = require('../components/utils/utils');
-  // var Menu = require('../components/Menu');
-  // var Counter = require('../components/Counter');
-  // var FormValidator = require('../components/FormValidator');
-  // var Search = require('../components/Search');
+  var $ = require('jquery');
+  var utils = require('../components/utils/utils');
+  var Menu = require('../components/Menu');
+  var Counter = require('../components/Counter');
+  var FormValidator = require('../components/FormValidator');
+  var Search = require('../components/Search');
 
   // var myDropzone = new Dropzone("div#dropzone", {
   //   url: '/',

@@ -1,7 +1,7 @@
 var $ = require('jquery');
-var utils = require('components/utils/utils');
-var Slider = require('components/Slider');
-var SwapRequestForm = require('components/SwapRequestForm');
+var utils = require('../components/utils/utils');
+var Slider = require('../components/Slider');
+var SwapRequestForm = require('../components/SwapRequestForm');
 
 $(document).ready(function () {
   $('.js-swap-btn').on('click', function (e) {

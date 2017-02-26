@@ -9,7 +9,7 @@ var IS_PRODUCTION = process.env.NODE_ENV === 'production';
 var paths = {
   main_css : [ 'scss/master.scss', 'scss/base-product-list.scss' ],
   css      : [ 'scss/**/*.scss', 'scss/*.scss', 'scss/**/**/*.scss' ],
-  main_js  : [ 'public/javascripts/modules/base.js', 'public/javascripts/modules/itemOverview.js' ],
+  main_js  : [ 'public/javascripts/modules/base.js' ],
   js       : [ 'public/javascripts/**/*.js*' ],
 };
 
