@@ -1,8 +1,6 @@
-define([
-  'components/utils/utils'
-], function (
-  utils
-) {
+define(function (require) {
+  var utils = require('components/utils/utils');
+  
   function SwapRequestStatusChanger() {
     this.swapRequestButtons = document.getElementById('swapRequestOverviewButtons');
     this.acceptButton = document.getElementById('acceptSwapRequest');

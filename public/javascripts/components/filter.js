@@ -1,10 +1,6 @@
-define([
-  'jquery',
-  'components/utils/utils'
-], function (
-  $,
-  utils
-) {
+define(function (require) {
+	var $ = require('jquery');
+  var utils = require('components/utils/utils');
   var Filter = {
     $filter: undefined,
     $filterTrigger: undefined,

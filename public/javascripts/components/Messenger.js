@@ -1,14 +1,9 @@
-define([
-  'jquery',
-  'components/utils/utils',
-  'text!components/templates/message.html',
-  'mustache'
-], function (
-  $,
-  utils,
-  messageTemplate,
-  Mustache
-) {
+define(function (require) {
+  var $ = require('jquery');
+  var utils = require('components/utils/utils');
+  var messageTemplate = require('text!components/templates/message.html');
+  var Mustache = require('mustache');
+
   var Messenger = {
     formContainer: '.js-messageForm',
     textArea: '.js-messageTextarea',

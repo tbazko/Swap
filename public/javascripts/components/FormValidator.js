@@ -1,8 +1,6 @@
-define([
-  'components/utils/utils'
-], function (
-  utils
-) {
+define(function (require) {
+  var utils = require('../components/utils/utils');
+  
   function Form(className) {
     this.forms = document.getElementsByClassName(className);
     this.currentForm = null;

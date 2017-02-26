@@ -1,20 +1,9 @@
-define([
-  'jquery',
-  'components/utils/utils',
-  'components/Menu',
-  'components/Counter',
-  'components/FormValidator',
-  'components/Search'
-  // 'dropzone'
-], function (
-  $,
-  utils,
-  Menu,
-  Counter,
-  FormValidator,
-  Search
-  // Dropzone
-) {
+  // var $ = require('../lib/jquery');
+  // var utils = require('../components/utils/utils');
+  // var Menu = require('../components/Menu');
+  // var Counter = require('../components/Counter');
+  // var FormValidator = require('../components/FormValidator');
+  // var Search = require('../components/Search');
 
   // var myDropzone = new Dropzone("div#dropzone", {
   //   url: '/',
@@ -67,4 +56,4 @@ define([
       return false;
     });
   }
-});
+

@@ -1,4 +1,4 @@
-define([], function () {
+define(function (require) {
   function Menu(menuClass, triggerClass, options) {
   	this.menu = document.getElementsByClassName(menuClass)[0];
   	this.trigger = document.getElementsByClassName(triggerClass)[0];

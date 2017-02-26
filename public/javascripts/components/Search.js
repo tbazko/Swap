@@ -1,158 +1,42 @@
-define([
-  'jquery',
-  'components/utils/utils',
-  'text!components/templates/suggestions.html',
-  'mustache',
-  'typeahead',
-  'bloodhound'
-], function (
-  $,
-  utils,
-  suggestionsTemplate,
-  Mustache,
-  typeahead,
-  Bloodhound
-) {
-  function Search() {
-    this.search = document.getElementById('itemSearch');
-    this.searchResults = document.getElementById('itemSearchResults');
-    this.suggestions = [];
-  }
+var gulp = require('gulp');
+var source = require('vinyl-source-stream'); // Used to stream bundle for further handling
+var browserify = require('browserify');
+var watchify = require('watchify');
+var reactify = require('reactify'); 
+var concat = require('gulp-concat');
+ 
+gulp.task('browserify', function() {
+    var bundler = browserify({
+        entries: ['./app/main.js'], // Only need initial file, browserify finds the deps
+        transform: [reactify], // We want to convert JSX to normal javascript
+        debug: true, // Gives us sourcemapping
+        cache: {}, packageCache: {}, fullPaths: true // Requirement of watchify
+    });
+    var watcher  = watchify(bundler);
 
-  Search.prototype.init = function () {
-    if(this.search) {
-
-      // function customTokenizer(datum) {
-      //   var nameTokens = Bloodhound.tokenizers.whitespace(datum.name);
-      //   var descriptionTokens = Bloodhound.tokenizers.whitespace(datum.description);
-      //   var statusTokens = Bloodhound.tokenizers.whitespace(datum.status);
-      //
-      //   return nameTokens.concat(descriptionTokens).concat(statusTokens);
-      // }
-      var items = new Bloodhound({
-        // datumTokenizer: function(datum) {
-        //   var nameTokens = Bloodhound.tokenizers.whitespace(datum.name);
-        //   var descriptionTokens = Bloodhound.tokenizers.whitespace(datum.description);
-        //   var statusTokens = Bloodhound.tokenizers.whitespace(datum.status);
-        //   var custom = nameTokens.concat(descriptionTokens).concat(statusTokens);
-        //   return custom;
-        // },
-        datumTokenizer: Bloodhound.tokenizers.obj.whitespace('value'),
-        queryTokenizer: Bloodhound.tokenizers.whitespace,
-        identify: function(obj) {
-          return obj.category;
-        },
-        remote: {
-          url: '/suggest?search=%QUERY',
-          wildcard: '%QUERY',
-          transform: (response) => {
-            console.log(response);
-            this.fullResponse = response;
-            // console.log(response);
-            this.modifiedResponse = [];
-            var query = $('input#itemSearch').typeahead('val');
-            var pattern = new RegExp('\\b\\w*' + query + '\\w*\\b', 'gmi');
-            this.fullResponse.categories.forEach((category, index) => {
-              var item = category.item;
-              var match = item.name.match(pattern) || item.description.match(pattern);
-              if(index === 0) {
-                this.modifiedResponse.push({id: null , category: null, name: match[0]});
-              }
-              this.modifiedResponse.push({id: category.id , category: category.name, name: match[0]});
-            });
-
-            this.fullResponse.tags.forEach((tag) => {
-              this.modifiedResponse.push({tag: tag.name, name: tag.name});
-            });
-            return this.modifiedResponse;
-          }
-        }
-      });
-
-      function uniqueArray(arrArg) {
-        return arrArg.filter((elem, pos, arr) => {
-          // console.log(arr.indexOf(elem.category));
-          return arr.indexOf(elem) == pos;
-        });
-      }
-      $(document)
-        .on('typeahead:render', onRender)
-        .on('typeahead:select', onSelect)
-        .on('typeahead:autocomplete', onAutocomplete);
-
-      function onRender(event, suggestions, a, b) {
-        // console.log(event);
-        // console.log(suggestions);
-        // console.log(isAsync);
-        // console.log(arguments);
-      }
-
-      function onSelect(event, suggestion) {
-
-      }
-
-      function onAutocomplete(event, suggestion) {
-        // console.log(event);
-        // console.log(suggestion);
-      }
-
-
-      $('input#itemSearch').typeahead({
-        highlight: true,
-        hint: true,
-        minLength: 3
-      }, {
-        name: 'results',
-        source: items,
-        hint: true,
-        limit: 15,
-        display: function(obj) {
-          if(obj.category) {
-            return obj.name + ' in ' + obj.category;
-          } else {
-            return obj.name;
-          }
-        },
-        templates: {
-          empty: [
-            '<div class="empty-message">',
-              'unable to find any items',
-            '</div>'
-          ].join('\n'),
-          suggestion: function(suggestions) {
-            var div = document.createElement('div');
-            var html = Mustache.render(suggestionsTemplate, {suggestions: suggestions, searchTerm: $('input#itemSearch').val()});
-            div.innerHTML = html;
-
-            return div.firstChild || div;
-          }
-        }
-      });
-    }
-  }
-
-  Search.prototype.bindEvents = function () {
-    this.search.addEventListener('keydown', this.onKeydown.bind(this));
-    window.socket.on('results', this.renderSuggestions.bind(this));
-  };
-
-  Search.prototype.onKeydown = function (e) {
-    var text = this.search.value;
-    if(text !== '') {
-      window.socket.emit('search', text);
-    }
-  }
-
-  Search.prototype.renderSuggestions = function (suggestions) {
-    this.suggestions = suggestions;
-    // if(suggestions.length) {
-    //   this.searchResults.innerHTML = '';
-    //   var html = Mustache.render(suggestionsTemplate, {suggestions: suggestions});
-    //   this.searchResults.innerHTML = html;
-    // } else {
-    //   this.searchResults.innerHTML = '';
-    // }
-  };
-
-  return Search;
+    return watcher
+    .on('update', function () { // When any files update
+        var updateStart = Date.now();
+        console.log('Updating!');
+        watcher.bundle() // Create new bundle that uses the cache for high performance
+        .pipe(source('main.js'))
+    // This is where you add uglifying etc.
+        .pipe(gulp.dest('./build/'));
+        console.log('Updated!', (Date.now() - updateStart) + 'ms');
+    })
+    .bundle() // Create the initial bundle when starting the task
+    .pipe(source('main.js'))
+    .pipe(gulp.dest('./build/'));
 });
+
+// I added this so that you see how to run two watch tasks
+gulp.task('css', function () {
+    gulp.watch('styles/**/*.css', function () {
+        return gulp.src('styles/**/*.css')
+        .pipe(concat('main.css'))
+        .pipe(gulp.dest('build/'));
+    });
+});
+
+// Just running the two tasks
+gulp.task('default', ['browserify', 'css']);

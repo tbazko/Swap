@@ -1,12 +1,8 @@
-define([
-  'components/utils/utils',
-  'mustache',
-  'text!components/templates/tag.html',
-], function (
-  utils,
-  Mustache,
-  tagTemplate
-) {
+define(function (require) {
+  var utils = require('components/utils/utils');
+  var tagTemplate = require('text!components/templates/swap.html');
+  var Mustache = require('mustache');
+
   function TagTransformer(id) {
     this.tagsContainerSelector = id;
     this.realTagsInputId = 'real' + '-' + id;

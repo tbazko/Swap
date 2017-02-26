@@ -1,8 +1,5 @@
-define([
-  'components/utils/utils'
-], function (
-  utils
-) {
+define(function (require) {
+  var utils = require('components/utils/utils');
 
   function TabPane(tabIdName) {
     this.tabPane = document.getElementById(tabIdName);

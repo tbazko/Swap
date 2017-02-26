@@ -1,14 +1,8 @@
-define([
-  'jquery',
-  'components/utils/utils',
-  'text!components/templates/swap.html',
-  'mustache'
-], function (
-  $,
-  utils,
-  swapTemplate,
-  Mustache
-) {
+define(function (require) {
+	var $ = require('jquery');
+  var utils = require('components/utils/utils');
+  var swapTemplate = require('text!components/templates/swap.html');
+  var Mustache = require('mustache');
 
   var $body = $('body');
 

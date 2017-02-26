@@ -1,4 +1,4 @@
-define([], function () {
+define(function (require){
   function Counter() {
     this.id = 'requestCounter';
     this.count = 0;

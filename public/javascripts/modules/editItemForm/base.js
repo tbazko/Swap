@@ -1,14 +1,9 @@
-define([
-	'jquery',
-	'components/utils/utils',
-	'components/TagTransformer',
-	'components/CategorySelector'
-], function (
-	$,
-	utils,
-	TagTransformer,
-	CategorySelector
-) {
+define(function (require){
+	var $ = require('jquery');
+	var utils = require('components/utils/utils');
+	var TagTransformer = require('components/TagTransformer');
+	var CategorySelector = require('components/CategorySelector');
+
 	var EditItemForm = {
 		$form: undefined,
 		formSelector: '.js-editItemForm',

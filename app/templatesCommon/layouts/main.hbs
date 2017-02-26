@@ -9,16 +9,17 @@
   </head>
   <body>
     <div id="main" class="main-container">
+      <a href="">Button</a>
       {{> navigation}}
       {{{body}}}
       <footer class="footer"></footer>
     </div>
-
+    <script src="/javascripts/bundle.js"></script>
     <script src="/socket.io/socket.io.js"></script>
     {{#if _sections.scripts}}
       {{{_sections.scripts}}}
     {{else}}
-      <script data-main="/javascripts/base" src="/javascripts/lib/require.js"></script>
+      {{!--<script data-main="/javascripts/base" src="/javascripts/lib/require.js"></script>--}}
     {{/if}}
 
   </body>

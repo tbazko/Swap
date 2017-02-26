@@ -1,8 +1,5 @@
-define([
-  'jquery'
-], function (
-  $
-) {
+define(function (require) {
+	var $ = require('jquery');
   function Slider(sliderClass, options) {
     this.$slider = $(sliderClass);
     this.$slide = this.$slider.find('.js-slide');

@@ -1,8 +1,6 @@
-define([
-  'jquery'
-], function (
-  $
-) {
+define(function (require) {
+	var $ = require('../../lib/jquery');
+  
   var cookies;
 
   return {

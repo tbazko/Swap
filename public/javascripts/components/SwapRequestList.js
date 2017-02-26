@@ -1,10 +1,6 @@
-define([
-  'text!components/templates/requestListItem.html',
-  'mustache'
-], function (
-  requestListItemTemplate,
-  Mustache
-) {
+define(function (require) {
+  var requestListItemTemplate = require('text!components/templates/requestListItem.html');
+  var Mustache = require('mustache');
   function SwapRequestList() {
     this.id = 'incomingRequests';
   }
