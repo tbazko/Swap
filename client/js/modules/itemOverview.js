@@ -1,5 +1,4 @@
 var $ = require('jquery');
-var utils = require('../components/utils/utils');
 var Slider = require('../components/Slider');
 var SwapRequestForm = require('../components/SwapRequestForm');
 var FormValidator = require('../components/FormValidator');
@@ -7,7 +6,7 @@ var FormValidator = require('../components/FormValidator');
 $(document).ready(function () {
   $('.js-swap-btn').on('click', function (e) {
     e.preventDefault();
-    utils.activate($('.js-swapping-block'));
+    $('.js-swapping-block').toggleClass('is-active', !$('.js-swapping-block').hasClass('is-active'));
   });
 
   var slider = new Slider('.js-slider', { autoplay: false });

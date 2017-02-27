@@ -1,22 +1,29 @@
-var $ = require('jquery');
+var utils = require('../components/utils/utils');
 
-$('.js-destroy-btn').on('click', onSubmit);
+document.addEventListener('click', onSubmit.bind(this), true);
+
+function submit(target) {
+  var destroyForm = utils.closest(target, '.js-destroy-form');
+  var url = destroyForm.getAttribute('action');
+  var formData = new FormData(destroyForm);
+  var xhr = new XMLHttpRequest();
+
+  xhr.open('POST', url);
+  xhr.onload = function () {
+    if (xhr.status === 200) {
+      var item = utils.closest(target, '.item');
+      item.parentElement.removeChild(item);
+    }
+    else if (xhr.status !== 200) {
+      console.log(xhr.status);
+    }
+  };
+  xhr.send(formData);
+}
 
 function onSubmit(e) {
-e.preventDefault();
-var $destroyForm = $(e.target).closest('.js-destroy-form');
-var url = $destroyForm.attr("action");
-var formData = {};
-var formData = utils.gatherFormData($destroyForm);
-
-$.ajax({
-    url: url,
-    method: 'POST',
-    data: formData
-}).done(function (resp) {
-    $(e.target).closest('.item').remove();
-}).fail(function (jqXHR, textStatus) {
-    console.log(jqXHR, textStatus);
-    return false;
-});
+  if(utils.closest(e.target, '.js-destroy-btn')) {
+    e.preventDefault();
+    submit(e.target);
+  }
 }

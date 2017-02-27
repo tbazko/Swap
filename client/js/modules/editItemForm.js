@@ -1,63 +1,57 @@
-var $ = require('jquery');
 var utils = require('../components/utils/utils');
 var TagTransformer = require('../components/TagTransformer');
 var CategorySelector = require('../components/CategorySelector');
 var FormValidator = require('../components/FormValidator');
 var Dropzone = require('../components/Dropzone');
-// var myDropzone = new Dropzone("div#dropzone", {
-  //   url: '/',
-  //   autoProcessQueue: false,
-  //   uploadMultiple: true,
-  //   parallelUploads: 100,
-  //   maxFiles: 10
-  // });
 
 var EditItemForm = {
-	$form: undefined,
-	formSelector: '.js-editItemForm',
+  initialize: function () {
+    this.form = document.getElementById('editItemForm');
+    this.bindEvents();
+    this.category = new CategorySelector();
+    this.tags = new TagTransformer('tags');
+    this.swapForTags = new TagTransformer('swapForTags');
+    this.validator = new FormValidator('js-form');
+    this.validator.init();
+    this.category.init();
+    this.tags.init();
+    this.swapForTags.init();
+  },
 
-	initialize: function () {
-		this.$form = $(this.formSelector);
-		this.bindEvents();
-		this.category = new CategorySelector();
-		this.tags = new TagTransformer('tags');
-		this.swapForTags = new TagTransformer('swapForTags');
-		this.form = new FormValidator('js-form');
-		this.form.init();
-		this.category.init();
-		this.tags.init();
-		this.swapForTags.init();
-	},
+  bindEvents: function () {
+    this.form.addEventListener('submit', this.formOnSubmit.bind(this), false);
+  },
 
-	bindEvents: function () {
-		this.$form.on('submit', this.formOnSubmit.bind(this));
-	},
+  formOnSubmit: function (e) {
+    e.preventDefault();
+    var url = this.form.getAttribute('action');
+    var formData = new FormData(this.form);
+    var xhr = new XMLHttpRequest();
 
-	formOnSubmit: function (e) {
-		e.preventDefault();
-		var url = this.$form.attr('action');
-		var form = document.getElementById('editItemForm');
-		var formData = new FormData(form);
-
-		$.ajax({
-			url: url,
-			method: 'POST',
-			cache: false,
-			contentType: false,
-			processData: false,
-			data: formData
-		}).done(function (resp) {
-			if (resp.isNewItem) {
-				$('.js-item-added').removeClass('is-hidden');
-			} else if(resp.error) {
-				$('.js-item-edited').text(resp.error).removeClass('is-hidden');
-			} else {
-				$('.js-item-edited').removeClass('is-hidden');
-			}
-		}).fail(function (err) {
-			console.log(err);
-		});
-	}
+    xhr.open('POST', url);
+    xhr.onload = function () {
+      if (xhr.status === 200) {
+        if (xhr.isNewItem) {
+          var addedAlert = document.querySelector('.js-item-added');
+          utils.removeClass(addedAlert, 'is-hidden');
+        } else if (xhr.error) {
+          this.showError(xhr.error);
+        } else {
+          var editedAlert = document.querySelector('.js-item-edited');
+          utils.removeClass(editedAlert, 'is-hidden');
+        }
+      }
+      else if (xhr.status !== 200) {
+        this.showError('Sorry, something went wrong. Please, try again later.');
+      }
+    };
+    xhr.send(formData);
+  },
+  showError: function (errorText) {
+    var errorAlert = document.querySelector('.js-item-edited');
+    errorAlert.innerText = errorText;
+    utils.removeClass(errorAlert, 'is-hidden');
+  }
 }
 
 EditItemForm.initialize();

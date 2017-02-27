@@ -1,56 +1,43 @@
-var $ = require('jquery');
-  
 var cookies;
 
 module.exports = {
-  activate: function($element) {
-    $element.toggleClass('is-active', !$element.hasClass('is-active'));
-  },
-
-  deactivate: function($element) {
-    $element.removeClass('is-active');
-  },
-
-  gatherFormData: function($form) {
-    var formData = {};
-    $form.find('input[name]:not([type="checkbox"], [type="radio"]), textarea').each(function (index, node) {
-      formData[node.name] = node.value;
-    });
-    $form.find(':checked, :selected').each(function(index, node) {
-      var name = node.name;
-      if(!formData[name]) {
-        formData[name] = [];
+  closest: function (el, selector) {
+    var closest;
+    while (el) {
+      closest = el;
+      if (closest && this.selectorMatches(closest, selector)) {
+        return closest;
       }
-      formData[name].push(node.value);
-    });
+      el = closest.parentElement;
+    }
 
-    return formData;
+    return null;
   },
 
-  readCookie: function(name){
-      if(cookies){ return cookies[name]; }
+  readCookie: function (name) {
+    if (cookies) { return cookies[name]; }
 
-      var c = document.cookie.split('; ');
-      cookies = {};
+    var c = document.cookie.split('; ');
+    cookies = {};
 
-      for(var i=c.length-1; i>=0; i--){
-          var C = c[i].split('=');
-          cookies[C[0]] = C[1];
-      }
+    for (var i = c.length - 1; i >= 0; i--) {
+      var C = c[i].split('=');
+      cookies[C[0]] = C[1];
+    }
 
-      return cookies[name];
+    return cookies[name];
   },
 
-  selectorMatches: function(el, selector) {
+  selectorMatches: function (el, selector) {
     var p = Element.prototype;
-    var f = p.matches || p.webkitMatchesSelector || p.mozMatchesSelector || p.msMatchesSelector || function(s) {
+    var f = p.matches || p.webkitMatchesSelector || p.mozMatchesSelector || p.msMatchesSelector || function (s) {
       return [].indexOf.call(document.querySelectorAll(s), this) !== -1;
     };
     return f.call(el, selector);
   },
 
-  addClass: function(element, className) {
-    if(this.selectorMatches(element, '.' + className)) return;
+  addClass: function (element, className) {
+    if (this.selectorMatches(element, '.' + className)) return;
 
     if (element.className != '') {
       element.className += ' ' + className;
@@ -59,28 +46,28 @@ module.exports = {
     }
   },
 
-  removeClass: function(element, className) {
+  removeClass: function (element, className) {
     var regex = new RegExp('(?:^|\\s)' + className + '(?!\\S)', 'gi');
     element.className = element.className.replace(regex, '');
   },
 
-  insertAfter: function(newNode, referenceNode) {
+  insertAfter: function (newNode, referenceNode) {
     referenceNode.parentNode.insertBefore(newNode, referenceNode.nextSibling);
   },
 
-  trim: function(str, chars) {
-    if(!str) return str;
+  trim: function (str, chars) {
+    if (!str) return str;
     return this.rtrim(this.ltrim(str, chars), chars);
   },
 
-  ltrim: function(str, chars) {
-    if(!str) return str;
+  ltrim: function (str, chars) {
+    if (!str) return str;
     var pattern = chars ? new RegExp('^[' + chars + ']+', 'g') : /^\s+/g;
     return str.replace(pattern, '');
   },
 
-  rtrim: function(str, chars) {
-    if(!str) return str;
+  rtrim: function (str, chars) {
+    if (!str) return str;
     var pattern = chars ? new RegExp('[' + chars + ']') : /\s/;
 
     var idx = str.length - 1;

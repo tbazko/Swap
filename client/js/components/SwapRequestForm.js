@@ -1,11 +1,10 @@
 var $ = require('jquery');
-var utils = require('./utils/utils');
 var swapTemplate = '<div class="swapFields">' +
   '<textarea name="message" id="" class="small" cols="30" rows="10" placeholder="Leave a message for the owner"></textarea>' +
   '<input type="submit" value="Send swap request" class="btn js-submit-swapRequest" disabled>' +
 '</div>' +
 
-'<h3 class="ml10 mr10">Select one or more items to create swap proposition</h3>' +
+'<h3 class="ml10 mr10">Select one or more items to create swap proposition:</h3>' +
 '{{#items}}' +
 '<label for="{{id}}" data-item-id="{{id}}" class="item item--inSwapList">' +
    ' <div class="img-container">' +
@@ -142,8 +141,7 @@ SwapRequestForm.prototype.resetSwapForm = function () {
 SwapRequestForm.prototype.sendSwapRequest = function () {
   var url = this.$swapForm.attr("action");
   var formData = {};
-  var formData = utils.gatherFormData(this.$swapForm);
-  formData['seller_id'] = $('.js-sellerId').data('seller-id');
+  var formData = this.gatherFormData(this.$swapForm);
 
   $.ajax({
     url: url,
@@ -157,6 +155,22 @@ SwapRequestForm.prototype.sendSwapRequest = function () {
     console.log(jqXHR, textStatus);
     return false;
   });
+}
+
+SwapRequestForm.prototype.gatherFormData = function($form) {
+  var formData = {};
+  $form.find('input[name]:not([type="checkbox"], [type="radio"]), textarea').each(function (index, node) {
+    formData[node.name] = node.value;
+  });
+  $form.find(':checked, :selected').each(function (index, node) {
+    var name = node.name;
+    if (!formData[name]) {
+      formData[name] = [];
+    }
+    formData[name].push(node.value);
+  });
+
+  return formData;
 }
 
 module.exports = SwapRequestForm;

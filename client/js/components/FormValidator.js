@@ -135,7 +135,7 @@ Form.prototype.validatePassword = function (input) {
 };
 
 Form.prototype.isValidString = function (str) {
-  var regex = /^[а-яА-ЯЁёІіЇїҐґЄєЩщa-zA-Z0-9.,!"'_\-()@?#:;\s\u00A0\u000D\u000A\000C]+$/gm;
+  var regex = /^[а-яА-ЯЁёІіЇїҐґЄєЩщa-zA-Z0-9.,!"'_\-()@?#:$;\s\u00A0\u000D\u000A\000C]+$/gm;
   return regex.test(str);
 };
 

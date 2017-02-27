@@ -23,6 +23,16 @@ module.exports = function(grunt) {
       }
     },
     uglify: {
+      options: {
+        compress: {
+          dead_code: true,
+          drop_debugger: true,
+          global_defs: {
+            "DEBUG": false
+          }
+        },
+        report: 'gzip'
+      },
 			my_target: {
 				files: {
 					'public/javascripts/base.js': ['public/javascripts/base.js'],

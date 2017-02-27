@@ -1,5 +1,4 @@
 var $ = require('jquery');
-var utils = require('./utils/utils');
 var Filter = {
   $filter: undefined,
   $filterTrigger: undefined,
@@ -17,8 +16,8 @@ var Filter = {
 
   onFilterTriggerClick: function(e) {
     e.preventDefault();
-    utils.activate(this.$filter);
-    utils.activate(this.$filterTrigger);
+    this.$filter.toggleClass('is-active', !this.$filter.hasClass('is-active'));
+    this.$filterTrigger.toggleClass('is-active', !this.$filterTrigger.hasClass('is-active'));
   }
 }
 

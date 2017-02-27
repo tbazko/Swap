@@ -7,10 +7,8 @@
         <p class="pt20">Owner of <strong>"{{item.name}}"</strong> will be notified about your proposition.</p>
       </div>
 
-      <form action="/request/item/{{item.id}}/create" class="js-swapForm form itemSwapContainer-form" method="POST">
-        <h3>Choose item(s) to swap for
-          <strong>"{{item.name}}"</strong>
-        </h3>
+      <form action="/request/item/{{item.id}}/create" data-ajax-submit="true" id="swapForm" class="js-swapForm js-form form itemSwapContainer-form">
+        <input type="hidden" name="seller_id" value="{{item.user_id}}">
         <div class="row row-with-blocks-v2 js-swapItems"></div>
       </form>
     </div>
