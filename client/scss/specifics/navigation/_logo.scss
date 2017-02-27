@@ -31,6 +31,12 @@
   display: block;
   font-weight: normal;
   text-decoration: none;
+  transition: font-size .15s ease;
+
+  .is-sticky & {
+    font-size: 20px;
+    transition: font-size .15s ease;
+  }
 
   img {
     width: auto;
@@ -42,6 +48,12 @@
     font-weight: bold;
     vertical-align: top;
     line-height: $navigationHeight - 9px;
+    transition: line-height .15s ease;
+
+    .is-sticky & {
+      line-height: 30px;
+      transition: line-height .15s ease;
+    }
   }
 }
 

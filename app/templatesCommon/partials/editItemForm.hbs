@@ -1,5 +1,5 @@
 {{#section 'scripts'}}
-  <script src="/javascripts/itemOverview.js" async></script>
+  <script src="/javascripts/editItemForm.js" async></script>
 {{/section}}
 <form action="/item/{{item.id}}/edit" enctype="multipart/form-data" method="post" class="js-editItemForm form" id="editItemForm">
   <input type="hidden" name="newItem" value="{{newItem}}">
@@ -9,7 +9,7 @@
       <div class="row itemOverview">
         <div id="dropzone" class="itemOverview-sliderColumn">
           <label for="">Image&#32;</label>
-          <!-- <input type="file" name="upload" accept="image/*" multiple="multiple"> -->
+          <input type="file" name="upload" accept="image/*" multiple="multiple">
           <!-- {{> slider}} -->
         </div>
         <div class="itemOverview-detailsColumn">

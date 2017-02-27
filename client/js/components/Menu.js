@@ -45,7 +45,7 @@ Menu.prototype.toggleMenu = function () {
 }
 
 Menu.prototype.getSticky = function () {
-	var max = 54;
+	var max = 40;
 	var newHeight = this.lastKnownScrollPosition < this.navigationHeight - max ? this.navigationHeight - this.lastKnownScrollPosition : max;
 	this.navigation.style.height = newHeight + 'px';
 

@@ -26,12 +26,14 @@ module.exports = function(grunt) {
 			my_target: {
 				files: {
 					'public/javascripts/base.js': ['public/javascripts/base.js'],
+          'public/javascripts/index.js': ['public/javascripts/index.js'],
           'public/javascripts/itemOverview.js': ['public/javascripts/itemOverview.js'],
           'public/javascripts/signUp.js': ['public/javascripts/signUp.js'],
           'public/javascripts/swapRequestOverview.js': ['public/javascripts/swapRequestOverview.js'],
-          'public/javascripts/swapRequestList.js': ['public/javascripts/swapRequestList.js'],
+          'public/javascripts/swapRequestsList.js': ['public/javascripts/swapRequestsList.js'],
           'public/javascripts/userProfileEdit.js': ['public/javascripts/userProfileEdit.js'],
-          'public/javascripts/editItemForm.js': ['public/javascripts/editItemForm.js']
+          'public/javascripts/editItemForm.js': ['public/javascripts/editItemForm.js'],
+          'public/javascripts/userProfile.js': ['public/javascripts/userProfile.js']
 				}
 			}
 		},
@@ -59,12 +61,14 @@ module.exports = function(grunt) {
 				},
 				files: {
 					'public/javascripts/base.js': ['client/js/modules/base.js'],
+          'public/javascripts/index.js': ['client/js/modules/index.js'],
           'public/javascripts/itemOverview.js': ['client/js/modules/base.js', 'client/js/modules/itemOverview.js'],
           'public/javascripts/signUp.js': ['client/js/modules/base.js', 'client/js/modules/signUp.js'],
           'public/javascripts/swapRequestOverview.js': ['client/js/modules/base.js', 'client/js/modules/swapRequestOverview.js'],
-          'public/javascripts/swapRequestList.js': ['client/js/modules/base.js', 'client/js/modules/swapRequestList.js'],
+          'public/javascripts/swapRequestsList.js': ['client/js/modules/base.js', 'client/js/modules/swapRequestsList.js'],
           'public/javascripts/userProfileEdit.js': ['client/js/modules/base.js', 'client/js/modules/userProfileEdit.js'],
-          'public/javascripts/editItemForm.js': ['client/js/modules/base.js', 'client/js/modules/editItemForm.js']
+          'public/javascripts/editItemForm.js': ['client/js/modules/base.js', 'client/js/modules/editItemForm.js'],
+          'public/javascripts/userProfile.js': ['client/js/modules/base.js', 'client/js/modules/userProfile.js'],
 				}
 			}
 		}

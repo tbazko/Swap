@@ -38,5 +38,10 @@
   .btn--menu {
     vertical-align: top;
     margin-top: 9px;
+
+    .is-sticky & {
+      line-height: 29px;
+      height: 32px;
+    }
   }
 }
