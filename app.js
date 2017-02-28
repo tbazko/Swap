@@ -5,6 +5,7 @@ global.rootRequire = function(name) {
 }
 global.sessionCookieAge = 60000 * 60 * 24 * 5;
 
+const compression   = require('compression');
 const express       = require('express');
 const app           = express();
 const path          = require('path');
@@ -35,6 +36,7 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
+app.use(compression());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(session({
