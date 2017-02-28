@@ -6,6 +6,12 @@
 {{^itemsOnly}}
 <div class="content-body paperStyle-container userProfile mb30">
   <div class="row">
+    <div class="col-xs4 col-sm6 text-right col--smPush6">
+      <!-- <button class="btn btn--link btn--report pr0 is-hidden">Report {{user.firstName}}</button> -->
+      {{#isCurrentUserProfile}}
+        <a href="/user/profile/edit" title="Edit profile" class="btn btn--small btn--dark">Edit profile</a>
+      {{/isCurrentUserProfile}}
+    </div>
     <div class="col-xs4 col-sm6">
       <h3 class="title--itemOverview">{{user.firstName}} {{user.lastName}}</h3>
       <ul class="no-bullet pt15 pb30 pr30">
@@ -60,12 +66,6 @@
         <a href="/account/signout" title="sign out" class="btn btn--secondary mt10">Sign out</a>
       {{/isCurrentUserProfile}}
       <button type="button" name="write" class="btn btn--fixedWidth is-hidden">Write to {{user.firstName}}</button>
-    </div>
-    <div class="col-xs4 col-sm6 text-right">
-      <!-- <button class="btn btn--link btn--report pr0 is-hidden">Report {{user.firstName}}</button> -->
-      {{#isCurrentUserProfile}}
-        <a href="/user/profile/edit" title="Edit profile" class="btn btn--small btn--dark">Edit profile</a>
-      {{/isCurrentUserProfile}}
     </div>
   </div>
 </div>

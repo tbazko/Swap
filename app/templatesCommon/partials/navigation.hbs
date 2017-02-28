@@ -19,9 +19,9 @@
 
       <ul class="menu inline-block">
         {{#if currentUserId}}
-          <li><a href="/requests" class="link icon-mail">{{#if count}}<span id="requestCounter">{{count}}</span>{{/if}}</a></li>
+          <li class="menu-item"><a href="/requests" class="link icon-mail menu-messages">Messages{{#if count}}<span id="requestCounter">{{count}}</span>{{/if}}</a></li>
           <li class="menu-item">
-            <a href="/user/profile" class="link">My account</a>
+            <a href="/user/profile" class="link icon-user">My account</a>
             <nav class="menu-submenu">
               <a href="/item/create" class="icon-plus">Add new ad</a>
               <a href="/user/items" class="icon-th">My items</a>

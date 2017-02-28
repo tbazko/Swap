@@ -6,41 +6,67 @@
 }
 
 .menu-submenu {
-  max-height: 0px;
-  overflow: hidden;
-  position: absolute;
-  left: -10px;
-  padding: 0 10px;
-  background: rgba($color-navigation-background, .92);
-  color: $color-white;
-  width: 150px;
-  text-align: left;
-  transition: max-height .4s ease;
-
   a {
-    font-size: 13px;
+    color: $color-navigation-font;
     cursor: pointer;
     display: block;
-    padding: 0 10px 5px;
-    color: $color-navigation-font;
-    font-weight: 400;
-    font-size: 14px;
-    text-decoration: none;
-    transition: color .2s ease;
-
-    &:hover {
-      color: $color-main;
-    }
-
-    &:last-of-type {
-      border-top: 1px solid $color-dim-grey;
-      padding: 7px 10px 10px;
-    }
+    padding: 10px 20px;
+    border: 0;
+    line-height: $navigationHeight;
+    border-top: 1px solid $color-light-grey;
+    font-size: 16px;
+    cursor: pointer;
+    display: block;
+    position: relative;
 
     &:before {
       font-size: 12px;
       margin-right: 7px;
       margin-left: 0;
+    }
+  }
+
+  &.is-active a {
+    color: $color-outrageous-orange;
+    font-weight: bold;
+
+    &:hover {
+      color: $color-outrageous-orange;
+      cursor: default;;
+    }
+  }
+
+  @include breakpoint(medium) {
+    max-height: 0px;
+    overflow: hidden;
+    position: absolute;
+    left: -10px;
+    padding: 0 10px;
+    background: rgba($color-navigation-background, .92);
+    color: $color-white;
+    width: 150px;
+    text-align: left;
+    transition: max-height .4s ease;
+
+    a {
+      font-size: 13px;
+      cursor: pointer;
+      display: block;
+      padding: 0 10px 5px;
+      color: $color-navigation-font;
+      font-weight: 400;
+      font-size: 14px;
+      text-decoration: none;
+      transition: color .2s ease;
+
+      &:hover {
+        color: $color-main;
+      }
+
+      &:last-of-type {
+        border-top: 1px solid $color-dim-grey;
+        padding: 7px 10px 10px;
+      }
     }
   }
 }
