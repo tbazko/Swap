@@ -1,0 +1,22 @@
+<input type="text" id="real-tags" name="tags" value="{{#item.tags}}{{name}},{{/item.tags}}" readonly class="is-hidden">
+<input type="text" id="real-swapForTags" name="swapForTags" value="{{#item.swapForTags}}{{name}},{{/item.swapForTags}}" readonly
+  class="is-hidden">
+
+  <label id="tags" class="tags" for="addTag">
+{{#item.tags}}
+    <span class="tags-tag js-tag">
+    {{name}}
+    <span class="icon-cancel tags-tag-remove js-removeTag"></span>
+    </span>
+{{/item.tags}}
+<input id="addTag" class="js-addTag tags-input custom" autocomplete="off" maxlength="30" name="tag" type="text" data-custom-validation="true" placeholder="Tags, keywords">
+</label>
+  <label id="swapForTags" class="tags" for="addSwapForTag">
+{{#item.swapForTags}}
+    <span class="tags-tag js-tag">
+    {{name}}
+    <span class="icon-cancel tags-tag-remove js-removeTag"></span>
+    </span>
+{{/item.swapForTags}}
+<input id="addSwapForTag" class="js-addTag tags-input custom" autocomplete="off" maxlength="30" type="text" data-custom-validation="true" name="swapForTag" placeholder="Swap for keywords here...">
+</label>

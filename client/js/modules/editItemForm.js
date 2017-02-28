@@ -6,8 +6,11 @@ var Dropzone = require('../components/Dropzone');
 
 var EditItemForm = {
   initialize: function () {
-    this.form = document.getElementById('editItemForm');
-    this.bindEvents();
+    var imagesFromDB = document.getElementById('imagesFromDB');
+    if(imagesFromDB) {
+      this.imagesToDelete = document.getElementById('imagesToDelete');
+      this.bindEvents();
+    }
     this.category = new CategorySelector();
     this.tags = new TagTransformer('tags');
     this.swapForTags = new TagTransformer('swapForTags');
@@ -18,39 +21,26 @@ var EditItemForm = {
     this.swapForTags.init();
   },
 
-  bindEvents: function () {
-    this.form.addEventListener('submit', this.formOnSubmit.bind(this), false);
+  bindEvents: function() {
+    imagesFromDB.addEventListener('click', this.onClick.bind(this), true);
   },
 
-  formOnSubmit: function (e) {
-    e.preventDefault();
-    var url = this.form.getAttribute('action');
-    var formData = new FormData(this.form);
-    var xhr = new XMLHttpRequest();
-
-    xhr.open('POST', url);
-    xhr.onload = function () {
-      if (xhr.status === 200) {
-        if (xhr.isNewItem) {
-          var addedAlert = document.querySelector('.js-item-added');
-          utils.removeClass(addedAlert, 'is-hidden');
-        } else if (xhr.error) {
-          this.showError(xhr.error);
-        } else {
-          var editedAlert = document.querySelector('.js-item-edited');
-          utils.removeClass(editedAlert, 'is-hidden');
-        }
-      }
-      else if (xhr.status !== 200) {
-        this.showError('Sorry, something went wrong. Please, try again later.');
-      }
-    };
-    xhr.send(formData);
+  onClick: function(e) {
+    var deleteButton = utils.closest(e.target, '.js-delete-image');
+    if(deleteButton) {
+      e.preventDefault();
+      this.clickedDeleteButton = deleteButton;
+      this.addToImagesToDeleteInput();
+    }
   },
-  showError: function (errorText) {
-    var errorAlert = document.querySelector('.js-item-edited');
-    errorAlert.innerText = errorText;
-    utils.removeClass(errorAlert, 'is-hidden');
+
+  addToImagesToDeleteInput: function() {
+    var imageId = this.clickedDeleteButton.getAttribute('data-image-id');
+    if(this.imagesToDelete.value === '') {
+      this.imagesToDelete.value = imageId;
+    } else {
+      imagesToDelete.value += ',' + imageId;
+    }
   }
 }
 

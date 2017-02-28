@@ -20,7 +20,7 @@ exports.up = function(knex, Promise) {
   })
   .createTableIfNotExists('categories', function(table) {
     table.increments('id').notNullable().unsigned().primary();
-    table.string('name').notNullable().unique();
+    table.string('name').notNullable();
     table.integer('parent').defaultTo(null);
   })
   .createTableIfNotExists('items', function(table) {

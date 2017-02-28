@@ -3,10 +3,10 @@ module.exports = {
   development: {
     client: 'mysql',
     connection: {
-      host     : process.env.DBHOST,
-      user     : process.env.DBUSER,
-      password : process.env.DBPASS,
-      database : process.env.DBNAME,
+      host     : 'localhost',
+      user     : 'root',
+      password : '',
+      database : 'Swap',
       charset  : 'utf8'
     }
   },

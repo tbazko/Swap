@@ -2,7 +2,17 @@
   <option value="0" data-parentId="0">Subcategory</option>
   {{#each categories}}
     {{#if this.parent}}
-      <option value="{{this.id}}" data-parentId="{{this.parent}}">{{this.name}}</option>
+      {{#if_eq this.name 'Other'}}
+      {{else}}
+        <option value="{{this.id}}" data-parentId="{{this.parent}}">{{this.name}}</option>
+      {{/if_eq}}
+    {{/if}}
+  {{/each}}
+  {{#each categories}}
+    {{#if this.parent}}
+      {{#if_eq this.name 'Other'}}
+        <option value="{{this.id}}" data-parentId="{{this.parent}}">{{this.name}}</option>
+      {{/if_eq}}
     {{/if}}
   {{/each}}
 </select>

@@ -11,6 +11,9 @@ var swapTemplate = '<div class="swapFields">' +
       '{{#firstImage}}' +
         '<img src="http://res.cloudinary.com/di42acdz9/image/upload/{{id}}" alt="">' +
       '{{/firstImage}}' +
+      '{{^firstImage}}' +
+        '<span class="icon-picture"></span>' +
+      '{{/firstImage}}' +
     '</div>' +
     '<div class="item-content">' +
       '<h4 class="item-title">{{name}}</h4>' +

@@ -15,8 +15,8 @@ class ItemCreator {
     this._itemData = {
       name: data.name,
       status: data.status || 'for_sale',
-      category_id: data.category_id != 0 ? data.category_id : null,
-      subcategory_id: data.subcategory_id != 0 ? data.subcategory_id : null,
+      category_id: data.category_id != 0 ? data.category_id : 1, // 1 - Other
+      subcategory_id: data.subcategory_id != 0 ? data.subcategory_id : data.category_id != 0 ? data.category_id + 1 : 2, // Category + 1 = 'Other', 2 = 'Anything' in 'Other' category
       description: data.description,
       user_id: data.userId,
       condition: data.itemCondition,
@@ -29,12 +29,10 @@ class ItemCreator {
   }
 
   set files(files) {
-    if(!files.upload.length && files.upload.size === 0) {
+    if (!files) {
       this._files = null;
-    } else if(!files.upload.length) {
-      this._files = [files.upload]
     } else {
-      this._files = files.upload;
+      this._files = files;
     }
   }
 
@@ -52,7 +50,7 @@ class ItemCreator {
         .insertAndFetch(this.itemData)
         .then((newItem) => {
           this._DBobject.currentItem = newItem;
-          if(this.files) {
+          if (this.files) {
             this._addItemImages();
           }
           this.relateTags();
@@ -67,41 +65,42 @@ class ItemCreator {
   }
 
   _addItemImages() {
-    this.files.forEach((file, index) => {
-      file.name = this._getFormattedImageName(file.name);
-      this._insertItemImage(file);
-      this._uploadImageToCloudinary(file);
-    });
+    for (var key in this.files) {
+      if (!this.files.hasOwnProperty(key)) continue;
+      this.files[key].name = this._getFormattedImageName(this.files[key].name);
+      this._insertItemImage(this.files[key]);
+      this._uploadImageToCloudinary(this.files[key]);
+    }
   }
 
   _getFormattedImageName(name) {
-    let nameWithoutImageFormat = name.replace(/\.jpg|\.jpe§g|\.bmp|\.gif/gmi, '');
+    let nameWithoutImageFormat = name.replace(/\.jpg|\.jpeg|\.bmp|\.gif|\.png/gmi, '');
     return `${this._DBobject.currentItem.id}/${nameWithoutImageFormat}`;
   }
 
   _insertItemImage(file) {
     ItemImage
       .query()
-      .insert({id: file.name, item_id: this._DBobject.currentItem.id})
+      .insert({ id: file.name, item_id: this._DBobject.currentItem.id })
       .then();
   }
 
   _uploadImageToCloudinary(file) {
     cloudinary.uploader.upload(file.path,
-      function(result) {
-      }, {public_id: file.name}
+      function (result) {
+      }, { public_id: file.name }
     );
   }
 
   relateTags(tags) {
-    if(this.fields.tags) {
+    if (this.fields.tags) {
       this._DBobject.relateTags(this.fields.tags, 'tags');
-      if(this.fields.swapForTags) {
+      if (this.fields.swapForTags) {
         this._eventEmitter.once('allTagsAdded', () => {
           this._DBobject.relateTags(this.fields.swapForTags, 'swapForTags');
         });
       }
-    } else if(this.fields.swapForTags) {
+    } else if (this.fields.swapForTags) {
       this._DBobject.relateTags(this.fields.swapForTags, 'swapForTags');
     }
   }

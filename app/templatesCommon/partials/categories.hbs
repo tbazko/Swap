@@ -1,7 +1,19 @@
 {{#each categories}}
   {{^this.parent}}
-    <a href="/category/{{name}}?cid={{id}}" class="category" style="background-image: url('http://res.cloudinary.com/di42acdz9/image/upload/category/{{this.id}}.jpg')">
-      <span>{{this.name}}</span>
-    </a>
+    {{#if_eq this.id 1 }}
+    {{else}}
+      <a href="/category/{{name}}?cid={{id}}" class="category" style="background-image: url('http://res.cloudinary.com/di42acdz9/image/upload/category/{{this.id}}.jpg')">
+        <span>{{this.name}}</span>
+      </a>
+    {{/if_eq}}
   {{/this.parent}}
 {{/each}}
+{{!--{{#each categories}}
+  {{^this.parent}}
+    {{#if_eq this.id 1}}
+      <a href="/category/{{name}}?cid={{id}}" class="category" style="background-image: url('http://res.cloudinary.com/di42acdz9/image/upload/category/{{this.id}}.jpg')">
+        <span>{{this.name}}</span>
+      </a>
+    {{/if_eq}}
+  {{/this.parent}}
+{{/each}}--}}

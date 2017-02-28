@@ -83,7 +83,7 @@ class Item extends Base {
       this.eventEmitter.emit('allTagsAdded');
     });
     tagsArray.forEach((value, index) => {
-      this.relateModel(TagSchema, relation, {name: value}, tagsArray.length - 1 === index);
+      this.relateModel(TagSchema, relation, value, {name: value}, tagsArray.length - 1 === index);
     });
 
     this.idName = 'id';
@@ -95,10 +95,10 @@ class Item extends Base {
     });
   }
 
-  relateModel(dataBaseSchema, relation, modelData, isLastItem) {
+  relateModel(dataBaseSchema, relation, idValue, modelData, isLastItem) {
     dataBaseSchema
       .query()
-      .where(this.idName, modelData.name)
+      .where(this.idName, idValue)
       .first()
       .then((model) => {
         let relationsPromise = this.currentItem.$relatedQuery(relation);
@@ -120,17 +120,6 @@ class Item extends Base {
         console.log(err)
       });
   }
-
-  // searchPromise(str) {
-  //   return this.DataBaseSchema
-  //     .query()
-  //     .where(function() {
-  //       this.where('name', 'like', '%' + str + '%')
-  //       .orWhere('description', 'like', '%' + str + '%')
-  //     })
-  //     .andWhere('status', 'for_sale')
-  //     .pick(['id']);
-  // }
 
   editAndGet(itemId, fields, files) {
     let itemEditor = new ItemEditor(this);

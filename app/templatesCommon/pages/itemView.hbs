@@ -8,7 +8,15 @@
       <div class="row itemOverview">
         <div class="itemOverview-sliderColumn">
           <h3 class="title--itemOverview title--forInSwapState">{{item.name}}</h3>
-          {{> slider}}
+          {{#if itemImage}}
+            {{> slider}}
+          {{else}}
+            <div class="slider">
+              <div class="slide is-active">
+                <span class="icon-picture"></span>
+              </div>
+            </div>
+          {{/if}}
         </div>
         <div class="itemOverview-detailsColumn">
           {{> itemOverview-details}}
