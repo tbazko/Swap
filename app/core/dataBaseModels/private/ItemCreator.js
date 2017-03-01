@@ -15,8 +15,8 @@ class ItemCreator {
     this._itemData = {
       name: data.name,
       status: data.status || 'for_sale',
-      category_id: data.category_id != 0 ? data.category_id : 1, // 1 - Other
-      subcategory_id: data.subcategory_id != 0 ? data.subcategory_id : data.category_id != 0 ? data.category_id + 1 : 2, // Category + 1 = 'Other', 2 = 'Anything' in 'Other' category
+      category_id: data.category_id != 0 ? data.category_id : 10000, // 10000 - Other
+      subcategory_id: data.subcategory_id != 0 ? data.subcategory_id : data.category_id != 0 ? data.category_id + 99 : 10001, // Category + 99 = 'Other', 10001 = 'Anything' in 'Other' category
       description: data.description,
       user_id: data.userId,
       condition: data.itemCondition,

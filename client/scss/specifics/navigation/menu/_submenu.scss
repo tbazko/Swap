@@ -40,6 +40,7 @@
     max-height: 0px;
     overflow: hidden;
     position: absolute;
+    top: 100%;
     left: -10px;
     padding: 0 10px;
     background: rgba($color-navigation-background, .92);
@@ -58,13 +59,15 @@
       font-size: 14px;
       text-decoration: none;
       transition: color .2s ease;
+      border-top: 0;
+      line-height: 2;
 
       &:hover {
         color: $color-main;
       }
 
       &:last-of-type {
-        border-top: 1px solid $color-dim-grey;
+        border-top: 1px solid $color-suva-grey;
         padding: 7px 10px 10px;
       }
     }

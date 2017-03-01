@@ -1,6 +1,6 @@
 {{#each categories}}
   {{^this.parent}}
-    {{#if_eq this.id 1 }}
+    {{#if_eq this.name 'Other' }}
     {{else}}
       <a href="/category/{{name}}?cid={{id}}" class="category" style="background-image: url('http://res.cloudinary.com/di42acdz9/image/upload/category/{{this.id}}.jpg')">
         <span>{{this.name}}</span>

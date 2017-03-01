@@ -9,12 +9,21 @@
   </head>
   <body>
     <div id="main" class="main-container">
-      <a href="">Button</a>
       {{> navigation}}
       {{{body}}}
-      <footer class="footer"></footer>
-    </div>    
-    <script src="/socket.io/socket.io.js"></script>    
+      <footer class="footer text-center flex valign-center flex-all">
+        <div class="row">
+          <div class="col-xs4">
+            <p>See <a href="https://trello.com/b/xWmGoE5P/swapit">all features</a> requested by users</p>
+            <p>Add new feature suggestion on <a href="https://trello.com/invite/b/xWmGoE5P/1788e22b9b935aa0705094ddbed92d78/swapit">Trello board</a></p>
+            <p>Raise an issue on <a href="https://github.com/tbazko/Swap/issues">GitHub</a></p>
+
+            <p>SwapIt(alpha). Designed and created by <a href="http://codoyster.com/">Codoyster.com</a></p>
+          </div>
+        </div>
+      </footer>
+    </div>
+    <script src="/socket.io/socket.io.js"></script>
     {{#if _sections.scripts}}
       {{{_sections.scripts}}}
     {{else}}
