@@ -13,7 +13,6 @@ const favicon       = require('serve-favicon');
 const logger        = require('morgan');
 const cookieParser  = require('cookie-parser');
 const bodyParser    = require('body-parser');
-const multer        = require('multer')(); // for parsing multipart/form-data
 const passport      = require('./app/authentication/passport');
 const session       = require('express-session');
 const KnexSessionStore = require('connect-session-knex')(session);
@@ -31,12 +30,12 @@ app.engine('.hbs', hbs.engine);
 app.set('view engine', '.hbs');
 
 // uncomment after placing your favicon in /public
+app.use(compression({threshold: 0}));
 app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(compression());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(session({
