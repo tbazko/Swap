@@ -40,7 +40,6 @@ Dropzone.options.myAwesomeDropzone = { // The camelized version of the ID of the
     this.on("successmultiple", function(files, response) {
       if (response.isNewItem) {
           var addedAlert = document.querySelector('.js-item-added');
-          myDropzone.showError('just testing');
           utils.removeClass(addedAlert, 'is-hidden');
         } else if (response.error) {
           myDropzone.showError(response.error);

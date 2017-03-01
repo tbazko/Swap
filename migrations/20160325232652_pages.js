@@ -17,6 +17,8 @@ exports.up = function(knex, Promise) {
     table.timestamp('reg_date');
     table.integer('unix_time');
     table.string('local_time');
+    table.string('reset_password_token');
+    table.bigInteger('reset_token_expires');
   })
   .createTableIfNotExists('categories', function(table) {
     table.increments('id').notNullable().unsigned().primary();
