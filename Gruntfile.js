@@ -71,7 +71,7 @@ module.exports = function(grunt) {
 				},
 				files: {
 					'public/javascripts/base.js': ['client/js/modules/base.js'],
-          'public/javascripts/index.js': ['client/js/modules/index.js'],
+          'public/javascripts/index.js': ['client/js/modules/base.js', 'client/js/modules/index.js'],
           'public/javascripts/itemOverview.js': ['client/js/modules/base.js', 'client/js/modules/itemOverview.js'],
           'public/javascripts/signUp.js': ['client/js/modules/base.js', 'client/js/modules/signUp.js'],
           'public/javascripts/swapRequestOverview.js': ['client/js/modules/base.js', 'client/js/modules/swapRequestOverview.js'],
