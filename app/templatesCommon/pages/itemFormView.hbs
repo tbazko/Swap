@@ -59,7 +59,7 @@
               <h4 class="uploaded-title">Already uploaded:</h4>
               <input type="hidden" value="" name="imagesToDelete" id="imagesToDelete">
               {{#item.images}}
-                <div class="relative inline-block">
+                <div class="relative inline-block js-uploaded-image">
                   <img class="uploaded-image" src="http://res.cloudinary.com/di42acdz9/image/upload/{{this.id}}" alt="">
                   <div class="item-actions">
                     <button class="js-delete-image item-remove icon-cancel" data-image-id="{{this.id}}">Delete</button>

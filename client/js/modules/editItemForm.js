@@ -31,6 +31,7 @@ var EditItemForm = {
       e.preventDefault();
       this.clickedDeleteButton = deleteButton;
       this.addToImagesToDeleteInput();
+      this.hideImage();
     }
   },
 
@@ -41,6 +42,11 @@ var EditItemForm = {
     } else {
       imagesToDelete.value += ',' + imageId;
     }
+  },
+
+  hideImage: function() {
+    var imageContainer = utils.closest(this.clickedDeleteButton, '.js-uploaded-image');
+    imageContainer.style.display = 'none';
   }
 }
 
