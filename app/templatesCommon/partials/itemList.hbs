@@ -26,14 +26,22 @@
       <p class="item-tag-title">
         <b>Tags:&nbsp;
           {{#tags}}
-            <a href="{{../../url}}&tag={{name}}">#{{name}} </a>
+            {{#if_eq ../../url '/'}}
+              <a href="{{../../url}}?tag={{name}}">#{{name}} </a>
+            {{else}}
+              <a href="{{../../url}}&tag={{name}}">#{{name}} </a>
+            {{/if_eq}}
           {{/tags}}
         </b>
       </p>
       <p class="item-tag-title">
         <b>Swap for:&nbsp;
           {{#swapForTags}}
-            <a href="{{../../url}}?tag={{name}}">#{{name}} </a>
+            {{#if_eq ../../url '/'}}
+              <a href="{{../../url}}?tag={{name}}">#{{name}} </a>
+            {{else}}
+              <a href="{{../../url}}&tag={{name}}">#{{name}} </a>
+            {{/if_eq}}
           {{/swapForTags}}
         </b>
       </p>
