@@ -21,7 +21,6 @@
           <p class="mb10">{{request.buyer.firstName}} requests:</p>
         {{/if}}
         {{#request.masterItems}}
-          {{status}}
           {{#with images.[0]}}
           <div class="swapRequestOverview-imageContainer swapRequestOverview-imageContainer--master">
             <div class="swapRequestOverview-image" style="background-image: url('http://res.cloudinary.com/di42acdz9/image/upload/{{this.id}}')"></div>
