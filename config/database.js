@@ -6,14 +6,15 @@ var Knex = require('knex');
 var knex = Knex({
   client: 'mysql',
   connection: {
-    host     : process.env.DBHOST,
-    user     : process.env.DBUSER,
-    password : process.env.DBPASS,
-    database : process.env.DBNAME,
-    // host: 'localhost',
-    // user: 'root',
-    // password: '',
-    // database: 'Swap',
+    // host     : process.env.DBHOST,
+    // user     : process.env.DBUSER,
+    // password : process.env.DBPASS,
+    // database : process.env.DBNAME,
+    host: 'localhost',
+    user: 'root',
+    password: '',
+    database: 'Swap',
+    // debug: ['ComQueryPacket'],
     charset  : 'utf8',
     timezone : 'UTC'
   }

@@ -66,7 +66,7 @@ describe('Item Form page presenter', () => {
       expect(page._denyItemEditing).toHaveBeenCalledTimes(1);
       done();
     }).catch((err) => {
-      console.log('line 65: ' + err);
+      console.log('line 69: ' + err);
     });
   });
 

@@ -37,6 +37,7 @@ class AbstractPagePresenter {
   renderView() {
     this.model.pageDataPromise.then((pageData) => {
       let response = this._arrayToObject(pageData);
+      // console.log(response);
       if(response) {
         this.view.render(this.template, response);
       } else {

@@ -3,7 +3,7 @@ const ItemList = rootRequire('app/itemList/ItemList');
 let defaultS = rootRequire('app/itemList/strategies/default');
 
 describe('Item List', () => {
-  let list = new ItemList({
+  let l = new ItemList({
     itemListStrategy: defaultS,
     path: '/',
     userId: 1,
@@ -13,7 +13,7 @@ describe('Item List', () => {
   });
 
   it(('should return items'), () => {
-    list.items.then((items) => {
+    l.list.then((items) => {
       expect(items).toEqual(jasmine.any(Object));
     });
   });

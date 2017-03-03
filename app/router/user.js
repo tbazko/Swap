@@ -9,16 +9,24 @@ let app = express();
 app.set('views', __dirname + '/../templatesCommon');
 app.get('/user/:id(\\d+)/', makeUserProfilePage);
 app.get('/user/:id(\\d+)/items', makeUserProfilePage);
-app.get('/user/items', helpers.signInRedirect, makeUserProfilePage);
-app.get('/user/profile', helpers.signInRedirect, makeUserProfilePage);
+app.get('/user/items', helpers.signInRedirect, makeCurrentUserProfilePage);
+app.get('/user/profile', helpers.signInRedirect, makeCurrentUserProfilePage);
 app.get('/user/profile/edit', helpers.signInRedirect, makeUserProfileEditPage);
 app.post('/user/items', helpers.isAuthenticated, makeItemList);
 app.post('/user/profile/edit', helpers.signInRedirect, makeUserProfileEditPage);
 
-function makeUserProfilePage(req, res, next) {
+function makeCurrentUserProfilePage(req, res, next) {
   let p = new UserProfilePage({
     template: 'pages/userProfileView',
     itemListStrategy: rootRequire('app/itemList/strategies/filteredByCurrentUser')
+  });
+  p.render(req, res, next);
+}
+
+function makeUserProfilePage(req, res, next) {
+  let p = new UserProfilePage({
+    template: 'pages/userProfileView',
+    itemListStrategy: rootRequire('app/itemList/strategies/filteredByUser')
   });
   p.render(req, res, next);
 }

@@ -60,7 +60,7 @@ class ItemFormPagePresenter extends BasePagePresenter {
     this.model.pageDataPromise.then((pageData) => {
       let response = this._arrayToObject(pageData);
       if(response.item) {
-        if(!response.itemBelongsToCurrentUser) return this._denyItemEditing();
+        if(!response.itemBelongsToCurrentUser) return this._denyItemEditing(response);
         response.userId = this.model.currentUserId;
         response.newItem = 0;
         this.view.render(this.template, response);
@@ -70,7 +70,7 @@ class ItemFormPagePresenter extends BasePagePresenter {
     });
   }
 
-  _denyItemEditing() {
+  _denyItemEditing(response) {
     this.view.render(this.template, {itemBelongsToCurrentUser: response.itemBelongsToCurrentUser});
   }
 

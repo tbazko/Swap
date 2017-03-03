@@ -1,7 +1,9 @@
 'use strict';
-const QueryBuilder = require('objection').QueryBuilder;
+const knex = rootRequire('config/database').knex;
+const objection = require('objection');
 const TagSchema = rootRequire('app/core/dataBaseSchemas/Tag');
 const ItemSchema = rootRequire('app/core/dataBaseSchemas/Item');
+const events = require('events');
 
 class ItemListFilter {
   constructor() {
@@ -12,6 +14,7 @@ class ItemListFilter {
     this.searchTerm = undefined;
     this.tag = undefined;
     this.query = ItemSchema.query();
+    this.eventEmitter = new events.EventEmitter();
   }
 
   byUser(query) {
@@ -42,19 +45,6 @@ class ItemListFilter {
     return this;
   }
 
-  byTag() {
-    if(this.tag) {
-      this.query = TagSchema.query()
-      .where('name', this.tag)
-      .eager('[items(byUser, byCategory, byActive).[images, swapForTags, tags]]', {
-        byUser: this.byUser.bind(this),
-        byCategory: this.byCategory.bind(this),
-        byActive: this.byActive.bind(this)
-      });
-    }
-    return this;
-  }
-
   bySearchTerm(query) {
     if(query) this.query = query;
     if(this.searchTerm) {
@@ -72,24 +62,44 @@ class ItemListFilter {
     return this;
   }
 
-  then(successHandler, errorHandler) {
+  exec(successHandler, errorHandler) {
     return this.query.then(successHandler, errorHandler);
+  }
+
+  byTag() {
+    if(this.tag) {
+      return TagSchema.query()
+        .where('name', this.tag)
+        .first()
+        .then((tag) => {
+          if(!tag) return new Error('NOTAG');
+          this.query = this.query
+            .from((builder) => {
+              builder.select(knex.raw('items.*, items_tags.tag_id as objectiontmpjoin0 from items'))
+              .join('items_tags', 'items_tags.item_id', '=', 'items.id')
+              .whereIn('items_tags.tag_id', tag.id).as(knex.raw('t'));
+            });
+        });
+    }
+    return this;
   }
 
   build() {
     if(this.tag) {
-      return this
-        .byTag().then((tags) => {
-          return tags && tags.length ? tags[0].items : null;
-        });
+      return this.byTag()
+        .then(() => this._build());
     } else {
-      return this
-              .byUser()
-              .byCategory()
-              .bySearchTerm()
-              .byActive()
-              .addRelations();
+      return Promise.resolve(this._build());
     }
+  }
+
+  _build() {
+    return this
+      .byUser()
+      .byCategory()
+      .bySearchTerm()
+      .byActive()
+      .addRelations();
   }
 }
 

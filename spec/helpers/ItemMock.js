@@ -15,7 +15,7 @@ beforeAll((done) => {
     tags: 'testTag',
     userId: itemOwnerUserId
     }, {
-      upload: {size: 0}
+      upload: {size: 0, name: 'Test.jpg'}
     }).then((item) => {
     global.itemId = item.id;
     done();
@@ -23,7 +23,7 @@ beforeAll((done) => {
 });
 
 afterAll((done) => {
-  item.destroy(global.itemId).then((response) => {
+  item.destroy(global.itemId).then((res) => {
     delete global.itemId;
     done();
   }).catch((err) => console.log(`Error from ItemMock ${err}`));
