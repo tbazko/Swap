@@ -30,6 +30,10 @@
   min-width: 150px;
 }
 
+.btn--tiny {
+  min-width: 100px;
+}
+
 .btn--link {
   @include btn("btn--link", $setMinWidth: false);
 }

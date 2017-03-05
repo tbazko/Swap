@@ -1,14 +1,11 @@
 'use strict';
 const clone = require('clone');
-const knex = rootRequire('config/database').knex;
-const objection = require('objection');
-const ItemSchema = rootRequire('app/core/dataBaseSchemas/Item');
 
 class Pagination {
   constructor(data) {
     this.queryWithItems = null;
     this.currentPage = data.page || 1;
-    this.pageSize = data.pageSize || 100;
+    this.pageSize = data.pageSize || 20;
     this.start = this.getStart();
   }
 
@@ -33,7 +30,6 @@ class Pagination {
   paginate() {
     this.queryWithItemsWithoutLimit = clone(this.queryWithItems);
     return this.queryWithItems.limit(this.pageSize).offset(this.start);
-
   }
 
   limit() {

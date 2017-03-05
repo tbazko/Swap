@@ -11,6 +11,9 @@ class BasePagePresenter extends AbstractPagePresenter {
   parseRequest() {
     this.model.currentUserId = this.req.user ? this.req.user.id : null;
     this.model.originalUrl = this.req.originalUrl;
+    this.model.hostname = this.req.hostname;
+    this.model.path = this.req.path;
+    this.model.query = this.model.query;
   }
 }
 

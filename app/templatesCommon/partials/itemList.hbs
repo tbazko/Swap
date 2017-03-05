@@ -26,25 +26,23 @@
       <p class="item-tag-title">
         <b>Tags:&nbsp;
           {{#tags}}
-            {{#if_eq ../../url '/'}}
-              <a href="{{../../url}}?tag={{name}}">#{{name}} </a>
-            {{else}}
-              <a href="{{../../url}}&tag={{name}}">#{{name}} </a>
-            {{/if_eq}}
+            <a href="{{tagUrl ../../url}}tag={{name}}">#{{name}} </a>
           {{/tags}}
         </b>
       </p>
       <p class="item-tag-title">
         <b>Swap for:&nbsp;
           {{#swapForTags}}
-            {{#if_eq ../../url '/'}}
-              <a href="{{../../url}}?tag={{name}}">#{{name}} </a>
-            {{else}}
-              <a href="{{../../url}}&tag={{name}}">#{{name}} </a>
-            {{/if_eq}}
+            <a href="{{tagUrl ../../url}}tag={{name}}">#{{name}} </a>
           {{/swapForTags}}
         </b>
       </p>
     </div>
   </div>
 {{/items}}
+{{#if items}}
+  {{#if_eq pageCount 1}}
+  {{else}}
+    {{> pagination}}
+  {{/if_eq}}
+{{/if}}
