@@ -13,13 +13,13 @@
 
 .itemOverview-sliderColumn {
   @extend .col;
-  @extend .col-md7;
+  @extend .col-md6;
   transition: width .4s ease;
 }
 
 .itemOverview-detailsColumn {
   @extend .col;
-  @extend .col-md5;
+  @extend .col-md6;
   transition: width .4s ease;
 }
 
