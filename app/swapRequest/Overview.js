@@ -29,13 +29,16 @@ class SwapRequestOverview {
           if(err) reject(err);
           if(requests[0]) {
             this.swapRequest = requests[0];
+            let currentUserIsBuyer = this.swapRequest.buyer_id === this._currentUser.id;
             this._status.swapRequest = this.swapRequest;
-            this.swapRequest.status = this._status.update();
+            if(!currentUserIsBuyer) {
+              this.swapRequest.status = this._status.update();
+            }
             this._status.listen();
             resolve({
               request: this.swapRequest,
               user: this._currentUser,
-              currentUserIsBuyer: this.swapRequest.buyer_id === this._currentUser.id
+              currentUserIsBuyer: currentUserIsBuyer
             });
           } else {
             resolve(undefined);
