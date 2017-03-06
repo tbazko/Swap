@@ -1,0 +1,20 @@
+.menu-messages-counter {
+  @include breakpoint(medium) {
+    font-size: 10px;
+    color: $color-white;
+    background: $color-alternate-lighter;
+    position: absolute;
+    top: 7px;
+    right: 7px;
+    display: block;
+    width: 17px;
+    height: 17px;
+    line-height: 17px;
+    text-align: center;
+    border-radius: 50%;
+  }
+
+  &.is-hidden {
+    display: none;
+  }
+}
