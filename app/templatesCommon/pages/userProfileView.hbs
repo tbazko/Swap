@@ -6,7 +6,7 @@
 {{^itemsOnly}}
 <div class="content-body paperStyle-container userProfile mb30">
   <div class="row">
-    <div class="col-xs4 col-sm6 text-right col--smPush6">
+    <div class="col-xs4 col-sm6 text-right col-sm-last">
       <!-- <button class="btn btn--link btn--report pr0 is-hidden">Report {{user.firstName}}</button> -->
       {{#isCurrentUserProfile}}
         <a href="/user/profile/edit" title="Edit profile" class="btn btn--small btn--dark">Edit profile</a>
@@ -78,8 +78,8 @@
       </div>
     </div>
   {{/if}}
-  <div class="row row-with-blocks-v2 pt30">
-    {{> itemList}}
+
+  {{> itemList}}
   </div>
 </div>
 

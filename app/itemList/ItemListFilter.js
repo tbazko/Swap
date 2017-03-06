@@ -17,16 +17,14 @@ class ItemListFilter {
     this.eventEmitter = new events.EventEmitter();
   }
 
-  byUser(query) {
-    if(query) this.query = query;
+  byUser() {
     if(this.userId) {
       this.query = this.query.where('user_id', this.userId);
     }
     return this;
   }
 
-  byCategory(query) {
-    if(query) this.query = query;
+  byCategory() {
     if(this.categoryId) {
       if(this.subcategoryId) {
         this.query = this.query.where('subcategory_id', this.subcategoryId);
@@ -37,16 +35,14 @@ class ItemListFilter {
     return this;
   }
 
-  byActive(query) {
+  byActive() {
     if(this.onlyActive) {
-      if(query) this.query = query;
       this.query = this.query.andWhere('status', 'for_sale');
     }
     return this;
   }
 
-  bySearchTerm(query) {
-    if(query) this.query = query;
+  bySearchTerm() {
     if(this.searchTerm) {
       let term = this.searchTerm;
       this.query = this.query.where(function(builder) {
@@ -54,6 +50,11 @@ class ItemListFilter {
         .orWhere('description', 'like', `%${term}%`)
       });
     }
+    return this;
+  }
+
+  orderBy() {
+    this.query = this.query.orderBy('unix_time', 'DESC');
     return this;
   }
 
@@ -99,7 +100,8 @@ class ItemListFilter {
       .byCategory()
       .bySearchTerm()
       .byActive()
-      .addRelations();
+      .addRelations()
+      .orderBy();
   }
 }
 

@@ -12,18 +12,14 @@
       </a>
     {{/if}}
     {{#if ../isCurrentUserProfile}}
-      <form action="/item/{{id}}/destroy" method="post" class="item-actions js-destroy-form" data-ajax-submit>
-        <!-- <input type="hidden" name="itemId" value="{{id}}"> -->
-        <button type="submit" class="item-remove icon-cancel js-destroy-btn" title="Remove item">Remove</button><br>
-        <a href="/item/{{id}}/edit" class="item-edit icon-pencil mt10" title="Edit item">Edit</a>
-      </form>
+      {{> userProfileItemActions}}
     {{/if}}
     <div class="item-content">
       <div class="item-content-head">
         <h4 class="item-title">{{name}}</h4>
         <p>{{description}}</p>
       </div>
-      <p class="item-tag-title">
+      <p class="item-tag-title pt15">
         <b>Tags:&nbsp;
           {{#tags}}
             <a href="{{tagUrl ../../url}}tag={{name}}">#{{name}} </a>

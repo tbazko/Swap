@@ -15,6 +15,8 @@ class SwapRequestList {
   }
 
   _getAllUserRequests(resolve, reject) {
+    this._swapRequest.orderBy = "unix_time";
+    this._swapRequest.orderDirection = "DESC";
     this._swapRequest
       .getWithRelations(this.userId, '[masterItems.[images], slaveItems.[images], seller, buyer]', (err, requests) => {
         if(err) reject(err);

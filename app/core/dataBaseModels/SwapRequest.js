@@ -14,7 +14,6 @@ class SwapRequest extends Base {
     let swapForm = this.req.body;
     let masterItemId = this.req.params.id;
     let slaveItemIds = [];
-    console.log(swapForm);
     let data = {
       seller_id: swapForm.seller_id,
       buyer_id: this.req.user.id,

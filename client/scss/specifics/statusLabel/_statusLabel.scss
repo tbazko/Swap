@@ -37,4 +37,13 @@
     color: #fff;
     background: $color-suva-grey;
   }
+
+  &--for_sale {
+    display: none;
+  }
+
+  &--not_for_sale {
+    color: #fff;
+    background: $color-alternate;
+  }
 }

@@ -1,0 +1,8 @@
+<form action="/item/{{id}}/destroy" method="post" class="item-actions js-destroy-form" data-ajax-submit>
+  <button type="submit" class="item-remove icon-cancel js-destroy-btn" title="Remove item">Remove</button><br>
+  {{#unless_eq status "accepted"}}
+    <a href="/item/{{id}}/edit" class="item-edit icon-pencil mt10" title="Edit item">Edit</a>
+  {{/unless_eq}}
+</form>
+
+

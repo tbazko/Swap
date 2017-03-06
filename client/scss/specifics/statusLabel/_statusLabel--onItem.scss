@@ -1,0 +1,27 @@
+.statusLabel--onItem {
+  position: absolute;
+  left: 10px;
+  top: 0px;
+  border-radius: 0;
+  box-sizing: content-box;
+  width: 0;
+  height: 100px;
+  border: 50px solid $color-ok;
+  border-top: 0 solid;
+  border-bottom: 35px solid rgba(0,0,0,0);
+  font: normal 100%/normal Arial, Helvetica, sans-serif;
+  color: rgba(0,0,0,1);
+  text-overflow: clip;
+  padding: 0;
+
+  &.statusLabel--accepted {
+    background: transparent;
+  }
+}
+
+.statusLabel--onItem-text {
+  position: absolute;
+  color: $color-white;
+  top: 0;
+  left: -50%;
+}

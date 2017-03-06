@@ -31,6 +31,11 @@ class Base {
       promise  = this.DataBaseSchema.query().where(this.idName, '=', id);
     }
 
+    if(this.orderBy) {
+      if(!this.orderDirection) this.orderDirection = "DESC";
+      promise = promise.orderBy(this.orderBy, this.orderDirection);
+    }
+
     promise
       .eager(relations)
       .then(function(items) {

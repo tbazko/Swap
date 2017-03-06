@@ -43,7 +43,8 @@ class ItemCreator {
     this.fields = fields;
     this.files = files;
     this.itemData = this.fields;
-    this.itemData.status = "for_sale";
+    this.setCreationSpecificPropsForItemData();
+
     let newItemPromise = new Promise((resolve, reject) => {
       this._DBschema
         .query()
@@ -103,6 +104,12 @@ class ItemCreator {
     } else if (this.fields.swapForTags) {
       this._DBobject.relateTags(this.fields.swapForTags, 'swapForTags');
     }
+  }
+
+  setCreationSpecificPropsForItemData() {
+    this.itemData.status = "for_sale";
+    this.itemData.unix_time = this._DBschema.raw('UNIX_TIMESTAMP()');
+    this.itemData.local_time = this._DBschema.raw('date_format(now(), "%D %M %Y, %H:%i")');
   }
 }
 
