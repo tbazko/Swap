@@ -79,6 +79,12 @@ module.exports = exphbs.create({
         }
       }
       return new Handlebars.SafeString(pagination);
+    },
+    setCount: function() {
+      if(this.count && this.count > 10) {
+        return '9+'
+      }
+      return this.count;
     }
   }
 });
