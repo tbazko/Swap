@@ -78,8 +78,19 @@
       </div>
     </div>
   {{/if}}
-
-  {{> itemList}}
+  <div class="tab-pane js-tab-pane" id="requestsTabPane">
+    <div class="tab js-tab is-active">
+      <h4 class="font-size14">Incoming ({{requests.incoming.length}})</h4>
+    </div>
+    <div class="tab js-tab">
+      <h4 class="font-size14">Sent ({{requests.sent.length}})</h4>
+    </div>
+    <div id="incomingRequests" class="pane js-pane is-active">
+      {{> itemList}}
+    </div>
+    <div class="pane js-pane">
+      {{> itemList}}
+    </div>
   </div>
 </div>
 
