@@ -29,7 +29,7 @@ class SwapRequest extends Base {
       .then(function(request) {
         request.$relatedQuery('masterItems').relate(masterItemId)
           .then(function() {
-            if(slaveItemIds.length === 1) {
+            if(typeof slaveItemIds === 'string') {
               request.$relatedQuery('slaveItems').relate(slaveItemIds).then();
             } else {
               slaveItemIds.forEach(function(value, index) {
