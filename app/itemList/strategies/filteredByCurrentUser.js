@@ -4,6 +4,6 @@ const Item = rootRequire('app/core/dataBaseModels/Item');
 module.exports = {
   configureFilter: function(model) {
     model.filter.userId = model.userId;
-    model.filter.onlyActive = false;
+    model.filter.activeItems = model.showActiveItems;
   }
 }

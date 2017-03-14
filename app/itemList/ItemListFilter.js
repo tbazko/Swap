@@ -10,7 +10,7 @@ class ItemListFilter {
     this.userId = undefined;
     this.categoryId = undefined;
     this.subcategoryId = undefined;
-    this.onlyActive = undefined;
+    this.activeItems = undefined;
     this.searchTerm = undefined;
     this.tag = undefined;
     this.query = ItemSchema.query();
@@ -36,8 +36,12 @@ class ItemListFilter {
   }
 
   byActive() {
-    if(this.onlyActive) {
+    if(this.activeItems) {
       this.query = this.query.andWhere('status', 'for_sale');
+    } else {
+      this.query = this.query.andWhere(function(builder) {
+        builder.where('status', 'not_for_sale').orWhere('status', 'accepted');
+      });
     }
     return this;
   }

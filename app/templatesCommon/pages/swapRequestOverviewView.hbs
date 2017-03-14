@@ -21,11 +21,17 @@
           <p class="mb10">{{request.buyer.firstName}} requests:</p>
         {{/if}}
         {{#request.masterItems}}
-          {{#with images.[0]}}
-          <div class="swapRequestOverview-imageContainer swapRequestOverview-imageContainer--master">
-            <div class="swapRequestOverview-image" style="background-image: url('http://res.cloudinary.com/di42acdz9/image/upload/{{this.id}}')"></div>
-          </div>
-          {{/with}}
+          {{#if images}}
+            {{#with images.[0]}}
+            <div class="swapRequestOverview-imageContainer swapRequestOverview-imageContainer--master">
+              <div class="swapRequestOverview-image" style="background-image: url('http://res.cloudinary.com/di42acdz9/image/upload/{{this.id}}')"></div>
+            </div>
+            {{/with}}
+          {{else}}
+            <div class="swapRequestOverview-imageContainer swapRequestOverview-imageContainer--master">
+              <span class="icon-picture"></span>
+            </div>
+          {{/if}}
             <h4 class="swapRequestOverview-title">
               <a href="/item/{{this.id}}">{{this.name}}</a>
             </h4>
@@ -39,12 +45,19 @@
       {{/if}}
       <div class="swapRequestOverview-body">
         {{#request.slaveItems}}
+        {{#if_eq this.status 'for_sale'}}
           <div class="swapRequestOverview-item">
-          {{#with images.[0]}}
+          {{#if images}}
+            {{#with images.[0]}}
+              <div class="swapRequestOverview-imageContainer">
+                <div class="swapRequestOverview-image" style="background-image: url('http://res.cloudinary.com/di42acdz9/image/upload/{{this.id}}')"></div>
+              </div>
+            {{/with}}
+          {{else}}
             <div class="swapRequestOverview-imageContainer">
-              <div class="swapRequestOverview-image" style="background-image: url('http://res.cloudinary.com/di42acdz9/image/upload/{{this.id}}')"></div>
+              <span class="icon-picture"></span>
             </div>
-          {{/with}}
+          {{/if}}
             <div class="swapRequestOverview-itemDetails">
               <h4 class="swapRequestOverview-title">
                 <a href="/item/{{this.id}}">{{this.name}}</a>
@@ -73,7 +86,7 @@
               <p>{{this.description}}</p>
             </div>
           </div>
-
+          {{/if_eq}}
         {{/request.slaveItems}}
       </div>
     </div>

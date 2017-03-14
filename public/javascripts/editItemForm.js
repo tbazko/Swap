@@ -1,2 +1,3168 @@
-!function a(b,c,d){function e(g,h){if(!c[g]){if(!b[g]){var i="function"==typeof require&&require;if(!h&&i)return i(g,!0);if(f)return f(g,!0);var j=new Error("Cannot find module '"+g+"'");throw j.code="MODULE_NOT_FOUND",j}var k=c[g]={exports:{}};b[g][0].call(k.exports,function(a){var c=b[g][1][a];return e(c?c:a)},k,k.exports,a,b,c,d)}return c[g].exports}for(var f="function"==typeof require&&require,g=0;g<d.length;g++)e(d[g]);return e}({1:[function(a,b,c){"use strict";function d(){this.categorySelect=null,this.allSubCategories=null,this.subCategorySelect=null,this.savedId=null}d.prototype.init=function(){this.categorySelect=document.getElementById("category"),this.subCategorySelect=document.getElementById("subcategory"),this.categorySelect&&this.subCategorySelect&&(this.savedId=this.subCategorySelect.getAttribute("data-savedCategoryId"),this.saveSubCategories(),this.renderCurrentOptions(),this.bindEvents())},d.prototype.saveSubCategories=function(){this.subCategorySelect=document.getElementById("subcategory"),this.allSubCategories=[].slice.call(this.subCategorySelect.children)},d.prototype.renderCurrentOptions=function(){this.savedId&&(this.selectSavedValues(),this.savedId=null),this.filterOutSubCategories()},d.prototype.bindEvents=function(){this.categorySelect.addEventListener("change",this.renderCurrentOptions.bind(this))},d.prototype.filterOutSubCategories=function(){this.subCategoriesSetString="",this.categoryId=this.categorySelect.options[this.categorySelect.selectedIndex].value;for(var a=0,b=this.allSubCategories.length;a<b;a++)this.allSubCategories[a].getAttribute("data-parentId")===this.categoryId&&(this.subCategoriesSetString+=this.allSubCategories[a].outerHTML);this.subCategorySelect.innerHTML=this.subCategoriesSetString},d.prototype.selectSavedValues=function(){var a=this;this.allSubCategories.forEach(function(b){if(b.value===a.savedId)for(var c=b.getAttribute("data-parentId"),d=a.categorySelect.options,e=0,f=d.length;e<f;e++)if(d[e].value===c)return d[e].selected=!0,void b.setAttribute("selected","selected")})},b.exports=d},{}],2:[function(a,b,c){"use strict";function d(){this.id="requestCounter",this.count=0}d.prototype.update=function(){var a=document.getElementById(this.id);a.innerHTML=++this.count},b.exports=d},{}],3:[function(a,b,c){"use strict";function d(a,b){var c,d;c=a.split(",")[0].indexOf("base64")!==-1?atob(a.split(",")[1]):decodeURI(a.split(",")[1]),d=a.split(",")[0].split(":")[1].split(";")[0];for(var e=new Array,f=0;f<c.length;f++)e[f]=c.charCodeAt(f);var g=new File([new Uint8Array(e)],b.name,{type:d}),h=["upload","status","previewElement","previewTemplate","accepted"];return h.forEach(function(a,c){g[c]=b[c]}),g}var e=a("dropzone"),f=a("../components/utils/utils");e.autoDiscover=!1;new e("form#my-awesome-dropzone",{autoQueue:!1,autoProcessQueue:!1,uploadMultiple:!0,parallelUploads:100,maxFiles:10,paramName:"upload",previewsContainer:".dropzone-previews",clickable:".dz-message",addRemoveLinks:!0,init:function(){var a=(document.createElement("canvas"),this);a.showError=a.options.showError,a.sendFormWithoutImages=a.options.sendFormWithoutImages,this.element.querySelector("input[type=submit]").addEventListener("click",function(b){b.preventDefault(),b.stopPropagation(),a.getQueuedFiles().length>0?a.processQueue():a.sendFormWithoutImages()}),this.on("sendingmultiple",function(){}),this.on("successmultiple",function(b,c){if(c.isNewItem){var d=document.querySelector(".js-item-added");f.removeClass(d,"is-hidden")}else if(c.error)a.showError(c.error);else{var e=document.querySelector(".js-item-edited");f.removeClass(e,"is-hidden")}}),this.on("errormultiple",function(b,c){a.showError("Sorry, something went wrong. Please, try again later.")}),this.on("addedfile",function(b){var c=800,e=600,f=new FileReader;f.addEventListener("load",function(f){var g=new Image;g.src=f.target.result,g.addEventListener("load",function(f){var h=f.target.width,i=f.target.height;if(h<=c&&i<=e)return void a.enqueueFile(b);h>i?h>c&&(i*=c/h,h=c):i>e&&(h*=e/i,i=e);var j=document.createElement("canvas");j.width=h,j.height=i;var k=j.getContext("2d");k.drawImage(g,0,0,h,i);var l=d(j.toDataURL("image/jpeg",.6),b),m=a.files.indexOf(b);a.files[m]=l,l.status="added",l.accepted=!0,a.enqueueFile(l)})}),f.readAsDataURL(b)})},sendFormWithoutImages:function(){var a=document.getElementById("my-awesome-dropzone"),b=a.getAttribute("action"),c=new FormData(a),d=new XMLHttpRequest;d.open("POST",b),d.onload=function(){if(200===d.status)if(d.isNewItem){var a=document.querySelector(".js-item-added");f.removeClass(a,"is-hidden"),this.showError("test")}else if(d.error)this.showError(d.error);else{var b=document.querySelector(".js-item-edited");f.removeClass(b,"is-hidden")}else 200!==d.status&&this.showError("Sorry, something went wrong. Please, try again later.")},d.send(c)},showError:function(a){var b=document.querySelector(".js-item-edited");b.innerText=a,f.removeClass(b,"is-hidden")}})},{"../components/utils/utils":7,dropzone:11}],4:[function(a,b,c){"use strict";function d(a){this.forms=document.getElementsByClassName(a),this.currentForm=null,this.minPasswordLength=6,this.errorMessages={invalidEmail:"Invalid email format",invalidCharacters:"Contains forbidden symbols",minPasswordLength:"Password should contain at least 6 symbols"},this.errors={},this.emailRegex=/(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))/i,this.urlRegex=/https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&\/\/=]*)/}var e=a("./utils/utils");d.prototype.init=function(){this.forms.length>0&&this.bindEvents()},d.prototype.bindEvents=function(){document.addEventListener("blur",this.onBlur.bind(this),!0),document.addEventListener("keyup",this.onKeyUp.bind(this),!0),document.addEventListener("submit",this.onSubmit.bind(this),!0)},d.prototype.onBlur=function(a){var b=a.target;this.setCurrentForm(b),this.validateInput(b)},d.prototype.onKeyUp=function(a){var b=a.target;(b.hasAttribute("type")&&"text"===b.getAttribute("type")||e.selectorMatches(b,"textarea"))&&(this.setCurrentForm(b),this.validateInput(b))},d.prototype.onSubmit=function(a){a.preventDefault();var b=a.target;this.setCurrentForm(b),this.isValidForm()&&this.submitForm()},d.prototype.setCurrentForm=function(a){for(;a!=document;)a&&e.selectorMatches(a,".js-form")&&(this.currentForm=a),a=a.parentNode},d.prototype.validateInput=function(a){if(""!==a.value){var b=a.hasAttribute("type")&&"email"===a.getAttribute("type"),c=a.hasAttribute("type")&&"text"===a.getAttribute("type")||e.selectorMatches(a,"textarea"),d=a.hasAttribute("type")&&"password"===a.getAttribute("type")&&"true"===a.getAttribute("data-validate");b?this.validateEmail(a):c?(this.validateForRestrictedCharacters(a),this.removeEmails(a),this.removeUrls(a)):d&&this.validatePassword(a)}},d.prototype.validateEmail=function(a){this.isEmail(a.value)?(e.addClass(a,"is-valid"),e.removeClass(a,"is-invalid"),this.hideInputError(a)):(e.removeClass(a,"is-valid"),e.addClass(a,"is-invalid"),this.showInputError(a,this.errorMessages.invalidEmail))},d.prototype.validateForRestrictedCharacters=function(a){a.getAttribute("data-custom-validation")||(this.isValidString(a.value)?(e.addClass(a,"is-valid"),e.removeClass(a,"is-invalid"),this.hideInputError(a)):(e.removeClass(a,"is-valid"),e.addClass(a,"is-invalid"),this.showInputError(a,this.errorMessages.invalidCharacters)))},d.prototype.isValidForm=function(){var a=this.currentForm.querySelector(".is-invalid");return!a},d.prototype.submitForm=function(){this.currentForm.getAttribute("data-ajax-submit")||this.currentForm.submit()},d.prototype.removeEmails=function(a){this.emailRegex.test(a.value)&&(a.value=a.value.replace(this.emailRegex,"((Forbidden))"))},d.prototype.removeUrls=function(a){this.urlRegex.test(a.value)&&(a.value=a.value.replace(this.urlRegex,"((Forbidden))"))},d.prototype.validatePassword=function(a){a.value.length<6?(e.removeClass(a,"is-valid"),e.addClass(a,"is-invalid"),this.showInputError(a,this.errorMessages.minPasswordLength)):(e.addClass(a,"is-valid"),e.removeClass(a,"is-invalid"),this.hideInputError(a))},d.prototype.isValidString=function(a){var b=/^[а-яА-ЯЁёІіЇїҐґЄєЩщa-zA-Z0-9.,!"'_\-()@?#:$;\s\u00A0\u000D\u000A\000C]+$/gm;return b.test(a)},d.prototype.showInputError=function(a,b){if(a.nextElementSibling){var c=a.nextElementSibling;if(e.selectorMatches(c,".inputError"))return}var d=document.createElement("div");d.innerText=b,e.addClass(d,"inputError"),e.insertAfter(d,a)},d.prototype.hideInputError=function(a){var b,c;a.nextElementSibling&&(b=a.nextElementSibling,c=b.parentNode,e.selectorMatches(b,".inputError")&&c.removeChild(b))},d.prototype.isEmail=function(a){var b=/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/i;return b.test(a)},b.exports=d},{"./utils/utils":7}],5:[function(a,b,c){"use strict";function d(a,b,c){this.menu=document.getElementsByClassName(a)[0],this.trigger=document.getElementsByClassName(b)[0],this.container=document.getElementById("main"),this.navigation=document.getElementById("navigation"),this.navigationHeight=this.navigation.offsetHeight,this.lastKnownScrollPosition=0,this.ticking=!1}d.prototype.init=function(){this.bindEvents()},d.prototype.bindEvents=function(){this.trigger.addEventListener("click",this.toggleMenu.bind(this),!1),window.addEventListener("scroll",this.onScrollThrottle.bind(this),!1),window.addEventListener("optimizedResize",this.setNavigationHeight.bind(this),!1)},d.prototype.onScrollThrottle=function(){this.lastKnownScrollPosition=window.scrollY,this.ticking||window.requestAnimationFrame(function(){this.getSticky(this.lastKnownScrollPosition),this.ticking=!1}.bind(this)),this.ticking=!0},d.prototype.setNavigationHeight=function(){this.navigation.style.height="",this.navigationHeight=this.navigation.offsetHeight,this.lastKnownScrollPosition&&this.getSticky(this.lastKnownScrollPosition)},d.prototype.toggleMenu=function(){this.menu.classList.toggle("is-active"),this.trigger.classList.toggle("is-active"),this.container.classList.toggle("is-active-menu")},d.prototype.getSticky=function(){var a=40,b=this.lastKnownScrollPosition<this.navigationHeight-a?this.navigationHeight-this.lastKnownScrollPosition:a;this.navigation.style.height=b+"px",this.lastKnownScrollPosition>(this.navigationHeight-a)/2?this.navigation.classList.add("is-sticky"):this.navigation.classList.remove("is-sticky")},b.exports=d},{}],6:[function(a,b,c){"use strict";function d(a){this.tagsContainerSelector=a,this.realTagsInputId="real-"+a,this.fakeTagInputSelector="js-addTag",this.removeTagSelector="js-removeTag",this.tagsContainer=document.getElementById(a),this.realInput=document.getElementById(this.realTagsInputId),this.forbiddenSymbols=/[^а-яА-ЯЁёІіЇїҐґЄєЩщa-zA-Z0-9_\-]+/gi,this.currentInput=null}var e=a("./utils/utils"),f='<span class="tags-tag js-tag">{{tag}}<span class="icon-cancel tags-tag-remove js-removeTag"></span></span>',g=a("mustache");d.prototype.init=function(){this.bindEvents()},d.prototype.bindEvents=function(){this.tagsContainer.addEventListener("keydown",this.onKeyUp.bind(this),!0),this.tagsContainer.addEventListener("click",this.onClick.bind(this)),this.tagsContainer.addEventListener("blur",this.onBlur.bind(this),!0)},d.prototype.onKeyUp=function(a){this.setCurrentInput(a.target),this.currentInput&&(this.removeForbiddenCharacters(),this.transformToTag(a))},d.prototype.onClick=function(a){e.selectorMatches(a.target,"."+this.removeTagSelector)&&(this.tagToRemove=a.target.parentNode,this.removeTag())},d.prototype.onBlur=function(a){a.keyCode=9,this.onKeyUp(a),this.currentInput.blur()},d.prototype.setCurrentInput=function(a){a&&e.selectorMatches(a,"."+this.fakeTagInputSelector)&&(this.currentInput=a)},d.prototype.removeForbiddenCharacters=function(){this.forbiddenSymbols.test(this.currentInput.value)&&(this.currentInput.value=this.currentInput.value.replace(this.forbiddenSymbols,""))},d.prototype.transformToTag=function(a){var b=a.keyCode;9===b&&""===this.currentInput.value||(188!==b&&32!==b&&13!==b&&9!==b||(a.preventDefault(),this.currentInput.value&&""!=this.currentInput.value&&(this.updateRealInputValue(),this.renderTag(),this.currentInput.value="",this.currentInput.focus())),8===b&&""===this.currentInput.value&&(this.tagToRemove=this.getLastTag(),this.removeTag()))},d.prototype.getLastTag=function(){var a=this.currentInput.parentNode.querySelectorAll(".js-tag");return a[a.length-1]},d.prototype.removeTag=function(){if(this.tagToRemove){var a=e.trim(this.tagToRemove.innerText)+",",b=new RegExp(a,"g");this.tagToRemove.remove(),this.realInput.value=this.realInput.value.replace(b,"")}},d.prototype.updateRealInputValue=function(){this.realInput.value=this.realInput.value+this.currentInput.value+","},d.prototype.renderTag=function(a){var b=g.render(f,{tag:this.currentInput.value}),c=document.createElement("div"),d=this.currentInput.parentNode;c.innerHTML=b,d.insertBefore(c.firstChild,this.currentInput)},b.exports=d},{"./utils/utils":7,mustache:8}],7:[function(a,b,c){"use strict";var d;b.exports={closest:function a(b,c){for(var a;b;){if(a=b,a&&this.selectorMatches(a,c))return a;b=a.parentElement}return null},readCookie:function(a){if(d)return d[a];var b=document.cookie.split("; ");d={};for(var c=b.length-1;c>=0;c--){var e=b[c].split("=");d[e[0]]=e[1]}return d[a]},selectorMatches:function(a,b){var c=Element.prototype,d=c.matches||c.webkitMatchesSelector||c.mozMatchesSelector||c.msMatchesSelector||function(a){return[].indexOf.call(document.querySelectorAll(a),this)!==-1};return d.call(a,b)},addClass:function(a,b){this.selectorMatches(a,"."+b)||(""!=a.className?a.className+=" "+b:a.className=b)},removeClass:function(a,b){var c=new RegExp("(?:^|\\s)"+b+"(?!\\S)","gi");a.className=a.className.replace(c,"")},insertAfter:function(a,b){b.parentNode.insertBefore(a,b.nextSibling)},trim:function(a,b){return a?this.rtrim(this.ltrim(a,b),b):a},ltrim:function(a,b){if(!a)return a;var c=b?new RegExp("^["+b+"]+","g"):/^\s+/g;return a.replace(c,"")},rtrim:function(a,b){if(!a)return a;for(var c=b?new RegExp("["+b+"]"):/\s/,d=a.length-1;d>=0&&c.test(a[d]);)d--;return d<a.length?a.substr(0,d+1):a}}},{}],8:[function(a,b,c){"use strict";var d="function"==typeof Symbol&&"symbol"==typeof Symbol.iterator?function(a){return typeof a}:function(a){return a&&"function"==typeof Symbol&&a.constructor===Symbol&&a!==Symbol.prototype?"symbol":typeof a};!function(a,b){"object"===("undefined"==typeof c?"undefined":d(c))&&c&&"string"!=typeof c.nodeName?b(c):"function"==typeof define&&define.amd?define(["exports"],b):(a.Mustache={},b(a.Mustache))}(void 0,function(a){function b(a){return"function"==typeof a}function c(a){return q(a)?"array":"undefined"==typeof a?"undefined":d(a)}function e(a){return a.replace(/[\-\[\]{}()*+?.,\\\^$|#\s]/g,"\\$&")}function f(a,b){return null!=a&&"object"===("undefined"==typeof a?"undefined":d(a))&&b in a}function g(a,b){return r.call(a,b)}function h(a){return!g(s,a)}function i(a){return String(a).replace(/[&<>"'`=\/]/g,function(a){return t[a]})}function j(b,c){function d(){if(r&&!s)for(;p.length;)delete o[p.pop()];else p=[];r=!1,s=!1}function f(a){if("string"==typeof a&&(a=a.split(v,2)),!q(a)||2!==a.length)throw new Error("Invalid tags: "+a);g=new RegExp(e(a[0])+"\\s*"),i=new RegExp("\\s*"+e(a[1])),j=new RegExp("\\s*"+e("}"+a[1]))}if(!b)return[];var g,i,j,n=[],o=[],p=[],r=!1,s=!1;f(c||a.tags);for(var t,z,A,B,C,D,E=new m(b);!E.eos();){if(t=E.pos,A=E.scanUntil(g))for(var F=0,G=A.length;F<G;++F)B=A.charAt(F),h(B)?p.push(o.length):s=!0,o.push(["text",B,t,t+1]),t+=1,"\n"===B&&d();if(!E.scan(g))break;if(r=!0,z=E.scan(y)||"name",E.scan(u),"="===z?(A=E.scanUntil(w),E.scan(w),E.scanUntil(i)):"{"===z?(A=E.scanUntil(j),E.scan(x),E.scanUntil(i),z="&"):A=E.scanUntil(i),!E.scan(i))throw new Error("Unclosed tag at "+E.pos);if(C=[z,A,t,E.pos],o.push(C),"#"===z||"^"===z)n.push(C);else if("/"===z){if(D=n.pop(),!D)throw new Error('Unopened section "'+A+'" at '+t);if(D[1]!==A)throw new Error('Unclosed section "'+D[1]+'" at '+t)}else"name"===z||"{"===z||"&"===z?s=!0:"="===z&&f(A)}if(D=n.pop())throw new Error('Unclosed section "'+D[1]+'" at '+E.pos);return l(k(o))}function k(a){for(var b,c,d=[],e=0,f=a.length;e<f;++e)b=a[e],b&&("text"===b[0]&&c&&"text"===c[0]?(c[1]+=b[1],c[3]=b[3]):(d.push(b),c=b));return d}function l(a){for(var b,c,d=[],e=d,f=[],g=0,h=a.length;g<h;++g)switch(b=a[g],b[0]){case"#":case"^":e.push(b),f.push(b),e=b[4]=[];break;case"/":c=f.pop(),c[5]=b[2],e=f.length>0?f[f.length-1][4]:d;break;default:e.push(b)}return d}function m(a){this.string=a,this.tail=a,this.pos=0}function n(a,b){this.view=a,this.cache={".":this.view},this.parent=b}function o(){this.cache={}}var p=Object.prototype.toString,q=Array.isArray||function(a){return"[object Array]"===p.call(a)},r=RegExp.prototype.test,s=/\S/,t={"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;","/":"&#x2F;","`":"&#x60;","=":"&#x3D;"},u=/\s*/,v=/\s+/,w=/\s*=/,x=/\s*\}/,y=/#|\^|\/|>|\{|&|=|!/;m.prototype.eos=function(){return""===this.tail},m.prototype.scan=function(a){var b=this.tail.match(a);if(!b||0!==b.index)return"";var c=b[0];return this.tail=this.tail.substring(c.length),this.pos+=c.length,c},m.prototype.scanUntil=function(a){var b,c=this.tail.search(a);switch(c){case-1:b=this.tail,this.tail="";break;case 0:b="";break;default:b=this.tail.substring(0,c),this.tail=this.tail.substring(c)}return this.pos+=b.length,b},n.prototype.push=function(a){return new n(a,this)},n.prototype.lookup=function(a){var c,d=this.cache;if(d.hasOwnProperty(a))c=d[a];else{for(var e,g,h=this,i=!1;h;){if(a.indexOf(".")>0)for(c=h.view,e=a.split("."),g=0;null!=c&&g<e.length;)g===e.length-1&&(i=f(c,e[g])),c=c[e[g++]];else c=h.view[a],i=f(h.view,a);if(i)break;h=h.parent}d[a]=c}return b(c)&&(c=c.call(this.view)),c},o.prototype.clearCache=function(){this.cache={}},o.prototype.parse=function(a,b){var c=this.cache,d=c[a];return null==d&&(d=c[a]=j(a,b)),d},o.prototype.render=function(a,b,c){var d=this.parse(a),e=b instanceof n?b:new n(b);return this.renderTokens(d,e,c,a)},o.prototype.renderTokens=function(a,b,c,d){for(var e,f,g,h="",i=0,j=a.length;i<j;++i)g=void 0,e=a[i],f=e[0],"#"===f?g=this.renderSection(e,b,c,d):"^"===f?g=this.renderInverted(e,b,c,d):">"===f?g=this.renderPartial(e,b,c,d):"&"===f?g=this.unescapedValue(e,b):"name"===f?g=this.escapedValue(e,b):"text"===f&&(g=this.rawValue(e)),void 0!==g&&(h+=g);return h},o.prototype.renderSection=function(a,c,e,f){function g(a){return h.render(a,c,e)}var h=this,i="",j=c.lookup(a[1]);if(j){if(q(j))for(var k=0,l=j.length;k<l;++k)i+=this.renderTokens(a[4],c.push(j[k]),e,f);else if("object"===("undefined"==typeof j?"undefined":d(j))||"string"==typeof j||"number"==typeof j)i+=this.renderTokens(a[4],c.push(j),e,f);else if(b(j)){if("string"!=typeof f)throw new Error("Cannot use higher-order sections without the original template");j=j.call(c.view,f.slice(a[3],a[5]),g),null!=j&&(i+=j)}else i+=this.renderTokens(a[4],c,e,f);return i}},o.prototype.renderInverted=function(a,b,c,d){var e=b.lookup(a[1]);if(!e||q(e)&&0===e.length)return this.renderTokens(a[4],b,c,d)},o.prototype.renderPartial=function(a,c,d){if(d){var e=b(d)?d(a[1]):d[a[1]];return null!=e?this.renderTokens(this.parse(e),c,d,e):void 0}},o.prototype.unescapedValue=function(a,b){var c=b.lookup(a[1]);if(null!=c)return c},o.prototype.escapedValue=function(b,c){var d=c.lookup(b[1]);if(null!=d)return a.escape(d)},o.prototype.rawValue=function(a){return a[1]},a.name="mustache.js",a.version="2.2.1",a.tags=["{{","}}"];var z=new o;a.clearCache=function(){return z.clearCache()},a.parse=function(a,b){return z.parse(a,b)},a.render=function(a,b,d){if("string"!=typeof a)throw new TypeError('Invalid template! Template should be a "string" but "'+c(a)+'" was given as the first argument for mustache#render(template, view, partials)');return z.render(a,b,d)},a.to_html=function(c,d,e,f){var g=a.render(c,d,e);return b(f)?void f(g):g},a.escape=i,a.Scanner=m,a.Context=n,a.Writer=o})},{}],9:[function(a,b,c){"use strict";var d=a("../components/utils/utils").readCookie,e=a("../components/Menu"),f=a("../components/Counter"),g=a("../components/FormValidator");if(d("logged")){var h=d("logged");window.socket=io();var i,j=window.socket;j.on("newSwapRequest",function(a){i||(i=new f),i.update()}),j.emit("joinRoom",h)}var k=new g;k.init();var l=new e("js-menu-wrapper","js-menu-trigger");l.init()},{"../components/Counter":2,"../components/FormValidator":4,"../components/Menu":5,"../components/utils/utils":7}],10:[function(a,b,c){"use strict";var d=a("../components/utils/utils"),e=a("../components/TagTransformer"),f=a("../components/CategorySelector"),g=a("../components/FormValidator"),h=(a("../components/Dropzone"),{initialize:function(){var a=document.getElementById("imagesFromDB");a&&(this.imagesToDelete=document.getElementById("imagesToDelete"),this.bindEvents()),this.category=new f,this.tags=new e("tags"),this.swapForTags=new e("swapForTags"),this.validator=new g("js-form"),this.validator.init(),this.category.init(),this.tags.init(),this.swapForTags.init()},bindEvents:function(){imagesFromDB.addEventListener("click",this.onClick.bind(this),!0)},onClick:function(a){var b=d.closest(a.target,".js-delete-image");b&&(a.preventDefault(),this.clickedDeleteButton=b,this.addToImagesToDeleteInput(),this.hideImage())},addToImagesToDeleteInput:function(){var a=this.clickedDeleteButton.getAttribute("data-image-id");""===this.imagesToDelete.value?this.imagesToDelete.value=a:imagesToDelete.value+=","+a},hideImage:function(){var a=d.closest(this.clickedDeleteButton,".js-uploaded-image");a.style.display="none"}});h.initialize()},{"../components/CategorySelector":1,"../components/Dropzone":3,"../components/FormValidator":4,"../components/TagTransformer":6,"../components/utils/utils":7}],11:[function(a,b,c){(function(){var a,c,d,e,f,g,h,i,j=[].slice,k={}.hasOwnProperty,l=function(a,b){function c(){this.constructor=a}for(var d in b)k.call(b,d)&&(a[d]=b[d]);return c.prototype=b.prototype,a.prototype=new c,a.__super__=b.prototype,a};h=function(){},c=function(){function a(){}return a.prototype.addEventListener=a.prototype.on,a.prototype.on=function(a,b){return this._callbacks=this._callbacks||{},this._callbacks[a]||(this._callbacks[a]=[]),this._callbacks[a].push(b),this},a.prototype.emit=function(){var a,b,c,d,e,f;if(d=arguments[0],a=2<=arguments.length?j.call(arguments,1):[],this._callbacks=this._callbacks||{},c=this._callbacks[d])for(e=0,f=c.length;e<f;e++)b=c[e],b.apply(this,a);return this},a.prototype.removeListener=a.prototype.off,a.prototype.removeAllListeners=a.prototype.off,a.prototype.removeEventListener=a.prototype.off,a.prototype.off=function(a,b){var c,d,e,f,g;if(!this._callbacks||0===arguments.length)return this._callbacks={},this;if(d=this._callbacks[a],!d)return this;if(1===arguments.length)return delete this._callbacks[a],this;for(e=f=0,g=d.length;f<g;e=++f)if(c=d[e],c===b){d.splice(e,1);break}return this},a}(),a=function(a){function b(a,c){var e,f,g;if(this.element=a,this.version=b.version,this.defaultOptions.previewTemplate=this.defaultOptions.previewTemplate.replace(/\n*/g,""),this.clickableElements=[],this.listeners=[],this.files=[],"string"==typeof this.element&&(this.element=document.querySelector(this.element)),!this.element||null==this.element.nodeType)throw new Error("Invalid dropzone element.");if(this.element.dropzone)throw new Error("Dropzone already attached.");if(b.instances.push(this),this.element.dropzone=this,e=null!=(g=b.optionsForElement(this.element))?g:{},this.options=d({},this.defaultOptions,e,null!=c?c:{}),this.options.forceFallback||!b.isBrowserSupported())return this.options.fallback.call(this);if(null==this.options.url&&(this.options.url=this.element.getAttribute("action")),!this.options.url)throw new Error("No URL provided.");if(this.options.acceptedFiles&&this.options.acceptedMimeTypes)throw new Error("You can't provide both 'acceptedFiles' and 'acceptedMimeTypes'. 'acceptedMimeTypes' is deprecated.");this.options.acceptedMimeTypes&&(this.options.acceptedFiles=this.options.acceptedMimeTypes,delete this.options.acceptedMimeTypes),this.options.method=this.options.method.toUpperCase(),(f=this.getExistingFallback())&&f.parentNode&&f.parentNode.removeChild(f),this.options.previewsContainer!==!1&&(this.options.previewsContainer?this.previewsContainer=b.getElement(this.options.previewsContainer,"previewsContainer"):this.previewsContainer=this.element),this.options.clickable&&(this.options.clickable===!0?this.clickableElements=[this.element]:this.clickableElements=b.getElements(this.options.clickable,"clickable")),this.init()}var d,e;return l(b,a),b.prototype.Emitter=c,b.prototype.events=["drop","dragstart","dragend","dragenter","dragover","dragleave","addedfile","addedfiles","removedfile","thumbnail","error","errormultiple","processing","processingmultiple","uploadprogress","totaluploadprogress","sending","sendingmultiple","success","successmultiple","canceled","canceledmultiple","complete","completemultiple","reset","maxfilesexceeded","maxfilesreached","queuecomplete"],b.prototype.defaultOptions={url:null,method:"post",withCredentials:!1,parallelUploads:2,uploadMultiple:!1,maxFilesize:256,paramName:"file",createImageThumbnails:!0,maxThumbnailFilesize:10,thumbnailWidth:120,thumbnailHeight:120,filesizeBase:1e3,maxFiles:null,params:{},clickable:!0,ignoreHiddenFiles:!0,acceptedFiles:null,acceptedMimeTypes:null,autoProcessQueue:!0,autoQueue:!0,addRemoveLinks:!1,previewsContainer:null,hiddenInputContainer:"body",capture:null,renameFilename:null,dictDefaultMessage:"Drop files here to upload",dictFallbackMessage:"Your browser does not support drag'n'drop file uploads.",dictFallbackText:"Please use the fallback form below to upload your files like in the olden days.",dictFileTooBig:"File is too big ({{filesize}}MiB). Max filesize: {{maxFilesize}}MiB.",dictInvalidFileType:"You can't upload files of this type.",dictResponseError:"Server responded with {{statusCode}} code.",dictCancelUpload:"Cancel upload",dictCancelUploadConfirmation:"Are you sure you want to cancel this upload?",dictRemoveFile:"Remove file",dictRemoveFileConfirmation:null,dictMaxFilesExceeded:"You can not upload any more files.",accept:function(a,b){return b()},init:function(){return h},forceFallback:!1,fallback:function(){var a,c,d,e,f,g;for(this.element.className=""+this.element.className+" dz-browser-not-supported",g=this.element.getElementsByTagName("div"),e=0,f=g.length;e<f;e++)a=g[e],/(^| )dz-message($| )/.test(a.className)&&(c=a,a.className="dz-message");return c||(c=b.createElement('<div class="dz-message"><span></span></div>'),this.element.appendChild(c)),d=c.getElementsByTagName("span")[0],d&&(null!=d.textContent?d.textContent=this.options.dictFallbackMessage:null!=d.innerText&&(d.innerText=this.options.dictFallbackMessage)),this.element.appendChild(this.getFallbackForm())},resize:function(a){var b,c,d;return b={srcX:0,srcY:0,srcWidth:a.width,srcHeight:a.height},c=a.width/a.height,b.optWidth=this.options.thumbnailWidth,b.optHeight=this.options.thumbnailHeight,null==b.optWidth&&null==b.optHeight?(b.optWidth=b.srcWidth,b.optHeight=b.srcHeight):null==b.optWidth?b.optWidth=c*b.optHeight:null==b.optHeight&&(b.optHeight=1/c*b.optWidth),d=b.optWidth/b.optHeight,a.height<b.optHeight||a.width<b.optWidth?(b.trgHeight=b.srcHeight,b.trgWidth=b.srcWidth):c>d?(b.srcHeight=a.height,b.srcWidth=b.srcHeight*d):(b.srcWidth=a.width,b.srcHeight=b.srcWidth/d),b.srcX=(a.width-b.srcWidth)/2,b.srcY=(a.height-b.srcHeight)/2,b},drop:function(a){return this.element.classList.remove("dz-drag-hover")},dragstart:h,dragend:function(a){return this.element.classList.remove("dz-drag-hover")},dragenter:function(a){return this.element.classList.add("dz-drag-hover")},dragover:function(a){return this.element.classList.add("dz-drag-hover")},dragleave:function(a){return this.element.classList.remove("dz-drag-hover")},paste:h,reset:function(){return this.element.classList.remove("dz-started")},addedfile:function(a){var c,d,e,f,g,h,i,j,k,l,m,n,o;if(this.element===this.previewsContainer&&this.element.classList.add("dz-started"),this.previewsContainer){for(a.previewElement=b.createElement(this.options.previewTemplate.trim()),a.previewTemplate=a.previewElement,this.previewsContainer.appendChild(a.previewElement),l=a.previewElement.querySelectorAll("[data-dz-name]"),f=0,i=l.length;f<i;f++)c=l[f],c.textContent=this._renameFilename(a.name);for(m=a.previewElement.querySelectorAll("[data-dz-size]"),g=0,j=m.length;g<j;g++)c=m[g],c.innerHTML=this.filesize(a.size);for(this.options.addRemoveLinks&&(a._removeLink=b.createElement('<a class="dz-remove" href="javascript:undefined;" data-dz-remove>'+this.options.dictRemoveFile+"</a>"),a.previewElement.appendChild(a._removeLink)),d=function(c){return function(d){return d.preventDefault(),d.stopPropagation(),a.status===b.UPLOADING?b.confirm(c.options.dictCancelUploadConfirmation,function(){return c.removeFile(a)}):c.options.dictRemoveFileConfirmation?b.confirm(c.options.dictRemoveFileConfirmation,function(){return c.removeFile(a)}):c.removeFile(a)}}(this),n=a.previewElement.querySelectorAll("[data-dz-remove]"),o=[],h=0,k=n.length;h<k;h++)e=n[h],o.push(e.addEventListener("click",d));return o}},removedfile:function(a){var b;return a.previewElement&&null!=(b=a.previewElement)&&b.parentNode.removeChild(a.previewElement),this._updateMaxFilesReachedClass()},thumbnail:function(a,b){var c,d,e,f;if(a.previewElement){for(a.previewElement.classList.remove("dz-file-preview"),f=a.previewElement.querySelectorAll("[data-dz-thumbnail]"),d=0,e=f.length;d<e;d++)c=f[d],c.alt=a.name,c.src=b;return setTimeout(function(b){return function(){return a.previewElement.classList.add("dz-image-preview")}}(this),1)}},error:function(a,b){var c,d,e,f,g;if(a.previewElement){for(a.previewElement.classList.add("dz-error"),"String"!=typeof b&&b.error&&(b=b.error),f=a.previewElement.querySelectorAll("[data-dz-errormessage]"),g=[],d=0,e=f.length;d<e;d++)c=f[d],g.push(c.textContent=b);return g}},errormultiple:h,processing:function(a){if(a.previewElement&&(a.previewElement.classList.add("dz-processing"),a._removeLink))return a._removeLink.textContent=this.options.dictCancelUpload},processingmultiple:h,uploadprogress:function(a,b,c){var d,e,f,g,h;if(a.previewElement){for(g=a.previewElement.querySelectorAll("[data-dz-uploadprogress]"),h=[],e=0,f=g.length;e<f;e++)d=g[e],"PROGRESS"===d.nodeName?h.push(d.value=b):h.push(d.style.width=""+b+"%");return h}},totaluploadprogress:h,sending:h,sendingmultiple:h,success:function(a){if(a.previewElement)return a.previewElement.classList.add("dz-success")},successmultiple:h,canceled:function(a){return this.emit("error",a,"Upload canceled.")},canceledmultiple:h,complete:function(a){if(a._removeLink&&(a._removeLink.textContent=this.options.dictRemoveFile),a.previewElement)return a.previewElement.classList.add("dz-complete")},completemultiple:h,maxfilesexceeded:h,maxfilesreached:h,queuecomplete:h,addedfiles:h,previewTemplate:'<div class="dz-preview dz-file-preview">\n  <div class="dz-image"><img data-dz-thumbnail /></div>\n  <div class="dz-details">\n    <div class="dz-size"><span data-dz-size></span></div>\n    <div class="dz-filename"><span data-dz-name></span></div>\n  </div>\n  <div class="dz-progress"><span class="dz-upload" data-dz-uploadprogress></span></div>\n  <div class="dz-error-message"><span data-dz-errormessage></span></div>\n  <div class="dz-success-mark">\n    <svg width="54px" height="54px" viewBox="0 0 54 54" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">\n      <title>Check</title>\n      <defs></defs>\n      <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">\n        <path d="M23.5,31.8431458 L17.5852419,25.9283877 C16.0248253,24.3679711 13.4910294,24.366835 11.9289322,25.9289322 C10.3700136,27.4878508 10.3665912,30.0234455 11.9283877,31.5852419 L20.4147581,40.0716123 C20.5133999,40.1702541 20.6159315,40.2626649 20.7218615,40.3488435 C22.2835669,41.8725651 24.794234,41.8626202 26.3461564,40.3106978 L43.3106978,23.3461564 C44.8771021,21.7797521 44.8758057,19.2483887 43.3137085,17.6862915 C41.7547899,16.1273729 39.2176035,16.1255422 37.6538436,17.6893022 L23.5,31.8431458 Z M27,53 C41.3594035,53 53,41.3594035 53,27 C53,12.6405965 41.3594035,1 27,1 C12.6405965,1 1,12.6405965 1,27 C1,41.3594035 12.6405965,53 27,53 Z" id="Oval-2" stroke-opacity="0.198794158" stroke="#747474" fill-opacity="0.816519475" fill="#FFFFFF" sketch:type="MSShapeGroup"></path>\n      </g>\n    </svg>\n  </div>\n  <div class="dz-error-mark">\n    <svg width="54px" height="54px" viewBox="0 0 54 54" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">\n      <title>Error</title>\n      <defs></defs>\n      <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">\n        <g id="Check-+-Oval-2" sketch:type="MSLayerGroup" stroke="#747474" stroke-opacity="0.198794158" fill="#FFFFFF" fill-opacity="0.816519475">\n          <path d="M32.6568542,29 L38.3106978,23.3461564 C39.8771021,21.7797521 39.8758057,19.2483887 38.3137085,17.6862915 C36.7547899,16.1273729 34.2176035,16.1255422 32.6538436,17.6893022 L27,23.3431458 L21.3461564,17.6893022 C19.7823965,16.1255422 17.2452101,16.1273729 15.6862915,17.6862915 C14.1241943,19.2483887 14.1228979,21.7797521 15.6893022,23.3461564 L21.3431458,29 L15.6893022,34.6538436 C14.1228979,36.2202479 14.1241943,38.7516113 15.6862915,40.3137085 C17.2452101,41.8726271 19.7823965,41.8744578 21.3461564,40.3106978 L27,34.6568542 L32.6538436,40.3106978 C34.2176035,41.8744578 36.7547899,41.8726271 38.3137085,40.3137085 C39.8758057,38.7516113 39.8771021,36.2202479 38.3106978,34.6538436 L32.6568542,29 Z M27,53 C41.3594035,53 53,41.3594035 53,27 C53,12.6405965 41.3594035,1 27,1 C12.6405965,1 1,12.6405965 1,27 C1,41.3594035 12.6405965,53 27,53 Z" id="Oval-2" sketch:type="MSShapeGroup"></path>\n        </g>\n      </g>\n    </svg>\n  </div>\n</div>'
-},d=function(){var a,b,c,d,e,f,g;for(d=arguments[0],c=2<=arguments.length?j.call(arguments,1):[],f=0,g=c.length;f<g;f++){b=c[f];for(a in b)e=b[a],d[a]=e}return d},b.prototype.getAcceptedFiles=function(){var a,b,c,d,e;for(d=this.files,e=[],b=0,c=d.length;b<c;b++)a=d[b],a.accepted&&e.push(a);return e},b.prototype.getRejectedFiles=function(){var a,b,c,d,e;for(d=this.files,e=[],b=0,c=d.length;b<c;b++)a=d[b],a.accepted||e.push(a);return e},b.prototype.getFilesWithStatus=function(a){var b,c,d,e,f;for(e=this.files,f=[],c=0,d=e.length;c<d;c++)b=e[c],b.status===a&&f.push(b);return f},b.prototype.getQueuedFiles=function(){return this.getFilesWithStatus(b.QUEUED)},b.prototype.getUploadingFiles=function(){return this.getFilesWithStatus(b.UPLOADING)},b.prototype.getAddedFiles=function(){return this.getFilesWithStatus(b.ADDED)},b.prototype.getActiveFiles=function(){var a,c,d,e,f;for(e=this.files,f=[],c=0,d=e.length;c<d;c++)a=e[c],a.status!==b.UPLOADING&&a.status!==b.QUEUED||f.push(a);return f},b.prototype.init=function(){var a,c,d,e,f,g,h;for("form"===this.element.tagName&&this.element.setAttribute("enctype","multipart/form-data"),this.element.classList.contains("dropzone")&&!this.element.querySelector(".dz-message")&&this.element.appendChild(b.createElement('<div class="dz-default dz-message"><span>'+this.options.dictDefaultMessage+"</span></div>")),this.clickableElements.length&&(d=function(a){return function(){return a.hiddenFileInput&&a.hiddenFileInput.parentNode.removeChild(a.hiddenFileInput),a.hiddenFileInput=document.createElement("input"),a.hiddenFileInput.setAttribute("type","file"),(null==a.options.maxFiles||a.options.maxFiles>1)&&a.hiddenFileInput.setAttribute("multiple","multiple"),a.hiddenFileInput.className="dz-hidden-input",null!=a.options.acceptedFiles&&a.hiddenFileInput.setAttribute("accept",a.options.acceptedFiles),null!=a.options.capture&&a.hiddenFileInput.setAttribute("capture",a.options.capture),a.hiddenFileInput.style.visibility="hidden",a.hiddenFileInput.style.position="absolute",a.hiddenFileInput.style.top="0",a.hiddenFileInput.style.left="0",a.hiddenFileInput.style.height="0",a.hiddenFileInput.style.width="0",document.querySelector(a.options.hiddenInputContainer).appendChild(a.hiddenFileInput),a.hiddenFileInput.addEventListener("change",function(){var b,c,e,f;if(c=a.hiddenFileInput.files,c.length)for(e=0,f=c.length;e<f;e++)b=c[e],a.addFile(b);return a.emit("addedfiles",c),d()})}}(this))(),this.URL=null!=(g=window.URL)?g:window.webkitURL,h=this.events,e=0,f=h.length;e<f;e++)a=h[e],this.on(a,this.options[a]);return this.on("uploadprogress",function(a){return function(){return a.updateTotalUploadProgress()}}(this)),this.on("removedfile",function(a){return function(){return a.updateTotalUploadProgress()}}(this)),this.on("canceled",function(a){return function(b){return a.emit("complete",b)}}(this)),this.on("complete",function(a){return function(b){if(0===a.getAddedFiles().length&&0===a.getUploadingFiles().length&&0===a.getQueuedFiles().length)return setTimeout(function(){return a.emit("queuecomplete")},0)}}(this)),c=function(a){return a.stopPropagation(),a.preventDefault?a.preventDefault():a.returnValue=!1},this.listeners=[{element:this.element,events:{dragstart:function(a){return function(b){return a.emit("dragstart",b)}}(this),dragenter:function(a){return function(b){return c(b),a.emit("dragenter",b)}}(this),dragover:function(a){return function(b){var d;try{d=b.dataTransfer.effectAllowed}catch(a){}return b.dataTransfer.dropEffect="move"===d||"linkMove"===d?"move":"copy",c(b),a.emit("dragover",b)}}(this),dragleave:function(a){return function(b){return a.emit("dragleave",b)}}(this),drop:function(a){return function(b){return c(b),a.drop(b)}}(this),dragend:function(a){return function(b){return a.emit("dragend",b)}}(this)}}],this.clickableElements.forEach(function(a){return function(c){return a.listeners.push({element:c,events:{click:function(d){return(c!==a.element||d.target===a.element||b.elementInside(d.target,a.element.querySelector(".dz-message")))&&a.hiddenFileInput.click(),!0}}})}}(this)),this.enable(),this.options.init.call(this)},b.prototype.destroy=function(){var a;return this.disable(),this.removeAllFiles(!0),(null!=(a=this.hiddenFileInput)?a.parentNode:void 0)&&(this.hiddenFileInput.parentNode.removeChild(this.hiddenFileInput),this.hiddenFileInput=null),delete this.element.dropzone,b.instances.splice(b.instances.indexOf(this),1)},b.prototype.updateTotalUploadProgress=function(){var a,b,c,d,e,f,g,h;if(d=0,c=0,a=this.getActiveFiles(),a.length){for(h=this.getActiveFiles(),f=0,g=h.length;f<g;f++)b=h[f],d+=b.upload.bytesSent,c+=b.upload.total;e=100*d/c}else e=100;return this.emit("totaluploadprogress",e,c,d)},b.prototype._getParamName=function(a){return"function"==typeof this.options.paramName?this.options.paramName(a):""+this.options.paramName+(this.options.uploadMultiple?"["+a+"]":"")},b.prototype._renameFilename=function(a){return"function"!=typeof this.options.renameFilename?a:this.options.renameFilename(a)},b.prototype.getFallbackForm=function(){var a,c,d,e;return(a=this.getExistingFallback())?a:(d='<div class="dz-fallback">',this.options.dictFallbackText&&(d+="<p>"+this.options.dictFallbackText+"</p>"),d+='<input type="file" name="'+this._getParamName(0)+'" '+(this.options.uploadMultiple?'multiple="multiple"':void 0)+' /><input type="submit" value="Upload!"></div>',c=b.createElement(d),"FORM"!==this.element.tagName?(e=b.createElement('<form action="'+this.options.url+'" enctype="multipart/form-data" method="'+this.options.method+'"></form>'),e.appendChild(c)):(this.element.setAttribute("enctype","multipart/form-data"),this.element.setAttribute("method",this.options.method)),null!=e?e:c)},b.prototype.getExistingFallback=function(){var a,b,c,d,e,f;for(b=function(a){var b,c,d;for(c=0,d=a.length;c<d;c++)if(b=a[c],/(^| )fallback($| )/.test(b.className))return b},f=["div","form"],d=0,e=f.length;d<e;d++)if(c=f[d],a=b(this.element.getElementsByTagName(c)))return a},b.prototype.setupEventListeners=function(){var a,b,c,d,e,f,g;for(f=this.listeners,g=[],d=0,e=f.length;d<e;d++)a=f[d],g.push(function(){var d,e;d=a.events,e=[];for(b in d)c=d[b],e.push(a.element.addEventListener(b,c,!1));return e}());return g},b.prototype.removeEventListeners=function(){var a,b,c,d,e,f,g;for(f=this.listeners,g=[],d=0,e=f.length;d<e;d++)a=f[d],g.push(function(){var d,e;d=a.events,e=[];for(b in d)c=d[b],e.push(a.element.removeEventListener(b,c,!1));return e}());return g},b.prototype.disable=function(){var a,b,c,d,e;for(this.clickableElements.forEach(function(a){return a.classList.remove("dz-clickable")}),this.removeEventListeners(),d=this.files,e=[],b=0,c=d.length;b<c;b++)a=d[b],e.push(this.cancelUpload(a));return e},b.prototype.enable=function(){return this.clickableElements.forEach(function(a){return a.classList.add("dz-clickable")}),this.setupEventListeners()},b.prototype.filesize=function(a){var b,c,d,e,f,g,h,i;if(d=0,e="b",a>0){for(g=["TB","GB","MB","KB","b"],c=h=0,i=g.length;h<i;c=++h)if(f=g[c],b=Math.pow(this.options.filesizeBase,4-c)/10,a>=b){d=a/Math.pow(this.options.filesizeBase,4-c),e=f;break}d=Math.round(10*d)/10}return"<strong>"+d+"</strong> "+e},b.prototype._updateMaxFilesReachedClass=function(){return null!=this.options.maxFiles&&this.getAcceptedFiles().length>=this.options.maxFiles?(this.getAcceptedFiles().length===this.options.maxFiles&&this.emit("maxfilesreached",this.files),this.element.classList.add("dz-max-files-reached")):this.element.classList.remove("dz-max-files-reached")},b.prototype.drop=function(a){var b,c;a.dataTransfer&&(this.emit("drop",a),b=a.dataTransfer.files,this.emit("addedfiles",b),b.length&&(c=a.dataTransfer.items,c&&c.length&&null!=c[0].webkitGetAsEntry?this._addFilesFromItems(c):this.handleFiles(b)))},b.prototype.paste=function(a){var b,c;if(null!=(null!=a&&null!=(c=a.clipboardData)?c.items:void 0))return this.emit("paste",a),b=a.clipboardData.items,b.length?this._addFilesFromItems(b):void 0},b.prototype.handleFiles=function(a){var b,c,d,e;for(e=[],c=0,d=a.length;c<d;c++)b=a[c],e.push(this.addFile(b));return e},b.prototype._addFilesFromItems=function(a){var b,c,d,e,f;for(f=[],d=0,e=a.length;d<e;d++)c=a[d],null!=c.webkitGetAsEntry&&(b=c.webkitGetAsEntry())?b.isFile?f.push(this.addFile(c.getAsFile())):b.isDirectory?f.push(this._addFilesFromDirectory(b,b.name)):f.push(void 0):null!=c.getAsFile&&(null==c.kind||"file"===c.kind)?f.push(this.addFile(c.getAsFile())):f.push(void 0);return f},b.prototype._addFilesFromDirectory=function(a,b){var c,d,e;return c=a.createReader(),d=function(a){return"undefined"!=typeof console&&null!==console&&"function"==typeof console.log?console.log(a):void 0},(e=function(a){return function(){return c.readEntries(function(c){var d,f,g;if(c.length>0){for(f=0,g=c.length;f<g;f++)d=c[f],d.isFile?d.file(function(c){if(!a.options.ignoreHiddenFiles||"."!==c.name.substring(0,1))return c.fullPath=""+b+"/"+c.name,a.addFile(c)}):d.isDirectory&&a._addFilesFromDirectory(d,""+b+"/"+d.name);e()}return null},d)}}(this))()},b.prototype.accept=function(a,c){return a.size>1024*this.options.maxFilesize*1024?c(this.options.dictFileTooBig.replace("{{filesize}}",Math.round(a.size/1024/10.24)/100).replace("{{maxFilesize}}",this.options.maxFilesize)):b.isValidFile(a,this.options.acceptedFiles)?null!=this.options.maxFiles&&this.getAcceptedFiles().length>=this.options.maxFiles?(c(this.options.dictMaxFilesExceeded.replace("{{maxFiles}}",this.options.maxFiles)),this.emit("maxfilesexceeded",a)):this.options.accept.call(this,a,c):c(this.options.dictInvalidFileType)},b.prototype.addFile=function(a){return a.upload={progress:0,total:a.size,bytesSent:0},this.files.push(a),a.status=b.ADDED,this.emit("addedfile",a),this._enqueueThumbnail(a),this.accept(a,function(b){return function(c){return c?(a.accepted=!1,b._errorProcessing([a],c)):(a.accepted=!0,b.options.autoQueue&&b.enqueueFile(a)),b._updateMaxFilesReachedClass()}}(this))},b.prototype.enqueueFiles=function(a){var b,c,d;for(c=0,d=a.length;c<d;c++)b=a[c],this.enqueueFile(b);return null},b.prototype.enqueueFile=function(a){if(a.status!==b.ADDED||a.accepted!==!0)throw new Error("This file can't be queued because it has already been processed or was rejected.");if(a.status=b.QUEUED,this.options.autoProcessQueue)return setTimeout(function(a){return function(){return a.processQueue()}}(this),0)},b.prototype._thumbnailQueue=[],b.prototype._processingThumbnail=!1,b.prototype._enqueueThumbnail=function(a){if(this.options.createImageThumbnails&&a.type.match(/image.*/)&&a.size<=1024*this.options.maxThumbnailFilesize*1024)return this._thumbnailQueue.push(a),setTimeout(function(a){return function(){return a._processThumbnailQueue()}}(this),0)},b.prototype._processThumbnailQueue=function(){if(!this._processingThumbnail&&0!==this._thumbnailQueue.length)return this._processingThumbnail=!0,this.createThumbnail(this._thumbnailQueue.shift(),function(a){return function(){return a._processingThumbnail=!1,a._processThumbnailQueue()}}(this))},b.prototype.removeFile=function(a){if(a.status===b.UPLOADING&&this.cancelUpload(a),this.files=i(this.files,a),this.emit("removedfile",a),0===this.files.length)return this.emit("reset")},b.prototype.removeAllFiles=function(a){var c,d,e,f;for(null==a&&(a=!1),f=this.files.slice(),d=0,e=f.length;d<e;d++)c=f[d],(c.status!==b.UPLOADING||a)&&this.removeFile(c);return null},b.prototype.createThumbnail=function(a,b){var c;return c=new FileReader,c.onload=function(d){return function(){return"image/svg+xml"===a.type?(d.emit("thumbnail",a,c.result),void(null!=b&&b())):d.createThumbnailFromUrl(a,c.result,b)}}(this),c.readAsDataURL(a)},b.prototype.createThumbnailFromUrl=function(a,b,c,d){var e;return e=document.createElement("img"),d&&(e.crossOrigin=d),e.onload=function(b){return function(){var d,f,h,i,j,k,l,m;if(a.width=e.width,a.height=e.height,h=b.options.resize.call(b,a),null==h.trgWidth&&(h.trgWidth=h.optWidth),null==h.trgHeight&&(h.trgHeight=h.optHeight),d=document.createElement("canvas"),f=d.getContext("2d"),d.width=h.trgWidth,d.height=h.trgHeight,g(f,e,null!=(j=h.srcX)?j:0,null!=(k=h.srcY)?k:0,h.srcWidth,h.srcHeight,null!=(l=h.trgX)?l:0,null!=(m=h.trgY)?m:0,h.trgWidth,h.trgHeight),i=d.toDataURL("image/png"),b.emit("thumbnail",a,i),null!=c)return c()}}(this),null!=c&&(e.onerror=c),e.src=b},b.prototype.processQueue=function(){var a,b,c,d;if(b=this.options.parallelUploads,c=this.getUploadingFiles().length,a=c,!(c>=b)&&(d=this.getQueuedFiles(),d.length>0)){if(this.options.uploadMultiple)return this.processFiles(d.slice(0,b-c));for(;a<b;){if(!d.length)return;this.processFile(d.shift()),a++}}},b.prototype.processFile=function(a){return this.processFiles([a])},b.prototype.processFiles=function(a){var c,d,e;for(d=0,e=a.length;d<e;d++)c=a[d],c.processing=!0,c.status=b.UPLOADING,this.emit("processing",c);return this.options.uploadMultiple&&this.emit("processingmultiple",a),this.uploadFiles(a)},b.prototype._getFilesWithXhr=function(a){var b,c;return c=function(){var c,d,e,f;for(e=this.files,f=[],c=0,d=e.length;c<d;c++)b=e[c],b.xhr===a&&f.push(b);return f}.call(this)},b.prototype.cancelUpload=function(a){var c,d,e,f,g,h,i;if(a.status===b.UPLOADING){for(d=this._getFilesWithXhr(a.xhr),e=0,g=d.length;e<g;e++)c=d[e],c.status=b.CANCELED;for(a.xhr.abort(),f=0,h=d.length;f<h;f++)c=d[f],this.emit("canceled",c);this.options.uploadMultiple&&this.emit("canceledmultiple",d)}else(i=a.status)!==b.ADDED&&i!==b.QUEUED||(a.status=b.CANCELED,this.emit("canceled",a),this.options.uploadMultiple&&this.emit("canceledmultiple",[a]));if(this.options.autoProcessQueue)return this.processQueue()},e=function(){var a,b;return b=arguments[0],a=2<=arguments.length?j.call(arguments,1):[],"function"==typeof b?b.apply(this,a):b},b.prototype.uploadFile=function(a){return this.uploadFiles([a])},b.prototype.uploadFiles=function(a){var c,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z,A,B,C,D,E,F,G,H,I,J,K,L;for(w=new XMLHttpRequest,x=0,B=a.length;x<B;x++)c=a[x],c.xhr=w;p=e(this.options.method,a),u=e(this.options.url,a),w.open(p,u,!0),w.withCredentials=!!this.options.withCredentials,s=null,g=function(b){return function(){var d,e,f;for(f=[],d=0,e=a.length;d<e;d++)c=a[d],f.push(b._errorProcessing(a,s||b.options.dictResponseError.replace("{{statusCode}}",w.status),w));return f}}(this),t=function(b){return function(d){var e,f,g,h,i,j,k,l,m;if(null!=d)for(f=100*d.loaded/d.total,g=0,j=a.length;g<j;g++)c=a[g],c.upload={progress:f,total:d.total,bytesSent:d.loaded};else{for(e=!0,f=100,h=0,k=a.length;h<k;h++)c=a[h],100===c.upload.progress&&c.upload.bytesSent===c.upload.total||(e=!1),c.upload.progress=f,c.upload.bytesSent=c.upload.total;if(e)return}for(m=[],i=0,l=a.length;i<l;i++)c=a[i],m.push(b.emit("uploadprogress",c,f,c.upload.bytesSent));return m}}(this),w.onload=function(c){return function(d){var e;if(a[0].status!==b.CANCELED&&4===w.readyState){if(s=w.responseText,w.getResponseHeader("content-type")&&~w.getResponseHeader("content-type").indexOf("application/json"))try{s=JSON.parse(s)}catch(a){d=a,s="Invalid JSON response from server."}return t(),200<=(e=w.status)&&e<300?c._finished(a,s,d):g()}}}(this),w.onerror=function(c){return function(){if(a[0].status!==b.CANCELED)return g()}}(this),r=null!=(G=w.upload)?G:w,r.onprogress=t,j={Accept:"application/json","Cache-Control":"no-cache","X-Requested-With":"XMLHttpRequest"},this.options.headers&&d(j,this.options.headers);for(h in j)i=j[h],i&&w.setRequestHeader(h,i);if(f=new FormData,this.options.params){H=this.options.params;for(o in H)v=H[o],f.append(o,v)}for(y=0,C=a.length;y<C;y++)c=a[y],this.emit("sending",c,w,f);if(this.options.uploadMultiple&&this.emit("sendingmultiple",a,w,f),"FORM"===this.element.tagName)for(I=this.element.querySelectorAll("input, textarea, select, button"),z=0,D=I.length;z<D;z++)if(l=I[z],m=l.getAttribute("name"),n=l.getAttribute("type"),"SELECT"===l.tagName&&l.hasAttribute("multiple"))for(J=l.options,A=0,E=J.length;A<E;A++)q=J[A],q.selected&&f.append(m,q.value);else(!n||"checkbox"!==(K=n.toLowerCase())&&"radio"!==K||l.checked)&&f.append(m,l.value);for(k=F=0,L=a.length-1;0<=L?F<=L:F>=L;k=0<=L?++F:--F)f.append(this._getParamName(k),a[k],this._renameFilename(a[k].name));return this.submitRequest(w,f,a)},b.prototype.submitRequest=function(a,b,c){return a.send(b)},b.prototype._finished=function(a,c,d){var e,f,g;for(f=0,g=a.length;f<g;f++)e=a[f],e.status=b.SUCCESS,this.emit("success",e,c,d),this.emit("complete",e);if(this.options.uploadMultiple&&(this.emit("successmultiple",a,c,d),this.emit("completemultiple",a)),this.options.autoProcessQueue)return this.processQueue()},b.prototype._errorProcessing=function(a,c,d){var e,f,g;for(f=0,g=a.length;f<g;f++)e=a[f],e.status=b.ERROR,this.emit("error",e,c,d),this.emit("complete",e);if(this.options.uploadMultiple&&(this.emit("errormultiple",a,c,d),this.emit("completemultiple",a)),this.options.autoProcessQueue)return this.processQueue()},b}(c),a.version="4.3.0",a.options={},a.optionsForElement=function(b){return b.getAttribute("id")?a.options[d(b.getAttribute("id"))]:void 0},a.instances=[],a.forElement=function(a){if("string"==typeof a&&(a=document.querySelector(a)),null==(null!=a?a.dropzone:void 0))throw new Error("No Dropzone found for given element. This is probably because you're trying to access it before Dropzone had the time to initialize. Use the `init` option to setup any additional observers on your Dropzone.");return a.dropzone},a.autoDiscover=!0,a.discover=function(){var b,c,d,e,f,g;for(document.querySelectorAll?d=document.querySelectorAll(".dropzone"):(d=[],b=function(a){var b,c,e,f;for(f=[],c=0,e=a.length;c<e;c++)b=a[c],/(^| )dropzone($| )/.test(b.className)?f.push(d.push(b)):f.push(void 0);return f},b(document.getElementsByTagName("div")),b(document.getElementsByTagName("form"))),g=[],e=0,f=d.length;e<f;e++)c=d[e],a.optionsForElement(c)!==!1?g.push(new a(c)):g.push(void 0);return g},a.blacklistedBrowsers=[/opera.*Macintosh.*version\/12/i],a.isBrowserSupported=function(){var b,c,d,e,f;if(b=!0,window.File&&window.FileReader&&window.FileList&&window.Blob&&window.FormData&&document.querySelector)if("classList"in document.createElement("a"))for(f=a.blacklistedBrowsers,d=0,e=f.length;d<e;d++)c=f[d],c.test(navigator.userAgent)&&(b=!1);else b=!1;else b=!1;return b},i=function(a,b){var c,d,e,f;for(f=[],d=0,e=a.length;d<e;d++)c=a[d],c!==b&&f.push(c);return f},d=function(a){return a.replace(/[\-_](\w)/g,function(a){return a.charAt(1).toUpperCase()})},a.createElement=function(a){var b;return b=document.createElement("div"),b.innerHTML=a,b.childNodes[0]},a.elementInside=function(a,b){if(a===b)return!0;for(;a=a.parentNode;)if(a===b)return!0;return!1},a.getElement=function(a,b){var c;if("string"==typeof a?c=document.querySelector(a):null!=a.nodeType&&(c=a),null==c)throw new Error("Invalid `"+b+"` option provided. Please provide a CSS selector or a plain HTML element.");return c},a.getElements=function(a,b){var c,d,e,f,g,h,i,j;if(a instanceof Array){e=[];try{for(f=0,h=a.length;f<h;f++)d=a[f],e.push(this.getElement(d,b))}catch(a){c=a,e=null}}else if("string"==typeof a)for(e=[],j=document.querySelectorAll(a),g=0,i=j.length;g<i;g++)d=j[g],e.push(d);else null!=a.nodeType&&(e=[a]);if(null==e||!e.length)throw new Error("Invalid `"+b+"` option provided. Please provide a CSS selector, a plain HTML element or a list of those.");return e},a.confirm=function(a,b,c){return window.confirm(a)?b():null!=c?c():void 0},a.isValidFile=function(a,b){var c,d,e,f,g;if(!b)return!0;for(b=b.split(","),d=a.type,c=d.replace(/\/.*$/,""),f=0,g=b.length;f<g;f++)if(e=b[f],e=e.trim(),"."===e.charAt(0)){if(a.name.toLowerCase().indexOf(e.toLowerCase(),a.name.length-e.length)!==-1)return!0}else if(/\/\*$/.test(e)){if(c===e.replace(/\/.*$/,""))return!0}else if(d===e)return!0;return!1},"undefined"!=typeof jQuery&&null!==jQuery&&(jQuery.fn.dropzone=function(b){return this.each(function(){return new a(this,b)})}),"undefined"!=typeof b&&null!==b?b.exports=a:window.Dropzone=a,a.ADDED="added",a.QUEUED="queued",a.ACCEPTED=a.QUEUED,a.UPLOADING="uploading",a.PROCESSING=a.UPLOADING,a.CANCELED="canceled",a.ERROR="error",a.SUCCESS="success",f=function(a){var b,c,d,e,f,g,h,i,j,k;for(h=a.naturalWidth,g=a.naturalHeight,c=document.createElement("canvas"),c.width=1,c.height=g,d=c.getContext("2d"),d.drawImage(a,0,0),e=d.getImageData(0,0,1,g).data,k=0,f=g,i=g;i>k;)b=e[4*(i-1)+3],0===b?f=i:k=i,i=f+k>>1;return j=i/g,0===j?1:j},g=function(a,b,c,d,e,g,h,i,j,k){var l;return l=f(b),a.drawImage(b,c,d,e,g,h,i,j,k/l)},e=function(a,b){var c,d,e,f,g,h,i,j,k;if(e=!1,k=!0,d=a.document,j=d.documentElement,c=d.addEventListener?"addEventListener":"attachEvent",i=d.addEventListener?"removeEventListener":"detachEvent",h=d.addEventListener?"":"on",f=function(c){if("readystatechange"!==c.type||"complete"===d.readyState)return("load"===c.type?a:d)[i](h+c.type,f,!1),!e&&(e=!0)?b.call(a,c.type||c):void 0},g=function(){var a;try{j.doScroll("left")}catch(b){return a=b,void setTimeout(g,50)}return f("poll")},"complete"!==d.readyState){if(d.createEventObject&&j.doScroll){try{k=!a.frameElement}catch(a){}k&&g()}return d[c](h+"DOMContentLoaded",f,!1),d[c](h+"readystatechange",f,!1),a[c](h+"load",f,!1)}},a._autoDiscoverFunction=function(){if(a.autoDiscover)return a.discover()},e(window,a._autoDiscoverFunction)}).call(this)},{}]},{},[9,10]);
+(function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
+'use strict';
+
+function CategorySelector() {
+  this.categorySelect = null;
+  this.allSubCategories = null;
+  this.subCategorySelect = null;
+  this.savedId = null;
+}
+
+CategorySelector.prototype.init = function () {
+  this.categorySelect = document.getElementById('category');
+  this.subCategorySelect = document.getElementById('subcategory');
+
+  if (this.categorySelect && this.subCategorySelect) {
+    this.savedId = this.subCategorySelect.getAttribute('data-savedCategoryId');
+    this.saveSubCategories();
+    this.renderCurrentOptions();
+    this.bindEvents();
+  }
+};
+
+CategorySelector.prototype.saveSubCategories = function () {
+  this.subCategorySelect = document.getElementById('subcategory');
+  this.allSubCategories = [].slice.call(this.subCategorySelect.children);
+};
+
+CategorySelector.prototype.renderCurrentOptions = function () {
+  if (this.savedId) {
+    this.selectSavedValues();
+    this.savedId = null;
+  }
+  this.filterOutSubCategories();
+};
+
+CategorySelector.prototype.bindEvents = function () {
+  this.categorySelect.addEventListener('change', this.renderCurrentOptions.bind(this));
+};
+
+CategorySelector.prototype.filterOutSubCategories = function () {
+  this.subCategoriesSetString = '';
+  this.categoryId = this.categorySelect.options[this.categorySelect.selectedIndex].value;
+  for (var i = 0, l = this.allSubCategories.length; i < l; i++) {
+    if (this.allSubCategories[i].getAttribute('data-parentId') === this.categoryId) {
+      this.subCategoriesSetString += this.allSubCategories[i].outerHTML;
+    }
+  }
+  this.subCategorySelect.innerHTML = this.subCategoriesSetString;
+};
+
+CategorySelector.prototype.selectSavedValues = function () {
+  var _this = this;
+
+  this.allSubCategories.forEach(function (category) {
+    if (category.value === _this.savedId) {
+      var parentValue = category.getAttribute('data-parentId');
+      var options = _this.categorySelect.options;
+
+      for (var i = 0, l = options.length; i < l; i++) {
+        if (options[i].value === parentValue) {
+          options[i].selected = true;
+          category.setAttribute('selected', 'selected');
+          return;
+        }
+      }
+    }
+  });
+};
+
+module.exports = CategorySelector;
+
+},{}],2:[function(require,module,exports){
+'use strict';
+
+function Counter() {
+  this.id = 'requestCounter';
+  this.count = 0;
+}
+
+Counter.prototype.update = function () {
+  var counter = document.getElementById(this.id);
+  counter.innerHTML = ++this.count;
+};
+
+module.exports = Counter;
+
+},{}],3:[function(require,module,exports){
+'use strict';
+
+var Dropzone = require('dropzone');
+var utils = require('../components/utils/utils');
+
+Dropzone.autoDiscover = false;
+var myAwesomeDropzone = new Dropzone('form#my-awesome-dropzone', {
+  // The configuration we've talked about above
+  autoQueue: false,
+  autoProcessQueue: false,
+  uploadMultiple: true,
+  parallelUploads: 100,
+  maxFiles: 10,
+  paramName: "upload",
+  previewsContainer: ".dropzone-previews",
+  clickable: '.dz-message',
+  addRemoveLinks: true,
+
+  // The setting up of the dropzone
+  init: function init() {
+    var canvas = document.createElement('canvas');
+    var myDropzone = this;
+    var filelist = [];
+    var resizeImgList = [];
+
+    myDropzone.showError = myDropzone.options.showError;
+    myDropzone.sendFormWithoutImages = myDropzone.options.sendFormWithoutImages;
+    // First change the button to actually tell Dropzone to process the queue.
+    this.element.querySelector("input[type=submit]").addEventListener("click", function (e) {
+      // Make sure that the form isn't actually being sent.
+      e.preventDefault();
+      e.stopPropagation();
+      if (myDropzone.getQueuedFiles().length > 0) {
+        myDropzone.processQueue();
+      } else {
+        myDropzone.sendFormWithoutImages();
+      }
+    });
+
+    // Listen to the sendingmultiple event. In this case, it's the sendingmultiple event instead
+    // of the sending event because uploadMultiple is set to true.
+    this.on("sendingmultiple", function () {
+      // Gets triggered when the form is actually being sent.
+      // Hide the success button or the complete form.
+    });
+    this.on("successmultiple", function (files, response) {
+      if (response.isNewItem) {
+        var addedAlert = document.querySelector('.js-item-added');
+        utils.removeClass(addedAlert, 'is-hidden');
+      } else if (response.error) {
+        myDropzone.showError(response.error);
+      } else {
+        var editedAlert = document.querySelector('.js-item-edited');
+        utils.removeClass(editedAlert, 'is-hidden');
+      }
+    });
+    this.on("errormultiple", function (files, response) {
+      myDropzone.showError('Sorry, something went wrong. Please, try again later.');
+    });
+
+    this.on("addedfile", function (origFile) {
+      var MAX_WIDTH = 800;
+      var MAX_HEIGHT = 600;
+      var reader = new FileReader();
+
+      // Convert file to img
+      reader.addEventListener("load", function (event) {
+        var origImg = new Image();
+        origImg.src = event.target.result;
+        origImg.addEventListener("load", function (event) {
+          var width = event.target.width;
+          var height = event.target.height;
+          // Don't resize if it's small enough
+          if (width <= MAX_WIDTH && height <= MAX_HEIGHT) {
+            myDropzone.enqueueFile(origFile);
+            return;
+          }
+          // Calc new dims otherwise
+          if (width > height) {
+            if (width > MAX_WIDTH) {
+              height *= MAX_WIDTH / width;
+              width = MAX_WIDTH;
+            }
+          } else {
+            if (height > MAX_HEIGHT) {
+              width *= MAX_HEIGHT / height;
+              height = MAX_HEIGHT;
+            }
+          }
+          // Resize
+          var canvas = document.createElement('canvas');
+          canvas.width = width;
+          canvas.height = height;
+
+          var ctx = canvas.getContext("2d");
+          ctx.drawImage(origImg, 0, 0, width, height);
+
+          var resizedFile = base64ToFile(canvas.toDataURL('image/jpeg', 0.6), origFile);
+          // Replace original with resized
+          var origFileIndex = myDropzone.files.indexOf(origFile);
+          myDropzone.files[origFileIndex] = resizedFile;
+
+          // Enqueue added file manually making it available for
+          // further processing by dropzone
+          resizedFile.status = "added";
+          resizedFile.accepted = true;
+          myDropzone.enqueueFile(resizedFile);
+        });
+      });
+
+      reader.readAsDataURL(origFile);
+    });
+  },
+
+  sendFormWithoutImages: function sendFormWithoutImages() {
+    var form = document.getElementById('my-awesome-dropzone');
+    var url = form.getAttribute('action');
+    var formData = new FormData(form);
+    var xhr = new XMLHttpRequest();
+
+    xhr.open('POST', url);
+    xhr.onload = function () {
+      if (xhr.status === 200) {
+        if (xhr.isNewItem) {
+          var addedAlert = document.querySelector('.js-item-added');
+          utils.removeClass(addedAlert, 'is-hidden');
+          this.showError('test');
+        } else if (xhr.error) {
+          this.showError(xhr.error);
+        } else {
+          var editedAlert = document.querySelector('.js-item-edited');
+          utils.removeClass(editedAlert, 'is-hidden');
+        }
+      } else if (xhr.status !== 200) {
+        this.showError('Sorry, something went wrong. Please, try again later.');
+      }
+    };
+    xhr.send(formData);
+  },
+
+  showError: function showError(errorText) {
+    var errorAlert = document.querySelector('.js-item-edited');
+    errorAlert.innerText = errorText;
+    utils.removeClass(errorAlert, 'is-hidden');
+  }
+});
+
+function base64ToFile(dataURI, origFile) {
+  var byteString, mimestring;
+
+  if (dataURI.split(',')[0].indexOf('base64') !== -1) {
+    byteString = atob(dataURI.split(',')[1]);
+  } else {
+    byteString = decodeURI(dataURI.split(',')[1]);
+  }
+
+  mimestring = dataURI.split(',')[0].split(':')[1].split(';')[0];
+
+  var content = new Array();
+  for (var i = 0; i < byteString.length; i++) {
+    content[i] = byteString.charCodeAt(i);
+  }
+
+  var newFile = new File([new Uint8Array(content)], origFile.name, { type: mimestring });
+
+  // Copy props set by the dropzone in the original file
+  var origProps = ["upload", "status", "previewElement", "previewTemplate", "accepted"];
+
+  origProps.forEach(function (i, p) {
+    newFile[p] = origFile[p];
+  });
+
+  return newFile;
+}
+
+},{"../components/utils/utils":8,"dropzone":12}],4:[function(require,module,exports){
+'use strict';
+
+var utils = require('./utils/utils');
+
+function Form(className) {
+  this.forms = document.getElementsByClassName(className);
+  this.currentForm = null;
+  this.minPasswordLength = 6;
+  this.errorMessages = {
+    invalidEmail: 'Invalid email format',
+    invalidCharacters: 'Contains forbidden symbols',
+    minPasswordLength: 'Password should contain at least 6 symbols'
+  };
+  this.errors = {};
+  this.emailRegex = /(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))/i;
+  this.urlRegex = /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/;
+}
+
+Form.prototype.init = function () {
+  if (this.forms.length > 0) {
+    this.bindEvents();
+  }
+};
+
+Form.prototype.bindEvents = function () {
+  document.addEventListener('blur', this.onBlur.bind(this), true);
+  document.addEventListener('keyup', this.onKeyUp.bind(this), true);
+  document.addEventListener('submit', this.onSubmit.bind(this), true);
+};
+
+Form.prototype.onBlur = function (e) {
+  var target = e.target;
+  this.setCurrentForm(target);
+  this.validateInput(target);
+};
+
+Form.prototype.onKeyUp = function (e) {
+  var target = e.target;
+  if (target.hasAttribute('type') && target.getAttribute('type') === 'text' || utils.selectorMatches(target, 'textarea')) {
+    this.setCurrentForm(target);
+    this.validateInput(target);
+  }
+};
+
+Form.prototype.onSubmit = function (e) {
+  e.preventDefault();
+  var target = e.target;
+  this.setCurrentForm(target);
+  if (this.isValidForm()) {
+    this.submitForm();
+  }
+};
+
+Form.prototype.setCurrentForm = function (target) {
+  while (target != document) {
+    if (target && utils.selectorMatches(target, '.js-form')) {
+      this.currentForm = target;
+    }
+    target = target.parentNode;
+  }
+};
+
+Form.prototype.validateInput = function (input) {
+  if (input.value === '') return;
+  var isEmailInput = input.hasAttribute('type') && input.getAttribute('type') === 'email';
+  var isTextInput = input.hasAttribute('type') && input.getAttribute('type') === 'text' || utils.selectorMatches(input, 'textarea');
+  var isPasswordInput = input.hasAttribute('type') && input.getAttribute('type') === 'password' && input.getAttribute('data-validate') === 'true';
+
+  if (isEmailInput) {
+    this.validateEmail(input);
+  } else if (isTextInput) {
+    this.validateForRestrictedCharacters(input);
+    this.removeEmails(input);
+    this.removeUrls(input);
+  } else if (isPasswordInput) {
+    this.validatePassword(input);
+  }
+};
+
+Form.prototype.validateEmail = function (input) {
+  if (!this.isEmail(input.value)) {
+    utils.removeClass(input, 'is-valid');
+    utils.addClass(input, 'is-invalid');
+    this.showInputError(input, this.errorMessages.invalidEmail);
+  } else {
+    utils.addClass(input, 'is-valid');
+    utils.removeClass(input, 'is-invalid');
+    this.hideInputError(input);
+  }
+};
+
+Form.prototype.validateForRestrictedCharacters = function (input) {
+  if (input.getAttribute('data-custom-validation')) return;
+  if (!this.isValidString(input.value)) {
+    utils.removeClass(input, 'is-valid');
+    utils.addClass(input, 'is-invalid');
+    this.showInputError(input, this.errorMessages.invalidCharacters);
+  } else {
+    utils.addClass(input, 'is-valid');
+    utils.removeClass(input, 'is-invalid');
+    this.hideInputError(input);
+  }
+};
+
+Form.prototype.isValidForm = function () {
+  var invalidInputs = this.currentForm.querySelector('.is-invalid');
+  return invalidInputs ? false : true;
+};
+
+Form.prototype.submitForm = function () {
+  if (this.currentForm.getAttribute('data-ajax-submit')) return;
+  this.currentForm.submit();
+};
+
+Form.prototype.removeEmails = function (input) {
+  if (this.emailRegex.test(input.value)) {
+    input.value = input.value.replace(this.emailRegex, '((Forbidden))');
+  }
+};
+
+Form.prototype.removeUrls = function (input) {
+  if (this.urlRegex.test(input.value)) {
+    input.value = input.value.replace(this.urlRegex, '((Forbidden))');
+  }
+};
+
+Form.prototype.validatePassword = function (input) {
+  if (input.value.length < 6) {
+    utils.removeClass(input, 'is-valid');
+    utils.addClass(input, 'is-invalid');
+    this.showInputError(input, this.errorMessages.minPasswordLength);
+  } else {
+    utils.addClass(input, 'is-valid');
+    utils.removeClass(input, 'is-invalid');
+    this.hideInputError(input);
+  }
+};
+
+Form.prototype.isValidString = function (str) {
+  var regex = /^[а-яА-ЯЁёІіЇїҐґЄєЩщa-zA-Z0-9.,!"'_\-()@?#:$;\s\u00A0\u000D\u000A\000C]+$/gm;
+  return regex.test(str);
+};
+
+Form.prototype.showInputError = function (input, error) {
+  if (input.nextElementSibling) {
+    var next = input.nextElementSibling;
+    if (utils.selectorMatches(next, '.inputError')) return;
+  }
+
+  var errorDiv = document.createElement('div');
+  errorDiv.innerText = error;
+  utils.addClass(errorDiv, 'inputError');
+  utils.insertAfter(errorDiv, input);
+};
+
+Form.prototype.hideInputError = function (input) {
+  var next, parent;
+  if (input.nextElementSibling) {
+    next = input.nextElementSibling;
+    parent = next.parentNode;
+  } else {
+    return;
+  }
+
+  if (utils.selectorMatches(next, '.inputError')) {
+    parent.removeChild(next);
+  }
+};
+
+Form.prototype.isEmail = function (email) {
+  var regex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/i;
+  return regex.test(email);
+};
+
+module.exports = Form;
+
+},{"./utils/utils":8}],5:[function(require,module,exports){
+'use strict';
+
+function Menu(menuClass, triggerClass, options) {
+	this.menu = document.getElementsByClassName(menuClass)[0];
+	this.trigger = document.getElementsByClassName(triggerClass)[0];
+	this.container = document.getElementById('main');
+	this.navigation = document.getElementById('navigation');
+	this.navigationHeight = this.navigation.offsetHeight;
+
+	this.lastKnownScrollPosition = 0;
+	this.ticking = false;
+}
+
+Menu.prototype.init = function () {
+	this.bindEvents();
+};
+
+Menu.prototype.bindEvents = function () {
+	this.trigger.addEventListener('click', this.toggleMenu.bind(this), false);
+	window.addEventListener('scroll', this.onScrollThrottle.bind(this), false);
+	window.addEventListener('optimizedResize', this.setNavigationHeight.bind(this), false);
+};
+
+Menu.prototype.onScrollThrottle = function () {
+	this.lastKnownScrollPosition = window.scrollY;
+	if (!this.ticking) {
+		window.requestAnimationFrame(function () {
+			this.getSticky(this.lastKnownScrollPosition);
+			this.ticking = false;
+		}.bind(this));
+	}
+	this.ticking = true;
+};
+
+Menu.prototype.setNavigationHeight = function () {
+	this.navigation.style.height = '';
+	this.navigationHeight = this.navigation.offsetHeight;
+	if (this.lastKnownScrollPosition) {
+		this.getSticky(this.lastKnownScrollPosition);
+	}
+};
+
+Menu.prototype.toggleMenu = function () {
+	this.menu.classList.toggle('is-active');
+	this.trigger.classList.toggle('is-active');
+	this.container.classList.toggle('is-active-menu');
+};
+
+Menu.prototype.getSticky = function () {
+	var max = 40;
+	var newHeight = this.lastKnownScrollPosition < this.navigationHeight - max ? this.navigationHeight - this.lastKnownScrollPosition : max;
+	this.navigation.style.height = newHeight + 'px';
+
+	if (this.lastKnownScrollPosition > (this.navigationHeight - max) / 2) {
+		this.navigation.classList.add('is-sticky');
+	} else {
+		this.navigation.classList.remove('is-sticky');
+	}
+};
+
+module.exports = Menu;
+
+},{}],6:[function(require,module,exports){
+'use strict';
+
+var utils = require('./utils/utils');
+var tagTemplate = require('./templates/tag.html');
+var Mustache = require('mustache');
+
+function TagTransformer(id) {
+  this.tagsContainerSelector = id;
+  this.realTagsInputId = 'real' + '-' + id;
+  this.fakeTagInputSelector = 'js-addTag';
+  this.removeTagSelector = 'js-removeTag';
+  this.tagsContainer = document.getElementById(id);
+  this.realInput = document.getElementById(this.realTagsInputId);
+
+  this.forbiddenSymbols = /[^а-яА-ЯЁёІіЇїҐґЄєЩщa-zA-Z0-9_\-]+/gi;
+  this.currentInput = null;
+}
+
+TagTransformer.prototype.init = function () {
+  this.bindEvents();
+};
+
+TagTransformer.prototype.bindEvents = function () {
+  this.tagsContainer.addEventListener('keydown', this.onKeyUp.bind(this), true);
+  this.tagsContainer.addEventListener('click', this.onClick.bind(this));
+  this.tagsContainer.addEventListener('blur', this.onBlur.bind(this), true);
+};
+
+TagTransformer.prototype.onKeyUp = function (e) {
+  this.setCurrentInput(e.target);
+  if (this.currentInput) {
+    this.removeForbiddenCharacters();
+    this.transformToTag(e);
+  }
+};
+
+TagTransformer.prototype.onClick = function (e) {
+  if (utils.selectorMatches(e.target, '.' + this.removeTagSelector)) {
+    this.tagToRemove = e.target.parentNode;
+    this.removeTag();
+  }
+};
+
+TagTransformer.prototype.onBlur = function (e) {
+  e.keyCode = 9;
+  this.onKeyUp(e);
+  this.currentInput.blur();
+};
+
+TagTransformer.prototype.setCurrentInput = function (target) {
+  if (target && utils.selectorMatches(target, '.' + this.fakeTagInputSelector)) {
+    this.currentInput = target;
+  }
+};
+
+TagTransformer.prototype.removeForbiddenCharacters = function () {
+  if (this.forbiddenSymbols.test(this.currentInput.value)) {
+    this.currentInput.value = this.currentInput.value.replace(this.forbiddenSymbols, '');
+  }
+};
+
+TagTransformer.prototype.transformToTag = function (e) {
+  // comma - 188, 32 - space, 13 - return, tab - 9
+  var keyCode = e.keyCode;
+  if (keyCode === 9 && this.currentInput.value === '') return;
+  if (keyCode === 188 || keyCode === 32 || keyCode === 13 || keyCode === 9) {
+    e.preventDefault();
+    if (this.currentInput.value && this.currentInput.value != '') {
+      this.updateRealInputValue();
+      this.renderTag();
+      this.currentInput.value = '';
+      this.currentInput.focus();
+    }
+  }
+  // backspace - 8
+  if (keyCode === 8 && this.currentInput.value === '') {
+    this.tagToRemove = this.getLastTag();
+    this.removeTag();
+  }
+};
+
+TagTransformer.prototype.getLastTag = function () {
+  var tags = this.currentInput.parentNode.querySelectorAll('.js-tag');
+  return tags[tags.length - 1];
+};
+
+TagTransformer.prototype.removeTag = function () {
+  if (!this.tagToRemove) return;
+  var replace = utils.trim(this.tagToRemove.innerText) + ',';
+  var re = new RegExp(replace, "g");
+  this.tagToRemove.remove();
+  this.realInput.value = this.realInput.value.replace(re, '');
+};
+
+TagTransformer.prototype.updateRealInputValue = function () {
+  this.realInput.value = this.realInput.value + this.currentInput.value + ',';
+};
+
+TagTransformer.prototype.renderTag = function (data) {
+  var html = Mustache.render(tagTemplate, { tag: this.currentInput.value });
+  var div = document.createElement('div');
+  var parent = this.currentInput.parentNode;
+  div.innerHTML = html;
+  parent.insertBefore(div.firstChild, this.currentInput);
+};
+
+module.exports = TagTransformer;
+
+},{"./templates/tag.html":7,"./utils/utils":8,"mustache":9}],7:[function(require,module,exports){
+module.exports = "<span class=\"tags-tag js-tag\">\n  {{tag}}\n  <span class=\"icon-cancel tags-tag-remove js-removeTag\"></span>\n</span>\n";
+
+},{}],8:[function(require,module,exports){
+'use strict';
+
+var cookies;
+
+module.exports = {
+  closest: function closest(el, selector) {
+    var closest;
+    while (el) {
+      closest = el;
+      if (closest && this.selectorMatches(closest, selector)) {
+        return closest;
+      }
+      el = closest.parentElement;
+    }
+
+    return null;
+  },
+
+  readCookie: function readCookie(name) {
+    if (cookies) {
+      return cookies[name];
+    }
+
+    var c = document.cookie.split('; ');
+    cookies = {};
+
+    for (var i = c.length - 1; i >= 0; i--) {
+      var C = c[i].split('=');
+      cookies[C[0]] = C[1];
+    }
+
+    return cookies[name];
+  },
+
+  selectorMatches: function selectorMatches(el, selector) {
+    var p = Element.prototype;
+    var f = p.matches || p.webkitMatchesSelector || p.mozMatchesSelector || p.msMatchesSelector || function (s) {
+      return [].indexOf.call(document.querySelectorAll(s), this) !== -1;
+    };
+    return f.call(el, selector);
+  },
+
+  addClass: function addClass(element, className) {
+    if (this.selectorMatches(element, '.' + className)) return;
+
+    if (element.className != '') {
+      element.className += ' ' + className;
+    } else {
+      element.className = className;
+    }
+  },
+
+  removeClass: function removeClass(element, className) {
+    var regex = new RegExp('(?:^|\\s)' + className + '(?!\\S)', 'gi');
+    element.className = element.className.replace(regex, '');
+  },
+
+  insertAfter: function insertAfter(newNode, referenceNode) {
+    referenceNode.parentNode.insertBefore(newNode, referenceNode.nextSibling);
+  },
+
+  trim: function trim(str, chars) {
+    if (!str) return str;
+    return this.rtrim(this.ltrim(str, chars), chars);
+  },
+
+  ltrim: function ltrim(str, chars) {
+    if (!str) return str;
+    var pattern = chars ? new RegExp('^[' + chars + ']+', 'g') : /^\s+/g;
+    return str.replace(pattern, '');
+  },
+
+  rtrim: function rtrim(str, chars) {
+    if (!str) return str;
+    var pattern = chars ? new RegExp('[' + chars + ']') : /\s/;
+
+    var idx = str.length - 1;
+    while (idx >= 0 && pattern.test(str[idx])) {
+      idx--;
+    }
+
+    return idx < str.length ? str.substr(0, idx + 1) : str;
+  }
+};
+
+},{}],9:[function(require,module,exports){
+'use strict';
+
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
+/*!
+ * mustache.js - Logic-less {{mustache}} templates with JavaScript
+ * http://github.com/janl/mustache.js
+ */
+
+/*global define: false Mustache: true*/
+
+(function defineMustache(global, factory) {
+  if ((typeof exports === 'undefined' ? 'undefined' : _typeof(exports)) === 'object' && exports && typeof exports.nodeName !== 'string') {
+    factory(exports); // CommonJS
+  } else if (typeof define === 'function' && define.amd) {
+    define(['exports'], factory); // AMD
+  } else {
+    global.Mustache = {};
+    factory(global.Mustache); // script, wsh, asp
+  }
+})(undefined, function mustacheFactory(mustache) {
+
+  var objectToString = Object.prototype.toString;
+  var isArray = Array.isArray || function isArrayPolyfill(object) {
+    return objectToString.call(object) === '[object Array]';
+  };
+
+  function isFunction(object) {
+    return typeof object === 'function';
+  }
+
+  /**
+   * More correct typeof string handling array
+   * which normally returns typeof 'object'
+   */
+  function typeStr(obj) {
+    return isArray(obj) ? 'array' : typeof obj === 'undefined' ? 'undefined' : _typeof(obj);
+  }
+
+  function escapeRegExp(string) {
+    return string.replace(/[\-\[\]{}()*+?.,\\\^$|#\s]/g, '\\$&');
+  }
+
+  /**
+   * Null safe way of checking whether or not an object,
+   * including its prototype, has a given property
+   */
+  function hasProperty(obj, propName) {
+    return obj != null && (typeof obj === 'undefined' ? 'undefined' : _typeof(obj)) === 'object' && propName in obj;
+  }
+
+  // Workaround for https://issues.apache.org/jira/browse/COUCHDB-577
+  // See https://github.com/janl/mustache.js/issues/189
+  var regExpTest = RegExp.prototype.test;
+  function testRegExp(re, string) {
+    return regExpTest.call(re, string);
+  }
+
+  var nonSpaceRe = /\S/;
+  function isWhitespace(string) {
+    return !testRegExp(nonSpaceRe, string);
+  }
+
+  var entityMap = {
+    '&': '&amp;',
+    '<': '&lt;',
+    '>': '&gt;',
+    '"': '&quot;',
+    "'": '&#39;',
+    '/': '&#x2F;',
+    '`': '&#x60;',
+    '=': '&#x3D;'
+  };
+
+  function escapeHtml(string) {
+    return String(string).replace(/[&<>"'`=\/]/g, function fromEntityMap(s) {
+      return entityMap[s];
+    });
+  }
+
+  var whiteRe = /\s*/;
+  var spaceRe = /\s+/;
+  var equalsRe = /\s*=/;
+  var curlyRe = /\s*\}/;
+  var tagRe = /#|\^|\/|>|\{|&|=|!/;
+
+  /**
+   * Breaks up the given `template` string into a tree of tokens. If the `tags`
+   * argument is given here it must be an array with two string values: the
+   * opening and closing tags used in the template (e.g. [ "<%", "%>" ]). Of
+   * course, the default is to use mustaches (i.e. mustache.tags).
+   *
+   * A token is an array with at least 4 elements. The first element is the
+   * mustache symbol that was used inside the tag, e.g. "#" or "&". If the tag
+   * did not contain a symbol (i.e. {{myValue}}) this element is "name". For
+   * all text that appears outside a symbol this element is "text".
+   *
+   * The second element of a token is its "value". For mustache tags this is
+   * whatever else was inside the tag besides the opening symbol. For text tokens
+   * this is the text itself.
+   *
+   * The third and fourth elements of the token are the start and end indices,
+   * respectively, of the token in the original template.
+   *
+   * Tokens that are the root node of a subtree contain two more elements: 1) an
+   * array of tokens in the subtree and 2) the index in the original template at
+   * which the closing tag for that section begins.
+   */
+  function parseTemplate(template, tags) {
+    if (!template) return [];
+
+    var sections = []; // Stack to hold section tokens
+    var tokens = []; // Buffer to hold the tokens
+    var spaces = []; // Indices of whitespace tokens on the current line
+    var hasTag = false; // Is there a {{tag}} on the current line?
+    var nonSpace = false; // Is there a non-space char on the current line?
+
+    // Strips all whitespace tokens array for the current line
+    // if there was a {{#tag}} on it and otherwise only space.
+    function stripSpace() {
+      if (hasTag && !nonSpace) {
+        while (spaces.length) {
+          delete tokens[spaces.pop()];
+        }
+      } else {
+        spaces = [];
+      }
+
+      hasTag = false;
+      nonSpace = false;
+    }
+
+    var openingTagRe, closingTagRe, closingCurlyRe;
+    function compileTags(tagsToCompile) {
+      if (typeof tagsToCompile === 'string') tagsToCompile = tagsToCompile.split(spaceRe, 2);
+
+      if (!isArray(tagsToCompile) || tagsToCompile.length !== 2) throw new Error('Invalid tags: ' + tagsToCompile);
+
+      openingTagRe = new RegExp(escapeRegExp(tagsToCompile[0]) + '\\s*');
+      closingTagRe = new RegExp('\\s*' + escapeRegExp(tagsToCompile[1]));
+      closingCurlyRe = new RegExp('\\s*' + escapeRegExp('}' + tagsToCompile[1]));
+    }
+
+    compileTags(tags || mustache.tags);
+
+    var scanner = new Scanner(template);
+
+    var start, type, value, chr, token, openSection;
+    while (!scanner.eos()) {
+      start = scanner.pos;
+
+      // Match any text between tags.
+      value = scanner.scanUntil(openingTagRe);
+
+      if (value) {
+        for (var i = 0, valueLength = value.length; i < valueLength; ++i) {
+          chr = value.charAt(i);
+
+          if (isWhitespace(chr)) {
+            spaces.push(tokens.length);
+          } else {
+            nonSpace = true;
+          }
+
+          tokens.push(['text', chr, start, start + 1]);
+          start += 1;
+
+          // Check for whitespace on the current line.
+          if (chr === '\n') stripSpace();
+        }
+      }
+
+      // Match the opening tag.
+      if (!scanner.scan(openingTagRe)) break;
+
+      hasTag = true;
+
+      // Get the tag type.
+      type = scanner.scan(tagRe) || 'name';
+      scanner.scan(whiteRe);
+
+      // Get the tag value.
+      if (type === '=') {
+        value = scanner.scanUntil(equalsRe);
+        scanner.scan(equalsRe);
+        scanner.scanUntil(closingTagRe);
+      } else if (type === '{') {
+        value = scanner.scanUntil(closingCurlyRe);
+        scanner.scan(curlyRe);
+        scanner.scanUntil(closingTagRe);
+        type = '&';
+      } else {
+        value = scanner.scanUntil(closingTagRe);
+      }
+
+      // Match the closing tag.
+      if (!scanner.scan(closingTagRe)) throw new Error('Unclosed tag at ' + scanner.pos);
+
+      token = [type, value, start, scanner.pos];
+      tokens.push(token);
+
+      if (type === '#' || type === '^') {
+        sections.push(token);
+      } else if (type === '/') {
+        // Check section nesting.
+        openSection = sections.pop();
+
+        if (!openSection) throw new Error('Unopened section "' + value + '" at ' + start);
+
+        if (openSection[1] !== value) throw new Error('Unclosed section "' + openSection[1] + '" at ' + start);
+      } else if (type === 'name' || type === '{' || type === '&') {
+        nonSpace = true;
+      } else if (type === '=') {
+        // Set the tags for the next time around.
+        compileTags(value);
+      }
+    }
+
+    // Make sure there are no open sections when we're done.
+    openSection = sections.pop();
+
+    if (openSection) throw new Error('Unclosed section "' + openSection[1] + '" at ' + scanner.pos);
+
+    return nestTokens(squashTokens(tokens));
+  }
+
+  /**
+   * Combines the values of consecutive text tokens in the given `tokens` array
+   * to a single token.
+   */
+  function squashTokens(tokens) {
+    var squashedTokens = [];
+
+    var token, lastToken;
+    for (var i = 0, numTokens = tokens.length; i < numTokens; ++i) {
+      token = tokens[i];
+
+      if (token) {
+        if (token[0] === 'text' && lastToken && lastToken[0] === 'text') {
+          lastToken[1] += token[1];
+          lastToken[3] = token[3];
+        } else {
+          squashedTokens.push(token);
+          lastToken = token;
+        }
+      }
+    }
+
+    return squashedTokens;
+  }
+
+  /**
+   * Forms the given array of `tokens` into a nested tree structure where
+   * tokens that represent a section have two additional items: 1) an array of
+   * all tokens that appear in that section and 2) the index in the original
+   * template that represents the end of that section.
+   */
+  function nestTokens(tokens) {
+    var nestedTokens = [];
+    var collector = nestedTokens;
+    var sections = [];
+
+    var token, section;
+    for (var i = 0, numTokens = tokens.length; i < numTokens; ++i) {
+      token = tokens[i];
+
+      switch (token[0]) {
+        case '#':
+        case '^':
+          collector.push(token);
+          sections.push(token);
+          collector = token[4] = [];
+          break;
+        case '/':
+          section = sections.pop();
+          section[5] = token[2];
+          collector = sections.length > 0 ? sections[sections.length - 1][4] : nestedTokens;
+          break;
+        default:
+          collector.push(token);
+      }
+    }
+
+    return nestedTokens;
+  }
+
+  /**
+   * A simple string scanner that is used by the template parser to find
+   * tokens in template strings.
+   */
+  function Scanner(string) {
+    this.string = string;
+    this.tail = string;
+    this.pos = 0;
+  }
+
+  /**
+   * Returns `true` if the tail is empty (end of string).
+   */
+  Scanner.prototype.eos = function eos() {
+    return this.tail === '';
+  };
+
+  /**
+   * Tries to match the given regular expression at the current position.
+   * Returns the matched text if it can match, the empty string otherwise.
+   */
+  Scanner.prototype.scan = function scan(re) {
+    var match = this.tail.match(re);
+
+    if (!match || match.index !== 0) return '';
+
+    var string = match[0];
+
+    this.tail = this.tail.substring(string.length);
+    this.pos += string.length;
+
+    return string;
+  };
+
+  /**
+   * Skips all text until the given regular expression can be matched. Returns
+   * the skipped string, which is the entire tail if no match can be made.
+   */
+  Scanner.prototype.scanUntil = function scanUntil(re) {
+    var index = this.tail.search(re),
+        match;
+
+    switch (index) {
+      case -1:
+        match = this.tail;
+        this.tail = '';
+        break;
+      case 0:
+        match = '';
+        break;
+      default:
+        match = this.tail.substring(0, index);
+        this.tail = this.tail.substring(index);
+    }
+
+    this.pos += match.length;
+
+    return match;
+  };
+
+  /**
+   * Represents a rendering context by wrapping a view object and
+   * maintaining a reference to the parent context.
+   */
+  function Context(view, parentContext) {
+    this.view = view;
+    this.cache = { '.': this.view };
+    this.parent = parentContext;
+  }
+
+  /**
+   * Creates a new context using the given view with this context
+   * as the parent.
+   */
+  Context.prototype.push = function push(view) {
+    return new Context(view, this);
+  };
+
+  /**
+   * Returns the value of the given name in this context, traversing
+   * up the context hierarchy if the value is absent in this context's view.
+   */
+  Context.prototype.lookup = function lookup(name) {
+    var cache = this.cache;
+
+    var value;
+    if (cache.hasOwnProperty(name)) {
+      value = cache[name];
+    } else {
+      var context = this,
+          names,
+          index,
+          lookupHit = false;
+
+      while (context) {
+        if (name.indexOf('.') > 0) {
+          value = context.view;
+          names = name.split('.');
+          index = 0;
+
+          /**
+           * Using the dot notion path in `name`, we descend through the
+           * nested objects.
+           *
+           * To be certain that the lookup has been successful, we have to
+           * check if the last object in the path actually has the property
+           * we are looking for. We store the result in `lookupHit`.
+           *
+           * This is specially necessary for when the value has been set to
+           * `undefined` and we want to avoid looking up parent contexts.
+           **/
+          while (value != null && index < names.length) {
+            if (index === names.length - 1) lookupHit = hasProperty(value, names[index]);
+
+            value = value[names[index++]];
+          }
+        } else {
+          value = context.view[name];
+          lookupHit = hasProperty(context.view, name);
+        }
+
+        if (lookupHit) break;
+
+        context = context.parent;
+      }
+
+      cache[name] = value;
+    }
+
+    if (isFunction(value)) value = value.call(this.view);
+
+    return value;
+  };
+
+  /**
+   * A Writer knows how to take a stream of tokens and render them to a
+   * string, given a context. It also maintains a cache of templates to
+   * avoid the need to parse the same template twice.
+   */
+  function Writer() {
+    this.cache = {};
+  }
+
+  /**
+   * Clears all cached templates in this writer.
+   */
+  Writer.prototype.clearCache = function clearCache() {
+    this.cache = {};
+  };
+
+  /**
+   * Parses and caches the given `template` and returns the array of tokens
+   * that is generated from the parse.
+   */
+  Writer.prototype.parse = function parse(template, tags) {
+    var cache = this.cache;
+    var tokens = cache[template];
+
+    if (tokens == null) tokens = cache[template] = parseTemplate(template, tags);
+
+    return tokens;
+  };
+
+  /**
+   * High-level method that is used to render the given `template` with
+   * the given `view`.
+   *
+   * The optional `partials` argument may be an object that contains the
+   * names and templates of partials that are used in the template. It may
+   * also be a function that is used to load partial templates on the fly
+   * that takes a single argument: the name of the partial.
+   */
+  Writer.prototype.render = function render(template, view, partials) {
+    var tokens = this.parse(template);
+    var context = view instanceof Context ? view : new Context(view);
+    return this.renderTokens(tokens, context, partials, template);
+  };
+
+  /**
+   * Low-level method that renders the given array of `tokens` using
+   * the given `context` and `partials`.
+   *
+   * Note: The `originalTemplate` is only ever used to extract the portion
+   * of the original template that was contained in a higher-order section.
+   * If the template doesn't use higher-order sections, this argument may
+   * be omitted.
+   */
+  Writer.prototype.renderTokens = function renderTokens(tokens, context, partials, originalTemplate) {
+    var buffer = '';
+
+    var token, symbol, value;
+    for (var i = 0, numTokens = tokens.length; i < numTokens; ++i) {
+      value = undefined;
+      token = tokens[i];
+      symbol = token[0];
+
+      if (symbol === '#') value = this.renderSection(token, context, partials, originalTemplate);else if (symbol === '^') value = this.renderInverted(token, context, partials, originalTemplate);else if (symbol === '>') value = this.renderPartial(token, context, partials, originalTemplate);else if (symbol === '&') value = this.unescapedValue(token, context);else if (symbol === 'name') value = this.escapedValue(token, context);else if (symbol === 'text') value = this.rawValue(token);
+
+      if (value !== undefined) buffer += value;
+    }
+
+    return buffer;
+  };
+
+  Writer.prototype.renderSection = function renderSection(token, context, partials, originalTemplate) {
+    var self = this;
+    var buffer = '';
+    var value = context.lookup(token[1]);
+
+    // This function is used to render an arbitrary template
+    // in the current context by higher-order sections.
+    function subRender(template) {
+      return self.render(template, context, partials);
+    }
+
+    if (!value) return;
+
+    if (isArray(value)) {
+      for (var j = 0, valueLength = value.length; j < valueLength; ++j) {
+        buffer += this.renderTokens(token[4], context.push(value[j]), partials, originalTemplate);
+      }
+    } else if ((typeof value === 'undefined' ? 'undefined' : _typeof(value)) === 'object' || typeof value === 'string' || typeof value === 'number') {
+      buffer += this.renderTokens(token[4], context.push(value), partials, originalTemplate);
+    } else if (isFunction(value)) {
+      if (typeof originalTemplate !== 'string') throw new Error('Cannot use higher-order sections without the original template');
+
+      // Extract the portion of the original template that the section contains.
+      value = value.call(context.view, originalTemplate.slice(token[3], token[5]), subRender);
+
+      if (value != null) buffer += value;
+    } else {
+      buffer += this.renderTokens(token[4], context, partials, originalTemplate);
+    }
+    return buffer;
+  };
+
+  Writer.prototype.renderInverted = function renderInverted(token, context, partials, originalTemplate) {
+    var value = context.lookup(token[1]);
+
+    // Use JavaScript's definition of falsy. Include empty arrays.
+    // See https://github.com/janl/mustache.js/issues/186
+    if (!value || isArray(value) && value.length === 0) return this.renderTokens(token[4], context, partials, originalTemplate);
+  };
+
+  Writer.prototype.renderPartial = function renderPartial(token, context, partials) {
+    if (!partials) return;
+
+    var value = isFunction(partials) ? partials(token[1]) : partials[token[1]];
+    if (value != null) return this.renderTokens(this.parse(value), context, partials, value);
+  };
+
+  Writer.prototype.unescapedValue = function unescapedValue(token, context) {
+    var value = context.lookup(token[1]);
+    if (value != null) return value;
+  };
+
+  Writer.prototype.escapedValue = function escapedValue(token, context) {
+    var value = context.lookup(token[1]);
+    if (value != null) return mustache.escape(value);
+  };
+
+  Writer.prototype.rawValue = function rawValue(token) {
+    return token[1];
+  };
+
+  mustache.name = 'mustache.js';
+  mustache.version = '2.2.1';
+  mustache.tags = ['{{', '}}'];
+
+  // All high-level mustache.* functions use this writer.
+  var defaultWriter = new Writer();
+
+  /**
+   * Clears all cached templates in the default writer.
+   */
+  mustache.clearCache = function clearCache() {
+    return defaultWriter.clearCache();
+  };
+
+  /**
+   * Parses and caches the given template in the default writer and returns the
+   * array of tokens it contains. Doing this ahead of time avoids the need to
+   * parse templates on the fly as they are rendered.
+   */
+  mustache.parse = function parse(template, tags) {
+    return defaultWriter.parse(template, tags);
+  };
+
+  /**
+   * Renders the `template` with the given `view` and `partials` using the
+   * default writer.
+   */
+  mustache.render = function render(template, view, partials) {
+    if (typeof template !== 'string') {
+      throw new TypeError('Invalid template! Template should be a "string" ' + 'but "' + typeStr(template) + '" was given as the first ' + 'argument for mustache#render(template, view, partials)');
+    }
+
+    return defaultWriter.render(template, view, partials);
+  };
+
+  // This is here for backwards compatibility with 0.4.x.,
+  /*eslint-disable */ // eslint wants camel cased function name
+  mustache.to_html = function to_html(template, view, partials, send) {
+    /*eslint-enable*/
+
+    var result = mustache.render(template, view, partials);
+
+    if (isFunction(send)) {
+      send(result);
+    } else {
+      return result;
+    }
+  };
+
+  // Export the escaping function so that the user may override it.
+  // See https://github.com/janl/mustache.js/issues/244
+  mustache.escape = escapeHtml;
+
+  // Export these mainly for testing, but also for advanced usage.
+  mustache.Scanner = Scanner;
+  mustache.Context = Context;
+  mustache.Writer = Writer;
+});
+
+},{}],10:[function(require,module,exports){
+'use strict';
+
+var readCookie = require('../components/utils/utils').readCookie;
+var Menu = require('../components/Menu');
+var Counter = require('../components/Counter');
+var FormValidator = require('../components/FormValidator');
+
+if (readCookie('logged')) {
+  var userId = readCookie('logged');
+  window.socket = io();
+  var socket = window.socket;
+  var counter;
+
+  socket.on('newSwapRequest', function (data) {
+    if (!counter) {
+      counter = new Counter();
+    }
+    counter.update();
+  });
+
+  socket.emit('joinRoom', userId);
+}
+
+var form = new FormValidator();
+form.init();
+
+var menu = new Menu('js-menu-wrapper', 'js-menu-trigger');
+menu.init();
+
+},{"../components/Counter":2,"../components/FormValidator":4,"../components/Menu":5,"../components/utils/utils":8}],11:[function(require,module,exports){
+'use strict';
+
+var utils = require('../components/utils/utils');
+var TagTransformer = require('../components/TagTransformer');
+var CategorySelector = require('../components/CategorySelector');
+var FormValidator = require('../components/FormValidator');
+var Dropzone = require('../components/Dropzone');
+
+var EditItemForm = {
+  initialize: function initialize() {
+    var imagesFromDB = document.getElementById('imagesFromDB');
+    if (imagesFromDB) {
+      this.imagesToDelete = document.getElementById('imagesToDelete');
+      this.bindEvents();
+    }
+    this.category = new CategorySelector();
+    this.tags = new TagTransformer('tags');
+    this.swapForTags = new TagTransformer('swapForTags');
+    this.validator = new FormValidator('js-form');
+    this.validator.init();
+    this.category.init();
+    this.tags.init();
+    this.swapForTags.init();
+  },
+
+  bindEvents: function bindEvents() {
+    imagesFromDB.addEventListener('click', this.onClick.bind(this), true);
+  },
+
+  onClick: function onClick(e) {
+    var deleteButton = utils.closest(e.target, '.js-delete-image');
+    if (deleteButton) {
+      e.preventDefault();
+      this.clickedDeleteButton = deleteButton;
+      this.addToImagesToDeleteInput();
+      this.hideImage();
+    }
+  },
+
+  addToImagesToDeleteInput: function addToImagesToDeleteInput() {
+    var imageId = this.clickedDeleteButton.getAttribute('data-image-id');
+    if (this.imagesToDelete.value === '') {
+      this.imagesToDelete.value = imageId;
+    } else {
+      imagesToDelete.value += ',' + imageId;
+    }
+  },
+
+  hideImage: function hideImage() {
+    var imageContainer = utils.closest(this.clickedDeleteButton, '.js-uploaded-image');
+    imageContainer.style.display = 'none';
+  }
+};
+
+EditItemForm.initialize();
+
+},{"../components/CategorySelector":1,"../components/Dropzone":3,"../components/FormValidator":4,"../components/TagTransformer":6,"../components/utils/utils":8}],12:[function(require,module,exports){
+
+/*
+ *
+ * More info at [www.dropzonejs.com](http://www.dropzonejs.com)
+ *
+ * Copyright (c) 2012, Matias Meno
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ *
+ */
+
+(function() {
+  var Dropzone, Emitter, camelize, contentLoaded, detectVerticalSquash, drawImageIOSFix, noop, without,
+    __slice = [].slice,
+    __hasProp = {}.hasOwnProperty,
+    __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
+
+  noop = function() {};
+
+  Emitter = (function() {
+    function Emitter() {}
+
+    Emitter.prototype.addEventListener = Emitter.prototype.on;
+
+    Emitter.prototype.on = function(event, fn) {
+      this._callbacks = this._callbacks || {};
+      if (!this._callbacks[event]) {
+        this._callbacks[event] = [];
+      }
+      this._callbacks[event].push(fn);
+      return this;
+    };
+
+    Emitter.prototype.emit = function() {
+      var args, callback, callbacks, event, _i, _len;
+      event = arguments[0], args = 2 <= arguments.length ? __slice.call(arguments, 1) : [];
+      this._callbacks = this._callbacks || {};
+      callbacks = this._callbacks[event];
+      if (callbacks) {
+        for (_i = 0, _len = callbacks.length; _i < _len; _i++) {
+          callback = callbacks[_i];
+          callback.apply(this, args);
+        }
+      }
+      return this;
+    };
+
+    Emitter.prototype.removeListener = Emitter.prototype.off;
+
+    Emitter.prototype.removeAllListeners = Emitter.prototype.off;
+
+    Emitter.prototype.removeEventListener = Emitter.prototype.off;
+
+    Emitter.prototype.off = function(event, fn) {
+      var callback, callbacks, i, _i, _len;
+      if (!this._callbacks || arguments.length === 0) {
+        this._callbacks = {};
+        return this;
+      }
+      callbacks = this._callbacks[event];
+      if (!callbacks) {
+        return this;
+      }
+      if (arguments.length === 1) {
+        delete this._callbacks[event];
+        return this;
+      }
+      for (i = _i = 0, _len = callbacks.length; _i < _len; i = ++_i) {
+        callback = callbacks[i];
+        if (callback === fn) {
+          callbacks.splice(i, 1);
+          break;
+        }
+      }
+      return this;
+    };
+
+    return Emitter;
+
+  })();
+
+  Dropzone = (function(_super) {
+    var extend, resolveOption;
+
+    __extends(Dropzone, _super);
+
+    Dropzone.prototype.Emitter = Emitter;
+
+
+    /*
+    This is a list of all available events you can register on a dropzone object.
+
+    You can register an event handler like this:
+
+        dropzone.on("dragEnter", function() { });
+     */
+
+    Dropzone.prototype.events = ["drop", "dragstart", "dragend", "dragenter", "dragover", "dragleave", "addedfile", "addedfiles", "removedfile", "thumbnail", "error", "errormultiple", "processing", "processingmultiple", "uploadprogress", "totaluploadprogress", "sending", "sendingmultiple", "success", "successmultiple", "canceled", "canceledmultiple", "complete", "completemultiple", "reset", "maxfilesexceeded", "maxfilesreached", "queuecomplete"];
+
+    Dropzone.prototype.defaultOptions = {
+      url: null,
+      method: "post",
+      withCredentials: false,
+      parallelUploads: 2,
+      uploadMultiple: false,
+      maxFilesize: 256,
+      paramName: "file",
+      createImageThumbnails: true,
+      maxThumbnailFilesize: 10,
+      thumbnailWidth: 120,
+      thumbnailHeight: 120,
+      filesizeBase: 1000,
+      maxFiles: null,
+      params: {},
+      clickable: true,
+      ignoreHiddenFiles: true,
+      acceptedFiles: null,
+      acceptedMimeTypes: null,
+      autoProcessQueue: true,
+      autoQueue: true,
+      addRemoveLinks: false,
+      previewsContainer: null,
+      hiddenInputContainer: "body",
+      capture: null,
+      renameFilename: null,
+      dictDefaultMessage: "Drop files here to upload",
+      dictFallbackMessage: "Your browser does not support drag'n'drop file uploads.",
+      dictFallbackText: "Please use the fallback form below to upload your files like in the olden days.",
+      dictFileTooBig: "File is too big ({{filesize}}MiB). Max filesize: {{maxFilesize}}MiB.",
+      dictInvalidFileType: "You can't upload files of this type.",
+      dictResponseError: "Server responded with {{statusCode}} code.",
+      dictCancelUpload: "Cancel upload",
+      dictCancelUploadConfirmation: "Are you sure you want to cancel this upload?",
+      dictRemoveFile: "Remove file",
+      dictRemoveFileConfirmation: null,
+      dictMaxFilesExceeded: "You can not upload any more files.",
+      accept: function(file, done) {
+        return done();
+      },
+      init: function() {
+        return noop;
+      },
+      forceFallback: false,
+      fallback: function() {
+        var child, messageElement, span, _i, _len, _ref;
+        this.element.className = "" + this.element.className + " dz-browser-not-supported";
+        _ref = this.element.getElementsByTagName("div");
+        for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+          child = _ref[_i];
+          if (/(^| )dz-message($| )/.test(child.className)) {
+            messageElement = child;
+            child.className = "dz-message";
+            continue;
+          }
+        }
+        if (!messageElement) {
+          messageElement = Dropzone.createElement("<div class=\"dz-message\"><span></span></div>");
+          this.element.appendChild(messageElement);
+        }
+        span = messageElement.getElementsByTagName("span")[0];
+        if (span) {
+          if (span.textContent != null) {
+            span.textContent = this.options.dictFallbackMessage;
+          } else if (span.innerText != null) {
+            span.innerText = this.options.dictFallbackMessage;
+          }
+        }
+        return this.element.appendChild(this.getFallbackForm());
+      },
+      resize: function(file) {
+        var info, srcRatio, trgRatio;
+        info = {
+          srcX: 0,
+          srcY: 0,
+          srcWidth: file.width,
+          srcHeight: file.height
+        };
+        srcRatio = file.width / file.height;
+        info.optWidth = this.options.thumbnailWidth;
+        info.optHeight = this.options.thumbnailHeight;
+        if ((info.optWidth == null) && (info.optHeight == null)) {
+          info.optWidth = info.srcWidth;
+          info.optHeight = info.srcHeight;
+        } else if (info.optWidth == null) {
+          info.optWidth = srcRatio * info.optHeight;
+        } else if (info.optHeight == null) {
+          info.optHeight = (1 / srcRatio) * info.optWidth;
+        }
+        trgRatio = info.optWidth / info.optHeight;
+        if (file.height < info.optHeight || file.width < info.optWidth) {
+          info.trgHeight = info.srcHeight;
+          info.trgWidth = info.srcWidth;
+        } else {
+          if (srcRatio > trgRatio) {
+            info.srcHeight = file.height;
+            info.srcWidth = info.srcHeight * trgRatio;
+          } else {
+            info.srcWidth = file.width;
+            info.srcHeight = info.srcWidth / trgRatio;
+          }
+        }
+        info.srcX = (file.width - info.srcWidth) / 2;
+        info.srcY = (file.height - info.srcHeight) / 2;
+        return info;
+      },
+
+      /*
+      Those functions register themselves to the events on init and handle all
+      the user interface specific stuff. Overwriting them won't break the upload
+      but can break the way it's displayed.
+      You can overwrite them if you don't like the default behavior. If you just
+      want to add an additional event handler, register it on the dropzone object
+      and don't overwrite those options.
+       */
+      drop: function(e) {
+        return this.element.classList.remove("dz-drag-hover");
+      },
+      dragstart: noop,
+      dragend: function(e) {
+        return this.element.classList.remove("dz-drag-hover");
+      },
+      dragenter: function(e) {
+        return this.element.classList.add("dz-drag-hover");
+      },
+      dragover: function(e) {
+        return this.element.classList.add("dz-drag-hover");
+      },
+      dragleave: function(e) {
+        return this.element.classList.remove("dz-drag-hover");
+      },
+      paste: noop,
+      reset: function() {
+        return this.element.classList.remove("dz-started");
+      },
+      addedfile: function(file) {
+        var node, removeFileEvent, removeLink, _i, _j, _k, _len, _len1, _len2, _ref, _ref1, _ref2, _results;
+        if (this.element === this.previewsContainer) {
+          this.element.classList.add("dz-started");
+        }
+        if (this.previewsContainer) {
+          file.previewElement = Dropzone.createElement(this.options.previewTemplate.trim());
+          file.previewTemplate = file.previewElement;
+          this.previewsContainer.appendChild(file.previewElement);
+          _ref = file.previewElement.querySelectorAll("[data-dz-name]");
+          for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+            node = _ref[_i];
+            node.textContent = this._renameFilename(file.name);
+          }
+          _ref1 = file.previewElement.querySelectorAll("[data-dz-size]");
+          for (_j = 0, _len1 = _ref1.length; _j < _len1; _j++) {
+            node = _ref1[_j];
+            node.innerHTML = this.filesize(file.size);
+          }
+          if (this.options.addRemoveLinks) {
+            file._removeLink = Dropzone.createElement("<a class=\"dz-remove\" href=\"javascript:undefined;\" data-dz-remove>" + this.options.dictRemoveFile + "</a>");
+            file.previewElement.appendChild(file._removeLink);
+          }
+          removeFileEvent = (function(_this) {
+            return function(e) {
+              e.preventDefault();
+              e.stopPropagation();
+              if (file.status === Dropzone.UPLOADING) {
+                return Dropzone.confirm(_this.options.dictCancelUploadConfirmation, function() {
+                  return _this.removeFile(file);
+                });
+              } else {
+                if (_this.options.dictRemoveFileConfirmation) {
+                  return Dropzone.confirm(_this.options.dictRemoveFileConfirmation, function() {
+                    return _this.removeFile(file);
+                  });
+                } else {
+                  return _this.removeFile(file);
+                }
+              }
+            };
+          })(this);
+          _ref2 = file.previewElement.querySelectorAll("[data-dz-remove]");
+          _results = [];
+          for (_k = 0, _len2 = _ref2.length; _k < _len2; _k++) {
+            removeLink = _ref2[_k];
+            _results.push(removeLink.addEventListener("click", removeFileEvent));
+          }
+          return _results;
+        }
+      },
+      removedfile: function(file) {
+        var _ref;
+        if (file.previewElement) {
+          if ((_ref = file.previewElement) != null) {
+            _ref.parentNode.removeChild(file.previewElement);
+          }
+        }
+        return this._updateMaxFilesReachedClass();
+      },
+      thumbnail: function(file, dataUrl) {
+        var thumbnailElement, _i, _len, _ref;
+        if (file.previewElement) {
+          file.previewElement.classList.remove("dz-file-preview");
+          _ref = file.previewElement.querySelectorAll("[data-dz-thumbnail]");
+          for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+            thumbnailElement = _ref[_i];
+            thumbnailElement.alt = file.name;
+            thumbnailElement.src = dataUrl;
+          }
+          return setTimeout(((function(_this) {
+            return function() {
+              return file.previewElement.classList.add("dz-image-preview");
+            };
+          })(this)), 1);
+        }
+      },
+      error: function(file, message) {
+        var node, _i, _len, _ref, _results;
+        if (file.previewElement) {
+          file.previewElement.classList.add("dz-error");
+          if (typeof message !== "String" && message.error) {
+            message = message.error;
+          }
+          _ref = file.previewElement.querySelectorAll("[data-dz-errormessage]");
+          _results = [];
+          for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+            node = _ref[_i];
+            _results.push(node.textContent = message);
+          }
+          return _results;
+        }
+      },
+      errormultiple: noop,
+      processing: function(file) {
+        if (file.previewElement) {
+          file.previewElement.classList.add("dz-processing");
+          if (file._removeLink) {
+            return file._removeLink.textContent = this.options.dictCancelUpload;
+          }
+        }
+      },
+      processingmultiple: noop,
+      uploadprogress: function(file, progress, bytesSent) {
+        var node, _i, _len, _ref, _results;
+        if (file.previewElement) {
+          _ref = file.previewElement.querySelectorAll("[data-dz-uploadprogress]");
+          _results = [];
+          for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+            node = _ref[_i];
+            if (node.nodeName === 'PROGRESS') {
+              _results.push(node.value = progress);
+            } else {
+              _results.push(node.style.width = "" + progress + "%");
+            }
+          }
+          return _results;
+        }
+      },
+      totaluploadprogress: noop,
+      sending: noop,
+      sendingmultiple: noop,
+      success: function(file) {
+        if (file.previewElement) {
+          return file.previewElement.classList.add("dz-success");
+        }
+      },
+      successmultiple: noop,
+      canceled: function(file) {
+        return this.emit("error", file, "Upload canceled.");
+      },
+      canceledmultiple: noop,
+      complete: function(file) {
+        if (file._removeLink) {
+          file._removeLink.textContent = this.options.dictRemoveFile;
+        }
+        if (file.previewElement) {
+          return file.previewElement.classList.add("dz-complete");
+        }
+      },
+      completemultiple: noop,
+      maxfilesexceeded: noop,
+      maxfilesreached: noop,
+      queuecomplete: noop,
+      addedfiles: noop,
+      previewTemplate: "<div class=\"dz-preview dz-file-preview\">\n  <div class=\"dz-image\"><img data-dz-thumbnail /></div>\n  <div class=\"dz-details\">\n    <div class=\"dz-size\"><span data-dz-size></span></div>\n    <div class=\"dz-filename\"><span data-dz-name></span></div>\n  </div>\n  <div class=\"dz-progress\"><span class=\"dz-upload\" data-dz-uploadprogress></span></div>\n  <div class=\"dz-error-message\"><span data-dz-errormessage></span></div>\n  <div class=\"dz-success-mark\">\n    <svg width=\"54px\" height=\"54px\" viewBox=\"0 0 54 54\" version=\"1.1\" xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" xmlns:sketch=\"http://www.bohemiancoding.com/sketch/ns\">\n      <title>Check</title>\n      <defs></defs>\n      <g id=\"Page-1\" stroke=\"none\" stroke-width=\"1\" fill=\"none\" fill-rule=\"evenodd\" sketch:type=\"MSPage\">\n        <path d=\"M23.5,31.8431458 L17.5852419,25.9283877 C16.0248253,24.3679711 13.4910294,24.366835 11.9289322,25.9289322 C10.3700136,27.4878508 10.3665912,30.0234455 11.9283877,31.5852419 L20.4147581,40.0716123 C20.5133999,40.1702541 20.6159315,40.2626649 20.7218615,40.3488435 C22.2835669,41.8725651 24.794234,41.8626202 26.3461564,40.3106978 L43.3106978,23.3461564 C44.8771021,21.7797521 44.8758057,19.2483887 43.3137085,17.6862915 C41.7547899,16.1273729 39.2176035,16.1255422 37.6538436,17.6893022 L23.5,31.8431458 Z M27,53 C41.3594035,53 53,41.3594035 53,27 C53,12.6405965 41.3594035,1 27,1 C12.6405965,1 1,12.6405965 1,27 C1,41.3594035 12.6405965,53 27,53 Z\" id=\"Oval-2\" stroke-opacity=\"0.198794158\" stroke=\"#747474\" fill-opacity=\"0.816519475\" fill=\"#FFFFFF\" sketch:type=\"MSShapeGroup\"></path>\n      </g>\n    </svg>\n  </div>\n  <div class=\"dz-error-mark\">\n    <svg width=\"54px\" height=\"54px\" viewBox=\"0 0 54 54\" version=\"1.1\" xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" xmlns:sketch=\"http://www.bohemiancoding.com/sketch/ns\">\n      <title>Error</title>\n      <defs></defs>\n      <g id=\"Page-1\" stroke=\"none\" stroke-width=\"1\" fill=\"none\" fill-rule=\"evenodd\" sketch:type=\"MSPage\">\n        <g id=\"Check-+-Oval-2\" sketch:type=\"MSLayerGroup\" stroke=\"#747474\" stroke-opacity=\"0.198794158\" fill=\"#FFFFFF\" fill-opacity=\"0.816519475\">\n          <path d=\"M32.6568542,29 L38.3106978,23.3461564 C39.8771021,21.7797521 39.8758057,19.2483887 38.3137085,17.6862915 C36.7547899,16.1273729 34.2176035,16.1255422 32.6538436,17.6893022 L27,23.3431458 L21.3461564,17.6893022 C19.7823965,16.1255422 17.2452101,16.1273729 15.6862915,17.6862915 C14.1241943,19.2483887 14.1228979,21.7797521 15.6893022,23.3461564 L21.3431458,29 L15.6893022,34.6538436 C14.1228979,36.2202479 14.1241943,38.7516113 15.6862915,40.3137085 C17.2452101,41.8726271 19.7823965,41.8744578 21.3461564,40.3106978 L27,34.6568542 L32.6538436,40.3106978 C34.2176035,41.8744578 36.7547899,41.8726271 38.3137085,40.3137085 C39.8758057,38.7516113 39.8771021,36.2202479 38.3106978,34.6538436 L32.6568542,29 Z M27,53 C41.3594035,53 53,41.3594035 53,27 C53,12.6405965 41.3594035,1 27,1 C12.6405965,1 1,12.6405965 1,27 C1,41.3594035 12.6405965,53 27,53 Z\" id=\"Oval-2\" sketch:type=\"MSShapeGroup\"></path>\n        </g>\n      </g>\n    </svg>\n  </div>\n</div>"
+    };
+
+    extend = function() {
+      var key, object, objects, target, val, _i, _len;
+      target = arguments[0], objects = 2 <= arguments.length ? __slice.call(arguments, 1) : [];
+      for (_i = 0, _len = objects.length; _i < _len; _i++) {
+        object = objects[_i];
+        for (key in object) {
+          val = object[key];
+          target[key] = val;
+        }
+      }
+      return target;
+    };
+
+    function Dropzone(element, options) {
+      var elementOptions, fallback, _ref;
+      this.element = element;
+      this.version = Dropzone.version;
+      this.defaultOptions.previewTemplate = this.defaultOptions.previewTemplate.replace(/\n*/g, "");
+      this.clickableElements = [];
+      this.listeners = [];
+      this.files = [];
+      if (typeof this.element === "string") {
+        this.element = document.querySelector(this.element);
+      }
+      if (!(this.element && (this.element.nodeType != null))) {
+        throw new Error("Invalid dropzone element.");
+      }
+      if (this.element.dropzone) {
+        throw new Error("Dropzone already attached.");
+      }
+      Dropzone.instances.push(this);
+      this.element.dropzone = this;
+      elementOptions = (_ref = Dropzone.optionsForElement(this.element)) != null ? _ref : {};
+      this.options = extend({}, this.defaultOptions, elementOptions, options != null ? options : {});
+      if (this.options.forceFallback || !Dropzone.isBrowserSupported()) {
+        return this.options.fallback.call(this);
+      }
+      if (this.options.url == null) {
+        this.options.url = this.element.getAttribute("action");
+      }
+      if (!this.options.url) {
+        throw new Error("No URL provided.");
+      }
+      if (this.options.acceptedFiles && this.options.acceptedMimeTypes) {
+        throw new Error("You can't provide both 'acceptedFiles' and 'acceptedMimeTypes'. 'acceptedMimeTypes' is deprecated.");
+      }
+      if (this.options.acceptedMimeTypes) {
+        this.options.acceptedFiles = this.options.acceptedMimeTypes;
+        delete this.options.acceptedMimeTypes;
+      }
+      this.options.method = this.options.method.toUpperCase();
+      if ((fallback = this.getExistingFallback()) && fallback.parentNode) {
+        fallback.parentNode.removeChild(fallback);
+      }
+      if (this.options.previewsContainer !== false) {
+        if (this.options.previewsContainer) {
+          this.previewsContainer = Dropzone.getElement(this.options.previewsContainer, "previewsContainer");
+        } else {
+          this.previewsContainer = this.element;
+        }
+      }
+      if (this.options.clickable) {
+        if (this.options.clickable === true) {
+          this.clickableElements = [this.element];
+        } else {
+          this.clickableElements = Dropzone.getElements(this.options.clickable, "clickable");
+        }
+      }
+      this.init();
+    }
+
+    Dropzone.prototype.getAcceptedFiles = function() {
+      var file, _i, _len, _ref, _results;
+      _ref = this.files;
+      _results = [];
+      for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+        file = _ref[_i];
+        if (file.accepted) {
+          _results.push(file);
+        }
+      }
+      return _results;
+    };
+
+    Dropzone.prototype.getRejectedFiles = function() {
+      var file, _i, _len, _ref, _results;
+      _ref = this.files;
+      _results = [];
+      for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+        file = _ref[_i];
+        if (!file.accepted) {
+          _results.push(file);
+        }
+      }
+      return _results;
+    };
+
+    Dropzone.prototype.getFilesWithStatus = function(status) {
+      var file, _i, _len, _ref, _results;
+      _ref = this.files;
+      _results = [];
+      for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+        file = _ref[_i];
+        if (file.status === status) {
+          _results.push(file);
+        }
+      }
+      return _results;
+    };
+
+    Dropzone.prototype.getQueuedFiles = function() {
+      return this.getFilesWithStatus(Dropzone.QUEUED);
+    };
+
+    Dropzone.prototype.getUploadingFiles = function() {
+      return this.getFilesWithStatus(Dropzone.UPLOADING);
+    };
+
+    Dropzone.prototype.getAddedFiles = function() {
+      return this.getFilesWithStatus(Dropzone.ADDED);
+    };
+
+    Dropzone.prototype.getActiveFiles = function() {
+      var file, _i, _len, _ref, _results;
+      _ref = this.files;
+      _results = [];
+      for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+        file = _ref[_i];
+        if (file.status === Dropzone.UPLOADING || file.status === Dropzone.QUEUED) {
+          _results.push(file);
+        }
+      }
+      return _results;
+    };
+
+    Dropzone.prototype.init = function() {
+      var eventName, noPropagation, setupHiddenFileInput, _i, _len, _ref, _ref1;
+      if (this.element.tagName === "form") {
+        this.element.setAttribute("enctype", "multipart/form-data");
+      }
+      if (this.element.classList.contains("dropzone") && !this.element.querySelector(".dz-message")) {
+        this.element.appendChild(Dropzone.createElement("<div class=\"dz-default dz-message\"><span>" + this.options.dictDefaultMessage + "</span></div>"));
+      }
+      if (this.clickableElements.length) {
+        setupHiddenFileInput = (function(_this) {
+          return function() {
+            if (_this.hiddenFileInput) {
+              _this.hiddenFileInput.parentNode.removeChild(_this.hiddenFileInput);
+            }
+            _this.hiddenFileInput = document.createElement("input");
+            _this.hiddenFileInput.setAttribute("type", "file");
+            if ((_this.options.maxFiles == null) || _this.options.maxFiles > 1) {
+              _this.hiddenFileInput.setAttribute("multiple", "multiple");
+            }
+            _this.hiddenFileInput.className = "dz-hidden-input";
+            if (_this.options.acceptedFiles != null) {
+              _this.hiddenFileInput.setAttribute("accept", _this.options.acceptedFiles);
+            }
+            if (_this.options.capture != null) {
+              _this.hiddenFileInput.setAttribute("capture", _this.options.capture);
+            }
+            _this.hiddenFileInput.style.visibility = "hidden";
+            _this.hiddenFileInput.style.position = "absolute";
+            _this.hiddenFileInput.style.top = "0";
+            _this.hiddenFileInput.style.left = "0";
+            _this.hiddenFileInput.style.height = "0";
+            _this.hiddenFileInput.style.width = "0";
+            document.querySelector(_this.options.hiddenInputContainer).appendChild(_this.hiddenFileInput);
+            return _this.hiddenFileInput.addEventListener("change", function() {
+              var file, files, _i, _len;
+              files = _this.hiddenFileInput.files;
+              if (files.length) {
+                for (_i = 0, _len = files.length; _i < _len; _i++) {
+                  file = files[_i];
+                  _this.addFile(file);
+                }
+              }
+              _this.emit("addedfiles", files);
+              return setupHiddenFileInput();
+            });
+          };
+        })(this);
+        setupHiddenFileInput();
+      }
+      this.URL = (_ref = window.URL) != null ? _ref : window.webkitURL;
+      _ref1 = this.events;
+      for (_i = 0, _len = _ref1.length; _i < _len; _i++) {
+        eventName = _ref1[_i];
+        this.on(eventName, this.options[eventName]);
+      }
+      this.on("uploadprogress", (function(_this) {
+        return function() {
+          return _this.updateTotalUploadProgress();
+        };
+      })(this));
+      this.on("removedfile", (function(_this) {
+        return function() {
+          return _this.updateTotalUploadProgress();
+        };
+      })(this));
+      this.on("canceled", (function(_this) {
+        return function(file) {
+          return _this.emit("complete", file);
+        };
+      })(this));
+      this.on("complete", (function(_this) {
+        return function(file) {
+          if (_this.getAddedFiles().length === 0 && _this.getUploadingFiles().length === 0 && _this.getQueuedFiles().length === 0) {
+            return setTimeout((function() {
+              return _this.emit("queuecomplete");
+            }), 0);
+          }
+        };
+      })(this));
+      noPropagation = function(e) {
+        e.stopPropagation();
+        if (e.preventDefault) {
+          return e.preventDefault();
+        } else {
+          return e.returnValue = false;
+        }
+      };
+      this.listeners = [
+        {
+          element: this.element,
+          events: {
+            "dragstart": (function(_this) {
+              return function(e) {
+                return _this.emit("dragstart", e);
+              };
+            })(this),
+            "dragenter": (function(_this) {
+              return function(e) {
+                noPropagation(e);
+                return _this.emit("dragenter", e);
+              };
+            })(this),
+            "dragover": (function(_this) {
+              return function(e) {
+                var efct;
+                try {
+                  efct = e.dataTransfer.effectAllowed;
+                } catch (_error) {}
+                e.dataTransfer.dropEffect = 'move' === efct || 'linkMove' === efct ? 'move' : 'copy';
+                noPropagation(e);
+                return _this.emit("dragover", e);
+              };
+            })(this),
+            "dragleave": (function(_this) {
+              return function(e) {
+                return _this.emit("dragleave", e);
+              };
+            })(this),
+            "drop": (function(_this) {
+              return function(e) {
+                noPropagation(e);
+                return _this.drop(e);
+              };
+            })(this),
+            "dragend": (function(_this) {
+              return function(e) {
+                return _this.emit("dragend", e);
+              };
+            })(this)
+          }
+        }
+      ];
+      this.clickableElements.forEach((function(_this) {
+        return function(clickableElement) {
+          return _this.listeners.push({
+            element: clickableElement,
+            events: {
+              "click": function(evt) {
+                if ((clickableElement !== _this.element) || (evt.target === _this.element || Dropzone.elementInside(evt.target, _this.element.querySelector(".dz-message")))) {
+                  _this.hiddenFileInput.click();
+                }
+                return true;
+              }
+            }
+          });
+        };
+      })(this));
+      this.enable();
+      return this.options.init.call(this);
+    };
+
+    Dropzone.prototype.destroy = function() {
+      var _ref;
+      this.disable();
+      this.removeAllFiles(true);
+      if ((_ref = this.hiddenFileInput) != null ? _ref.parentNode : void 0) {
+        this.hiddenFileInput.parentNode.removeChild(this.hiddenFileInput);
+        this.hiddenFileInput = null;
+      }
+      delete this.element.dropzone;
+      return Dropzone.instances.splice(Dropzone.instances.indexOf(this), 1);
+    };
+
+    Dropzone.prototype.updateTotalUploadProgress = function() {
+      var activeFiles, file, totalBytes, totalBytesSent, totalUploadProgress, _i, _len, _ref;
+      totalBytesSent = 0;
+      totalBytes = 0;
+      activeFiles = this.getActiveFiles();
+      if (activeFiles.length) {
+        _ref = this.getActiveFiles();
+        for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+          file = _ref[_i];
+          totalBytesSent += file.upload.bytesSent;
+          totalBytes += file.upload.total;
+        }
+        totalUploadProgress = 100 * totalBytesSent / totalBytes;
+      } else {
+        totalUploadProgress = 100;
+      }
+      return this.emit("totaluploadprogress", totalUploadProgress, totalBytes, totalBytesSent);
+    };
+
+    Dropzone.prototype._getParamName = function(n) {
+      if (typeof this.options.paramName === "function") {
+        return this.options.paramName(n);
+      } else {
+        return "" + this.options.paramName + (this.options.uploadMultiple ? "[" + n + "]" : "");
+      }
+    };
+
+    Dropzone.prototype._renameFilename = function(name) {
+      if (typeof this.options.renameFilename !== "function") {
+        return name;
+      }
+      return this.options.renameFilename(name);
+    };
+
+    Dropzone.prototype.getFallbackForm = function() {
+      var existingFallback, fields, fieldsString, form;
+      if (existingFallback = this.getExistingFallback()) {
+        return existingFallback;
+      }
+      fieldsString = "<div class=\"dz-fallback\">";
+      if (this.options.dictFallbackText) {
+        fieldsString += "<p>" + this.options.dictFallbackText + "</p>";
+      }
+      fieldsString += "<input type=\"file\" name=\"" + (this._getParamName(0)) + "\" " + (this.options.uploadMultiple ? 'multiple="multiple"' : void 0) + " /><input type=\"submit\" value=\"Upload!\"></div>";
+      fields = Dropzone.createElement(fieldsString);
+      if (this.element.tagName !== "FORM") {
+        form = Dropzone.createElement("<form action=\"" + this.options.url + "\" enctype=\"multipart/form-data\" method=\"" + this.options.method + "\"></form>");
+        form.appendChild(fields);
+      } else {
+        this.element.setAttribute("enctype", "multipart/form-data");
+        this.element.setAttribute("method", this.options.method);
+      }
+      return form != null ? form : fields;
+    };
+
+    Dropzone.prototype.getExistingFallback = function() {
+      var fallback, getFallback, tagName, _i, _len, _ref;
+      getFallback = function(elements) {
+        var el, _i, _len;
+        for (_i = 0, _len = elements.length; _i < _len; _i++) {
+          el = elements[_i];
+          if (/(^| )fallback($| )/.test(el.className)) {
+            return el;
+          }
+        }
+      };
+      _ref = ["div", "form"];
+      for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+        tagName = _ref[_i];
+        if (fallback = getFallback(this.element.getElementsByTagName(tagName))) {
+          return fallback;
+        }
+      }
+    };
+
+    Dropzone.prototype.setupEventListeners = function() {
+      var elementListeners, event, listener, _i, _len, _ref, _results;
+      _ref = this.listeners;
+      _results = [];
+      for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+        elementListeners = _ref[_i];
+        _results.push((function() {
+          var _ref1, _results1;
+          _ref1 = elementListeners.events;
+          _results1 = [];
+          for (event in _ref1) {
+            listener = _ref1[event];
+            _results1.push(elementListeners.element.addEventListener(event, listener, false));
+          }
+          return _results1;
+        })());
+      }
+      return _results;
+    };
+
+    Dropzone.prototype.removeEventListeners = function() {
+      var elementListeners, event, listener, _i, _len, _ref, _results;
+      _ref = this.listeners;
+      _results = [];
+      for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+        elementListeners = _ref[_i];
+        _results.push((function() {
+          var _ref1, _results1;
+          _ref1 = elementListeners.events;
+          _results1 = [];
+          for (event in _ref1) {
+            listener = _ref1[event];
+            _results1.push(elementListeners.element.removeEventListener(event, listener, false));
+          }
+          return _results1;
+        })());
+      }
+      return _results;
+    };
+
+    Dropzone.prototype.disable = function() {
+      var file, _i, _len, _ref, _results;
+      this.clickableElements.forEach(function(element) {
+        return element.classList.remove("dz-clickable");
+      });
+      this.removeEventListeners();
+      _ref = this.files;
+      _results = [];
+      for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+        file = _ref[_i];
+        _results.push(this.cancelUpload(file));
+      }
+      return _results;
+    };
+
+    Dropzone.prototype.enable = function() {
+      this.clickableElements.forEach(function(element) {
+        return element.classList.add("dz-clickable");
+      });
+      return this.setupEventListeners();
+    };
+
+    Dropzone.prototype.filesize = function(size) {
+      var cutoff, i, selectedSize, selectedUnit, unit, units, _i, _len;
+      selectedSize = 0;
+      selectedUnit = "b";
+      if (size > 0) {
+        units = ['TB', 'GB', 'MB', 'KB', 'b'];
+        for (i = _i = 0, _len = units.length; _i < _len; i = ++_i) {
+          unit = units[i];
+          cutoff = Math.pow(this.options.filesizeBase, 4 - i) / 10;
+          if (size >= cutoff) {
+            selectedSize = size / Math.pow(this.options.filesizeBase, 4 - i);
+            selectedUnit = unit;
+            break;
+          }
+        }
+        selectedSize = Math.round(10 * selectedSize) / 10;
+      }
+      return "<strong>" + selectedSize + "</strong> " + selectedUnit;
+    };
+
+    Dropzone.prototype._updateMaxFilesReachedClass = function() {
+      if ((this.options.maxFiles != null) && this.getAcceptedFiles().length >= this.options.maxFiles) {
+        if (this.getAcceptedFiles().length === this.options.maxFiles) {
+          this.emit('maxfilesreached', this.files);
+        }
+        return this.element.classList.add("dz-max-files-reached");
+      } else {
+        return this.element.classList.remove("dz-max-files-reached");
+      }
+    };
+
+    Dropzone.prototype.drop = function(e) {
+      var files, items;
+      if (!e.dataTransfer) {
+        return;
+      }
+      this.emit("drop", e);
+      files = e.dataTransfer.files;
+      this.emit("addedfiles", files);
+      if (files.length) {
+        items = e.dataTransfer.items;
+        if (items && items.length && (items[0].webkitGetAsEntry != null)) {
+          this._addFilesFromItems(items);
+        } else {
+          this.handleFiles(files);
+        }
+      }
+    };
+
+    Dropzone.prototype.paste = function(e) {
+      var items, _ref;
+      if ((e != null ? (_ref = e.clipboardData) != null ? _ref.items : void 0 : void 0) == null) {
+        return;
+      }
+      this.emit("paste", e);
+      items = e.clipboardData.items;
+      if (items.length) {
+        return this._addFilesFromItems(items);
+      }
+    };
+
+    Dropzone.prototype.handleFiles = function(files) {
+      var file, _i, _len, _results;
+      _results = [];
+      for (_i = 0, _len = files.length; _i < _len; _i++) {
+        file = files[_i];
+        _results.push(this.addFile(file));
+      }
+      return _results;
+    };
+
+    Dropzone.prototype._addFilesFromItems = function(items) {
+      var entry, item, _i, _len, _results;
+      _results = [];
+      for (_i = 0, _len = items.length; _i < _len; _i++) {
+        item = items[_i];
+        if ((item.webkitGetAsEntry != null) && (entry = item.webkitGetAsEntry())) {
+          if (entry.isFile) {
+            _results.push(this.addFile(item.getAsFile()));
+          } else if (entry.isDirectory) {
+            _results.push(this._addFilesFromDirectory(entry, entry.name));
+          } else {
+            _results.push(void 0);
+          }
+        } else if (item.getAsFile != null) {
+          if ((item.kind == null) || item.kind === "file") {
+            _results.push(this.addFile(item.getAsFile()));
+          } else {
+            _results.push(void 0);
+          }
+        } else {
+          _results.push(void 0);
+        }
+      }
+      return _results;
+    };
+
+    Dropzone.prototype._addFilesFromDirectory = function(directory, path) {
+      var dirReader, errorHandler, readEntries;
+      dirReader = directory.createReader();
+      errorHandler = function(error) {
+        return typeof console !== "undefined" && console !== null ? typeof console.log === "function" ? console.log(error) : void 0 : void 0;
+      };
+      readEntries = (function(_this) {
+        return function() {
+          return dirReader.readEntries(function(entries) {
+            var entry, _i, _len;
+            if (entries.length > 0) {
+              for (_i = 0, _len = entries.length; _i < _len; _i++) {
+                entry = entries[_i];
+                if (entry.isFile) {
+                  entry.file(function(file) {
+                    if (_this.options.ignoreHiddenFiles && file.name.substring(0, 1) === '.') {
+                      return;
+                    }
+                    file.fullPath = "" + path + "/" + file.name;
+                    return _this.addFile(file);
+                  });
+                } else if (entry.isDirectory) {
+                  _this._addFilesFromDirectory(entry, "" + path + "/" + entry.name);
+                }
+              }
+              readEntries();
+            }
+            return null;
+          }, errorHandler);
+        };
+      })(this);
+      return readEntries();
+    };
+
+    Dropzone.prototype.accept = function(file, done) {
+      if (file.size > this.options.maxFilesize * 1024 * 1024) {
+        return done(this.options.dictFileTooBig.replace("{{filesize}}", Math.round(file.size / 1024 / 10.24) / 100).replace("{{maxFilesize}}", this.options.maxFilesize));
+      } else if (!Dropzone.isValidFile(file, this.options.acceptedFiles)) {
+        return done(this.options.dictInvalidFileType);
+      } else if ((this.options.maxFiles != null) && this.getAcceptedFiles().length >= this.options.maxFiles) {
+        done(this.options.dictMaxFilesExceeded.replace("{{maxFiles}}", this.options.maxFiles));
+        return this.emit("maxfilesexceeded", file);
+      } else {
+        return this.options.accept.call(this, file, done);
+      }
+    };
+
+    Dropzone.prototype.addFile = function(file) {
+      file.upload = {
+        progress: 0,
+        total: file.size,
+        bytesSent: 0
+      };
+      this.files.push(file);
+      file.status = Dropzone.ADDED;
+      this.emit("addedfile", file);
+      this._enqueueThumbnail(file);
+      return this.accept(file, (function(_this) {
+        return function(error) {
+          if (error) {
+            file.accepted = false;
+            _this._errorProcessing([file], error);
+          } else {
+            file.accepted = true;
+            if (_this.options.autoQueue) {
+              _this.enqueueFile(file);
+            }
+          }
+          return _this._updateMaxFilesReachedClass();
+        };
+      })(this));
+    };
+
+    Dropzone.prototype.enqueueFiles = function(files) {
+      var file, _i, _len;
+      for (_i = 0, _len = files.length; _i < _len; _i++) {
+        file = files[_i];
+        this.enqueueFile(file);
+      }
+      return null;
+    };
+
+    Dropzone.prototype.enqueueFile = function(file) {
+      if (file.status === Dropzone.ADDED && file.accepted === true) {
+        file.status = Dropzone.QUEUED;
+        if (this.options.autoProcessQueue) {
+          return setTimeout(((function(_this) {
+            return function() {
+              return _this.processQueue();
+            };
+          })(this)), 0);
+        }
+      } else {
+        throw new Error("This file can't be queued because it has already been processed or was rejected.");
+      }
+    };
+
+    Dropzone.prototype._thumbnailQueue = [];
+
+    Dropzone.prototype._processingThumbnail = false;
+
+    Dropzone.prototype._enqueueThumbnail = function(file) {
+      if (this.options.createImageThumbnails && file.type.match(/image.*/) && file.size <= this.options.maxThumbnailFilesize * 1024 * 1024) {
+        this._thumbnailQueue.push(file);
+        return setTimeout(((function(_this) {
+          return function() {
+            return _this._processThumbnailQueue();
+          };
+        })(this)), 0);
+      }
+    };
+
+    Dropzone.prototype._processThumbnailQueue = function() {
+      if (this._processingThumbnail || this._thumbnailQueue.length === 0) {
+        return;
+      }
+      this._processingThumbnail = true;
+      return this.createThumbnail(this._thumbnailQueue.shift(), (function(_this) {
+        return function() {
+          _this._processingThumbnail = false;
+          return _this._processThumbnailQueue();
+        };
+      })(this));
+    };
+
+    Dropzone.prototype.removeFile = function(file) {
+      if (file.status === Dropzone.UPLOADING) {
+        this.cancelUpload(file);
+      }
+      this.files = without(this.files, file);
+      this.emit("removedfile", file);
+      if (this.files.length === 0) {
+        return this.emit("reset");
+      }
+    };
+
+    Dropzone.prototype.removeAllFiles = function(cancelIfNecessary) {
+      var file, _i, _len, _ref;
+      if (cancelIfNecessary == null) {
+        cancelIfNecessary = false;
+      }
+      _ref = this.files.slice();
+      for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+        file = _ref[_i];
+        if (file.status !== Dropzone.UPLOADING || cancelIfNecessary) {
+          this.removeFile(file);
+        }
+      }
+      return null;
+    };
+
+    Dropzone.prototype.createThumbnail = function(file, callback) {
+      var fileReader;
+      fileReader = new FileReader;
+      fileReader.onload = (function(_this) {
+        return function() {
+          if (file.type === "image/svg+xml") {
+            _this.emit("thumbnail", file, fileReader.result);
+            if (callback != null) {
+              callback();
+            }
+            return;
+          }
+          return _this.createThumbnailFromUrl(file, fileReader.result, callback);
+        };
+      })(this);
+      return fileReader.readAsDataURL(file);
+    };
+
+    Dropzone.prototype.createThumbnailFromUrl = function(file, imageUrl, callback, crossOrigin) {
+      var img;
+      img = document.createElement("img");
+      if (crossOrigin) {
+        img.crossOrigin = crossOrigin;
+      }
+      img.onload = (function(_this) {
+        return function() {
+          var canvas, ctx, resizeInfo, thumbnail, _ref, _ref1, _ref2, _ref3;
+          file.width = img.width;
+          file.height = img.height;
+          resizeInfo = _this.options.resize.call(_this, file);
+          if (resizeInfo.trgWidth == null) {
+            resizeInfo.trgWidth = resizeInfo.optWidth;
+          }
+          if (resizeInfo.trgHeight == null) {
+            resizeInfo.trgHeight = resizeInfo.optHeight;
+          }
+          canvas = document.createElement("canvas");
+          ctx = canvas.getContext("2d");
+          canvas.width = resizeInfo.trgWidth;
+          canvas.height = resizeInfo.trgHeight;
+          drawImageIOSFix(ctx, img, (_ref = resizeInfo.srcX) != null ? _ref : 0, (_ref1 = resizeInfo.srcY) != null ? _ref1 : 0, resizeInfo.srcWidth, resizeInfo.srcHeight, (_ref2 = resizeInfo.trgX) != null ? _ref2 : 0, (_ref3 = resizeInfo.trgY) != null ? _ref3 : 0, resizeInfo.trgWidth, resizeInfo.trgHeight);
+          thumbnail = canvas.toDataURL("image/png");
+          _this.emit("thumbnail", file, thumbnail);
+          if (callback != null) {
+            return callback();
+          }
+        };
+      })(this);
+      if (callback != null) {
+        img.onerror = callback;
+      }
+      return img.src = imageUrl;
+    };
+
+    Dropzone.prototype.processQueue = function() {
+      var i, parallelUploads, processingLength, queuedFiles;
+      parallelUploads = this.options.parallelUploads;
+      processingLength = this.getUploadingFiles().length;
+      i = processingLength;
+      if (processingLength >= parallelUploads) {
+        return;
+      }
+      queuedFiles = this.getQueuedFiles();
+      if (!(queuedFiles.length > 0)) {
+        return;
+      }
+      if (this.options.uploadMultiple) {
+        return this.processFiles(queuedFiles.slice(0, parallelUploads - processingLength));
+      } else {
+        while (i < parallelUploads) {
+          if (!queuedFiles.length) {
+            return;
+          }
+          this.processFile(queuedFiles.shift());
+          i++;
+        }
+      }
+    };
+
+    Dropzone.prototype.processFile = function(file) {
+      return this.processFiles([file]);
+    };
+
+    Dropzone.prototype.processFiles = function(files) {
+      var file, _i, _len;
+      for (_i = 0, _len = files.length; _i < _len; _i++) {
+        file = files[_i];
+        file.processing = true;
+        file.status = Dropzone.UPLOADING;
+        this.emit("processing", file);
+      }
+      if (this.options.uploadMultiple) {
+        this.emit("processingmultiple", files);
+      }
+      return this.uploadFiles(files);
+    };
+
+    Dropzone.prototype._getFilesWithXhr = function(xhr) {
+      var file, files;
+      return files = (function() {
+        var _i, _len, _ref, _results;
+        _ref = this.files;
+        _results = [];
+        for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+          file = _ref[_i];
+          if (file.xhr === xhr) {
+            _results.push(file);
+          }
+        }
+        return _results;
+      }).call(this);
+    };
+
+    Dropzone.prototype.cancelUpload = function(file) {
+      var groupedFile, groupedFiles, _i, _j, _len, _len1, _ref;
+      if (file.status === Dropzone.UPLOADING) {
+        groupedFiles = this._getFilesWithXhr(file.xhr);
+        for (_i = 0, _len = groupedFiles.length; _i < _len; _i++) {
+          groupedFile = groupedFiles[_i];
+          groupedFile.status = Dropzone.CANCELED;
+        }
+        file.xhr.abort();
+        for (_j = 0, _len1 = groupedFiles.length; _j < _len1; _j++) {
+          groupedFile = groupedFiles[_j];
+          this.emit("canceled", groupedFile);
+        }
+        if (this.options.uploadMultiple) {
+          this.emit("canceledmultiple", groupedFiles);
+        }
+      } else if ((_ref = file.status) === Dropzone.ADDED || _ref === Dropzone.QUEUED) {
+        file.status = Dropzone.CANCELED;
+        this.emit("canceled", file);
+        if (this.options.uploadMultiple) {
+          this.emit("canceledmultiple", [file]);
+        }
+      }
+      if (this.options.autoProcessQueue) {
+        return this.processQueue();
+      }
+    };
+
+    resolveOption = function() {
+      var args, option;
+      option = arguments[0], args = 2 <= arguments.length ? __slice.call(arguments, 1) : [];
+      if (typeof option === 'function') {
+        return option.apply(this, args);
+      }
+      return option;
+    };
+
+    Dropzone.prototype.uploadFile = function(file) {
+      return this.uploadFiles([file]);
+    };
+
+    Dropzone.prototype.uploadFiles = function(files) {
+      var file, formData, handleError, headerName, headerValue, headers, i, input, inputName, inputType, key, method, option, progressObj, response, updateProgress, url, value, xhr, _i, _j, _k, _l, _len, _len1, _len2, _len3, _m, _ref, _ref1, _ref2, _ref3, _ref4, _ref5;
+      xhr = new XMLHttpRequest();
+      for (_i = 0, _len = files.length; _i < _len; _i++) {
+        file = files[_i];
+        file.xhr = xhr;
+      }
+      method = resolveOption(this.options.method, files);
+      url = resolveOption(this.options.url, files);
+      xhr.open(method, url, true);
+      xhr.withCredentials = !!this.options.withCredentials;
+      response = null;
+      handleError = (function(_this) {
+        return function() {
+          var _j, _len1, _results;
+          _results = [];
+          for (_j = 0, _len1 = files.length; _j < _len1; _j++) {
+            file = files[_j];
+            _results.push(_this._errorProcessing(files, response || _this.options.dictResponseError.replace("{{statusCode}}", xhr.status), xhr));
+          }
+          return _results;
+        };
+      })(this);
+      updateProgress = (function(_this) {
+        return function(e) {
+          var allFilesFinished, progress, _j, _k, _l, _len1, _len2, _len3, _results;
+          if (e != null) {
+            progress = 100 * e.loaded / e.total;
+            for (_j = 0, _len1 = files.length; _j < _len1; _j++) {
+              file = files[_j];
+              file.upload = {
+                progress: progress,
+                total: e.total,
+                bytesSent: e.loaded
+              };
+            }
+          } else {
+            allFilesFinished = true;
+            progress = 100;
+            for (_k = 0, _len2 = files.length; _k < _len2; _k++) {
+              file = files[_k];
+              if (!(file.upload.progress === 100 && file.upload.bytesSent === file.upload.total)) {
+                allFilesFinished = false;
+              }
+              file.upload.progress = progress;
+              file.upload.bytesSent = file.upload.total;
+            }
+            if (allFilesFinished) {
+              return;
+            }
+          }
+          _results = [];
+          for (_l = 0, _len3 = files.length; _l < _len3; _l++) {
+            file = files[_l];
+            _results.push(_this.emit("uploadprogress", file, progress, file.upload.bytesSent));
+          }
+          return _results;
+        };
+      })(this);
+      xhr.onload = (function(_this) {
+        return function(e) {
+          var _ref;
+          if (files[0].status === Dropzone.CANCELED) {
+            return;
+          }
+          if (xhr.readyState !== 4) {
+            return;
+          }
+          response = xhr.responseText;
+          if (xhr.getResponseHeader("content-type") && ~xhr.getResponseHeader("content-type").indexOf("application/json")) {
+            try {
+              response = JSON.parse(response);
+            } catch (_error) {
+              e = _error;
+              response = "Invalid JSON response from server.";
+            }
+          }
+          updateProgress();
+          if (!((200 <= (_ref = xhr.status) && _ref < 300))) {
+            return handleError();
+          } else {
+            return _this._finished(files, response, e);
+          }
+        };
+      })(this);
+      xhr.onerror = (function(_this) {
+        return function() {
+          if (files[0].status === Dropzone.CANCELED) {
+            return;
+          }
+          return handleError();
+        };
+      })(this);
+      progressObj = (_ref = xhr.upload) != null ? _ref : xhr;
+      progressObj.onprogress = updateProgress;
+      headers = {
+        "Accept": "application/json",
+        "Cache-Control": "no-cache",
+        "X-Requested-With": "XMLHttpRequest"
+      };
+      if (this.options.headers) {
+        extend(headers, this.options.headers);
+      }
+      for (headerName in headers) {
+        headerValue = headers[headerName];
+        if (headerValue) {
+          xhr.setRequestHeader(headerName, headerValue);
+        }
+      }
+      formData = new FormData();
+      if (this.options.params) {
+        _ref1 = this.options.params;
+        for (key in _ref1) {
+          value = _ref1[key];
+          formData.append(key, value);
+        }
+      }
+      for (_j = 0, _len1 = files.length; _j < _len1; _j++) {
+        file = files[_j];
+        this.emit("sending", file, xhr, formData);
+      }
+      if (this.options.uploadMultiple) {
+        this.emit("sendingmultiple", files, xhr, formData);
+      }
+      if (this.element.tagName === "FORM") {
+        _ref2 = this.element.querySelectorAll("input, textarea, select, button");
+        for (_k = 0, _len2 = _ref2.length; _k < _len2; _k++) {
+          input = _ref2[_k];
+          inputName = input.getAttribute("name");
+          inputType = input.getAttribute("type");
+          if (input.tagName === "SELECT" && input.hasAttribute("multiple")) {
+            _ref3 = input.options;
+            for (_l = 0, _len3 = _ref3.length; _l < _len3; _l++) {
+              option = _ref3[_l];
+              if (option.selected) {
+                formData.append(inputName, option.value);
+              }
+            }
+          } else if (!inputType || ((_ref4 = inputType.toLowerCase()) !== "checkbox" && _ref4 !== "radio") || input.checked) {
+            formData.append(inputName, input.value);
+          }
+        }
+      }
+      for (i = _m = 0, _ref5 = files.length - 1; 0 <= _ref5 ? _m <= _ref5 : _m >= _ref5; i = 0 <= _ref5 ? ++_m : --_m) {
+        formData.append(this._getParamName(i), files[i], this._renameFilename(files[i].name));
+      }
+      return this.submitRequest(xhr, formData, files);
+    };
+
+    Dropzone.prototype.submitRequest = function(xhr, formData, files) {
+      return xhr.send(formData);
+    };
+
+    Dropzone.prototype._finished = function(files, responseText, e) {
+      var file, _i, _len;
+      for (_i = 0, _len = files.length; _i < _len; _i++) {
+        file = files[_i];
+        file.status = Dropzone.SUCCESS;
+        this.emit("success", file, responseText, e);
+        this.emit("complete", file);
+      }
+      if (this.options.uploadMultiple) {
+        this.emit("successmultiple", files, responseText, e);
+        this.emit("completemultiple", files);
+      }
+      if (this.options.autoProcessQueue) {
+        return this.processQueue();
+      }
+    };
+
+    Dropzone.prototype._errorProcessing = function(files, message, xhr) {
+      var file, _i, _len;
+      for (_i = 0, _len = files.length; _i < _len; _i++) {
+        file = files[_i];
+        file.status = Dropzone.ERROR;
+        this.emit("error", file, message, xhr);
+        this.emit("complete", file);
+      }
+      if (this.options.uploadMultiple) {
+        this.emit("errormultiple", files, message, xhr);
+        this.emit("completemultiple", files);
+      }
+      if (this.options.autoProcessQueue) {
+        return this.processQueue();
+      }
+    };
+
+    return Dropzone;
+
+  })(Emitter);
+
+  Dropzone.version = "4.3.0";
+
+  Dropzone.options = {};
+
+  Dropzone.optionsForElement = function(element) {
+    if (element.getAttribute("id")) {
+      return Dropzone.options[camelize(element.getAttribute("id"))];
+    } else {
+      return void 0;
+    }
+  };
+
+  Dropzone.instances = [];
+
+  Dropzone.forElement = function(element) {
+    if (typeof element === "string") {
+      element = document.querySelector(element);
+    }
+    if ((element != null ? element.dropzone : void 0) == null) {
+      throw new Error("No Dropzone found for given element. This is probably because you're trying to access it before Dropzone had the time to initialize. Use the `init` option to setup any additional observers on your Dropzone.");
+    }
+    return element.dropzone;
+  };
+
+  Dropzone.autoDiscover = true;
+
+  Dropzone.discover = function() {
+    var checkElements, dropzone, dropzones, _i, _len, _results;
+    if (document.querySelectorAll) {
+      dropzones = document.querySelectorAll(".dropzone");
+    } else {
+      dropzones = [];
+      checkElements = function(elements) {
+        var el, _i, _len, _results;
+        _results = [];
+        for (_i = 0, _len = elements.length; _i < _len; _i++) {
+          el = elements[_i];
+          if (/(^| )dropzone($| )/.test(el.className)) {
+            _results.push(dropzones.push(el));
+          } else {
+            _results.push(void 0);
+          }
+        }
+        return _results;
+      };
+      checkElements(document.getElementsByTagName("div"));
+      checkElements(document.getElementsByTagName("form"));
+    }
+    _results = [];
+    for (_i = 0, _len = dropzones.length; _i < _len; _i++) {
+      dropzone = dropzones[_i];
+      if (Dropzone.optionsForElement(dropzone) !== false) {
+        _results.push(new Dropzone(dropzone));
+      } else {
+        _results.push(void 0);
+      }
+    }
+    return _results;
+  };
+
+  Dropzone.blacklistedBrowsers = [/opera.*Macintosh.*version\/12/i];
+
+  Dropzone.isBrowserSupported = function() {
+    var capableBrowser, regex, _i, _len, _ref;
+    capableBrowser = true;
+    if (window.File && window.FileReader && window.FileList && window.Blob && window.FormData && document.querySelector) {
+      if (!("classList" in document.createElement("a"))) {
+        capableBrowser = false;
+      } else {
+        _ref = Dropzone.blacklistedBrowsers;
+        for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+          regex = _ref[_i];
+          if (regex.test(navigator.userAgent)) {
+            capableBrowser = false;
+            continue;
+          }
+        }
+      }
+    } else {
+      capableBrowser = false;
+    }
+    return capableBrowser;
+  };
+
+  without = function(list, rejectedItem) {
+    var item, _i, _len, _results;
+    _results = [];
+    for (_i = 0, _len = list.length; _i < _len; _i++) {
+      item = list[_i];
+      if (item !== rejectedItem) {
+        _results.push(item);
+      }
+    }
+    return _results;
+  };
+
+  camelize = function(str) {
+    return str.replace(/[\-_](\w)/g, function(match) {
+      return match.charAt(1).toUpperCase();
+    });
+  };
+
+  Dropzone.createElement = function(string) {
+    var div;
+    div = document.createElement("div");
+    div.innerHTML = string;
+    return div.childNodes[0];
+  };
+
+  Dropzone.elementInside = function(element, container) {
+    if (element === container) {
+      return true;
+    }
+    while (element = element.parentNode) {
+      if (element === container) {
+        return true;
+      }
+    }
+    return false;
+  };
+
+  Dropzone.getElement = function(el, name) {
+    var element;
+    if (typeof el === "string") {
+      element = document.querySelector(el);
+    } else if (el.nodeType != null) {
+      element = el;
+    }
+    if (element == null) {
+      throw new Error("Invalid `" + name + "` option provided. Please provide a CSS selector or a plain HTML element.");
+    }
+    return element;
+  };
+
+  Dropzone.getElements = function(els, name) {
+    var e, el, elements, _i, _j, _len, _len1, _ref;
+    if (els instanceof Array) {
+      elements = [];
+      try {
+        for (_i = 0, _len = els.length; _i < _len; _i++) {
+          el = els[_i];
+          elements.push(this.getElement(el, name));
+        }
+      } catch (_error) {
+        e = _error;
+        elements = null;
+      }
+    } else if (typeof els === "string") {
+      elements = [];
+      _ref = document.querySelectorAll(els);
+      for (_j = 0, _len1 = _ref.length; _j < _len1; _j++) {
+        el = _ref[_j];
+        elements.push(el);
+      }
+    } else if (els.nodeType != null) {
+      elements = [els];
+    }
+    if (!((elements != null) && elements.length)) {
+      throw new Error("Invalid `" + name + "` option provided. Please provide a CSS selector, a plain HTML element or a list of those.");
+    }
+    return elements;
+  };
+
+  Dropzone.confirm = function(question, accepted, rejected) {
+    if (window.confirm(question)) {
+      return accepted();
+    } else if (rejected != null) {
+      return rejected();
+    }
+  };
+
+  Dropzone.isValidFile = function(file, acceptedFiles) {
+    var baseMimeType, mimeType, validType, _i, _len;
+    if (!acceptedFiles) {
+      return true;
+    }
+    acceptedFiles = acceptedFiles.split(",");
+    mimeType = file.type;
+    baseMimeType = mimeType.replace(/\/.*$/, "");
+    for (_i = 0, _len = acceptedFiles.length; _i < _len; _i++) {
+      validType = acceptedFiles[_i];
+      validType = validType.trim();
+      if (validType.charAt(0) === ".") {
+        if (file.name.toLowerCase().indexOf(validType.toLowerCase(), file.name.length - validType.length) !== -1) {
+          return true;
+        }
+      } else if (/\/\*$/.test(validType)) {
+        if (baseMimeType === validType.replace(/\/.*$/, "")) {
+          return true;
+        }
+      } else {
+        if (mimeType === validType) {
+          return true;
+        }
+      }
+    }
+    return false;
+  };
+
+  if (typeof jQuery !== "undefined" && jQuery !== null) {
+    jQuery.fn.dropzone = function(options) {
+      return this.each(function() {
+        return new Dropzone(this, options);
+      });
+    };
+  }
+
+  if (typeof module !== "undefined" && module !== null) {
+    module.exports = Dropzone;
+  } else {
+    window.Dropzone = Dropzone;
+  }
+
+  Dropzone.ADDED = "added";
+
+  Dropzone.QUEUED = "queued";
+
+  Dropzone.ACCEPTED = Dropzone.QUEUED;
+
+  Dropzone.UPLOADING = "uploading";
+
+  Dropzone.PROCESSING = Dropzone.UPLOADING;
+
+  Dropzone.CANCELED = "canceled";
+
+  Dropzone.ERROR = "error";
+
+  Dropzone.SUCCESS = "success";
+
+
+  /*
+
+  Bugfix for iOS 6 and 7
+  Source: http://stackoverflow.com/questions/11929099/html5-canvas-drawimage-ratio-bug-ios
+  based on the work of https://github.com/stomita/ios-imagefile-megapixel
+   */
+
+  detectVerticalSquash = function(img) {
+    var alpha, canvas, ctx, data, ey, ih, iw, py, ratio, sy;
+    iw = img.naturalWidth;
+    ih = img.naturalHeight;
+    canvas = document.createElement("canvas");
+    canvas.width = 1;
+    canvas.height = ih;
+    ctx = canvas.getContext("2d");
+    ctx.drawImage(img, 0, 0);
+    data = ctx.getImageData(0, 0, 1, ih).data;
+    sy = 0;
+    ey = ih;
+    py = ih;
+    while (py > sy) {
+      alpha = data[(py - 1) * 4 + 3];
+      if (alpha === 0) {
+        ey = py;
+      } else {
+        sy = py;
+      }
+      py = (ey + sy) >> 1;
+    }
+    ratio = py / ih;
+    if (ratio === 0) {
+      return 1;
+    } else {
+      return ratio;
+    }
+  };
+
+  drawImageIOSFix = function(ctx, img, sx, sy, sw, sh, dx, dy, dw, dh) {
+    var vertSquashRatio;
+    vertSquashRatio = detectVerticalSquash(img);
+    return ctx.drawImage(img, sx, sy, sw, sh, dx, dy, dw, dh / vertSquashRatio);
+  };
+
+
+  /*
+   * contentloaded.js
+   *
+   * Author: Diego Perini (diego.perini at gmail.com)
+   * Summary: cross-browser wrapper for DOMContentLoaded
+   * Updated: 20101020
+   * License: MIT
+   * Version: 1.2
+   *
+   * URL:
+   * http://javascript.nwbox.com/ContentLoaded/
+   * http://javascript.nwbox.com/ContentLoaded/MIT-LICENSE
+   */
+
+  contentLoaded = function(win, fn) {
+    var add, doc, done, init, poll, pre, rem, root, top;
+    done = false;
+    top = true;
+    doc = win.document;
+    root = doc.documentElement;
+    add = (doc.addEventListener ? "addEventListener" : "attachEvent");
+    rem = (doc.addEventListener ? "removeEventListener" : "detachEvent");
+    pre = (doc.addEventListener ? "" : "on");
+    init = function(e) {
+      if (e.type === "readystatechange" && doc.readyState !== "complete") {
+        return;
+      }
+      (e.type === "load" ? win : doc)[rem](pre + e.type, init, false);
+      if (!done && (done = true)) {
+        return fn.call(win, e.type || e);
+      }
+    };
+    poll = function() {
+      var e;
+      try {
+        root.doScroll("left");
+      } catch (_error) {
+        e = _error;
+        setTimeout(poll, 50);
+        return;
+      }
+      return init("poll");
+    };
+    if (doc.readyState !== "complete") {
+      if (doc.createEventObject && root.doScroll) {
+        try {
+          top = !win.frameElement;
+        } catch (_error) {}
+        if (top) {
+          poll();
+        }
+      }
+      doc[add](pre + "DOMContentLoaded", init, false);
+      doc[add](pre + "readystatechange", init, false);
+      return win[add](pre + "load", init, false);
+    }
+  };
+
+  Dropzone._autoDiscoverFunction = function() {
+    if (Dropzone.autoDiscover) {
+      return Dropzone.discover();
+    }
+  };
+
+  contentLoaded(window, Dropzone._autoDiscoverFunction);
+
+}).call(this);
+
+},{}]},{},[10,11]);

@@ -7,9 +7,9 @@ const SwapRequestCreator = rootRequire('app/swapRequest/SwapRequestCreator');
 let app = express();
 app.set('views', __dirname + '/../templatesCommon');
 app.get('/requests', helpers.signInRedirect, makeRequestListPage);
-app.get('/request/:id(\\d+)', helpers.signInRedirect, makeRequestOverviewPage);
+app.get('/requests/:id(\\d+)', helpers.signInRedirect, makeRequestOverviewPage);
 
-app.post('/request/item/:id(\\d+)/create', helpers.signInRedirect, createRequest);
+app.post('/requests/item/:id(\\d+)/create', helpers.signInRedirect, createRequest);
 
 function makeRequestListPage(req, res, next) {
   let p = new RequestListPage({

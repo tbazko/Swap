@@ -14,7 +14,7 @@ class DestroyButtonPresenter {
   }
 
   _redirectToSamePage() {
-    this.res.redirect('/user/items');
+    this.res.redirect('/user/profile/items');
   }
 }
 

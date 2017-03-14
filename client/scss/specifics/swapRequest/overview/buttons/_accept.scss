@@ -1,4 +1,9 @@
+
 .swapRequestOverviewButtons-accept {
   background: $color-ok;
   border-color: $color-ok;
+
+  &:hover {
+    background: darken($color-ok, 10%);
+  }
 }

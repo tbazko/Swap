@@ -78,22 +78,38 @@
       </div>
     </div>
   {{/if}}
-  <div class="tab-pane js-tab-pane" id="requestsTabPane">
-    <div class="tab js-tab is-active">
-      <h4 class="font-size14">Incoming ({{requests.incoming.length}})</h4>
+  {{#if isCurrentUserProfile}}
+    <div class="tab-pane js-tab-pane pt30" id="userProfileItemsTab">
+      <div class="tab js-tab {{#unless_eq url.query.active 'false'}}is-active{{/unless_eq}}" data-href="/user/items?active=true">
+        <h4 class="font-size14">Active</h4>
+      </div>
+      <div class="tab js-tab {{#if_eq url.query.active 'false'}}is-active{{/if_eq}}" data-href="/user/items?active=false">
+        <h4 class="font-size14">Inactive</h4>
+      </div>
+      <div class="pane js-pane {{#unless_eq url.query.active 'false'}}is-active{{/unless_eq}}">
+        {{~#unless_eq url.query.active 'false'}}
+          <div class="js-itemList">
+            {{> itemList}}
+          </div>
+          {{> pagination}}
+        {{/unless_eq}}
+      </div>
+      <div class="pane js-pane {{#if_eq url.query.active 'false'}}is-active{{/if_eq}}">
+        {{~#if_eq url.query.active 'false'}}
+          <div class="js-itemList">
+            {{> itemList}}
+          </div>
+          {{> pagination}}
+        {{/if_eq}}
+      </div>
     </div>
-    <div class="tab js-tab">
-      <h4 class="font-size14">Sent ({{requests.sent.length}})</h4>
-    </div>
-    <div id="incomingRequests" class="pane js-pane is-active">
+  {{else}}
+    <div class="row row-with-blocks-v2 pt20 js-itemList">
       {{> itemList}}
     </div>
-    <div class="pane js-pane">
-      {{> itemList}}
-    </div>
+    {{> pagination}}
+  {{/if}}
   </div>
-</div>
-
 {{else}}
   <div class="content-head paperStyle-container">
     <h3>Sorry, such user doesn't exist</h3>

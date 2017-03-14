@@ -11,9 +11,9 @@ class UserProfilePagePresenter extends IndexPagePresenter {
 
   parseRequest() {
     super.parseRequest();
-    this.model.itemsOnly = /\/items/.test(this.req.path);
-    this.model.userId = this.req.params.id || this.req.user.id;
-    this.model.isCurrentUserProfile = this.req.params.id ? false : true;
+    this.model.itemsOnly = /\/items-list/.test(this.req.path);
+    this.model.userId = this.req.params.userId || this.req.user.id;
+    this.model.isCurrentUserProfile = this.req.params.userId ? false : true;
   }
 }
 

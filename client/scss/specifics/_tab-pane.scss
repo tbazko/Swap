@@ -5,17 +5,27 @@
 .tab-pane {
   .tab {
     @extend %review-style;
-    color: $color-night-rider;
+    background: rgba($color-white, 0);
     cursor: pointer;
-    opacity: .5;
     display: inline-block;
     border-bottom: 0;
     padding: 13px 30px;
+    transition: background .25s ease;
+
+    h4 {
+      color: $color-dim-grey;
+      transition: color .25s ease;
+    }
 
     &.is-active {
-      opacity: 1;
-      background: #fff;
+      background: rgba($color-white, 1);
       box-shadow: -5px -5px 10px -5px $color-light-grey;
+      transition: background .25s ease;
+
+      h4 {
+        color: $color-night-rider;
+        transition: color .25s ease;
+      }
     }
   }
 

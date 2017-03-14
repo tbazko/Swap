@@ -1,28 +1,7 @@
 var $ = require('jquery');
 var utils = require('./utils/utils');
+var suggestionsTemplate = require('./templates/suggestions.html');
 var Mustache = require('mustache');
-var suggestionsTemplate = '{{#suggestions}}' +
-  '<div>' +
-  '{{^tag}}' +
-  '{{#category}}' +
-  '<a href="/category/{{name}}?cid={{id}}&search={{name}}">' +
-  '<p>{{name}} in <span class="highlight">{{category}}</span></p>' +
-  '</a>' +
-  '{{/category}}' +
-  '{{^category}}' +
-  '<a href="/search?search={{name}}">' +
-  '<p>{{name}} in <span class="highlight">All categories</span></p>' +
-  '</a>' +
-  '{{/category}}' +
-  '{{/tag}}' +
-  '{{#tag}}' +
-  '<a href="/?tag={{name}}">' +
-  '<p>#{{name}}</p>' +
-  '</a>' +
-  '{{/tag}}' +
-  '</div>' +
-  '{{/suggestions}}';
-
 var typeahead = require('typeahead');
 var Bloodhound = require('bloodhound');
 

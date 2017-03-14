@@ -13,7 +13,8 @@ class BasePagePresenter extends AbstractPagePresenter {
     this.model.originalUrl = this.req.originalUrl;
     this.model.hostname = this.req.hostname;
     this.model.path = this.req.path;
-    this.model.query = this.model.query;
+    this.model.query = this.req.query;
+    this.model.params = this.req.params;
   }
 }
 

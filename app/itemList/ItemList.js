@@ -2,16 +2,16 @@
 const ItemListFilter = rootRequire('app/itemList/ItemListFilter');
 const Pagination = rootRequire('app/Pagination');
 const async = require('async');
-let defaultStrategy = require('./strategies/default');
 
 class ItemList {
   constructor(pageModel) {
-    this.strategy = pageModel.itemListStrategy || defaultStrategy;
+    this.strategy = pageModel.itemListStrategy ? require('./strategies/' + pageModel.itemListStrategy) : require('./strategies/default');
     this.path = pageModel.path;
     this.userId = pageModel.userId;
     this.params = pageModel.params ? pageModel.params : undefined;
     this.categoryId = pageModel.query && pageModel.query.cid ? pageModel.query.cid : undefined;
     this.categoryName = this.params && this.params.id ? this.params.id : undefined;
+    this.showActiveItems = typeof pageModel.query.active === 'undefined' ? true : pageModel.query.active === 'true';
     this.page = 1;
 
     if(pageModel.query) {

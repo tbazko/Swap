@@ -1,37 +1,6 @@
 var $ = require('jquery');
-var swapTemplate = '<div class="swapFields">' +
-  '<textarea name="message" id="" class="small" cols="30" rows="10" placeholder="Leave a message for the owner"></textarea>' +
-  '<input type="submit" value="Send swap request" class="btn js-submit-swapRequest" disabled>' +
-'</div>' +
-
-'<h3 class="ml10 mr10">Select one or more items to create swap proposition:</h3>' +
-'{{#items}}' +
-'<label for="{{id}}" data-item-id="{{id}}" class="item item--inSwapList">' +
-   ' <div class="img-container">' +
-      '{{#firstImage}}' +
-        '<img src="http://res.cloudinary.com/di42acdz9/image/upload/{{id}}" alt="">' +
-      '{{/firstImage}}' +
-      '{{^firstImage}}' +
-        '<span class="icon-picture"></span>' +
-      '{{/firstImage}}' +
-    '</div>' +
-    '<div class="item-content">' +
-      '<h4 class="item-title">{{name}}</h4>' +
-      '<p class="item-tag-title">' +
-        '<b>Tags:&nbsp;' +
-          '{{#tags}}' +
-            '<a href="/tag/{{tag.name}}">' +
-              '#{{name}}&#32;' +
-            '</a>' +
-          '{{/tags}}' +
-        '</b>' +
-     ' </p>' +
-    '</div>' +
-    '<input type="checkbox" id="{{id}}" name="itemId" value="{{id}}" class="selectItem">' +
-  '</label> {{/items}}';
-
+var swapTemplate = require('./templates/swap.html');
 var Mustache = require('mustache');
-
 var $body = $('body');
 
 function SwapRequestForm() {
@@ -105,7 +74,7 @@ SwapRequestForm.prototype.showConfirmation = function () {
 SwapRequestForm.prototype.getUserItemsList = function (element) {
   $.ajax({
     url: $(element).data('href'),
-    method: 'POST'
+    method: 'GET'
   }).done(function (response) {
     if(response.redirect) {
       window.location.replace(response.redirect);

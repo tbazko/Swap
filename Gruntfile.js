@@ -56,7 +56,8 @@ module.exports = function(grunt) {
         }
       },
 			browserify: {
-				files: ['./client/js/*.js', './client/js/**/*.js'],
+				files: ['./client/js/*.js', './client/js/**/*.js',
+        './client/js/components/templates/*.hbs', './client/js/components/templates/*.html'],
 				tasks: ['browserify']
 			}
 		},
@@ -66,7 +67,12 @@ module.exports = function(grunt) {
 					transform: [
 						['babelify', {
 							presets: ['es2015', 'react']
-						}]
+						}],
+            [
+              'stringify', {
+                appliesTo: { includeExtensions: ['.hbs', '.html'] }
+              }
+            ]
 					]
 				},
 				files: {

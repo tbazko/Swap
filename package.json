@@ -48,6 +48,7 @@
     "request": "^2.79.0",
     "serve-favicon": "~2.3.0",
     "socket.io": "^1.7.2",
+    "stringify": "^5.1.0",
     "validator": "^6.2.1"
   },
   "devDependencies": {

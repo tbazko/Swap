@@ -1,6 +1,6 @@
-{{#if items}}
-  {{#unless_eq pageCount 1}}
-    <div class="row text-center pagination" id="pagination">
+{{#if this.items}}
+  {{#unless_eq this.pageCount 1}}
+    <div class="row text-center pagination" id="pagination-second">
       <a href="{{prevPageUrl}}" class="btn btn--ok btn--tiny mr10 js-pagination-prev"><span class="icon-left-open-big"></span>Prev</a>
       {{pagination}}
       <a href="{{nextPageUrl}}" class="btn btn--tiny ml10 js-pagination-next">Next<span class="icon-right-open-big"></span></a>

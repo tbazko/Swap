@@ -19,12 +19,18 @@
 
       <ul class="menu inline-block">
         {{#if currentUserId}}
-          <li class="menu-item"><a href="/requests" class="link icon-mail menu-messages">Messages<span id="requestCounter" class="menu-messages-counter {{#unless count}}is-hidden{{/unless}}">{{#if count}}{{setCount}}{{/if}}</span></a></li>
+          <li class="menu-item">
+            <a href="/requests" class="link icon-mail menu-messages">Messages
+            <span id="requestCounter" class="menu-messages-counter {{#unless count}}is-hidden{{/unless}}">
+              {{#if count}}{{setCount}}{{/if}}
+            </span>
+            </a>
+          </li>
           <li class="menu-item">
             <a href="/user/profile" class="link icon-user">My account</a>
             <nav class="menu-submenu">
               <a href="/item/create" class="icon-plus">Add new ad</a>
-              <a href="/user/items" class="icon-th">My items</a>
+              <a href="/user/profile/items" class="icon-th">My items</a>
               <a href="/account/signout" title="Sign out" class="icon-logout">Sign out</a>
             </nav>
           </li>

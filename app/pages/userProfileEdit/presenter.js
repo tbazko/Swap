@@ -19,8 +19,8 @@ class UserProfileEditPagePresenter extends BasePagePresenter {
   parseRequest() {
     super.parseRequest();
     this.model.currentUser = this.req.user;
-    this.model.userId = this.req.params.id || this.req.user.id;
-    this.model.isCurrentUserProfile = this.req.params.id ? false : true;
+    this.model.userId = this.req.params.userId || this.req.user.id;
+    this.model.isCurrentUserProfile = this.req.params.userId ? false : true;
   }
 
   renderView() {

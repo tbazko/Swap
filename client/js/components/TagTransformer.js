@@ -1,9 +1,5 @@
 var utils = require('./utils/utils');
-var tagTemplate = '<span class="tags-tag js-tag">' +
-  '{{tag}}' +
-  '<span class="icon-cancel tags-tag-remove js-removeTag"></span>' +
-'</span>';
-
+var tagTemplate = require('./templates/tag.html');
 var Mustache = require('mustache');
 
 function TagTransformer(id) {
