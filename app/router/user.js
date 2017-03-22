@@ -11,7 +11,7 @@ app.set('views', __dirname + '/../templatesCommon');
 app.get('/user/:userId(\\d+)/', makeUserProfilePage);
 app.get('/user/:userId(\\d+)/items-list', makeUserProfilePage);
 app.get('/user/profile', helpers.signInRedirect, makeCurrentUserProfilePage);
-app.get('/user/profile/items', helpers.signInRedirect, makeCurrentUserProfilePage);
+app.get('/user/profile/items-list', helpers.signInRedirect, makeCurrentUserProfilePage);
 app.get('/user/profile/edit', helpers.signInRedirect, makeUserProfileEditPage);
 
 app.all('/user/:userId(\\d+)/items', makeUserItemList);

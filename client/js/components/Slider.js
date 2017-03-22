@@ -69,7 +69,7 @@ Slider.prototype.next = function() {
 
 Slider.prototype.prev = function() {
   var $currentSlide = this.$slide.filter('.is-active');
-  var $nextSlide;
+  var $nextSlide, $nextDot;
   this.$slide.addClass('is-going-backwards');
 
   if($currentSlide.index() === 0) {

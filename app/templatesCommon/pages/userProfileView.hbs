@@ -88,7 +88,7 @@
       </div>
       <div class="pane js-pane {{#unless_eq url.query.active 'false'}}is-active{{/unless_eq}}">
         {{~#unless_eq url.query.active 'false'}}
-          <div class="js-itemList">
+          <div class="js-itemList itemList">
             {{> itemList}}
           </div>
           {{> pagination}}
@@ -96,7 +96,7 @@
       </div>
       <div class="pane js-pane {{#if_eq url.query.active 'false'}}is-active{{/if_eq}}">
         {{~#if_eq url.query.active 'false'}}
-          <div class="js-itemList">
+          <div class="js-itemList itemList">
             {{> itemList}}
           </div>
           {{> pagination}}
