@@ -5,7 +5,7 @@ class Pagination {
   constructor(data) {
     this.queryWithItems = null;
     this.currentPage = data.page || 1;
-    this.pageSize = data.pageSize || 2;
+    this.pageSize = data.pageSize || 20;
     this.start = this.getStart();
   }
 
