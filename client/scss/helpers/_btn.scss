@@ -17,15 +17,19 @@
   text-transform: uppercase;
   transition: background .25s ease;
 
+  &:hover {
+    background: darken($color-outrageous-orange, 10%);
+    transition: background .25s ease;
+  }
+
   &:disabled {
     color: rgba($color-suva-grey, .9);
     background: rgba($color-suva-grey, .4);
     border-color: rgba($color-suva-grey, .4);
-  }
 
-  &:hover {
-    background: darken($color-outrageous-orange, 10%);
-    transition: background .25s ease;
+    &:hover {
+      background: rgba($color-suva-grey, .4);
+    }
   }
 }
 

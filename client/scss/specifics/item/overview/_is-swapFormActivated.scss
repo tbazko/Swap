@@ -1,88 +1,8 @@
 .is-swapFormActivated {
-  .breadcrumbs {
-    display: none;
-  }
-
-  .content-body {
-    text-align: left;
-    vertical-align: top;
-    width: 40%;
-    max-width: 496px;
-    transition: width .4s ease, max-width .4s ease;
-  }
-
   .content-body--form {
     width: calc(60% - 10px);
     max-width: 744px;
     position: relative;
-    transform: translate(0, 0);
-    transition: transform .4s ease;
+    z-index: index($z-stack, dialog);
   }
-
-  .itemOverview {
-    padding-bottom: 0;
-  }
-
-  .title--itemOverview {
-    font-size: $h3;
-    transition: font-size .4s ease;
-  }
-
-  .itemOverview-swapButton,
-  .itemOverview-moreItemsButton {
-    display: none;
-  }
-
-  .itemOverview-sliderColumn,
-  .itemOverview-mapColumn,
-  .itemOverview-descriptionColumn,
-  .itemOverview-detailsColumn {
-    width: 100%;
-    transition: width .4s ease;
-  }
-
-  .itemOverview-sliderColumn {
-    min-height: 80px;
-  }
-
-  .slider {
-    height: auto;
-    padding-top: 0;
-  }
-
-  .slides {
-    white-space: nowrap;
-  }
-
-  .slider-dots,
-  .slider .prev, .slider .next {
-    display: none;
-  }
-
-  .slider .slide {
-    opacity: 1;
-    position: relative;
-    height: 80px;
-    width: 80px;
-    overflow: hidden;
-    display: inline-block;
-  }
-
-  .itemOverview-details {
-    padding: 0;
-  }
-
-  .itemOverview-map {
-    left: 0;
-  }
-
-  .title--itemOverview {
-    display: none;
-  }
-
-  .title--forInSwapState {
-    display: block;
-    margin-bottom: 20px;
-  }
-
 }

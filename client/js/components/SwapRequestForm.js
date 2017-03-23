@@ -1,4 +1,5 @@
 var $ = require('jquery');
+var utils = require('./utils/utils');
 var swapTemplate = require('./templates/swap.html');
 var Mustache = require('mustache');
 var $body = $('body');
@@ -10,6 +11,7 @@ function SwapRequestForm() {
   this.$overlayCloseBtn = $('.js-container-close');
   this.$confirmation = this.$swapFormContainer.find('.js-confirmation');
   this.$swapFormItems = this.$swapForm.find(".js-swapItems");
+  this.overlay = document.querySelector('.js-overlay');
 }
 
 SwapRequestForm.prototype.init = function () {
@@ -33,8 +35,11 @@ SwapRequestForm.prototype.onSwapBtnClick = function (e) {
 }
 
 SwapRequestForm.prototype.onOverlayCloseBtnClick = function () {
-  this.closeSwapForm();
-  this.resetSwapForm();
+  this.animateFormClosing();
+  setTimeout(function() {
+    this.closeSwapForm();
+    this.resetSwapForm();
+  }.bind(this), 500);
 }
 
 SwapRequestForm.prototype.onFormSubmit = function (e) {
@@ -51,8 +56,25 @@ SwapRequestForm.prototype.closeSwapForm = function () {
 
 SwapRequestForm.prototype.openSwapForm = function () {
   $body.addClass('is-swapFormActivated');
+  this.animateFormOpening();
   this.$checkboxes = this.$swapForm.find('input[type="checkbox"]');
   this.$checkboxes.on('change', this.onChangeHandler.bind(this));
+}
+
+SwapRequestForm.prototype.animateFormOpening = function () {
+  utils.addClass(overlay, 'is-active');
+  this.fadeInOverlay = TweenLite.to(overlay, 0.4, {opacity: 1});
+  this.fadeInForm = TweenLite.to(form, 0.1, {opacity:1});
+  this.moveFormToLeft = TweenLite.to(form, 0.5, {x: '-100%', ease: Back.easeOut});
+}
+
+SwapRequestForm.prototype.animateFormClosing = function () {
+  this.moveFormToLeft.reverse();
+  TweenLite.to('.js-swapFormContainer', 0.1, {opacity:0, delay: 0.3});
+  this.fadeInOverlay.reverse();
+  setTimeout(function() {
+    utils.removeClass(overlay, 'is-active');
+  }, 400)
 }
 
 SwapRequestForm.prototype.onChangeHandler = function() {

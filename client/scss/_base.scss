@@ -77,6 +77,27 @@ textarea {
   padding-bottom: 300px;
 }
 
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(#000, .3);
+  z-index: -1;
+  pointer-events: none;
+  opacity: 0;
+
+  &.is-active {
+    z-index: index($z-stack, dialog-grey-overlay);
+    pointer-events: auto;
+  }
+
+  &.is-visible {
+    opacity: 1;
+  }
+}
+
 .text-left {
   text-align: left;
 }
@@ -156,6 +177,6 @@ textarea {
 
   .tt-highlight {
     color: $color-outrageous-orange;
-    font-weight: normal;   
+    font-weight: normal;
   }
 }

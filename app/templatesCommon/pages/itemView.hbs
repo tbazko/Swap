@@ -1,13 +1,16 @@
 {{#section 'scripts'}}
-  <script src="/javascripts/itemOverview.js" async></script>
+  <script src="http://cdnjs.cloudflare.com/ajax/libs/gsap/1.19.0/plugins/CSSPlugin.min.js"></script>
+  <script src="http://cdnjs.cloudflare.com/ajax/libs/gsap/1.19.0/easing/EasePack.min.js"></script>
+  <script src="http://cdnjs.cloudflare.com/ajax/libs/gsap/1.19.0/TweenLite.min.js"></script>
+  <script src="/javascripts/itemOverview.js"></script>
 {{/section}}
 
 <div class="row row--layoutWidth row--nowrap">
   {{#if item}}
-    <div class="content-body paperStyle-container content-body--itemOverview">
+    <div class="content-body paperStyle-container content-body--itemOverview js-content-body--itemOverview">
       <div class="row itemOverview">
         <div class="itemOverview-sliderColumn">
-          <h3 class="title--itemOverview title--forInSwapState">{{item.name}}</h3>
+          {{!--<h3 class="title--itemOverview title--forInSwapState">{{item.name}}</h3>--}}
           {{#if itemImage}}
             {{> slider}}
           {{else}}

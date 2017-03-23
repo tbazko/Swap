@@ -4,7 +4,6 @@
   max-width: $layoutWidth;
   margin: $navigationHeight+20px auto $navigationHeight;
   width: calc(100% - 20px);
-  transition: width .4s ease, max-width .4s ease;
 
   @include breakpoint('small') {
     margin: $navigationHeight+36 auto $navigationHeight;
@@ -22,15 +21,11 @@
   width: 50%;
 }
 
-.content-body--swapRequestOverview {
-
-}
-
 .content-body--form {
+  vertical-align: top;
   display: inline-block;
   width: calc(60% - 10px);
   margin-left: 7px;
   max-width: 744px;
-  transform: translate(100vw, 0);
-  transition: transform .4s ease;
+  opacity: 0;
 }
