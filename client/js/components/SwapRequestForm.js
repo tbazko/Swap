@@ -3,6 +3,9 @@ var utils = require('./utils/utils');
 var swapTemplate = require('./templates/swap.html');
 var Mustache = require('mustache');
 var $body = $('body');
+var CSSPlugin = require('../lib/plugins/cssplugin');
+var EasePack = require('../lib/easing/easePack');
+var TweenLite = require('../lib/TweenLite');
 
 function SwapRequestForm() {
   this.$swapBtn = $('.js-swap-btn');

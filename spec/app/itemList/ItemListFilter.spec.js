@@ -7,19 +7,19 @@ describe('Item List Filter', () => {
   function defaultStrategy() {
     filter.userId = false;
     filter.categoryId = undefined;
-    filter.onlyActive = true;
+    filter.activeItems = true;
   }
 
   function userStrategy() {
     filter.userId = 1;
     filter.categoryId = undefined;
-    filter.onlyActive = true;
+    filter.activeItems = true;
   }
 
   function currentUserStrategy() {
     filter.userId = 1;
     filter.categoryId = undefined;
-    filter.onlyActive = false;
+    filter.activeItems = false;
   }
 
   beforeEach((done) => {
@@ -28,7 +28,7 @@ describe('Item List Filter', () => {
   });
 
   it(('should return only active items'), (done) => {
-    filter.onlyActive = true;
+    filter.activeItems = true;
     filter.byActive().exec((items) => {
       expect(items).toEqual(jasmine.any(Array));
       items.forEach((item, index) => {
@@ -89,7 +89,7 @@ describe('Item List Filter', () => {
 
   it('should return all items', (done) => {
     defaultStrategy();
-    filter.onlyActive = false;
+    filter.activeItems = false;
     filter.build()
     .then((filter) => filter.query)
     .then((items) => {
@@ -123,6 +123,8 @@ describe('Item List Filter', () => {
       items.forEach((item, index) => {
         if(item.status === 'not_for_sale') {
           expect(item.status).toBe('not_for_sale');
+        } else if(item.status === 'accepted') {
+          expect(item.status).toBe('accepted');
         } else {
           expect(item.status).toBe('for_sale');
         }
@@ -152,6 +154,7 @@ describe('Item List Filter', () => {
     filter.build()
     .then((filter) => filter.query)
     .then((items) => {
+      console.log(items);
       expect(items).toBeNull();
     });
     done();

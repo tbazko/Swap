@@ -17,6 +17,15 @@ class ItemListFilter {
     this.eventEmitter = new events.EventEmitter();
   }
 
+  build() {
+    if(this.tag) {
+      return this.byTag()
+        .then(() => this._build());
+    } else {
+      return Promise.resolve(this._build());
+    }
+  }
+
   byUser() {
     if(this.userId) {
       this.query = this.query.where('user_id', this.userId);
@@ -87,15 +96,6 @@ class ItemListFilter {
         });
     }
     return this;
-  }
-
-  build() {
-    if(this.tag) {
-      return this.byTag()
-        .then(() => this._build());
-    } else {
-      return Promise.resolve(this._build());
-    }
   }
 
   _build() {

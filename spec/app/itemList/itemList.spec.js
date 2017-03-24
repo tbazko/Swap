@@ -4,12 +4,12 @@ let defaultS = rootRequire('app/itemList/strategies/default');
 
 describe('Item List', () => {
   let l = new ItemList({
-    itemListStrategy: defaultS,
     path: '/',
     userId: 1,
     params: {
       id: 'anime'
-    }
+    },
+    query: {}
   });
 
   it(('should return items'), () => {
