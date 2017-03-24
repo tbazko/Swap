@@ -75,7 +75,7 @@ SwapRequestForm.prototype.animateFormClosing = function () {
   this.fadeInOverlay.reverse();
   setTimeout(function() {
     utils.removeClass(this.overlay, 'is-active');
-  }, 400)
+  }.bind(this), 400)
 }
 
 SwapRequestForm.prototype.onChangeHandler = function() {
